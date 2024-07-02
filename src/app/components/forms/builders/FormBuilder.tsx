@@ -21,7 +21,7 @@ export default function FormBuilder() {
   const handleOk = () => {
     const newElement: FormElement = {
       elementType: {
-        type: selectedType,
+        type: "text",
         label: "Label",
         name: nameGenerator(),
         placeholder: "Enter your data",
