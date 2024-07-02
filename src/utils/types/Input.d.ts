@@ -14,6 +14,8 @@ type InputElement = {
   style?: string;
   required?: boolean;
   pattern?: string[] ;
+  options?: string[];
+
 };
 
 type InputOptions = {
