@@ -1,4 +1,5 @@
 type SelectElement = BaseElement & {
   type: "select";
-  options: string[];
+  options: string[]; 
+  multiple : boolean;
 };

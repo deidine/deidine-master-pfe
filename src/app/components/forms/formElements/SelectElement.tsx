@@ -108,6 +108,11 @@ const SelectElement = ({
           setIsEditingState={(value: boolean) => {
             setIsEditing(value);
           }}
+          isSelectElement={true}
+          toggleIsMultiple={() => {
+            setElement({ ...element, multiple: !element.multiple });
+          }}
+          isSelectMultiple={element.multiple}
         />
 
         {isEditing && (

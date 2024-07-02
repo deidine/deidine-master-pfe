@@ -56,7 +56,9 @@ export default function PreviewForm() {
                 },
               ]}
             >
-              <Select placeholder={element.elementType.placeholder} style={{ width: "100%" }}>
+              <Select
+              mode={!element.elementType.multiple ?  "default": "multiple"}
+              placeholder={element.elementType.placeholder} style={{ width: "100%" }}>
                 {element.elementType.options!.map((option, index) => (
                   <Select.Option key={index} value={option}>
                     {option}
