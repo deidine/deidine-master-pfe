@@ -4,7 +4,7 @@ const LeftOverlayContent = ({ isAnimated, setIsAnimated }: { isAnimated: boolean
   return (
     <div className="p-8 text-center">
       <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-      Don't have an account ?
+        Don ' t have an account?
       </h1>
       <h5 className="text-lg md:text-xl text-white">Start your journey in one click</h5>
       <div className="mt-8 md:mt-16">
