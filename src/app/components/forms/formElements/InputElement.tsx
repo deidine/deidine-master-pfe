@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Button, Tooltip, Select, Input } from "antd";
-
+import { Button, Select, Input, Modal } from "antd";
 import { TagOutlined, LeftCircleFilled } from "@ant-design/icons";
 import useDesigner from "../../hooks/useDesigner";
-import OptionPopUp from "../OptionPopUp"; 
+import OptionPopUp from "../OptionPopUp";
+
 const { Option } = Select;
 
 const InputElement = ({
@@ -13,14 +13,11 @@ const InputElement = ({
 }: {
   index: number;
   element: InputElement;
-
   setElement: (value: InputElement) => void;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(
-    element.pattern || []
-  );
-
+  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(element.pattern || []);
+  const [customPattern, setCustomPattern] = useState(element.customPattern || "");
   const [isRequired, setIsRequired] = useState(element.required);
   const [inputType, setInputType] = useState(element.type);
   const [inputLabel, setInputLabel] = useState(element.label);
@@ -31,24 +28,6 @@ const InputElement = ({
   const editButtonRef = useRef<HTMLDivElement>(null);
   const patternSelectWrapperRef = useRef(null);
   const typeSelectWrapperRef = useRef(null);
-  // useEffect(() => {
-  //   const handleOutsideClick = (event: MouseEvent) => {
-  //     if (
-  //       editButtonRef.current &&
-  //       !editButtonRef.current.contains(event.target as Node) ||
-  //       !patternSelectWrapperRef.current ||
-  //       !typeSelectWrapperRef.current
-  //     ) {
-  //       setIsEditing(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("mousedown", handleOutsideClick);
-
-  //   return () => {
-  //     window.removeEventListener("mousedown", handleOutsideClick);
-  //   };
-  // }, []);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLabel(e.target.value);
@@ -69,21 +48,25 @@ const InputElement = ({
     setShowTypeSelect(false);
   };
 
-  const patternOptions = [
-    // { value: "maxLength", label: `Max Length: ${element.maxLength}` },
-    // { value: "minLength", label: `Min Length: ${element.minLength}` },
+  const handleCustomPatternChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const pattern = e.target.value;
+    setCustomPattern(pattern);
+    setElement({ ...element, customPattern: pattern });
+  };
 
-    { value: "required", label: element.required },
-    { value: "norequired", label: element.required },
-    // { value: "disabled", label: element.disabled ? "Disabled" : "Enabled" },
-    // { value: "min", label: `Min: ${element.min}` },
-    // { value: "max", label: `Max: ${element.max}` },
+  const patternOptions = [
+    { value: "phone", label: "Phone", pattern: "\\d{10}" },
+    { value: "email", label: "Email", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
+    { value: "regex", label: "Custom Regex", pattern: customPattern },  
+    { value: "disabled", label: element.disabled ? "Disabled" : "Enabled" },
   ];
 
   const inputTypeOptions = [
     { value: "text", label: "Text" },
     { value: "number", label: "Number" },
     { value: "email", label: "Email" },
+    { value: "password", label: "Password" },
+    { value: "textarea", label: "Textarea" },
     { value: "hidden", label: "Hidden" },
   ];
 
@@ -107,7 +90,11 @@ const InputElement = ({
             <span className="font-semibold mb-2">{inputLabel}</span>
             <div className="flex space-x-2 flex-row">
               <Button size="small">{element.type}</Button>
-              <Button size="small">{selectedPatterns.join(", ")}</Button>
+              <Button size="small">{
+            patternOptions.map((option) => (
+              selectedPatterns.includes(option.pattern!) && option.label+", "
+            ))
+            }</Button>
             </div>
           </>
         )}
@@ -128,6 +115,7 @@ const InputElement = ({
         />
         {isEditing && (
           <>
+          
             <div className="w-full mb-1">
               {showTypeSelect ? (
                 <Select
@@ -164,7 +152,7 @@ const InputElement = ({
                   onChange={handlePatternChange}
                 >
                   {patternOptions.map((option) => (
-                    <Option key={option.value} value={option.value}>
+                    <Option key={option.value} value={option.pattern}>
                       {option.label}
                     </Option>
                   ))}
@@ -179,6 +167,14 @@ const InputElement = ({
                 </Button>
               )}
             </div>
+            {selectedPatterns.includes(customPattern) && (
+              <Input
+                placeholder="Enter custom regex"
+                value={customPattern}
+                onChange={handleCustomPatternChange}
+                className="mt-2"
+              />
+            )}
           </>
         )}
       </div>
@@ -187,3 +183,26 @@ const InputElement = ({
 };
 
 export default InputElement;
+
+
+
+
+// const typeSelectWrapperRef = useRef(null);
+// useEffect(() => {
+//   const handleOutsideClick = (event: MouseEvent) => {
+//     if (
+//       editButtonRef.current &&
+//       !editButtonRef.current.contains(event.target as Node) ||
+//       !patternSelectWrapperRef.current ||
+//       !typeSelectWrapperRef.current
+//     ) {
+//       setIsEditing(false);
+//     }
+//   };
+
+//   window.addEventListener("mousedown", handleOutsideClick);
+
+//   return () => {
+//     window.removeEventListener("mousedown", handleOutsideClick);
+//   };
+// }, []);

@@ -27,13 +27,23 @@ export default function PreviewForm() {
                   required: element.elementType.required,
                   message: `${element.elementType.label} is required`,
                 },
+                ...(element.elementType.pattern
+                  ? element.elementType.pattern.map((pattern) => ({
+                      pattern: new RegExp(pattern),
+                      message: `Please match the requested format for ${element.elementType.label}`,
+                    }))
+                  : []),
               ]}
             >
+              
               {element.elementType.type === "textarea" ? (
+                <>
+               
                 <Input.TextArea
                   style={{ padding: "8px" }}
                   placeholder={element.elementType.placeholder}
                 />
+               </> 
               ) : (
                 <Input
                   style={{ padding: "8px" }}
@@ -57,8 +67,10 @@ export default function PreviewForm() {
               ]}
             >
               <Select
-              mode={!element.elementType.multiple ?  "default": "multiple"}
-              placeholder={element.elementType.placeholder} style={{ width: "100%" }}>
+                mode={(element.elementType as SelectElement).multiple ? "multiple" : undefined}
+                placeholder={element.elementType.placeholder}
+                style={{ width: "100%" }}
+              >
                 {element.elementType.options!.map((option, index) => (
                   <Select.Option key={index} value={option}>
                     {option}

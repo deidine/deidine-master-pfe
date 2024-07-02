@@ -13,21 +13,20 @@ type BaseElement = {
   placeholder?: string;
   style?: string;
   required?: boolean;
-  pattern?: string[];
+  pattern?: string[]; 
 };
  
 type InputOptions = {
   isPasswordConfirm?: boolean;
   minLength?: number;
   maxLength?: number;
-  pattern?: string;
   min?: number;
+  customPattern?: string;
   max?: number;
   disabled?: boolean;
 };
 
-type SelectOptions = {
-  multiple?: boolean;
+type SelectOptions = { 
   disabled?: boolean;
 };
  
