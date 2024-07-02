@@ -51,8 +51,10 @@ const [submitBtn, setSubmitBtn] = useState<string>("Submit");
         setElements,
         addElement,
         removeElement,
+
         selectedElement,
         setSelectedElement,
+
         updateElement,
       }}
     >

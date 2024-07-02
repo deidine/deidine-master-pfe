@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
-import FormBuilder from "./forms/builders/FormBuilder";
-import PreviewForm from "./forms/previews/PreviewForm";
+import React, { useState } from "react"; 
+import PreviewForm from "../forms/previews/PreviewForm";
+import FormBuilder from "../forms/builders/FormBuilder";
 
 export default function HomePage() {
   const [preview, setPreview] = useState(false);

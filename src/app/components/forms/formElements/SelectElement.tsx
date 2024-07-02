@@ -77,6 +77,7 @@ const SelectElement = ({
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded shadow-sm group`}
     >
+ 
       <div className="flex flex-col">
         {isEditing ? (
           <input
@@ -86,14 +87,18 @@ const SelectElement = ({
           />
         ) : (
           <>
-            <span className="font-semibold mb-2">{inputLabel}</span>
-            <div className="flex space-x-2 flex-row">
-              <Button size="small">{element.type}</Button>
-              <Button size="small">{selectedPatterns.join(", ")}</Button>
+            <div className="flex flex-col">
+              <span className="font-semibold mb-2">{inputLabel}</span>
+              <div className="flex flex-col w-auto items-start space-y-2">
+                <div>
+                <Button size="small"> {element.type}</Button>
+                </div>
+
+                
+              </div>
             </div>
           </>
         )}
-
         <OptionPopUp
           name={element.name}
           required={element.required}

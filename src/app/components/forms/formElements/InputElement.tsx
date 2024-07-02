@@ -16,8 +16,12 @@ const InputElement = ({
   setElement: (value: InputElement) => void;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(element.pattern || []);
-  const [customPattern, setCustomPattern] = useState(element.customPattern || "");
+  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(
+    element.pattern || []
+  );
+  const [customPattern, setCustomPattern] = useState(
+    element.customPattern || ""
+  );
   const [isRequired, setIsRequired] = useState(element.required);
   const [inputType, setInputType] = useState(element.type);
   const [inputLabel, setInputLabel] = useState(element.label);
@@ -48,7 +52,9 @@ const InputElement = ({
     setShowTypeSelect(false);
   };
 
-  const handleCustomPatternChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCustomPatternChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const pattern = e.target.value;
     setCustomPattern(pattern);
     setElement({ ...element, customPattern: pattern });
@@ -56,8 +62,12 @@ const InputElement = ({
 
   const patternOptions = [
     { value: "phone", label: "Phone", pattern: "\\d{10}" },
-    { value: "email", label: "Email", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
-    { value: "regex", label: "Custom Regex", pattern: customPattern },  
+    {
+      value: "email",
+      label: "Email",
+      pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
+    },
+    { value: "regex", label: "Custom Regex", pattern: customPattern },
     { value: "disabled", label: element.disabled ? "Disabled" : "Enabled" },
   ];
 
@@ -87,14 +97,28 @@ const InputElement = ({
           />
         ) : (
           <>
-            <span className="font-semibold mb-2">{inputLabel}</span>
-            <div className="flex space-x-2 flex-row">
-              <Button size="small">{element.type}</Button>
-              <Button size="small">{
-            patternOptions.map((option) => (
-              selectedPatterns.includes(option.pattern!) && option.label+", "
-            ))
-            }</Button>
+            <div className="flex flex-col">
+              <span className="font-semibold mb-2">{inputLabel}</span>
+              <div className="flex flex-col w-auto items-start space-y-2">
+                <div>
+                   <Button size="small"> {element.type}</Button>
+                </div>
+
+                {selectedPatterns.length > 0 ? (
+                  <div>
+                 
+                    <Button size="small">
+                      { 
+                        patternOptions.map(
+                          (option) =>
+                            option.value !== "" &&
+                            selectedPatterns.includes(option.pattern!) &&
+                            option.label + ", "
+                        )}
+                    </Button>{" "}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </>
         )}
@@ -115,10 +139,17 @@ const InputElement = ({
         />
         {isEditing && (
           <>
-          
             <div className="w-full mb-1">
               {showTypeSelect ? (
-                <Select
+             <Button
+                  icon={<LeftCircleFilled />}
+                  size="small"
+                  onClick={() => setShowTypeSelect(true)}
+                >
+                  Input Type
+                </Button>
+              ) : (
+                   <Select
                   style={{ width: "100%" }}
                   value={inputType}
                   onChange={handleTypeChange}
@@ -130,20 +161,19 @@ const InputElement = ({
                     </Option>
                   ))}
                 </Select>
-              ) : (
-                <Button
-                  icon={<LeftCircleFilled />}
-                  size="small"
-                  onClick={() => setShowTypeSelect(true)}
-                >
-                  Input Type
-                </Button>
               )}
             </div>
 
             <div className="w-full mb-1">
-              {showPatternSelect ? (
-                <Select
+              {showPatternSelect  ? (
+             <Button
+                  icon={<TagOutlined />}
+                  size="small"
+                  onClick={() => setShowPatternSelect(true)}
+                >
+                  Pattern
+                </Button>
+              ) : (   <Select
                   ref={patternSelectWrapperRef}
                   mode="multiple"
                   style={{ width: "100%" }}
@@ -157,14 +187,7 @@ const InputElement = ({
                     </Option>
                   ))}
                 </Select>
-              ) : (
-                <Button
-                  icon={<TagOutlined />}
-                  size="small"
-                  onClick={() => setShowPatternSelect(true)}
-                >
-                  Pattern
-                </Button>
+                
               )}
             </div>
             {selectedPatterns.includes(customPattern) && (
@@ -183,9 +206,6 @@ const InputElement = ({
 };
 
 export default InputElement;
-
-
-
 
 // const typeSelectWrapperRef = useRef(null);
 // useEffect(() => {

@@ -127,7 +127,6 @@ export default function FormBuilder() {
         <Select defaultValue="text" onChange={setSelectedType} className="w-full">
           <Option value="text">Text</Option>
           <Option value="number">Number</Option>
-          <Option value="email">Email</Option>
           <Option value="password">Password</Option>
           <Option value="textarea">Textarea</Option>
           <Option value="select">Select</Option>
