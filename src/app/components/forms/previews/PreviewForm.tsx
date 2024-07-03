@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select, Checkbox, Radio } from "antd";
 import useDesigner from "../../hooks/useDesigner";
 
 export default function PreviewForm() {
@@ -17,7 +17,9 @@ export default function PreviewForm() {
     >
       {elements.map((element) => (
         <div key={element.elementType.name}>
-          {["text", "number", "email", "password", "textarea"].includes(element.elementType.type) && (
+          {["text", "number", "email", "password", "textarea"].includes(
+            element.elementType.type
+          ) && (
             <Form.Item
               label={element.elementType.label}
               name={element.elementType.name}
@@ -35,15 +37,11 @@ export default function PreviewForm() {
                   : []),
               ]}
             >
-              
               {element.elementType.type === "textarea" ? (
-                <>
-               
                 <Input.TextArea
                   style={{ padding: "8px" }}
                   placeholder={element.elementType.placeholder}
                 />
-               </> 
               ) : (
                 <Input
                   style={{ padding: "8px" }}
@@ -53,7 +51,6 @@ export default function PreviewForm() {
               )}
             </Form.Item>
           )}
-
           {element.elementType.type === "select" && (
             <Form.Item
               label={element.elementType.label}
@@ -67,7 +64,6 @@ export default function PreviewForm() {
               ]}
             >
               <Select
-                mode={(element.elementType as SelectElement).multiple ? "multiple" : undefined}
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
               >
@@ -77,6 +73,77 @@ export default function PreviewForm() {
                   </Select.Option>
                 ))}
               </Select>
+            </Form.Item>
+          )}{" "}
+          {element.elementType.type === "select_multiple" && (
+            <Form.Item
+              label={element.elementType.label}
+              name={element.elementType.name}
+              style={{ marginBottom: "10px" }}
+              rules={[
+                {
+                  required: element.elementType.required,
+                  message: `${element.elementType.label} is required`,
+                },
+              ]}
+            >
+              <Select
+                mode="multiple"
+                placeholder={element.elementType.placeholder}
+                style={{ width: "100%" }}
+              >
+                {element.elementType.options!.map((option, index) => (
+                  <Select.Option key={index} value={option}>
+                    {option}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
+          {element.elementType.type === "checkbox" && (
+            <Form.Item
+              name={element.elementType.name}
+              style={{ marginBottom: "10px" }}
+              valuePropName="checked"
+              rules={[
+                {
+                  required: element.elementType.required,
+                  message: `${element.elementType.label} is required`,
+                },
+              ]}
+            >
+       <Checkbox.Group>
+                <div className="flex flex-col space-y-2">  
+                  {element.elementType.options!.map((option, index) => (
+                    <Checkbox key={index} value={option}>
+                      {option}
+                    </Checkbox>
+                  ))}
+                </div>
+              </Checkbox.Group>
+            </Form.Item>
+          )}
+          {element.elementType.type === "radio" && (
+            <Form.Item
+              label={element.elementType.label}
+              name={element.elementType.name}
+              style={{ marginBottom: "10px" }}
+              rules={[
+                {
+                  required: element.elementType.required,
+                  message: `${element.elementType.label} is required`,
+                },
+              ]}
+            >
+              <Radio.Group>
+                {element.elementType.options!.map((option, index) => (
+                  <div className="flex items-center ">
+                    <Radio key={index} value={option}>
+                      {option}
+                    </Radio>
+                  </div>
+                ))}
+              </Radio.Group>
             </Form.Item>
           )}
         </div>

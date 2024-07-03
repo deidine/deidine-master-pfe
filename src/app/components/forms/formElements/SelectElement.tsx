@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Button, Select, Input } from "antd";
-import { TagOutlined } from "@ant-design/icons";
+import { LeftCircleFilled } from "@ant-design/icons";
 import useDesigner from "../../hooks/useDesigner";
 import OptionPopUp from "../OptionPopUp";
+import SidBarOptions from "./sidbarElement/sidBarOptions";
 
 const { Option } = Select;
 
@@ -16,57 +17,31 @@ const SelectElement = ({
   setElement: (value: SelectElement) => void;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedPatterns, setSelectedPatterns] = useState<string[]>( element.pattern || [] );
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false); // New state for sidebar visibility
   const [isRequired, setIsRequired] = useState(element.required);
   const [inputLabel, setInputLabel] = useState(element.label);
-  const [options, setOptions] = useState(element.options || []);
-  const [newOption, setNewOption] = useState("");
-  const [selctPlacholder, setSelctPlacholder] = useState("select");
-  const [showPatternSelect, setShowPatternSelect] = useState(false);
-  
+  const [showTypeSelect, setShowTypeSelect] = useState(false);
+  const [inputType, setInputType] = useState(element.type);
+
   const { removeElement } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
-  const patternSelectWrapperRef = useRef(null);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLabel(e.target.value);
     setElement({ ...element, label: e.target.value });
   };
-
-  const handlePatternChange = (value: string[]) => {
-    setSelectedPatterns(value);
-    setElement({ ...element, pattern: value });
-    if (value.length === 0) {
-      setShowPatternSelect(false);
-    }
+  const handleTypeChange = (value: "select" | "radio" | "checkbox") => {
+    setInputType(value);
+    setElement({ ...element, type: value });
+    setShowTypeSelect(false);
   };
 
-  const handleOptionChange = (index: number, value: string) => {
-    const updatedOptions = [...options];
-    updatedOptions[index] = value;
-    setOptions(updatedOptions);
-    setElement({ ...element, options: updatedOptions });
-  };
-
-  const addNewOption = () => {
-    if (newOption.trim() !== "") {
-      const updatedOptions = [...options, newOption];
-      setOptions(updatedOptions);
-      setElement({ ...element, options: updatedOptions });
-      setNewOption("");
-    }
-  };
-
-  const removeOption = (index: number) => {
-    const updatedOptions = options.filter((_, i) => i !== index);
-    setOptions(updatedOptions);
-    setElement({ ...element, options: updatedOptions });
-  };
-
-  const patternOptions = [
-    { value: "required", label: element.required },
-    { value: "norequired", label: element.required },
+  const selectTypeOptions = [
+    { value: "select", label: "Select" },
+    { value: "select_multiple", label: "Select Multiple" },
+    { value: "radio", label: "Radio" },
+    { value: "checkbox", label: "Checkbox" },
   ];
 
   return (
@@ -77,35 +52,57 @@ const SelectElement = ({
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded shadow-sm group`}
     >
- 
       <div className="flex flex-col">
         {isEditing ? (
-          <input
-            className="font-semibold mb-2 outline-none"
-            value={inputLabel}
-            onChange={handleLabelChange}
-          />
+          <>
+            <div className="w-full mb-1"></div>
+            <input
+              className="font-semibold mb-2 outline-none"
+              value={inputLabel}
+              onChange={handleLabelChange}
+            />
+            <div className="flex flex-col w-auto gap-2">
+              {showTypeSelect ? (
+                <Select
+                  style={{ width: "100%" }}
+                  value={inputType}
+                  onChange={handleTypeChange}
+                  placeholder="Select input type"
+                >
+                  {selectTypeOptions.map((option) => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
+              ) : (
+                <Button
+                  icon={<LeftCircleFilled />}
+                  size="small"
+                  onClick={() => setShowTypeSelect(true)}
+                >
+                  { element.type || "Select input type"}
+                </Button>
+              )}
+              <Button size="small" onClick={() => setIsSidebarVisible(true)}>
+                Open Sidebar
+              </Button>
+            </div>
+          </>
         ) : (
           <>
             <div className="flex flex-col">
               <span className="font-semibold mb-2">{inputLabel}</span>
               <div className="flex flex-col w-auto items-start space-y-2">
                 <div>
-                <Button size="small"> {element.type}</Button>
+                  <Button size="small"> {element.type}</Button>
                 </div>
-
-                
               </div>
             </div>
           </>
         )}
         <OptionPopUp
-          name={element.name}
-          required={element.required}
-          toggleRequired={() => {
-            setElement({ ...element, required: !isRequired });
-            setIsRequired(!isRequired);
-          }}
+          name={element.name} 
           removeElement={(name: string) => {
             removeElement(name);
           }}
@@ -119,73 +116,26 @@ const SelectElement = ({
           }}
           isSelectMultiple={element.multiple}
         />
-
-        {isEditing && (
-          <>
-            <Input
-              placeholder="Select"
-              value={selctPlacholder}
-              onChange={(e) => {
-                setElement({ ...element, placeholder: selctPlacholder });
-                setSelctPlacholder(e.target.value);
-              }}
-              style={{ marginBottom: "8px" }}
-            />
-
-            <div className="w-full mb-1 rounded-md border-2 p-2">
-              {options.map((option, index) => (
-                <div key={index} className="flex items-center mb-2">
-                  <Input
-                    value={option}
-                    onPressEnter={addNewOption}
-                    onChange={(e) => handleOptionChange(index, e.target.value)}
-                    style={{ marginRight: "8px" }}
-                  />
-                  <Button onClick={() => removeOption(index)}>Remove</Button>
-                </div>
-              ))}
-              <div className="w-full mb-1">
-                <Input
-                  placeholder="New option"
-                  value={newOption}
-                  onChange={(e) => setNewOption(e.target.value)}
-                  style={{ marginBottom: "8px" }}
-                />
-                <Button className="w-full mb-1" onClick={addNewOption}>
-                  Add Option
-                </Button>
-              </div>
-            </div>
-
-            <div className="w-full mb-1">
-              {showPatternSelect ? (
-                <Select
-                  ref={patternSelectWrapperRef}
-                  mode="multiple"
-                  style={{ width: "100%" }}
-                  placeholder="Select patterns"
-                  value={selectedPatterns}
-                  onChange={handlePatternChange}
-                >
-                  {patternOptions.map((option) => (
-                    <Option key={option.value} value={option.value}>
-                      {option.label}
-                    </Option>
-                  ))}
-                </Select>
-              ) : (
-                <Button
-                  icon={<TagOutlined />}
-                  size="small"
-                  onClick={() => setShowPatternSelect(true)}
-                >
-                  Pattern
-                </Button>
-              )}
-            </div>
-          </>
-        )}
       </div>
+      {isSidebarVisible && (
+        <div
+          className={`fixed top-0 right-0 w-full  h-full bg-black bg-opacity-50 z-50 overflow-auto transition-opacity duration-300 ease-in-out `}
+ 
+          onClick={() => setIsSidebarVisible(false)}
+        >
+          <div
+            className={`absolute top-0 right-0 w-64 h-full bg-white shadow-lg z-50 sidebar  `}
+            style={{
+              opacity: isSidebarVisible ? 1 : 0,
+              transition : "opacity 9s ease-in-out",
+            }}
+               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the sidebar
+          >
+            <Button onClick={() => setIsSidebarVisible(false)}>Close</Button>
+            <SidBarOptions element={element} setElement={setElement} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

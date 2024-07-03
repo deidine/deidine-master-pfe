@@ -74,13 +74,15 @@ export default function FormBuilder() {
                         {...provided.dragHandleProps}
                         className="flex items-center justify-center group"
                       >
-                        {element.elementType.type === "select" ? (
+                        {element.elementType.type === "select"||element.elementType.type === "select_multiple"||element.elementType.type === "radio" || element.elementType.type === "checkbox" ? (
                           <SelectElement
                             index={index}
                             element={element.elementType as SelectElement}
                             setElement={(value: SelectElement) => {
                               const updatedElements = [...elements];
                               updatedElements[index].elementType = value;
+                              setElements(updatedElements);
+
                             }}
                           />
                         ) : (
@@ -90,6 +92,7 @@ export default function FormBuilder() {
                             setElement={(value: InputElement) => {
                               const updatedElements = [...elements];
                               updatedElements[index].elementType = value;
+                              setElements(updatedElements);
                             }}
                           />
                         )}

@@ -1,15 +1,16 @@
 "use client";
 import React, { useState } from "react"; 
 import PreviewForm from "../forms/previews/PreviewForm";
-import FormBuilder from "../forms/builders/FormBuilder";
+import FormBuilder from "../forms/builders/FormBuilder"; 
 
 export default function HomePage() {
   const [preview, setPreview] = useState(false);
 
   return (
     <>
-      {" "}
+        
       <div className="  flex flex-col justify-center items-center">
+
         <div
           className=" inline-flex gap-x-3  p-1 text-zinc-500 dark:bg-zinc-800
          dark:text-zinc-400 

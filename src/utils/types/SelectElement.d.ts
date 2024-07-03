@@ -1,5 +1,5 @@
 type SelectElement = BaseElement & {
   multiple : boolean;
-  type: "select";
+  type: "select"|"radio"|"checkbox";
   options: string[]; 
 };

@@ -3,6 +3,7 @@ import { Button, Select, Input, Modal } from "antd";
 import { TagOutlined, LeftCircleFilled } from "@ant-design/icons";
 import useDesigner from "../../hooks/useDesigner";
 import OptionPopUp from "../OptionPopUp";
+import RequiredComponent from "../RequiredComponent";
 
 const { Option } = Select;
 
@@ -68,7 +69,7 @@ const InputElement = ({
       pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
     },
     { value: "regex", label: "Custom Regex", pattern: customPattern },
-    { value: "disabled", label: element.disabled ? "Disabled" : "Enabled" },
+    { value: "required", label: element.disabled ? "Disabled" : "Enabled" },
   ];
 
   const inputTypeOptions = [
@@ -90,32 +91,39 @@ const InputElement = ({
     >
       <div className="flex flex-col">
         {isEditing ? (
-          <input
-            className="font-semibold mb-2 outline-none"
-            value={inputLabel}
-            onChange={handleLabelChange}
-          />
+          <>
+            {" "}
+            <input
+              className="font-semibold mb-2 outline-none"
+              value={inputLabel}
+              onChange={handleLabelChange}
+            />
+            <RequiredComponent
+              required={element.required!}
+              toggleRequired={function (): void {
+                setElement({ ...element, required: !isRequired });
+                setIsRequired(!isRequired);
+              }}
+            />
+          </>
         ) : (
           <>
             <div className="flex flex-col">
               <span className="font-semibold mb-2">{inputLabel}</span>
               <div className="flex flex-col w-auto items-start space-y-2">
                 <div>
-                   <Button size="small"> {element.type}</Button>
+                  <Button size="small"> {element.type}</Button>
                 </div>
 
                 {selectedPatterns.length > 0 ? (
-                  <div>
-                 
-                    <Button size="small">
-                      { 
-                        patternOptions.map(
-                          (option) =>
-                            option.value !== "" &&
-                            selectedPatterns.includes(option.pattern!) &&
-                            option.label + ", "
-                        )}
-                    </Button>{" "}
+                  <div className="flex flex-row gap-2">
+                    {patternOptions.map(
+                      (option) =>
+                        option.value !== "" &&
+                        selectedPatterns.includes(option.pattern!) && (
+                          <Button size="small">{option.label}</Button>
+                        )
+                    )}
                   </div>
                 ) : null}
               </div>
@@ -124,11 +132,6 @@ const InputElement = ({
         )}
         <OptionPopUp
           name={element.name}
-          required={element.required}
-          toggleRequired={function (): void {
-            setElement({ ...element, required: !isRequired });
-            setIsRequired(!isRequired);
-          }}
           removeElement={function (name: string): void {
             removeElement(name);
           }}
@@ -141,15 +144,7 @@ const InputElement = ({
           <>
             <div className="w-full mb-1">
               {showTypeSelect ? (
-             <Button
-                  icon={<LeftCircleFilled />}
-                  size="small"
-                  onClick={() => setShowTypeSelect(true)}
-                >
-                  Input Type
-                </Button>
-              ) : (
-                   <Select
+                <Select
                   style={{ width: "100%" }}
                   value={inputType}
                   onChange={handleTypeChange}
@@ -161,19 +156,20 @@ const InputElement = ({
                     </Option>
                   ))}
                 </Select>
+              ) : (
+                <Button
+                  icon={<LeftCircleFilled />}
+                  size="small"
+                  onClick={() => setShowTypeSelect(true)}
+                >
+                  {element.type || "Select input type"}
+                </Button>
               )}
             </div>
 
             <div className="w-full mb-1">
-              {showPatternSelect  ? (
-             <Button
-                  icon={<TagOutlined />}
-                  size="small"
-                  onClick={() => setShowPatternSelect(true)}
-                >
-                  Pattern
-                </Button>
-              ) : (   <Select
+              {showPatternSelect ? (
+                <Select
                   ref={patternSelectWrapperRef}
                   mode="multiple"
                   style={{ width: "100%" }}
@@ -187,7 +183,14 @@ const InputElement = ({
                     </Option>
                   ))}
                 </Select>
-                
+              ) : (
+                <Button
+                  icon={<TagOutlined />}
+                  size="small"
+                  onClick={() => setShowPatternSelect(true)}
+                >
+                  Pattern
+                </Button>
               )}
             </div>
             {selectedPatterns.includes(customPattern) && (
