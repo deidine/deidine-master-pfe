@@ -15,8 +15,8 @@ export default function PreviewForm() {
       layout="vertical" // Set the layout to vertical
       className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
     >
-      {elements.map((element) => (
-        <div key={element.elementType.name}>
+      {elements.map((element,index) => (
+        <div  key={index} >
           {["text", "number", "email", "password", "textarea"].includes(
             element.elementType.type
           ) && (
