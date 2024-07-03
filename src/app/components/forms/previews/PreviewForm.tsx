@@ -15,8 +15,8 @@ export default function PreviewForm() {
       layout="vertical" // Set the layout to vertical
       className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
     >
-      {elements.map((element,index) => (
-        <div  key={index} >
+      {elements.map((element, index) => (
+        <div key={index}>
           {["text", "number", "email", "password", "textarea"].includes(
             element.elementType.type
           ) && (
@@ -30,22 +30,21 @@ export default function PreviewForm() {
                   message: `${element.elementType.label} is required`,
                 },
                 ...(element.elementType.pattern
-                  ? element.elementType.pattern.map((pattern,index) => ({
+                  ? element.elementType.pattern.map((pattern, idx) => ({
                       pattern: new RegExp(pattern),
                       message: `Please match the requested format for ${element.elementType.label}`,
+                      key: idx, // Added key prop here
                     }))
                   : []),
               ]}
             >
               {element.elementType.type === "textarea" ? (
-                <Input.TextArea 
-                 key={index} 
+                <Input.TextArea
                   style={{ padding: "8px" }}
                   placeholder={element.elementType.placeholder}
                 />
               ) : (
                 <Input
-                 key={index} 
                   style={{ padding: "8px" }}
                   type={element.elementType.type}
                   placeholder={element.elementType.placeholder}
@@ -55,7 +54,6 @@ export default function PreviewForm() {
           )}
           {element.elementType.type === "select" && (
             <Form.Item
-            key={index} 
               label={element.elementType.label}
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
@@ -67,12 +65,11 @@ export default function PreviewForm() {
               ]}
             >
               <Select
-               key={index} 
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
               >
-                {element.elementType.options!.map((option, index) => (
-                  <Select.Option key={index} value={option}>
+                {element.elementType.options!.map((option, idx) => (
+                  <Select.Option key={idx} value={option}>
                     {option}
                   </Select.Option>
                 ))}
@@ -81,7 +78,6 @@ export default function PreviewForm() {
           )}{" "}
           {element.elementType.type === "select_multiple" && (
             <Form.Item
-            key={index} 
               label={element.elementType.label}
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
@@ -97,8 +93,8 @@ export default function PreviewForm() {
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
               >
-                {element.elementType.options!.map((option, index) => (
-                  <Select.Option key={index} value={option}>
+                {element.elementType.options!.map((option, idx) => (
+                  <Select.Option key={idx} value={option}>
                     {option}
                   </Select.Option>
                 ))}
@@ -107,7 +103,6 @@ export default function PreviewForm() {
           )}
           {element.elementType.type === "checkbox" && (
             <Form.Item
-            key={index} 
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
               valuePropName="checked"
@@ -118,10 +113,10 @@ export default function PreviewForm() {
                 },
               ]}
             >
-       <Checkbox.Group>
-                <div className="flex flex-col space-y-2">  
-                  {element.elementType.options!.map((option, index) => (
-                    <Checkbox key={index} value={option}>
+              <Checkbox.Group>
+                <div className="flex flex-col space-y-2">
+                  {element.elementType.options!.map((option, idx) => (
+                    <Checkbox key={idx} value={option}>
                       {option}
                     </Checkbox>
                   ))}
@@ -131,7 +126,6 @@ export default function PreviewForm() {
           )}
           {element.elementType.type === "radio" && (
             <Form.Item
-             key={index} 
               label={element.elementType.label}
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
@@ -143,11 +137,9 @@ export default function PreviewForm() {
               ]}
             >
               <Radio.Group>
-                {element.elementType.options!.map((option, index) => (
-                  <div className="flex items-center ">
-                    <Radio key={index} value={option}>
-                      {option}
-                    </Radio>
+                {element.elementType.options!.map((option, idx) => (
+                  <div key={idx} className="flex items-center">
+                    <Radio value={option}>{option}</Radio>
                   </div>
                 ))}
               </Radio.Group>
