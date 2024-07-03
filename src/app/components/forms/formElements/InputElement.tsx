@@ -118,10 +118,10 @@ const InputElement = ({
                 {selectedPatterns.length > 0 ? (
                   <div className="flex flex-row gap-2">
                     {patternOptions.map(
-                      (option) =>
+                      (option,index) =>
                         option.value !== "" &&
                         selectedPatterns.includes(option.pattern!) && (
-                          <Button size="small">{option.label}</Button>
+                          <Button key={index} size="small">{option.label}</Button>
                         )
                     )}
                   </div>
@@ -150,8 +150,8 @@ const InputElement = ({
                   onChange={handleTypeChange}
                   placeholder="Select input type"
                 >
-                  {inputTypeOptions.map((option) => (
-                    <Option key={option.value} value={option.value}>
+                  {inputTypeOptions.map((option,index) => (
+                    <Option   key={index}  value={option.value}>
                       {option.label}
                     </Option>
                   ))}
