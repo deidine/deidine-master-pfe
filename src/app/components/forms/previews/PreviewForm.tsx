@@ -30,7 +30,7 @@ export default function PreviewForm() {
                   message: `${element.elementType.label} is required`,
                 },
                 ...(element.elementType.pattern
-                  ? element.elementType.pattern.map((pattern) => ({
+                  ? element.elementType.pattern.map((pattern,index) => ({
                       pattern: new RegExp(pattern),
                       message: `Please match the requested format for ${element.elementType.label}`,
                     }))
@@ -38,12 +38,14 @@ export default function PreviewForm() {
               ]}
             >
               {element.elementType.type === "textarea" ? (
-                <Input.TextArea
+                <Input.TextArea 
+                 key={index} 
                   style={{ padding: "8px" }}
                   placeholder={element.elementType.placeholder}
                 />
               ) : (
                 <Input
+                 key={index} 
                   style={{ padding: "8px" }}
                   type={element.elementType.type}
                   placeholder={element.elementType.placeholder}
@@ -53,6 +55,7 @@ export default function PreviewForm() {
           )}
           {element.elementType.type === "select" && (
             <Form.Item
+            key={index} 
               label={element.elementType.label}
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
@@ -64,6 +67,7 @@ export default function PreviewForm() {
               ]}
             >
               <Select
+               key={index} 
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
               >
@@ -77,6 +81,7 @@ export default function PreviewForm() {
           )}{" "}
           {element.elementType.type === "select_multiple" && (
             <Form.Item
+            key={index} 
               label={element.elementType.label}
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
@@ -102,6 +107,7 @@ export default function PreviewForm() {
           )}
           {element.elementType.type === "checkbox" && (
             <Form.Item
+            key={index} 
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
               valuePropName="checked"
@@ -125,6 +131,7 @@ export default function PreviewForm() {
           )}
           {element.elementType.type === "radio" && (
             <Form.Item
+             key={index} 
               label={element.elementType.label}
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
