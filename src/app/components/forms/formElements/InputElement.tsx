@@ -47,7 +47,13 @@ const InputElement = ({
     setShowTypeSelect(false);
   };
 
+  const handleDivClick = (e: React.MouseEvent) => {
+   
+    if (!isEditing) {
+      setIsSidebarVisible(true);
+    }
  
+  };
 
   const inputTypeOptions = [
     { value: "text", label: "Text" },
@@ -61,7 +67,7 @@ const InputElement = ({
   return (
     <div
       key={index}
-      ref={editButtonRef}
+      ref={editButtonRef}   onClick={handleDivClick}
       className={`${
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded shadow-sm group`}

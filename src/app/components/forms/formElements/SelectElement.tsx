@@ -52,10 +52,7 @@ const SelectElement = ({
     if (!isEditing) {
       setIsSidebarVisible(true);
     }
-    // if (editButtonRef.current && editButtonRef.current.contains(e.target as Node)) {
-    //   return;
-    // }
-    // setIsSidebarVisible(true);
+ 
   };
 
   return (
