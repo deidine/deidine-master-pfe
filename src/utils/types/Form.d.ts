@@ -13,6 +13,8 @@ type BaseElement = {
   placeholder?: string;
   style?: string;
   required?: boolean;
+  customPattern?: string;
+
   pattern?: string[]; 
 };
  
@@ -21,7 +23,6 @@ type InputOptions = {
   minLength?: number;
   maxLength?: number;
   min?: number;
-  customPattern?: string;
   max?: number;
   disabled?: boolean;
 };

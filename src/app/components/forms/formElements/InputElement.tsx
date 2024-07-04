@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Select, Input, Modal } from "antd";
 import { TagOutlined, LeftCircleFilled } from "@ant-design/icons";
 import useDesigner from "../../hooks/useDesigner";
-import OptionPopUp from "../OptionPopUp";
-import RequiredComponent from "../RequiredComponent";
+import OptionPopUp from "../../ui/OptionPopUp";
+import RequiredComponent from "../../ui/RequiredComponent"; 
+import SidBarOptions from "../../ui/SidBarOptions";
+import { patternOptions } from "@/data/data";
 
 const { Option } = Select;
 
@@ -17,12 +19,10 @@ const InputElement = ({
   setElement: (value: InputElement) => void;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(
-    element.pattern || []
-  );
-  const [customPattern, setCustomPattern] = useState(
-    element.customPattern || ""
-  );
+  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(element.pattern || []);
+  
+ 
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [isRequired, setIsRequired] = useState(element.required);
   const [inputType, setInputType] = useState(element.type);
   const [inputLabel, setInputLabel] = useState(element.label);
@@ -33,19 +33,13 @@ const InputElement = ({
   const editButtonRef = useRef<HTMLDivElement>(null);
   const patternSelectWrapperRef = useRef(null);
   const typeSelectWrapperRef = useRef(null);
-
+ 
   const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLabel(e.target.value);
     setElement({ ...element, label: e.target.value });
   };
 
-  const handlePatternChange = (value: string[]) => {
-    setSelectedPatterns(value);
-    setElement({ ...element, pattern: value });
-    if (value.length === 0) {
-      setShowPatternSelect(false);
-    }
-  };
+ 
 
   const handleTypeChange = (value: string) => {
     setInputType(value);
@@ -53,24 +47,7 @@ const InputElement = ({
     setShowTypeSelect(false);
   };
 
-  const handleCustomPatternChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const pattern = e.target.value;
-    setCustomPattern(pattern);
-    setElement({ ...element, customPattern: pattern });
-  };
-
-  const patternOptions = [
-    { value: "phone", label: "Phone", pattern: "\\d{10}" },
-    {
-      value: "email",
-      label: "Email",
-      pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
-    },
-    { value: "regex", label: "Custom Regex", pattern: customPattern },
-    { value: "required", label: element.disabled ? "Disabled" : "Enabled" },
-  ];
+ 
 
   const inputTypeOptions = [
     { value: "text", label: "Text" },
@@ -98,34 +75,30 @@ const InputElement = ({
               value={inputLabel}
               onChange={handleLabelChange}
             />
-            <RequiredComponent
-              required={element.required!}
-              toggleRequired={function (): void {
-                setElement({ ...element, required: !isRequired });
-                setIsRequired(!isRequired);
-              }}
-            />
+          
           </>
         ) : (
           <>
-            <div className="flex flex-col">
-              <span className="font-semibold mb-2">{inputLabel}</span>
+           <div className="flex flex-col ">
+              <div className="font-semibold mb-2  ">{inputLabel}</div>
               <div className="flex flex-col w-auto items-start space-y-2">
-                <div>
+                <div className="flex flex-col gap-2 w-auto items-start  ">
                   <Button size="small"> {element.type}</Button>
+                  {selectedPatterns.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          <Button size="small">{element.required ? "Required" : "Not Required"}</Button>
+          {patternOptions.map((option, index) =>
+            option.value !== "" &&
+            selectedPatterns.includes(option.pattern!) && (
+              <Button key={index} size="small">{option.label}</Button>
+            )
+          )}
+        </div>
+      ) : (
+        <Button size="small">{element.required ? "Required" : "Not Required"}</Button>
+      )}
+                
                 </div>
-
-                {selectedPatterns.length > 0 ? (
-                  <div className="flex flex-row gap-2">
-                    {patternOptions.map(
-                      (option,index) =>
-                        option.value !== "" &&
-                        selectedPatterns.includes(option.pattern!) && (
-                          <Button key={index} size="small">{option.label}</Button>
-                        )
-                    )}
-                  </div>
-                ) : null}
               </div>
             </div>
           </>
@@ -139,13 +112,22 @@ const InputElement = ({
           setIsEditingState={function (value: boolean): void {
             setIsEditing(value);
           }}
+         toogleSidBar={(value: boolean) => setIsSidebarVisible(value)}
+
         />
         {isEditing && (
           <>
-            <div className="w-full mb-1">
+            <div className="flex flex-col lg:w-1/2 sm:w-full gap-2">
+            <RequiredComponent
+              required={element.required!}
+              toggleRequired={function (): void {
+                setElement({ ...element, required: !isRequired });
+                setIsRequired(!isRequired);
+              }}
+            />
               {showTypeSelect ? (
                 <Select
-                  style={{ width: "100%" }}
+                  
                   value={inputType}
                   onChange={handleTypeChange}
                   placeholder="Select input type"
@@ -160,50 +142,34 @@ const InputElement = ({
                 <Button
                   icon={<LeftCircleFilled />}
                   size="small"
-                  onClick={() => setShowTypeSelect(true)}
+                  className="w-1/2"    onClick={() => setShowTypeSelect(true)}
                 >
                   {element.type || "Select input type"}
                 </Button>
               )}
             </div>
 
-            <div className="w-full mb-1">
-              {showPatternSelect ? (
-                <Select
-                  ref={patternSelectWrapperRef}
-                  mode="multiple"
-                  style={{ width: "100%" }}
-                  placeholder="Select patterns"
-                  value={selectedPatterns}
-                  onChange={handlePatternChange}
-                >
-                  {patternOptions.map((option) => (
-                    <Option key={option.value} value={option.pattern}>
-                      {option.label}
-                    </Option>
-                  ))}
-                </Select>
-              ) : (
-                <Button
-                  icon={<TagOutlined />}
-                  size="small"
-                  onClick={() => setShowPatternSelect(true)}
-                >
-                  Pattern
-                </Button>
-              )}
-            </div>
-            {selectedPatterns.includes(customPattern) && (
-              <Input
-                placeholder="Enter custom regex"
-                value={customPattern}
-                onChange={handleCustomPatternChange}
-                className="mt-2"
-              />
-            )}
+          
           </>
         )}
       </div>
+      {isSidebarVisible && (
+        <div
+          className={`fixed top-0 right-0 w-full  h-full bg-black bg-opacity-50 z-50 overflow-auto transition-all duration-300 ease-in-out `}
+          onClick={() => setIsSidebarVisible(false)}
+        >
+          <div
+            className={`absolute top-0 right-0 w-1/3 pl-3 h-full bg-white shadow-lg z-50 sidebar  `}
+            onClick={(e) => e.stopPropagation()}            >
+            <Button onClick={() => setIsSidebarVisible(false)}>Close</Button>
+            <SidBarOptions element={element} setElement={(value:any)=>{
+          
+              setElement(value);
+
+              }} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

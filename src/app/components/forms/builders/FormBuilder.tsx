@@ -12,7 +12,7 @@ const { Option } = Select;
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState("text");
-  const { elements, addElement, setElements, submitBtn, setSubmitBtn } = useDesigner();
+  const { elements, addElement, setElements, submitBtn, setSubmitBtn,isEditFormCard } = useDesigner();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -63,7 +63,7 @@ export default function FormBuilder() {
                   <Draggable
                     key={index}
                     draggableId={"" + index}
-                    isDragDisabled={false}
+                    isDragDisabled={isEditFormCard}
                     index={index}
                   >
                     {(provided) => (
@@ -78,7 +78,7 @@ export default function FormBuilder() {
                           <SelectElement
                             index={index}
                             element={element.elementType as SelectElement}
-                            setElement={(value: SelectElement) => {
+                            setElement={(value: SelectElement| InputElement) => {
                               const updatedElements = [...elements];
                               updatedElements[index].elementType = value;
                               setElements(updatedElements);

@@ -11,7 +11,8 @@ type DesignerContextType = {
   submitBtn: string;
   selectedElement: FormElement | null;
   setSelectedElement: Dispatch<SetStateAction<FormElement | null>>;
-
+isEditFormCard: boolean;
+setIsEditFormCard:(value:boolean) => void;
   updateElement: (id: string, element: FormElement) => void;
 };
 
@@ -21,6 +22,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [elements, setElements] = useState<FormElement[]>([ ]);
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
 const [submitBtn, setSubmitBtn] = useState<string>("Submit");
+const [isEditFormCard, setIsEditFormCard] = useState<boolean>(false);
   const addElement = (index: number, element: FormElement) => {
     setElements((prev) => {
       const newElements = [...prev];
@@ -45,13 +47,13 @@ const [submitBtn, setSubmitBtn] = useState<string>("Submit");
   return (
     <DesignerContext.Provider
       value={{
-        elements,
+        elements,isEditFormCard,
         submitBtn,
         setSubmitBtn,
         setElements,
         addElement,
         removeElement,
-
+        setIsEditFormCard,
         selectedElement,
         setSelectedElement,
 
