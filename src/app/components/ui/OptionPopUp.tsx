@@ -39,8 +39,9 @@ export default function OptionPopUp({
       <Tooltip title="Edit Label">
       <Button
         icon={<EditOutlined />}
-        onClick={() => {
+        onClick={(e: React.MouseEvent) => {
           setIsEditing(!isEditing);
+          e.stopPropagation();
           setIsEditFormCard(!isEditing);
           setIsEditingState(!isEditing);
         }}

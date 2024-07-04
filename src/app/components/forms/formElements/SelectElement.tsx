@@ -4,8 +4,7 @@ import { LeftCircleFilled } from "@ant-design/icons";
 import useDesigner from "../../hooks/useDesigner";
 import OptionPopUp from "../../ui/OptionPopUp";
 import SidBarOptions from "../../ui/SidBarOptions";
-
-import RequiredComponent from "../../ui/RequiredComponent";
+import RequiredComponent from "../../ui/RequiredComponent"; 
 import AutoResizeTextarea from "../../ui/AutoResizeTextarea ";
 
 const { Option } = Select;
@@ -34,6 +33,7 @@ const SelectElement = ({
     setInputLabel(e.target.value);
     setElement({ ...element, label: e.target.value });
   };
+
   const handleTypeChange = (value: SelectElementType) => {
     setInputType(value);
     setElement({ ...element, type: value });
@@ -47,15 +47,22 @@ const SelectElement = ({
     { value: "checkbox", label: "Checkbox" },
   ];
 
+  const handleDivClick = (e: React.MouseEvent) => {
+   
+    if (!isEditing) {
+      setIsSidebarVisible(true);
+    }
+    // if (editButtonRef.current && editButtonRef.current.contains(e.target as Node)) {
+    //   return;
+    // }
+    // setIsSidebarVisible(true);
+  };
+
   return (
     <div
-    onClick={
-      ()=>{
-       {isEditing ? setIsSidebarVisible(!isSidebarVisible) : null}
-      }
-    }
       key={index}
       ref={editButtonRef}
+      onClick={handleDivClick}
       className={`${
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded shadow-sm group`}
@@ -95,7 +102,7 @@ const SelectElement = ({
               )}
               <RequiredComponent
                 required={element.required!}
-                toggleRequired={function (): void {
+                toggleRequired={() => {
                   setElement({ ...element, required: !isRequired });
                   setIsRequired(!isRequired);
                 }}
@@ -131,11 +138,11 @@ const SelectElement = ({
       </div>
       {isSidebarVisible && (
         <div
-          className={`fixed top-0 right-0 w-full  h-full bg-black bg-opacity-50 z-50 overflow-auto transition-all duration-300 ease-in-out `}
+          className={`fixed top-0 right-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto transition-all duration-300 ease-in-out`}
           onClick={() => setIsSidebarVisible(false)}
         >
           <div
-            className={`absolute top-0 right-0 w-1/3 pl-3 h-full bg-white shadow-lg z-50 sidebar  `}
+            className={`absolute top-0 right-0 w-1/3 pl-3 h-full bg-white shadow-lg z-50 sidebar`}
             onClick={(e) => e.stopPropagation()}
           >
             <Button onClick={() => setIsSidebarVisible(false)}>Close</Button>
