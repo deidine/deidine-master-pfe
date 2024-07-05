@@ -99,7 +99,7 @@ export default function FormBuilder() {
                     isDragDisabled={isEditFormCard}
                     index={index}
                   >
-                    {(provided) => (
+                    {(provided,snapshot) => (
                       <>
                         {" "}
                         <div
@@ -110,7 +110,7 @@ export default function FormBuilder() {
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
                           }`}
-                        >
+                         >
                           {element.elementType.type === "select" ||
                           element.elementType.type === "select_multiple" ||
                           element.elementType.type === "radio" ||
