@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Select } from "antd";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  DragStart,
+  Droppable,
+} from "react-beautiful-dnd";
 import InputElement from "../formElements/InputElement";
 import SelectElement from "../formElements/SelectElement";
 import useDesigner from "../../hooks/useDesigner";
@@ -12,7 +17,19 @@ const { Option } = Select;
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState("text");
-  const { elements, addElement, setElements, submitBtn, setSubmitBtn,setIsEditFormCard,isEditFormCard } = useDesigner();
+  const [draggingElementIndex, setDraggingElementIndex] = useState<
+    number | null
+  >(null);
+  const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
+  const {
+    elements,
+    addElement,
+    setElements,
+    submitBtn,
+    setSubmitBtn,
+    setIsEditFormCard,
+    isEditFormCard,
+  } = useDesigner();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -46,17 +63,32 @@ export default function FormBuilder() {
   };
 
   const handleOnDragEnd = (result: any) => {
+    setDraggingElementIndex(null);
+    setDestinationIndex(null);
     if (!result.destination) return;
     const items = Array.from(elements);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setElements(items);
   };
-
+  const handleOnDragStart = (start: DragStart) => {
+    setDraggingElementIndex(start.source.index);
+  };
+  const handleOnDragUpdate = (update: any) => {
+    if (update.destination && typeof update.destination.index === 'number') {
+      setDestinationIndex(update.destination.index);
+    } else {
+      setDestinationIndex(null);
+    }
+  };
   return (
     <>
       <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
-        <DragDropContext onDragEnd={handleOnDragEnd}>
+        <DragDropContext
+          onDragUpdate={handleOnDragUpdate}
+          onDragStart={handleOnDragStart}
+          onDragEnd={handleOnDragEnd}
+        >
           <Droppable droppableId="data" type="COLUMN" direction="vertical">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -68,36 +100,48 @@ export default function FormBuilder() {
                     index={index}
                   >
                     {(provided) => (
-                      <div
-                        key={element.elementType.name}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="flex items-center justify-center group"
-                      >
-                        {element.elementType.type === "select"||element.elementType.type === "select_multiple"||element.elementType.type === "radio" || element.elementType.type === "checkbox" ? (
-                          <SelectElement
-                            index={index}
-                            element={element.elementType as SelectElement}
-                            setElement={(value: SelectElement| InputElement) => {
-                              const updatedElements = [...elements];
-                              updatedElements[index].elementType = value;
-                              setElements(updatedElements);
-
-                            }}
-                          />
-                        ) : (
-                          <InputElement
-                            index={index}
-                            element={element.elementType as InputElement}
-                            setElement={(value: InputElement) => {
-                              const updatedElements = [...elements];
-                              updatedElements[index].elementType = value;
-                              setElements(updatedElements);
-                            }}
-                          />
+                      <>
+                        {" "}
+                        <div
+                          key={element.elementType.name}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className={`flex items-center justify-center group ${
+                            draggingElementIndex === index ? " opacity-50" : ""
+                          }`}
+                        >
+                          {element.elementType.type === "select" ||
+                          element.elementType.type === "select_multiple" ||
+                          element.elementType.type === "radio" ||
+                          element.elementType.type === "checkbox" ? (
+                            <SelectElement
+                              index={index}
+                              element={element.elementType as SelectElement}
+                              setElement={(
+                                value: SelectElement | InputElement
+                              ) => {
+                                const updatedElements = [...elements];
+                                updatedElements[index].elementType = value;
+                                setElements(updatedElements);
+                              }}
+                            />
+                          ) : (
+                            <InputElement
+                              index={index}
+                              element={element.elementType as InputElement}
+                              setElement={(value: InputElement) => {
+                                const updatedElements = [...elements];
+                                updatedElements[index].elementType = value;
+                                setElements(updatedElements);
+                              }}
+                            />
+                          )}
+                        </div>
+                        {destinationIndex === index && draggingElementIndex !== null && (
+                          <div className="border-t-4 border-blue-100 mt-2 w-full h-4 mb-2"></div>
                         )}
-                      </div>
+                      </>
                     )}
                   </Draggable>
                 ))}
@@ -120,15 +164,27 @@ export default function FormBuilder() {
       <div className="pt-[4.5rem]"></div>
       <div className="shadow-sm w-1/2 h-auto border-2 ml-4 mt-2 rounded-lg">
         <div className="flex justify-center">
-          <Button className="h-auto font-bold py-2 px-4 w-full" onClick={showModal}>
+          <Button
+            className="h-auto font-bold py-2 px-4 w-full"
+            onClick={showModal}
+          >
             + Insert Element
           </Button>
         </div>
       </div>
 
       {/* Modal for selecting input type */}
-      <Modal title="Select Input Type" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <Select defaultValue="text" onChange={setSelectedType} className="w-full">
+      <Modal
+        title="Select Input Type"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Select
+          defaultValue="text"
+          onChange={setSelectedType}
+          className="w-full"
+        >
           <Option value="text">Text</Option>
           <Option value="number">Number</Option>
           <Option value="password">Password</Option>
