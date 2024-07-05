@@ -139,7 +139,7 @@ export default function FormBuilder() {
                           )}
                         </div>
                         {destinationIndex === index && draggingElementIndex !== null && (
-                          <div className="border-t-4 border-blue-100 mt-2 w-full h-4 mb-2"></div>
+                          <div className="border-t-4 border-blue-100 mt-0 w-full h-4 mb-0"></div>
                         )}
                       </>
                     )}
