@@ -12,7 +12,7 @@ const { Option } = Select;
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState("text");
-  const { elements, addElement, setElements, submitBtn, setSubmitBtn,isEditFormCard } = useDesigner();
+  const { elements, addElement, setElements, submitBtn, setSubmitBtn,setIsEditFormCard,isEditFormCard } = useDesigner();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -38,6 +38,7 @@ export default function FormBuilder() {
     };
     addElement(elements.length, newElement);
     setIsModalVisible(false);
+    setIsEditFormCard(false);
   };
 
   const handleCancel = () => {

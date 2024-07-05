@@ -50,12 +50,14 @@ export default function OptionPopUp({
       </Tooltip>
       <Tooltip title="Delete">
          <Button
+         
           onClick={() => {
             removeElement(name);
           }}
-          icon={<DeleteFilled />}
+          icon={<DeleteFilled   className="hover:text-red-500" />}
           size="small"
         />
+             
       </Tooltip>
     </div>
   );

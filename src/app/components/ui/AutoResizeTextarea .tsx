@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const AutoResizeTextarea = ({
   inputLabel,
@@ -7,7 +7,7 @@ const AutoResizeTextarea = ({
   isEditing,
 }: {
   inputLabel: string;
-  handleLabelChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleLabelChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   isEditing: boolean;
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -29,9 +29,10 @@ const AutoResizeTextarea = ({
           resize-none p-0 focus:outline-none w-full overflow-hidden
           ${isEditing ? "text-xl font-bold" : "font-bold line-through"}
         `}
+        readOnly = {!isEditing}
         value={inputLabel}
         onChange={(e) => {
-          handleLabelChange(e);
+          handleLabelChange!(e);
           const textarea = e.target;
           textarea.style.height = "auto";
           textarea.style.height = `${textarea.scrollHeight}px`;

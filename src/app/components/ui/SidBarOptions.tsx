@@ -1,9 +1,8 @@
-import { TagOutlined, LeftCircleFilled } from "@ant-design/icons";
- 
 import { Button, Input, Select } from "antd";
 import React, { useRef, useState } from "react";
 import AutoResizeTextarea from "./AutoResizeTextarea ";
 import { patternOptions } from "@/data/data";
+import { DeleteFilled } from "@ant-design/icons";
 const { Option } = Select;
 
 export default function SidBarOptions({
@@ -13,29 +12,27 @@ export default function SidBarOptions({
   element: SelectElement | InputElement;
   setElement: (value: SelectElement | InputElement) => void;
 }) {
-  const [placholder, setPlacholder] = useState(element.placeholder); 
+  const [placholder, setPlacholder] = useState(element.placeholder);
   const [inputLabel, setInputLabel] = useState(element.label);
 
-  const handleLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleLabelChange = (e: any) => {
     setInputLabel(e.target.value);
     setElement({ ...element, label: e.target.value });
   };
   const handlePlaceholderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlacholder(e.target.value);
-          setElement({ ...element, placeholder: e.target.value });
+    setElement({ ...element, placeholder: e.target.value });
   };
   return (
     <div className="h-auto">
-     Label:
+      Label:
       <AutoResizeTextarea
-      
-      inputLabel={inputLabel} 
-      handleLabelChange={ 
-        handleLabelChange
-           } isEditing={true}      
-      />   
-           Placholder:  
-    <Input
+        inputLabel={inputLabel}
+        handleLabelChange={handleLabelChange}
+        isEditing={true}
+      />
+      Placholder:
+      <Input
         placeholder="placholder"
         value={placholder}
         onChange={handlePlaceholderChange}
@@ -62,7 +59,7 @@ const SelectElementSidBarOptions = ({
 }) => {
   const [selectedPatterns, setSelectedPatterns] = useState<string[]>(
     element.pattern || []
-  ); 
+  );
   const [newOption, setNewOption] = useState("");
   const [options, setOptions] = useState(element.options || []);
   const patternSelectWrapperRef = useRef(null);
@@ -89,7 +86,6 @@ const SelectElementSidBarOptions = ({
   };
   return (
     <div className="flex flex-col">
-  
       <div className="w-full mb-1 rounded-md border-2 p-2">
         {options.map((option, index) => (
           <div key={index} className="flex items-center mb-2">
@@ -99,7 +95,12 @@ const SelectElementSidBarOptions = ({
               onChange={(e) => handleOptionChange(index, e.target.value)}
               style={{ marginRight: "8px" }}
             />
-            <Button onClick={() => removeOption(index)}>Remove</Button>
+            <Button
+              icon={<DeleteFilled className="hover:text-red-500" />}
+              size="small"
+              className="hover:text-red-500"
+              onClick={() => removeOption(index)}
+            />
           </div>
         ))}
         <div className="w-full mb-1">
@@ -117,7 +118,7 @@ const SelectElementSidBarOptions = ({
     </div>
   );
 };
- 
+
 const InputElementSidBarOptions = ({
   element,
   setElement,
@@ -125,12 +126,18 @@ const InputElementSidBarOptions = ({
   element: SelectElement | InputElement;
   setElement: (value: SelectElement | InputElement) => void;
 }) => {
-  const [customPattern, setCustomPattern] = useState(element.customPattern || "");
-  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(element.pattern || []);
+  const [customPattern, setCustomPattern] = useState(
+    element.customPattern || ""
+  );
+  const [selectedPatterns, setSelectedPatterns] = useState<string[]>(
+    element.pattern || []
+  );
   const [showPatternSelect, setShowPatternSelect] = useState(false);
   const patternSelectWrapperRef = useRef(null);
 
-  const handleCustomPatternChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCustomPatternChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const pattern = e.target.value;
     setCustomPattern(pattern);
     setElement({ ...element, customPattern: pattern });
@@ -143,7 +150,6 @@ const InputElementSidBarOptions = ({
       setShowPatternSelect(false);
     }
   };
-
 
   return (
     <div className="flex flex-col gap-2">
@@ -162,22 +168,20 @@ const InputElementSidBarOptions = ({
         <Button size="small">{element.required ? "Required" : "Not Required"}</Button>
       )} */}
       <div className="w-full mb-1">
-   
-          <Select
-            ref={patternSelectWrapperRef}
-            mode="multiple"
-            style={{ width: "100%" }}
-            placeholder="Select patterns"
-            value={selectedPatterns}
-            onChange={handlePatternChange}
-          >
-            {patternOptions.map((option) => (
-              <Option key={option.value} value={option.pattern}>
-                {option.label}
-              </Option>
-            ))}
-          </Select>
-      
+        <Select
+          ref={patternSelectWrapperRef}
+          mode="multiple"
+          style={{ width: "100%" }}
+          placeholder="Select patterns"
+          value={selectedPatterns}
+          onChange={handlePatternChange}
+        >
+          {patternOptions.map((option) => (
+            <Option key={option.value} value={option.pattern}>
+              {option.label}
+            </Option>
+          ))}
+        </Select>
       </div>
       {selectedPatterns.includes(customPattern) && (
         <Input
@@ -189,4 +193,4 @@ const InputElementSidBarOptions = ({
       )}
     </div>
   );
-}; 
+};

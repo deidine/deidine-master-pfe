@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { Button, Select } from "antd";
-import { LeftCircleFilled } from "@ant-design/icons";
+import {CloseCircleOutlined, LeftCircleFilled } from "@ant-design/icons";
 import useDesigner from "../../hooks/useDesigner";
 import OptionPopUp from "../../ui/OptionPopUp";
 import SidBarOptions from "../../ui/SidBarOptions";
-import RequiredComponent from "../../ui/RequiredComponent"; 
+import RequiredComponent from "../../ui/RequiredComponent";
 import AutoResizeTextarea from "../../ui/AutoResizeTextarea ";
 
 const { Option } = Select;
@@ -25,9 +25,10 @@ const SelectElement = ({
   const [inputType, setInputType] = useState(element.type);
   const [isRequired, setIsRequired] = useState(element.required);
 
-  const { removeElement } = useDesigner();
+  const { removeElement, setIsEditFormCard } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
+  const colseSideBarref = useRef<any>(null);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputLabel(e.target.value);
@@ -48,11 +49,10 @@ const SelectElement = ({
   ];
 
   const handleDivClick = (e: React.MouseEvent) => {
-   
     if (!isEditing) {
       setIsSidebarVisible(true);
+      setIsEditFormCard(true);
     }
- 
   };
 
   return (
@@ -109,13 +109,20 @@ const SelectElement = ({
         ) : (
           <>
             <div className="flex flex-col ">
-              <div className="font-semibold mb-2  ">{inputLabel}</div>
+              <div className=" p-2 w-full h-auto overflow-hidden">
+                {element.label}
+              </div>
               <div className="flex flex-col w-auto items-start space-y-2">
                 <div className="flex flex-col gap-2 w-auto items-start  ">
                   <Button size="small"> {element.type}</Button>
-                  <Button size="small">
-                    {element.required ? "Required" : "Not Required"}
-                  </Button>
+                  <div className="flex flex-row gap-2">
+                    <Button size="small">
+                      {element.required ? "Required" : "Not Required"}
+                    </Button>
+                    <Button size="small">
+                      options {element.options.length}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -136,13 +143,24 @@ const SelectElement = ({
       {isSidebarVisible && (
         <div
           className={`fixed top-0 right-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto transition-all duration-300 ease-in-out`}
-          onClick={() => setIsSidebarVisible(false)}
+          onClick={() => {
+            setIsSidebarVisible(false);
+            setIsEditFormCard(false);
+            colseSideBarref.current?.click();
+          }}
         >
           <div
             className={`absolute top-0 right-0 w-1/3 pl-3 h-full bg-white shadow-lg z-50 sidebar`}
             onClick={(e) => e.stopPropagation()}
           >
-            <Button onClick={() => setIsSidebarVisible(false)}>Close</Button>
+            <Button
+            ref={colseSideBarref}
+              onClick={() => {
+                setIsSidebarVisible(false);
+                setIsEditFormCard(false);
+              }}
+              icon={<CloseCircleOutlined />}
+            />
             <SidBarOptions element={element} setElement={setElement} />
           </div>
         </div>
