@@ -1,12 +1,18 @@
+type Form= {
+  id :number 
+  title :string ;
+  description:string;
+  content:FormElement[]; 
+}
 
-// Union type for all possible form elements
 type FormElement = {
   id:string;
-     elementType: InputElement | SelectElement;
-   };
+  elementType: InputElement | SelectElement;
+ 
+};
   
 type BaseElement = {
-  type: string;
+  type:ElementType;
   name: string;
   label: string;
   value?: string;
@@ -18,6 +24,8 @@ type BaseElement = {
   pattern?: string[]; 
 };
  
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" | "textarea" | "password"|"email"| "number";
+
 type InputOptions = {
   isPasswordConfirm?: boolean;
   minLength?: number;

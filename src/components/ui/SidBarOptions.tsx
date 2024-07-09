@@ -1,8 +1,13 @@
 import { Button, Input, Select } from "antd";
 import React, { useRef, useState } from "react";
-import AutoResizeTextarea from "./AutoResizeTextarea ";
-import { patternOptions } from "@/data/data";
+import AutoResizeTextarea from "./AutoResizeTextarea";
+import {
+  inputTypeOptions,
+  patternOptions,
+  selectTypeOptions,
+} from "@/data/data";
 import { DeleteFilled } from "@ant-design/icons";
+import RequiredComponent from "./RequiredComponent";
 const { Option } = Select;
 
 export default function SidBarOptions({
@@ -14,7 +19,13 @@ export default function SidBarOptions({
 }) {
   const [placholder, setPlacholder] = useState(element.placeholder);
   const [inputLabel, setInputLabel] = useState(element.label);
+  const [inputType, setInputType] = useState<ElementType>(element.type);
+  const [isRequired, setIsRequired] = useState(element.required);
 
+  const handleTypeChange = (value: ElementType) => {
+    setInputType(value);
+    setElement({ ...element, type: value });
+  };
   const handleLabelChange = (e: any) => {
     setInputLabel(e.target.value);
     setElement({ ...element, label: e.target.value });
@@ -24,28 +35,76 @@ export default function SidBarOptions({
     setElement({ ...element, placeholder: e.target.value });
   };
   return (
-    <div className="h-auto">
-      Label:
-      <AutoResizeTextarea
-        inputLabel={inputLabel}
-        handleLabelChange={handleLabelChange}
-        isEditing={true}
-      />
-      Placholder:
-      <Input
-        placeholder="placholder"
-        value={placholder}
-        onChange={handlePlaceholderChange}
-        style={{ marginBottom: "8px" }}
-      />
-      {element.type === "select" ||
-      element.type === "select_multiple" ||
-      element.type === "radio" ||
-      element.type === "checkbox" ? (
-        <SelectElementSidBarOptions element={element} setElement={setElement} />
-      ) : (
-        <InputElementSidBarOptions element={element} setElement={setElement} />
-      )}
+    <div className="flex flex-col gap-2 h-auto">
+      <div>
+         
+        <AutoResizeTextarea
+          inputLabel={inputLabel}
+          handleLabelChange={handleLabelChange}
+          isEditing={true}
+        />
+      </div>
+
+      <div>
+     <LabelValue value="type"/>
+        <Select
+          className="w-full"
+          value={inputType}
+          onChange={handleTypeChange}
+          placeholder="Select input type"
+        >
+          {
+          element.type === "select" ||
+          element.type === "select_multiple" ||
+          element.type === "radio" ||
+          element.type === "checkbox"
+            ? selectTypeOptions.map((option) => (
+                <Option key={option.value} value={option.value}>
+                  {option.label}
+                </Option>
+              ))
+            : inputTypeOptions.map((option, index) => (
+                <Option key={index} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+              
+        </Select>
+      </div>
+      <div>
+        <RequiredComponent
+          required={element.required!}
+          toggleRequired={() => {
+            setElement({ ...element, required: !isRequired });
+            setIsRequired(!isRequired);
+          }}
+          isSwitchButton={true}
+        />
+      </div>
+      <div>
+      <LabelValue value="Placholder"/>
+ 
+        <Input
+          placeholder="placholder"
+          value={placholder}
+          onChange={handlePlaceholderChange}
+          style={{ marginBottom: "8px" }}
+        />
+        {element.type === "select" ||
+        element.type === "select_multiple" ||
+        element.type === "radio" ||
+        element.type === "checkbox" ? (
+          <SelectElementSidBarOptions
+            element={element}
+            setElement={setElement}
+          />
+        ) : (
+          <InputElementSidBarOptions
+            element={element}
+            setElement={setElement}
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -86,6 +145,9 @@ const SelectElementSidBarOptions = ({
   };
   return (
     <div className="flex flex-col">
+
+<LabelValue value="Select Option"/>
+
       <div className="w-full mb-1 rounded-md border-2 p-2">
         {options.map((option, index) => (
           <div key={index} className="flex items-center mb-2">
@@ -152,21 +214,10 @@ const InputElementSidBarOptions = ({
   };
 
   return (
+
     <div className="flex flex-col gap-2">
-      Pattern:
-      {/* {selectedPatterns.length > 0 ? (
-        <div className="flex flex-wrap gap-2">
-          <Button size="small">{element.required ? "Required" : "Not Required"}</Button>
-          {patternOptions.map((option, index) =>
-            option.value !== "" &&
-            selectedPatterns.includes(option.pattern!) && (
-              <Button key={index} size="small">{option.label}</Button>
-            )
-          )}
-        </div>
-      ) : (
-        <Button size="small">{element.required ? "Required" : "Not Required"}</Button>
-      )} */}
+       <LabelValue value="Pattern"/>
+
       <div className="w-full mb-1">
         <Select
           ref={patternSelectWrapperRef}
@@ -194,3 +245,14 @@ const InputElementSidBarOptions = ({
     </div>
   );
 };
+
+
+
+const LabelValue=({value}:{value:string})=>{
+  return (
+    <div className="my-2">  <label className="text-xl   leading-none    peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-normal flex-1 text-zinc-600">
+    {value}: {"   "}
+  </label></div>
+  )
+}
+

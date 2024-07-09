@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "./components/navBar/NavBar";
-import DesignerContextProvider from "./components/context/DesignerContext";
+import NavBar from "@/components/navBar/NavBar";
+import DesignerContextProvider from "@/context/DesignerContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        
       <NavBar />
       <DesignerContextProvider>
 
-        {children}
-        </DesignerContextProvider>
+      <div className="flex w-full flex-col flex-grow mx-auto">{children}</div>;
+              </DesignerContextProvider>
         </body>
     </html>
   );

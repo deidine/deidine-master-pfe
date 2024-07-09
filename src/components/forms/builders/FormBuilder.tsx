@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Select } from "antd";
 import {
@@ -6,20 +7,18 @@ import {
   DragStart,
   Droppable,
 } from "react-beautiful-dnd";
-import InputElement from "../formElements/InputElement";
-import SelectElement from "../formElements/SelectElement";
-import useDesigner from "../../hooks/useDesigner";
-import { idGenerator } from "@/utils/idGenerator";
-import { nameGenerator } from "@/utils/nameGenerator";
-
+import useDesigner from "@/hooks/useDesigner";
+import FormElement from "../formElements/FormElement";
+import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
 const { Option } = Select;
 
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedType, setSelectedType] = useState("text");
+  const [selectedType, setSelectedType] = useState<ElementType>("text");
   const [draggingElementIndex, setDraggingElementIndex] = useState<
     number | null
   >(null);
+
   const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
   const {
     elements,
@@ -43,7 +42,7 @@ export default function FormBuilder() {
         name: nameGenerator(),
         placeholder: "Enter your data",
         value: "",
-        required: true,
+        required: false,
         pattern: [],
         style: `h-10 text-sm focus-visible:outline-none focus-visible:ring-2
            focus-visible:bg-white border-zinc-200 duration-100 placeholder:text-zinc-400 ring-2 
@@ -75,12 +74,13 @@ export default function FormBuilder() {
     setDraggingElementIndex(start.source.index);
   };
   const handleOnDragUpdate = (update: any) => {
-    if (update.destination && typeof update.destination.index === 'number') {
+    if (update.destination && typeof update.destination.index === "number") {
       setDestinationIndex(update.destination.index);
     } else {
       setDestinationIndex(null);
     }
   };
+
   return (
     <>
       <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
@@ -99,7 +99,7 @@ export default function FormBuilder() {
                     isDragDisabled={isEditFormCard}
                     index={index}
                   >
-                    {(provided,snapshot) => (
+                    {(provided, snapshot) => (
                       <>
                         {" "}
                         <div
@@ -110,37 +110,23 @@ export default function FormBuilder() {
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
                           }`}
-                         >
-                          {element.elementType.type === "select" ||
-                          element.elementType.type === "select_multiple" ||
-                          element.elementType.type === "radio" ||
-                          element.elementType.type === "checkbox" ? (
-                            <SelectElement
-                              index={index}
-                              element={element.elementType as SelectElement}
-                              setElement={(
-                                value: SelectElement | InputElement
-                              ) => {
-                                const updatedElements = [...elements];
-                                updatedElements[index].elementType = value;
-                                setElements(updatedElements);
-                              }}
-                            />
-                          ) : (
-                            <InputElement
-                              index={index}
-                              element={element.elementType as InputElement}
-                              setElement={(value: InputElement) => {
-                                const updatedElements = [...elements];
-                                updatedElements[index].elementType = value;
-                                setElements(updatedElements);
-                              }}
-                            />
-                          )}
+                        >
+                          <FormElement
+                            index={index}
+                            element={element.elementType}
+                            setElement={(
+                              value: SelectElement | InputElement
+                            ) => {
+                              const updatedElements = [...elements];
+                              updatedElements[index].elementType = value;
+                              setElements(updatedElements);
+                            }}
+                          />
                         </div>
-                        {destinationIndex === index && draggingElementIndex !== null && (
-                          <div className="border-t-4 border-blue-100 mt-0 w-full h-4 mb-0"></div>
-                        )}
+                        {destinationIndex === index &&
+                          draggingElementIndex !== null && (
+                            <div className="border-t-4 border-blue-100 mt-0 w-full h-4 mb-0"></div>
+                          )}
                       </>
                     )}
                   </Draggable>
@@ -163,12 +149,27 @@ export default function FormBuilder() {
       </div>
       <div className="pt-[4.5rem]"></div>
       <div className="shadow-sm w-1/2 h-auto border-2 ml-4 mt-2 rounded-lg">
-        <div className="flex justify-center">
-          <Button
+        <div className="flex justify-center max-w-2xl mx-auto   border shadow rounded-xl">
+          <Button 
             className="h-auto font-bold py-2 px-4 w-full"
-            onClick={showModal}
+            
+          onClick={showModal}
           >
-            + Insert Element
+                     <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className="lucide lucide-plus w-5 h-5 text-zinc-500"
+          >
+            <path d="M5 12h14"></path>
+            <path d="M12 5v14"></path>
+          </svg> Insert Element
           </Button>
         </div>
       </div>

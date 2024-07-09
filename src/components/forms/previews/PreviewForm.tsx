@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, Select, Checkbox, Radio } from "antd";
-import useDesigner from "../../hooks/useDesigner";
+import useDesigner from "@/hooks/useDesigner";
 
-export default function PreviewForm() {
+export default function PreviewForm({isTemplate,elementsTemplate}:{isTemplate?:boolean,elementsTemplate?:FormElement[]}) {
   const onFinish = (values: any) => {
     console.log("Form submitted:", values);
+    setSubmitted(true)
   };
+  const [submitted, setSubmitted] = useState(false);
+  const [elementsTemplatePreviw, setElements] = useState<FormElement[]>(elementsTemplate!);
 
   const { elements, submitBtn } = useDesigner();
-
+const mapElement=isTemplate ? elementsTemplatePreviw :elements
+  if (submitted) {
+    return (
+      <div className="flex justify-center w-full h-full items-center p-8">
+        <div className="max-w-[620px] flex flex-col gap-4 flex-grow bg-background w-full p-8 overflow-y-auto border shadow-xl shadow-blue-700 rounded">
+          <h1 className="text-2xl font-bold">Form submitted</h1>
+          <p className="text-muted-foreground">Thank you for submitting the form, you can close this page now.</p>
+        </div>
+      </div>
+    );
+  } 
   return (
     <Form
       onFinish={onFinish}
       layout="vertical" // Set the layout to vertical
-      className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+      className={`${ !isTemplate ? "max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4": ""}`}
     >
-      {elements.map((element, index) => (
+      {mapElement.map((element:any, index) => (
         <div key={index}>
           {["text", "number", "email", "password", "textarea"].includes(
             element.elementType.type
@@ -30,7 +43,7 @@ export default function PreviewForm() {
                   message: `${element.elementType.label} is required`,
                 },
                 ...(element.elementType.pattern
-                  ? element.elementType.pattern.map((pattern, idx) => ({
+                  ? element.elementType.pattern.map((pattern:any, idx:number) => ({
                       pattern: new RegExp(pattern),
                       message: `Please match the requested format for ${element.elementType.label}`,
                       key: idx, // Added key prop here
@@ -68,7 +81,7 @@ export default function PreviewForm() {
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
               >
-                {element.elementType.options!.map((option, idx) => (
+                {element.elementType.options!.map((option:any, idx:number) => (
                   <Select.Option key={idx} value={option}>
                     {option}
                   </Select.Option>
@@ -93,7 +106,7 @@ export default function PreviewForm() {
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
               >
-                {element.elementType.options!.map((option, idx) => (
+                {element.elementType.options!.map((option:any, idx:number) => (
                   <Select.Option key={idx} value={option}>
                     {option}
                   </Select.Option>
@@ -115,7 +128,7 @@ export default function PreviewForm() {
             >
               <Checkbox.Group>
                 <div className="flex flex-col space-y-2">
-                  {element.elementType.options!.map((option, idx) => (
+                  {element.elementType.options!.map((option:any, idx:number) => (
                     <Checkbox key={idx} value={option}>
                       {option}
                     </Checkbox>
@@ -137,7 +150,7 @@ export default function PreviewForm() {
               ]}
             >
               <Radio.Group>
-                {element.elementType.options!.map((option, idx) => (
+                {element.elementType.options!.map((option:any, idx:number) => (
                   <div key={idx} className="flex items-center">
                     <Radio value={option}>{option}</Radio>
                   </div>

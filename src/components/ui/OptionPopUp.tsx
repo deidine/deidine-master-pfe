@@ -5,7 +5,7 @@ import {
   EditOutlined,
   FullscreenExitOutlined,
 } from "@ant-design/icons";
-import useDesigner from "../hooks/useDesigner";
+import useDesigner from "@/hooks/useDesigner";
 
 export default function OptionPopUp({
   name,
@@ -14,15 +14,15 @@ export default function OptionPopUp({
   setIsEditingState,
   toogleSidBar,
 }: {
-  toogleSidBar: (value: boolean) => void;
+  toogleSidBar: () => void;
   isEditingSate: boolean;
   name: string; 
-  setIsEditingState: (value: boolean) => void;
+  setIsEditingState: () => void;
   removeElement: (name: string) => void;
 }) {
 
   const [isEditing, setIsEditing] = useState(isEditingSate);
-  const { setIsEditFormCard } = useDesigner();
+  const { setIsEditFormCard ,isEditFormCard} = useDesigner();
 
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
@@ -30,7 +30,7 @@ export default function OptionPopUp({
       <Button
           onClick={() => {
           
-            toogleSidBar(true);
+            toogleSidBar( );
           }}
           icon={<FullscreenExitOutlined />}
           size="small"
@@ -40,10 +40,11 @@ export default function OptionPopUp({
       <Button
         icon={<EditOutlined />}
         onClick={(e: React.MouseEvent) => {
-          setIsEditing(!isEditing);
           e.stopPropagation();
-          setIsEditFormCard(!isEditing);
-          setIsEditingState(!isEditing);
+           setIsEditing(!isEditing);
+          setIsEditFormCard(!isEditFormCard);
+          setIsEditingState(); 
+
         }}
         size="small"
       />

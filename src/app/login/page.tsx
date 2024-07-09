@@ -1,5 +1,5 @@
 import React from 'react'
-import AuthPage from '../components/authComponent/AuthPage'
+import AuthPage from '@/components/authComponent/AuthPage'
 
 export default function page() {
     return (

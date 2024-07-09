@@ -1,10 +1,10 @@
-import HomePage from "./components/dashboard/page";
+import Dashboard from "@/components/dashboard/Dashboard";
 
  
 export default function Home() {
   return (
     <>
-      <HomePage />
+ <Dashboard/>
     </>
   );
 }
