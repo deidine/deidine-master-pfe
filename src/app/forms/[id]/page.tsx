@@ -36,7 +36,7 @@ export default function FormDetailPage({
   }
   return (
     <>deidine
-      <Designer form={form} />
+      
     </>
   );
 }
