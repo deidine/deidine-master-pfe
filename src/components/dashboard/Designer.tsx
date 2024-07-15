@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import PreviewForm from "../forms/previews/PreviewForm";
 import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";
-import FormLinkShare from "../ui/FormLinkShare";
-import { createClient } from "@/utils/supabase/client";
+import FormLinkShare from "../ui/FormLinkShare"; 
  
 export default function Designer({ form }: { form: Form }) {
   const [preview, setPreview] = useState(false);
