@@ -1,4 +1,5 @@
 import { nameGenerator, idGenerator } from "@/utils/utilsFunctions";
+import { FiSidebar, FiList, FiRadio, FiCheckSquare, FiType, FiHash, FiMail, FiLock, FiAlignLeft, FiEyeOff } from 'react-icons/fi';
 
 const patternOptions = [
     { value: "phone", label: "Phone", pattern: "\\d{10}" },
@@ -10,20 +11,20 @@ const patternOptions = [
     // { value: "regex", label: "Custom Regex", pattern: customPattern },
   
   ];
-
-  const selectTypeOptions = [
-    { value: "select", label: "Select" ,bgColor:"",textColor:"",icon:""  },
-    { value: "select_multiple", label: "Select Multiple" ,bgColor:"",textColor:"",icon:""},
-    { value: "radio", label: "Radio" ,bgColor:"",textColor:"",icon:""},
-    { value: "checkbox", label: "Checkbox" ,bgColor:"",textColor:"",icon:""},
+  const selectTypeOptions  = [
+    { value: "select", label: "Select", bgColor: "bg-blue-500", textColor: "text-black", icon: FiSidebar },
+    { value: "select_multiple", label: "Select Multiple", bgColor: "bg-green-500", textColor: "text-black", icon: FiList },
+    { value: "radio", label: "Radio", bgColor: "bg-red-500", textColor: "text-black", icon: FiRadio },
+    { value: "checkbox", label: "Checkbox", bgColor: "bg-yellow-500", textColor: "text-black", icon: FiCheckSquare },
   ];
+  
   const inputTypeOptions = [
-    { value: "text", label: "Text" ,bgColor:"",textColor:"",icon:""},
-    { value: "number", label: "Number",bgColor:"",textColor:"",icon:"" },
-    { value: "email", label: "Email",bgColor:"",textColor:"",icon:"" },
-    { value: "password", label: "Password" ,bgColor:"",textColor:"",icon:""},
-    { value: "textarea", label: "Textarea",bgColor:"",textColor:"",icon:"" },
-    { value: "hidden", label: "Hidden",bgColor:"",textColor:"",icon:"" },
+    { value: "text", label: "Text", bgColor: "bg-green-500", textColor: "text-black", icon: FiType },
+    { value: "number", label: "Number", bgColor: "bg-purple-500", textColor: "text-black", icon: FiHash },
+    { value: "email", label: "Email", bgColor: "bg-pink-500", textColor: "text-black", icon: FiMail },
+    { value: "password", label: "Password", bgColor: "bg-teal-500", textColor: "text-black", icon: FiLock },
+    { value: "textarea", label: "Textarea", bgColor: "bg-orange-500", textColor: "text-black", icon: FiAlignLeft },
+    { value: "hidden", label: "Hidden", bgColor: "bg-gray-500", textColor: "text-black", icon: FiEyeOff },
   ];
 
   const elementsData: Form[] = [
