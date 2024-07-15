@@ -1,9 +1,6 @@
-"use client"
+"use client";
 import Designer from "@/components/dashboard/Designer";
-import {
-  GetFormById
-} from "@/utils/utilsFunctions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function FormDetailPage({
   params,
@@ -13,29 +10,44 @@ export default function FormDetailPage({
   };
 }) {
   const { id } = params;
-  let form  =null;
+  const [form, setForm] = useState<FormElement[ ]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    fetchForms();
+    fetchForm();
   }, []);
 
-  const fetchForms = async () => {
+  const fetchForm = async () => {
     try {
       const response = await fetch(`/api/forms/${id}`);
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      form=data.forms;
+      setForm(data );
     } catch (error) {
-      console.error('Error fetching forms:', error);
+      console.error("Error fetching form:", error);
+      setError("Error fetching form data");
+    } finally {
+      setLoading(false);
     }
   };
- 
-  if (!form) {
-    throw new Error("form not found");
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!form) {
+    return <div>Form not found</div>;
+  }
+
   return (
-    <>deidine
+    <>
       <Designer form={form} />
     </>
   );
