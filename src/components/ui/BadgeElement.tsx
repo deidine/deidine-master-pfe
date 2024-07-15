@@ -15,10 +15,12 @@ export default function BadgeElement({
       <div className="flex flex-col w-auto items-start space-y-2">
         <div className="flex flex-col gap-2 w-auto items-start  " onClick={onClick}>
           <Button size="small" className="bg-blue-500"> {element.type}</Button>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button  className={`${element.required ? "bg-red-500" :"bg-yellow-400"}`} size="small">
               {element.required ? "Required" : "Not Required"}
             </Button>
+          <Button size="small" className="bg-blue-500"> {element.placeholder}</Button>
+
             {element.pattern!.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {patternOptions.map(
