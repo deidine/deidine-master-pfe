@@ -12,18 +12,18 @@ const patternOptions = [
   ];
 
   const selectTypeOptions = [
-    { value: "select", label: "Select" },
-    { value: "select_multiple", label: "Select Multiple" },
-    { value: "radio", label: "Radio" },
-    { value: "checkbox", label: "Checkbox" },
+    { value: "select", label: "Select" ,bgColor:"",textColor:"",icon:""  },
+    { value: "select_multiple", label: "Select Multiple" ,bgColor:"",textColor:"",icon:""},
+    { value: "radio", label: "Radio" ,bgColor:"",textColor:"",icon:""},
+    { value: "checkbox", label: "Checkbox" ,bgColor:"",textColor:"",icon:""},
   ];
   const inputTypeOptions = [
-    { value: "text", label: "Text" },
-    { value: "number", label: "Number" },
-    { value: "email", label: "Email" },
-    { value: "password", label: "Password" },
-    { value: "textarea", label: "Textarea" },
-    { value: "hidden", label: "Hidden" },
+    { value: "text", label: "Text" ,bgColor:"",textColor:"",icon:""},
+    { value: "number", label: "Number",bgColor:"",textColor:"",icon:"" },
+    { value: "email", label: "Email",bgColor:"",textColor:"",icon:"" },
+    { value: "password", label: "Password" ,bgColor:"",textColor:"",icon:""},
+    { value: "textarea", label: "Textarea",bgColor:"",textColor:"",icon:"" },
+    { value: "hidden", label: "Hidden",bgColor:"",textColor:"",icon:"" },
   ];
 
   const elementsData: Form[] = [
