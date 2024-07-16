@@ -12,18 +12,18 @@ const patternOptions = [
   
   ];
   const selectTypeOptions  = [
-    { value: "select", label: "Select", bgColor: "bg-blue-500", textColor: "text-black", icon: FiSidebar },
-    { value: "select_multiple", label: "Select Multiple", bgColor: "bg-green-500", textColor: "text-black", icon: FiList },
-    { value: "radio", label: "Radio", bgColor: "bg-red-500", textColor: "text-black", icon: FiRadio },
-    { value: "checkbox", label: "Checkbox", bgColor: "bg-yellow-500", textColor: "text-black", icon: FiCheckSquare },
+    { value: "select", label: "Select", bgColor: "#f1cc68", textColor: "text-black", icon: FiSidebar },
+    { value: "select_multiple", label: "Select Multiple", bgColor: "#d5eaee", textColor: "text-black", icon: FiList },
+    { value: "radio", label: "Radio", bgColor: "#f491be", textColor: "text-black", icon: FiRadio },
+    { value: "checkbox", label: "Checkbox", bgColor: "#d7ccd1", textColor: "text-black", icon: FiCheckSquare },
   ];
   
   const inputTypeOptions = [
-    { value: "text", label: "Text", bgColor: "bg-green-500", textColor: "text-black", icon: FiType },
-    { value: "number", label: "Number", bgColor: "bg-purple-500", textColor: "text-black", icon: FiHash },
-    { value: "email", label: "Email", bgColor: "bg-pink-500", textColor: "text-black", icon: FiMail },
-    { value: "password", label: "Password", bgColor: "bg-teal-500", textColor: "text-black", icon: FiLock },
-    { value: "textarea", label: "Textarea", bgColor: "bg-orange-500", textColor: "text-black", icon: FiAlignLeft },
+    { value: "text", label: "Text", bgColor: "#FDECC8", textColor: "text-black", icon: FiType },
+    { value: "number", label: "Number", bgColor: "#E3E2E0", textColor: "text-black", icon: FiHash },
+    { value: "email", label: "Email", bgColor: "#DBEDDB", textColor: "text-black", icon: FiMail },
+    { value: "password", label: "Password", bgColor: "#E8DEEE", textColor: "text-black", icon: FiLock },
+    { value: "textarea", label: "Textarea", bgColor: "#F5E0E9", textColor: "text-black", icon: FiAlignLeft },
     
   ];
 
