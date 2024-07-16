@@ -115,18 +115,40 @@ export default function Dashboard() {
               + Create New Form
             </Button>
           </div>
-          <div className="flex flex-col gap-4">
-            {elements.map((element) => (
-              <div
-                key={element.id}
-                onClick={() => {
-                  setIsModalPreviewVisible(true);
-                  setElements(GetFormById(Number(element.id)).content);
-                }}
-                className="flex flex-col md:flex-row justify-between items-center rounded-lg border-2 border-gray-300 p-4 hover:shadow-md cursor-pointer"
-              >
-                <div className="text-lg font-semibold">
-                  <u>Title:</u> {element.title}
+          <div className="flex cursor-pointer flex-col rounded-lg border-2   p-4 m-4">
+            {elementsData.map((element, index) => (
+              <>
+                <div
+                  onClick={() => {
+                deidne
+                    setElements(GetFormById(Number(element.id)).content);
+                
+                  }}
+                  className="flex flex-row justify-between rounded-lg border-2 border-red-50  p-4 m-4"
+                >
+                  <div className="text-xl ">
+                    <u>title:</u>
+                    <br />
+                    {element.title}
+                  </div>
+                  <div>
+                    <u>Description:</u>
+                    <br />
+
+                    {element.description}
+                  </div>
+                  <div className="flex flex-row justify-between gap-2">
+                    <Button
+                    onClick={(e)=>{
+                      e.stopPropagation();
+                      DeleteFormById(element.id)
+                    }}
+                    >delete</Button>
+
+                    <Link href={`/forms/${element.id}`}>
+                      <Button>edit</Button>
+                    </Link>
+                  </div>
                 </div>
                 <div className="text-lg">
                   <u>Description:</u> {element.description}
