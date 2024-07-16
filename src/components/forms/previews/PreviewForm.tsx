@@ -30,7 +30,7 @@ const mapElement=isTemplate ? elementsTemplatePreviw :elements
     >
       {mapElement.map((element:any, index) => (
         <div key={index}>
-          {["text", "number", "email", "password", "textarea"].includes(
+          {["text", "number","date", "time","file","email", "password", "textarea"].includes(
             element.elementType.type
           ) && (
             <Form.Item

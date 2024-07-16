@@ -1,5 +1,5 @@
 import { nameGenerator, idGenerator } from "@/utils/utilsFunctions";
-import { FiSidebar, FiList, FiRadio, FiCheckSquare, FiType, FiHash, FiMail, FiLock, FiAlignLeft, FiEyeOff } from 'react-icons/fi';
+import { FiSidebar, FiList, FiRadio, FiFile,FiCheckSquare, FiType, FiHash, FiMail, FiLock, FiAlignLeft, FiEyeOff, FiDatabase } from 'react-icons/fi';
 
 const patternOptions = [
     { value: "phone", label: "Phone", pattern: "\\d{10}" },
@@ -20,6 +20,9 @@ const patternOptions = [
   
   const inputTypeOptions = [
     { value: "text", label: "Text", bgColor: "#FDECC8", textColor: "text-black", icon: FiType },
+    { value: "file", label: "File", bgColor: "#FDECC8", textColor: "text-black", icon: FiFile },
+    { value: "time", label: "Time", bgColor: "#FDECC8", textColor: "text-black", icon: FiDatabase },
+    { value: "date", label: "Date", bgColor: "#FDECC8", textColor: "text-black", icon: FiDatabase },
     { value: "number", label: "Number", bgColor: "#E3E2E0", textColor: "text-black", icon: FiHash },
     { value: "email", label: "Email", bgColor: "#DBEDDB", textColor: "text-black", icon: FiMail },
     { value: "password", label: "Password", bgColor: "#E8DEEE", textColor: "text-black", icon: FiLock },
