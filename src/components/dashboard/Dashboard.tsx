@@ -77,7 +77,7 @@ export default function Dashboard() {
                     }}
                     >delete</Button>
 
-                    <Link href={`${window.location.origin}/forms/${previwId}`}>
+                    <Link href={`${window.location.origin}/forms/${element.id}`}>
                       <Button>edit</Button>
                     </Link>
                   </div>

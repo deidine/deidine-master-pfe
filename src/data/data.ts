@@ -24,7 +24,7 @@ const patternOptions = [
     { value: "email", label: "Email", bgColor: "bg-pink-500", textColor: "text-black", icon: FiMail },
     { value: "password", label: "Password", bgColor: "bg-teal-500", textColor: "text-black", icon: FiLock },
     { value: "textarea", label: "Textarea", bgColor: "bg-orange-500", textColor: "text-black", icon: FiAlignLeft },
-    { value: "hidden", label: "Hidden", bgColor: "bg-gray-500", textColor: "text-black", icon: FiEyeOff },
+    
   ];
 
   const elementsData: Form[] = [
