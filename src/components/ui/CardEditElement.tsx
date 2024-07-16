@@ -56,8 +56,8 @@ export default function CardEditElement({
               className="w-1/2"
               icon={selectTypeOptions
                 .filter((option) => option.value === element.type)
-                .map((option) => (
-                  <option.icon className="h-4 w-4 inline-block mr-2" />
+                .map((option, index) => (
+                  <option.icon key={index} className="h-4 w-4 inline-block mr-2" />
                 ))}
               size="small"
               onClick={() => setShowTypeSelect(true)}
@@ -69,8 +69,8 @@ export default function CardEditElement({
               className="w-1/2"
               icon={inputTypeOptions
                 .filter((option) => option.value === element.type)
-                .map((option) => (
-                  <option.icon className="h-4 w-4 inline-block mr-2" />
+                .map((option, index) => (
+                  <option.icon key={index}  className="h-4 w-4 inline-block mr-2" />
                 ))}
               size="small"
               onClick={() => setShowTypeSelect(true)}
