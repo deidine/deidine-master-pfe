@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Select, Checkbox, Radio } from "antd";
+import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
 import useDesigner from "@/hooks/useDesigner";
 
 export default function PreviewForm({isTemplate,elementsTemplate}:{isTemplate?:boolean,elementsTemplate?:FormElement[]}) {
@@ -30,7 +30,7 @@ const mapElement=isTemplate ? elementsTemplatePreviw :elements
     >
       {mapElement.map((element:any, index) => (
         <div key={index}>
-          {["text", "number","date", "time","file","email", "password", "textarea"].includes(
+          {["text", "number", "email", "password", "file","textarea"].includes(
             element.elementType.type
           ) && (
             <Form.Item
@@ -63,6 +63,46 @@ const mapElement=isTemplate ? elementsTemplatePreviw :elements
                   placeholder={element.elementType.placeholder}
                 />
               )}
+            </Form.Item>
+          )}
+          {element.elementType.type === "date" && (
+            <Form.Item
+              label={element.elementType.label}
+              name={element.elementType.name}
+              style={{ marginBottom: "10px" }}
+              rules={[
+                {
+                  required: element.elementType.required,
+                  message: `${element.elementType.label} is required`,
+                },
+              ]}
+            >
+              <DatePicker
+                placeholder={element.elementType.placeholder}
+                style={{ width: "100%" }}
+                format="YYYY-MM-DD"
+              />
+            </Form.Item>
+          )}
+          {element.elementType.type === "time" && (
+            <Form.Item
+              label={element.elementType.label}
+              name={element.elementType.name}
+              style={{ marginBottom: "10px" }}
+              rules={[
+                {
+                  required: element.elementType.required,
+                  message: `${element.elementType.label} is required`,
+                },
+              ]}
+            >
+              <TimePicker
+                placeholder={element.elementType.placeholder}
+                style={{ width: "100%" }}
+                format="HH:mm:ss"
+                showHour
+                showMinute
+              />
             </Form.Item>
           )}
           {element.elementType.type === "select" && (
