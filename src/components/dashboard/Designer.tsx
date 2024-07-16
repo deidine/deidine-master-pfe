@@ -24,14 +24,13 @@ export default function Designer({ form }: { form: Form }) {
   const handleSave = async () => {
     try {
       const response = await fetch('/api/forms/', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: form.title,
-          content: elements,
-          description: form.description,
+          id: form.id, 
+          content: elements, 
         }),
       });
 
@@ -79,7 +78,7 @@ export default function Designer({ form }: { form: Form }) {
           >
             Edit
           </button>
-          <button onClick={handleSave}>save</button>
+          <button onClick={handleSave}>Save Changes</button>
         </div>
         {/* <FormLinkShare shareUrl={'deidine'}/> */}
 

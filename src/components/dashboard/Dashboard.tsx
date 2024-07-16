@@ -9,41 +9,39 @@ import { DeleteFormById, GetFormById } from "@/utils/utilsFunctions";
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPreviwVisible, setIsModalPreviwVisible] = useState(false);
- 
+
   const [elements, setElements] = useState<any[]>([]);
   const [lastId, setLastId] = useState(elements.length);
-  
+
   const handleOk = () => {
     setIsModalVisible(false);
-    
   };
   const handlePreviwOk = () => {
     setIsModalPreviwVisible(false);
-    setElements([])
+    setElements([]);
   };
   const handlePreviwCancel = () => {
     setIsModalPreviwVisible(false);
-    setElements([])
-
+    setElements([]);
   };
-  
+
   useEffect(() => {
     fetchForms();
   }, []);
 
   const fetchForms = async () => {
     try {
-      const response = await fetch('/api/forms');
+      const response = await fetch("/api/forms");
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       setElements(data.forms);
     } catch (error) {
-      console.error('Error fetching forms:', error);
+      console.error("Error fetching forms:", error);
     }
   };
-  
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -56,6 +54,32 @@ export default function Dashboard() {
     });
     console.log(values.title);
     setLastId(lastId + 1);
+    handleSave(values.title, values.description);
+    fetchForms();
+  };
+  const handleSave = async (title: string, description: string) => {
+    try {
+      const response = await fetch("/api/forms/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          content: [],
+          description: description,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error inserting data");
+      }
+
+      const data = await response.json();
+      console.log("Data inserted:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
   return (
     <>
@@ -69,8 +93,8 @@ export default function Dashboard() {
               <>
                 <div
                   onClick={() => {
-                    setIsModalPreviwVisible(!isModalPreviwVisible); 
-                    setElements(GetFormById(Number(element.id)).content); 
+                    setIsModalPreviwVisible(!isModalPreviwVisible);
+                    setElements(GetFormById(Number(element.id)).content);
                   }}
                   className="flex flex-row justify-between rounded-lg border-2 border-red-50  p-4 m-4"
                 >
@@ -87,13 +111,17 @@ export default function Dashboard() {
                   </div>
                   <div className="flex flex-row justify-between gap-2">
                     <Button
-                    onClick={(e)=>{
-                      e.stopPropagation();
-                      DeleteFormById(element.id)
-                    }}
-                    >delete</Button>
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        DeleteFormById(element.id);
+                      }}
+                    >
+                      delete
+                    </Button>
 
-                    <Link href={`${window.location.origin}/forms/${element.id}`}>
+                    <Link
+                      href={`${window.location.origin}/forms/${element.id}`}
+                    >
                       <Button>edit</Button>
                     </Link>
                   </div>
