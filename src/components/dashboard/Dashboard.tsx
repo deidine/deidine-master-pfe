@@ -128,7 +128,7 @@ export default function Dashboard() {
             htmlType="submit"
             className="flex  flex-col justify-between items-center mx-auto font-bold w-1/2"
           >
-            Create
+            Create in supabase deiden
           </Button>
         </Form>
       </Modal>
