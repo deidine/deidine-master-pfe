@@ -11,11 +11,11 @@ import useDesigner from "@/hooks/useDesigner";
 import FormElement from "../formElements/FormElement";
 import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
 import { Badge } from "@/components/ui/badge";
+import ModelPopupType from "@/components/ui/ModelPopupType";
 const { Option } = Select;
 
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedType, setSelectedType] = useState<ElementType>("text");
   const [draggingElementIndex, setDraggingElementIndex] = useState<
     number | null
   >(null);
@@ -33,33 +33,6 @@ export default function FormBuilder() {
 
   const showModal = () => {
     setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    const newElement: FormElement = {
-      elementType: {
-        type: selectedType,
-        label: "Label",
-        name: nameGenerator(),
-        placeholder: "Enter your data",
-        value: "",
-        required: false,
-        pattern: [],
-        style: `h-10 text-sm focus-visible:outline-none focus-visible:ring-2
-           focus-visible:bg-white border-zinc-200 duration-100 placeholder:text-zinc-400 ring-2 
-           ring-transparent focus:bg-white focus-visible:ring-indigo-400 shadow-sm py-2 px-3 w-full
-            rounded-lg border `,
-        ...(selectedType === "select" && { options: ["Option 1", "Option 2"] }),
-      },
-      id: idGenerator(),
-    };
-    addElement(elements.length, newElement);
-    setIsModalVisible(false);
-    setIsEditFormCard(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
 
   const handleOnDragEnd = (result: any) => {
@@ -85,8 +58,7 @@ export default function FormBuilder() {
   return (
     <>
       <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
-       
-     <DragDropContext
+        <DragDropContext
           onDragUpdate={handleOnDragUpdate}
           onDragStart={handleOnDragStart}
           onDragEnd={handleOnDragEnd}
@@ -152,50 +124,39 @@ export default function FormBuilder() {
       <div className="pt-[4.5rem]"></div>
       <div className="shadow-sm w-1/2 h-auto border-2 ml-4 mt-2 rounded-lg">
         <div className="flex justify-center max-w-2xl mx-auto   border shadow rounded-xl">
-          <Button 
+          <Button
             className="h-auto font-bold py-2 px-4 w-full"
-            
-          onClick={showModal}
+            onClick={showModal}
           >
-                     <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="lucide lucide-plus w-5 h-5 text-zinc-500"
-          >
-            <path d="M5 12h14"></path>
-            <path d="M12 5v14"></path>
-          </svg> Insert Element
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="lucide lucide-plus w-5 h-5 text-zinc-500"
+            >
+              <path d="M5 12h14"></path>
+              <path d="M12 5v14"></path>
+            </svg>{" "}
+            Insert Element
           </Button>
         </div>
       </div>
 
       {/* Modal for selecting input type */}
-      <Modal
-        title="Select Input Type"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Select
-          defaultValue="text"
-          onChange={setSelectedType}
-          className="w-full"
-        >
-          <Option value="text">Text</Option>
-          <Option value="number">Number</Option>
-          <Option value="password">Password</Option>
-          <Option value="textarea">Textarea</Option>
-          <Option value="select">Select</Option>
-          {/* Add more options as needed */}
-        </Select>
-      </Modal>
+      {   (
+        <ModelPopupType
+          isModalVisible={isModalVisible}
+          setIsModalVisible={function (isModalVisible: boolean): void {
+         setIsModalVisible(isModalVisible);
+          }}
+        />
+      )}
     </>
   );
 }
