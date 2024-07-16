@@ -10,7 +10,7 @@ export default function FormDetailPage({
   };
 }) {
   const { id } = params;
-  const [form, setForm] = useState<FormElement[ ]>([]);
+  const [form, setForm] = useState<Form >( );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,7 +25,7 @@ export default function FormDetailPage({
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      setForm(data );
+      setForm(data.form  );
     } catch (error) {
       console.error("Error fetching form:", error);
       setError("Error fetching form data");
