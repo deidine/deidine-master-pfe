@@ -21,8 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
       <NavBar />
       <DesignerContextProvider>
-
+   
       <div className="flex w-full flex-col flex-grow mx-auto">{children}</div>;
+
               </DesignerContextProvider>
         </body>
     </html>

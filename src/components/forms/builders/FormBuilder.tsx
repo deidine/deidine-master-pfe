@@ -10,6 +10,7 @@ import {
 import useDesigner from "@/hooks/useDesigner";
 import FormElement from "../formElements/FormElement";
 import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
+import { Badge } from "@/components/ui/badge";
 const { Option } = Select;
 
 export default function FormBuilder() {
@@ -84,7 +85,8 @@ export default function FormBuilder() {
   return (
     <>
       <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
-        <DragDropContext
+       
+     <DragDropContext
           onDragUpdate={handleOnDragUpdate}
           onDragStart={handleOnDragStart}
           onDragEnd={handleOnDragEnd}

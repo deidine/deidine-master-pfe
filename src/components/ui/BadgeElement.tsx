@@ -3,8 +3,8 @@ import {
   patternOptions,
   selectTypeOptions,
 } from "@/data/data";
-import { Button } from "antd";
 import React, { MouseEventHandler } from "react";
+import { Badge } from "./badge";
 
 export default function BadgeElement({
   element,
@@ -28,26 +28,26 @@ export default function BadgeElement({
           className="flex flex-col gap-2 w-auto items-start  "
           onClick={onClick}
         >
-          <Button
-            size="small"
-            className={`${elementType?.bgColor} ${elementType?.textColor} flex items-center gap-2`}
+          <Badge
+            
+            className={`bg-[${elementType?.bgColor}]  ${elementType?.textColor} border hover:outline-none flex items-center gap-2`}
           >
-             
-            {elementType?.icon && React.createElement(elementType.icon)} 
+            {elementType?.icon && React.createElement(elementType.icon)}
             {element.type}
-          </Button>
+          </Badge>
           <div className="flex flex-wrap gap-2">
-            <Button
-              className={`${element.required ? "bg-red-500" : "bg-yellow-400"}`}
-              size="small"
-            >
-              {element.required ? "Required" : "Not Required"}
-            </Button>
-            <div>{}</div>
-            <Button size="small" className="bg-blue-500">
-               
+            {element.required ? (
+              <Badge   variant={"destructive"}
+              className="bg-red-400 " >
+                Required
+              </Badge>
+            ) : (
+              <></>
+            )}
+
+            <Badge  className="bg-blue-500">
               {element.placeholder}
-            </Button>
+            </Badge>
 
             {element.pattern!.length > 0 ? (
               <div className="flex flex-wrap gap-2">
@@ -55,17 +55,17 @@ export default function BadgeElement({
                   (option, index) =>
                     option.value !== "" &&
                     element.pattern!.includes(option.pattern!) && (
-                      <Button className="bg-blue-500" key={index} size="small">
+                      <Badge className="bg-blue-500" key={index} >
                         {option.label}
-                      </Button>
+                      </Badge>
                     )
-                )} 
+                )}
               </div>
             ) : (
               <></>
             )}
             {element.options && (
-              <Button className="bg-green-500" size="small">
+              <Badge className="bg-green-500" >
                 options
                 <div
                   className={`rounded-full w-6 h-6 ${
@@ -76,7 +76,7 @@ export default function BadgeElement({
                 >
                   {element.options.length}
                 </div>
-              </Button>
+              </Badge>
             )}
           </div>
         </div>
