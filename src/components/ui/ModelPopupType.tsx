@@ -62,6 +62,9 @@ export default function ModelPopupType({
         <Button onClick={() => handleOk("email")}>email</Button>
         <Button onClick={() => handleOk("textarea")}>textarea</Button>
         <Button onClick={() => handleOk("number")}>number</Button>
+        <Button onClick={() => handleOk("date")}>date</Button>
+        <Button onClick={() => handleOk("time")}>time</Button>
+        <Button onClick={() => handleOk("file")}>file</Button>
         <Button onClick={() => handleOk("password")}>password</Button>
         </div>
         <p>Types with options</p>

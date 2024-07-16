@@ -19,12 +19,11 @@ type BaseElement = {
   placeholder?: string;
   style?: string;
   required?: boolean;
-  customPattern?: string;
-
+  customPattern?: string; 
   pattern?: string[]; 
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" | "textarea" | "password"|"email"| "number";
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" | "textarea" | "password"|"email"| "number"|"date"|"time"|"file";
 
 type InputOptions = {
   isPasswordConfirm?: boolean;

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Tooltip } from "antd";
 import {
   DeleteFilled,
-  EditOutlined,
-  FullscreenExitOutlined,
+  EditOutlined, 
 } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
 import { Badge } from "./badge";
+import { FiSidebar } from "react-icons/fi";
 
 export default function OptionPopUp({
   name,
@@ -28,18 +28,18 @@ export default function OptionPopUp({
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
       <Tooltip title="Open side bar">
         <Badge
-          className="w-auto text-center h-6 bg-white rounded-md"
+          className="w-auto text-center h-6 hover:text-green-500 bg-white rounded-md"
           onClick={() => {
             toogleSidBar();
           }}
         >
           {" "}
-          <FullscreenExitOutlined />
+          <FiSidebar />
         </Badge>
       </Tooltip>
       <Tooltip title="Edit Label">
         <Badge
-          className="w-auto text-center h-6 bg-white rounded-md"
+          className="w-auto text-center hover:text-yellow-500 h-6 bg-white rounded-md"
           onClick={(e: React.MouseEvent) => {
             e.stopPropagation();
             setIsEditing(!isEditing);
