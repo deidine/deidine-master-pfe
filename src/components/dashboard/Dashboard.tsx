@@ -120,9 +120,10 @@ export default function Dashboard() {
               <>
                 <div
                   onClick={() => {
-                deidne
+                    setIsModalPreviwVisible(!isModalPreviwVisible);
+                   
                     setElements(GetFormById(Number(element.id)).content);
-                
+                    setPreviwId(element.id);
                   }}
                   className="flex flex-row justify-between rounded-lg border-2 border-red-50  p-4 m-4"
                 >
