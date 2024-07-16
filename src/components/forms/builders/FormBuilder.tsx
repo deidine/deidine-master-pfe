@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal, Select } from "antd";
 import {
   DragDropContext,
@@ -8,26 +8,20 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import useDesigner from "@/hooks/useDesigner";
-import FormElement from "../formElements/FormElement";
-import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
-import { Badge } from "@/components/ui/badge";
+import FormElement from "../formElements/FormElement"; 
 import ModelPopupType from "@/components/ui/ModelPopupType";
-const { Option } = Select;
 
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [draggingElementIndex, setDraggingElementIndex] = useState<
     number | null
   >(null);
-
   const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
   const {
-    elements,
-    addElement,
+    elements, 
     setElements,
     submitBtn,
-    setSubmitBtn,
-    setIsEditFormCard,
+    setSubmitBtn, 
     isEditFormCard,
   } = useDesigner();
 
@@ -44,9 +38,11 @@ export default function FormBuilder() {
     items.splice(result.destination.index, 0, reorderedItem);
     setElements(items);
   };
+
   const handleOnDragStart = (start: DragStart) => {
     setDraggingElementIndex(start.source.index);
   };
+
   const handleOnDragUpdate = (update: any) => {
     if (update.destination && typeof update.destination.index === "number") {
       setDestinationIndex(update.destination.index);
@@ -75,7 +71,6 @@ export default function FormBuilder() {
                   >
                     {(provided, snapshot) => (
                       <>
-                        {" "}
                         <div
                           key={element.elementType.name}
                           ref={provided.innerRef}
@@ -123,7 +118,7 @@ export default function FormBuilder() {
       </div>
       <div className="pt-[4.5rem]"></div>
       <div className="shadow-sm w-1/2 h-auto border-2 ml-4 mt-2 rounded-lg">
-        <div className="flex justify-center max-w-2xl mx-auto   border shadow rounded-xl">
+        <div className="flex justify-center max-w-2xl mx-auto border shadow rounded-xl">
           <Button
             className="h-auto font-bold py-2 px-4 w-full"
             onClick={showModal}
@@ -135,9 +130,9 @@ export default function FormBuilder() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="lucide lucide-plus w-5 h-5 text-zinc-500"
             >
               <path d="M5 12h14"></path>
@@ -149,12 +144,10 @@ export default function FormBuilder() {
       </div>
 
       {/* Modal for selecting input type */}
-      {   (
+      {isModalVisible && (
         <ModelPopupType
           isModalVisible={isModalVisible}
-          setIsModalVisible={function (isModalVisible: boolean): void {
-         setIsModalVisible(isModalVisible);
-          }}
+          setIsModalVisible={setIsModalVisible}
         />
       )}
     </>

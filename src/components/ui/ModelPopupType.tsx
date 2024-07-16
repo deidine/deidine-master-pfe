@@ -57,16 +57,21 @@ export default function ModelPopupType({
     >
       <p>Select the input type</p>
       <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap gap-2">
         <Button onClick={() => handleOk("text")}>text</Button>
         <Button onClick={() => handleOk("email")}>email</Button>
         <Button onClick={() => handleOk("textarea")}>textarea</Button>
         <Button onClick={() => handleOk("number")}>number</Button>
         <Button onClick={() => handleOk("password")}>password</Button>
+        </div>
         <p>Types with options</p>
+        <div className="flex flex-wrap gap-2">
+
         <Button onClick={() => handleOk("select_multiple")}>select_multiple</Button>
         <Button onClick={() => handleOk("select")}>select</Button>
         <Button onClick={() => handleOk("radio")}>radio</Button>
         <Button onClick={() => handleOk("checkbox")}>checkbox</Button>
+      </div>
       </div>
     </Modal>
   );
