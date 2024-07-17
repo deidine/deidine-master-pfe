@@ -3,6 +3,7 @@ import { useState } from "react";
 import SigninForm from "./SigninForm";
 import SignupForm from "./SignupForm";
 import LeftOverlayContent from "./LeftOverlayContent";
+
 import RightOverlayContent from "./RightOverlayContent";
 
 const AuthPage = () => {

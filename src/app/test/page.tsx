@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React from 'react';
 import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
@@ -16,18 +16,33 @@ const GeneratedForm = () => {
     >
       
   <Form.Item
-    label="chriva"
-    name="8oxf24hg8mc"
+    label="Label"
+    name="vi1g4zynwyr"
     style={{ marginBottom: "10px" }}
     rules={[
       {
         required: false,
-        message: `chriva is required`,
+        message: `Label is required`,
       },
       
     ]}
   >
-    <Input type="number" placeholder="Enter your data" />
+    <Input type="text" placeholder="Enter your data" />
+  </Form.Item>
+
+  <Form.Item
+    label="Label"
+    name="yt96p9ji63"
+    style={{ marginBottom: "10px" }}
+    rules={[
+      {
+        required: false,
+        message: `Label is required`,
+      },
+      
+    ]}
+  >
+    <Input type="text" placeholder="Enter your data" />
   </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">
