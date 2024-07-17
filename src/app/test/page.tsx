@@ -17,6 +17,42 @@ const GeneratedForm = () => {
       
   <Form.Item
     label="Label"
+    name="v64rdl3d9gj"
+    style={{ marginBottom: "10px" }}
+    rules={[
+      {
+        required: false,
+        message: `Label is required`,
+      },
+      
+    ]}
+  >
+    
+      <Radio.Group>
+        <div key={0} className="flex items-center"><Radio value="Option 1">Option 1</Radio></div>
+<div key={1} className="flex items-center"><Radio value="Option 2">Option 2</Radio></div>
+      </Radio.Group>
+  </Form.Item>
+
+  <Form.Item
+    label="Label"
+    name="fp0viurdx3"
+    style={{ marginBottom: "10px" }}
+    rules={[
+      {
+        required: false,
+        message: `Label is required`,
+      },
+      
+    ]}
+  >
+    <Input type="text" placeholder="Enter your data" />
+  </Form.Item>
+
+  <Form.Item
+    label="Label"
+    name="mnm1ztx3eho"
+    label="Label"
     name="vi1g4zynwyr"
     style={{ marginBottom: "10px" }}
     rules={[
@@ -38,10 +74,12 @@ const GeneratedForm = () => {
       {
         required: false,
         message: `Label is required`,
+        message: `Label is required`,
       },
       
     ]}
   >
+    <Input type="text" placeholder="Enter your data" />
     <Input type="text" placeholder="Enter your data" />
   </Form.Item>
       <Form.Item>
