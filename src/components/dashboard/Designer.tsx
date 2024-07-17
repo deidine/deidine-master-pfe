@@ -5,6 +5,7 @@ import PreviewForm from "../forms/previews/PreviewForm";
 import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";
 import FormLinkShare from "../ui/FormLinkShare"; 
+import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
  
 export default function Designer({ form }: { form: Form }) {
   const [preview, setPreview] = useState(false);
@@ -79,6 +80,7 @@ export default function Designer({ form }: { form: Form }) {
             Edit
           </button>
           <button onClick={handleSave}>Save Changes</button>
+          <FormCodeGenerator />
         </div>
         {/* <FormLinkShare shareUrl={'deidine'}/> */}
 
