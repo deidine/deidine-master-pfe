@@ -23,7 +23,7 @@ type BaseElement = {
   pattern?: string[]; 
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" | "textarea" | "password"|"email"| "number"|"date"|"time"|"file";
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file";
 
 type InputOptions = {
   isPasswordConfirm?: boolean;

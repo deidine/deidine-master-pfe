@@ -95,6 +95,24 @@ export default function PreviewForm({
                 format="YYYY-MM-DD"
               />
             </Form.Item>
+          )}    {element.elementType.type === "datetime-local" && (
+            <Form.Item
+              label={element.elementType.label}
+              name={element.elementType.name}
+              style={{ marginBottom: "10px" }}
+              rules={[
+                {
+                  required: element.elementType.required,
+                  message: `${element.elementType.label} is required`,
+                },
+              ]}
+            >
+               <Input
+                  style={{ padding: "8px" }}
+                  type={element.elementType.type}
+                  placeholder={element.elementType.placeholder}
+                />
+            </Form.Item>
           )}
           {element.elementType.type === "time" && (
             <Form.Item
@@ -212,6 +230,8 @@ export default function PreviewForm({
           )}
         </div>
       ))}
+          <Input type="datetime-local"  />
+
       <div className="flex justify-center pt-6">
       { showSubmit ?null : <Button
           type="primary"

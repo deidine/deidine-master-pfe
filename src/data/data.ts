@@ -23,6 +23,7 @@ const patternOptions = [
     { value: "file", label: "File", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiFile },
     { value: "time", label: "Time", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiDatabase },
     { value: "date", label: "Date", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiDatabase },
+    { value: "datetime-local", label: "Date with time", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiDatabase },
     { value: "number", label: "Number", bgColor: "bg-[#E3E2E0]", textColor: "text-black", icon: FiHash },
     { value: "email", label: "Email", bgColor: "bg-[#DBEDDB]", textColor: "text-black", icon: FiMail },
     { value: "password", label: "Password", bgColor: "bg-[#E8DEEE]", textColor: "text-black", icon: FiLock },
