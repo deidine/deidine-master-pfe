@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Modal, Button } from "antd";
-import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Divider } from "antd";
+import { idGenerator, nameGenerator, newElement, renderOptions } from "@/utils/utilsFunctions";
 import useDesigner from "@/hooks/useDesigner";
+import { inputTypeOptions, selectTypeOptions } from "@/data/data";
+import PreviewForm from "../forms/previews/PreviewForm";
 
 export default function ModelPopupType({
   isModalVisible,
@@ -11,35 +13,12 @@ export default function ModelPopupType({
   setIsModalVisible: (isModalVisible: boolean) => void;
 }) {
   const { elements, addElement, setIsEditFormCard } = useDesigner();
+  const [selectedType, setSelectedType] = useState<ElementType>();
+  const [previewElements, setPreviewElements] = useState<FormElement[]>([]);
 
   const handleOk = (type: ElementType) => {
-    const newElement: FormElement = {
-      elementType: {
-        type: type,
-        label: "Label",
-        name: nameGenerator(),
-        placeholder: "Enter your data",
-        value: "",
-        required: false,
-        pattern: [],
-        style: `h-10 text-sm focus-visible:outline-none focus-visible:ring-2
-               focus-visible:bg-white border-zinc-200 duration-100 placeholder:text-zinc-400 ring-2 
-               ring-transparent focus:bg-white focus-visible:ring-indigo-400 shadow-sm py-2 px-3 w-full
-                rounded-lg border `,
-        ...((type === "select" && {
-          options: ["Option 1", "Option 2"],
-        }) ||
-          (type === "radio" && { options: ["Option 1", "Option 2"] }) ||
-          (type === "checkbox" && {
-            options: ["Option 1", "Option 2"],
-          }) ||
-          (type === "select_multiple" && {
-            options: ["Option 1", "Option 2"],
-          })),
-      },
-      id: idGenerator(),
-    };
-    addElement(elements.length, newElement);
+    const newElementInstance = newElement(type);
+    addElement(elements.length, newElementInstance);
     setIsModalVisible(false);
     setIsEditFormCard(false);
   };
@@ -48,34 +27,64 @@ export default function ModelPopupType({
     setIsModalVisible(false);
   };
 
+  useEffect(() => { 
+      const preview = renderOptions(selectedType as ElementType);
+      setPreviewElements(preview);
+    
+  }, [selectedType]);
+
   return (
     <Modal
       title="Select Input Type"
       visible={isModalVisible}
       onCancel={handleCancel}
-      footer={null}
+      footer={[
+        <Button
+          key="submit"
+          type="primary"
+          onClick={() => {
+            selectedType && handleOk(selectedType);
+          }}
+        >
+          OK
+        </Button>,
+      ]}
     >
       <p>Select the input type</p>
       <div className="flex flex-col gap-2">
-        <div className="flex flex-wrap gap-2">
-        <Button onClick={() => handleOk("text")}>text</Button>
-        <Button onClick={() => handleOk("email")}>email</Button>
-        <Button onClick={() => handleOk("textarea")}>textarea</Button>
-        <Button onClick={() => handleOk("number")}>number</Button>
-        <Button onClick={() => handleOk("date")}>date</Button>
-        <Button onClick={() => handleOk("time")}>time</Button>
-        <Button onClick={() => handleOk("file")}>file</Button>
-        <Button onClick={() => handleOk("password")}>password</Button>
+        <div className="grid grid-cols-3 w-full items-center gap-2">
+          {inputTypeOptions.map((option) => (
+            <Button
+              key={option.value}
+              onClick={() => setSelectedType(option.value as ElementType)}
+            >
+              {option?.icon && React.createElement(option.icon)}
+              {option.label}
+            </Button>
+          ))}
         </div>
         <p>Types with options</p>
-        <div className="flex flex-wrap gap-2">
-
-        <Button onClick={() => handleOk("select_multiple")}>select_multiple</Button>
-        <Button onClick={() => handleOk("select")}>select</Button>
-        <Button onClick={() => handleOk("radio")}>radio</Button>
-        <Button onClick={() => handleOk("checkbox")}>checkbox</Button>
+        <div className="grid grid-cols-3 w-full items-center gap-2">
+          {selectTypeOptions.map((option) => (
+            <Button
+              key={option.value}
+              onClick={() => setSelectedType(option.value as ElementType)}
+            >
+              {option?.icon && React.createElement(option.icon)}
+              {option.label}
+            </Button>
+          ))}
+        </div>
       </div>
-      </div>
+      {selectedType && (
+     <>
+      <Divider className="my-8 w-full h-0 border-2 " />
+        <div className="mt-4">
+          <p className="text-lg font-bold text-center m-4">Preview for : <span className="text-blue-500">{selectedType}</span></p>
+      
+          <PreviewForm isTemplate={true} elementsTemplate={previewElements} showSubmit = {true} />
+        </div></>
+      )}
     </Modal>
   );
 }
