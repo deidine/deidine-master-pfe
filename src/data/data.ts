@@ -12,21 +12,21 @@ const patternOptions = [
   
   ];
   const selectTypeOptions  = [
-    { value: "select", label: "Select", bgColor: "#f1cc68", textColor: "text-black", icon: FiSidebar },
-    { value: "select_multiple", label: "Select Multiple", bgColor: "#d5eaee", textColor: "text-black", icon: FiList },
-    { value: "radio", label: "Radio", bgColor: "#f491be", textColor: "text-black", icon: FiRadio },
-    { value: "checkbox", label: "Checkbox", bgColor: "#d7ccd1", textColor: "text-black", icon: FiCheckSquare },
+    { value: "select", label: "Select", bgColor: "bg-[#f1cc68]", textColor: "text-black", icon: FiSidebar },
+    { value: "select_multiple", label: "Select Multiple", bgColor: "bg-[#d5eaee]", textColor: "text-black", icon: FiList },
+    { value: "radio", label: "Radio", bgColor: "bg-[#f491be]", textColor: "text-black", icon: FiRadio },
+    { value: "checkbox", label: "Checkbox", bgColor: "bg-[#d7ccd1]", textColor: "text-black", icon: FiCheckSquare },
   ];
   
   const inputTypeOptions = [
-    { value: "text", label: "Text", bgColor: "#FDECC8", textColor: "text-black", icon: FiType },
-    { value: "file", label: "File", bgColor: "#FDECC8", textColor: "text-black", icon: FiFile },
-    { value: "time", label: "Time", bgColor: "#FDECC8", textColor: "text-black", icon: FiDatabase },
-    { value: "date", label: "Date", bgColor: "#FDECC8", textColor: "text-black", icon: FiDatabase },
-    { value: "number", label: "Number", bgColor: "#E3E2E0", textColor: "text-black", icon: FiHash },
-    { value: "email", label: "Email", bgColor: "#DBEDDB", textColor: "text-black", icon: FiMail },
-    { value: "password", label: "Password", bgColor: "#E8DEEE", textColor: "text-black", icon: FiLock },
-    { value: "textarea", label: "Textarea", bgColor: "#F5E0E9", textColor: "text-black", icon: FiAlignLeft },
+    { value: "text", label: "Text", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiType },
+    { value: "file", label: "File", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiFile },
+    { value: "time", label: "Time", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiDatabase },
+    { value: "date", label: "Date", bgColor: "bg-[#FDECC8]", textColor: "text-black", icon: FiDatabase },
+    { value: "number", label: "Number", bgColor: "bg-[#E3E2E0]", textColor: "text-black", icon: FiHash },
+    { value: "email", label: "Email", bgColor: "bg-[#DBEDDB]", textColor: "text-black", icon: FiMail },
+    { value: "password", label: "Password", bgColor: "bg-[#E8DEEE]", textColor: "text-black", icon: FiLock },
+    { value: "textarea", label: "Textarea", bgColor: "bg-[#F5E0E9]", textColor: "text-black", icon: FiAlignLeft },
     
   ];
 
@@ -83,4 +83,5 @@ const patternOptions = [
       description: "deidine deidine deidne",
     },
   ];
+ 
 export { patternOptions,selectTypeOptions,inputTypeOptions,elementsData }

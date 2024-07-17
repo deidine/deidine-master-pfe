@@ -26,19 +26,22 @@ export default function BadgeElement({
           className="flex flex-col gap-2 w-full items-start"
           onClick={onClick}
         >
+          <div className="flex gap-2 flex-wrap">
           <Badge
-            className={`bg-[${elementType?.bgColor}] ${elementType?.textColor} border hover:outline-none flex items-center gap-2`}
+            className={` ${elementType?.bgColor}  ${elementType?.textColor} border hover:outline-none flex items-center gap-2`}
           >
             {elementType?.icon && React.createElement(elementType.icon)}
             {element.type}
           </Badge>
+          <Badge className="bg-blue-500">{element.placeholder}</Badge>
+          </div>
           <div className="flex flex-wrap gap-2">
             {element.required && (
               <Badge variant={"destructive"} className="bg-red-400">
                 Required
               </Badge>
             )}
-            <Badge className="bg-blue-500">{element.placeholder}</Badge>
+           
             {element.pattern!.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {patternOptions.map(

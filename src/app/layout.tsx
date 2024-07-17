@@ -22,7 +22,7 @@ export default function RootLayout({
       <NavBar />
       <DesignerContextProvider>
    
-      <div className="flex w-full flex-col flex-grow mx-auto">{children}</div>;
+      <div className="flex w-full flex-col flex-grow mx-auto">{children}</div>
 
               </DesignerContextProvider>
         </body>
