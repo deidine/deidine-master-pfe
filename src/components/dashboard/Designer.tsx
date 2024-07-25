@@ -79,7 +79,11 @@ export default function Designer({ form }: { form: Form }) {
           >
             Edit
           </button>
-          <button onClick={handleSave}>Save Changes</button>
+          <button
+          className={`btn2 hover:bg-zinc-900/90 h-9 px-3 rounded-lg border hover:text-white ${
+            preview ? "bg-zinc-100 text-zinc-800" : "bg-white text-black font-semibold"
+          }`}
+          onClick={handleSave}>Save Changes</button>
           <FormCodeGenerator />
         </div>
         {/* <FormLinkShare shareUrl={'deidine'}/> */}

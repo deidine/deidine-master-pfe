@@ -9,26 +9,26 @@ const SignupForm = () => {
 
   const onFinish = async(values: any) => {
     
-"use server";
+// "use server";
 
-    const origin = headers().get("origin");
-    const email = values.get("email") as string;
-    const password = values.get("password") as string;
-    const supabase = createClient();
+//     const origin = headers().get("origin");
+//     const email = values.get("email") as string;
+//     const password = values.get("password") as string;
+//     const supabase = createClient();
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
+//     const { error } = await supabase.auth.signUp({
+//       email,
+//       password,
+//       options: {
+//         emailRedirectTo: `${origin}/auth/callback`,
+//       },
+//     });
 
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
+//     if (error) {
+//       return redirect("/login?message=Could not authenticate user");
+//     }
 
-    return redirect("/login?message=Check email to continue sign in process");
+//     return redirect("/login?message=Check email to continue sign in process");
   };
   return (
     <div className="selection:bg-indigo-500 selection:text-white">

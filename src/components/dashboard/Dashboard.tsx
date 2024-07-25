@@ -5,12 +5,14 @@ import { Button, Form, Input, Modal, message } from "antd";
 import PreviewForm from "@/components/forms/previews/PreviewForm";
 import { elementsData } from "@/data/data";
 import { DeleteFormById, GetFormById } from "@/utils/utilsFunctions";
+import { Badge } from "../ui/badge";
 
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
-  const [elements, setElements] = useState<any[]>([]);
+  const [elements, setElements] = useState<Form []>([]);
   const [lastId, setLastId] = useState(elements.length);
+  const [form, setForm] = useState<Form>( );
 
   useEffect(() => {
     fetchForms();
@@ -84,6 +86,21 @@ export default function Dashboard() {
     }
   };
 
+  const fetchForm = async (id: number) => {
+    try {
+      const response = await fetch(`/api/forms/${id}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setForm(data.form);
+      return data.form;
+    } catch (error) {
+      console.error("Error fetching form:", error);
+      return null;
+    }
+  };
+
   const deleteForm = async (id: number) => {
     try {
       const response = await fetch(`/api/forms/`, {
@@ -119,9 +136,10 @@ export default function Dashboard() {
             {elements.map((element) => (
               <div
                 key={element.id}
-                onClick={() => {
+                onClick={async () => {
+                  const form = await fetchForm(element.id);
+                  setElements(form ? form.content : []);
                   setIsModalPreviewVisible(true);
-                  setElements(GetFormById(Number(element.id)).content);
                 }}
                 className="flex flex-col md:flex-row justify-between items-center rounded-lg border-2 border-gray-300 p-4 hover:shadow-md cursor-pointer"
               >
@@ -132,18 +150,24 @@ export default function Dashboard() {
                   <u>Description:</u> {element.description}
                 </div>
                 <div className="flex gap-2">
-                  <Button
-                    danger
+                  <Badge
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteForm(element.id);
                     }}
+                    className="bg-red-500  h-7 p-4 text-white font-bold"
                   >
                     Delete
-                  </Button>
-                  <Link href={`/forms/${element.id}`}>
-                    <Button type="default">Edit</Button>
-                  </Link>
+                  </Badge>
+
+                  <Badge
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="bg-yellow-500  h-7 p-4 text-white font-bold"
+                  >
+                    <Link href={`/forms/${element.id}`}>Edit</Link>
+                  </Badge>
                 </div>
               </div>
             ))}

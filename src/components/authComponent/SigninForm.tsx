@@ -7,25 +7,25 @@ const SigninForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = async(values: any) => {
-"use server";
+// "use server";
     
-    console.log("Form submitted:", values);
+//     console.log("Form submitted:", values);
  
 
-    const email = values.get("email") as string;
-    const password = values.get("password") as string;
-    const supabase = createClient();
+//     const email = values.get("email") as string;
+//     const password = values.get("password") as string;
+//     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+//     const { error } = await supabase.auth.signInWithPassword({
+//       email,
+//       password,
+//     });
 
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
+//     if (error) {
+//       return redirect("/login?message=Could not authenticate user");
+//     }
 
-    return redirect("/protected");
+//     return redirect("/protected");
   };
 
   return (
