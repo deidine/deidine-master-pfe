@@ -1,6 +1,6 @@
 import React, { useState } from "react"; 
 import useDesigner from "@/hooks/useDesigner";
-import { Button, Modal } from "antd";
+import { Button, message, Modal } from "antd";
 
 const FormCodeGenerator = () => {
   const [componentCode, setComponentCode] = useState("");
@@ -108,7 +108,8 @@ const FormCodeGenerator = () => {
     });
  
     const exportCode = `
-      import React from 'react';
+    "use client" 
+    import React from 'react';
       import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
 
       const GeneratedForm = () => {
@@ -151,11 +152,12 @@ const FormCodeGenerator = () => {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(componentCode);
-      alert("Copied to clipboard!");
+      message.success("Copied to clipboard!");
+     
       setIsModalOpen(false);
-    } catch (error) {
-      console.error("Failed to copy:", error);
-      alert("Failed to copy to clipboard!");
+    } catch (error) { 
+      message.error("Failed to copy: "+error);
+
     }
   };
 

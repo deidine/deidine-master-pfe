@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Button } from "antd";
-import { CloseCircleOutlined, LeftCircleFilled } from "@ant-design/icons";
+import { CloseCircleOutlined } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
 import OptionPopUp from "@/components/ui/OptionPopUp";
 import SidBarOptions from "@/components/ui/SidBarOptions";

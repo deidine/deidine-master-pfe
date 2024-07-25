@@ -1,15 +1,35 @@
-"use client";
-
+ "use client";
 import React from "react";
-import { Form, Input, Button } from "antd";
-
+import { Form, Input, Button } from "antd"; 
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 const SignupForm = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log("Form submitted:", values);
-  };
+  const onFinish = async(values: any) => {
+    
+// "use server";
 
+//     const origin = headers().get("origin");
+//     const email = values.get("email") as string;
+//     const password = values.get("password") as string;
+//     const supabase = createClient();
+
+//     const { error } = await supabase.auth.signUp({
+//       email,
+//       password,
+//       options: {
+//         emailRedirectTo: `${origin}/auth/callback`,
+//       },
+//     });
+
+//     if (error) {
+//       return redirect("/login?message=Could not authenticate user");
+//     }
+
+//     return redirect("/login?message=Check email to continue sign in process");
+  };
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
       <div className="flex justify-center items-center">
