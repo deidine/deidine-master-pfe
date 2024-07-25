@@ -177,7 +177,7 @@ const FormCodeGenerator = () => {
               visible={isModalOpen}
               onCancel={() => setIsModalOpen(false)}
               footer={[
-             <div className="flex flex-row justify-between w-full">
+             <div key="footer" className="flex flex-row justify-between w-full">
                  <Button
                   key="copy"
                   type="primary"
