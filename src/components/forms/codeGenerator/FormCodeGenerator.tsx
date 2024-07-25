@@ -179,7 +179,7 @@ const FormCodeGenerator = () => {
               footer={[
              <div className="flex flex-row justify-between w-full">
                  <Button
-                  key="submit"
+                  key="copy"
                   type="primary"
                   onClick={ 
                     copyToClipboard }
@@ -187,7 +187,7 @@ const FormCodeGenerator = () => {
                   copy
                 </Button>,
                 <Button
-                  key="submit"
+                  key="download"
                   type="primary"
                   onClick={ 
                     downloadCode }
