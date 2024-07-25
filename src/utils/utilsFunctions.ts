@@ -25,6 +25,7 @@ function GetFormById(id:number):Form{
  }
 
  const renderOptions = (type: ElementType) => {
+  
   const renderElement: FormElement = {
     elementType: {
       type: type,

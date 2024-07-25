@@ -14,7 +14,7 @@ export default function ModelPopupType({
 }) {
   const { elements, addElement, setIsEditFormCard } = useDesigner();
   const [selectedType, setSelectedType] = useState<ElementType>();
-  const [previewElements, setPreviewElements] = useState<FormElement[]>([]);
+  const [previewElements, setPreviewElements] = useState<Form []>([]);
 
   const handleOk = (type: ElementType) => {
     const newElementInstance = newElement(type);
@@ -29,7 +29,7 @@ export default function ModelPopupType({
 
   useEffect(() => { 
       const preview = renderOptions(selectedType as ElementType);
-      setPreviewElements(preview);
+      setPreviewElements(preview );
     
   }, [selectedType]);
 

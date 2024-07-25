@@ -8,6 +8,7 @@ import {
 } from "@/data/data";
 import { DeleteFilled } from "@ant-design/icons";
 import RequiredComponent from "./RequiredComponent";
+import { AnimatePresence, motion } from "framer-motion";
 const { Option } = Select;
 
 export default function SidBarOptions({
@@ -35,7 +36,16 @@ export default function SidBarOptions({
     setElement({ ...element, placeholder: e.target.value });
   };
   return (
-    <div className="flex flex-col gap-2 h-auto">
+   
+    <AnimatePresence initial={true}>
+    
+      <motion.div   key="modal"
+         initial={{ x: 100, opacity: 0 }}
+         animate={{ x: 0, opacity: 1 }}
+         exit={{ x: -100, opacity: 0 }}
+      >
+ 
+   <div className="flex flex-col gap-2 h-auto">
       <div>
          
         <AutoResizeTextarea
@@ -106,6 +116,8 @@ export default function SidBarOptions({
         )}
       </div>
     </div>
+    </motion.div>
+  </AnimatePresence>
   );
 }
 

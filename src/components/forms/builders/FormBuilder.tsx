@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Modal, Select } from "antd";
 import {
   DragDropContext,
@@ -10,6 +10,7 @@ import {
 import useDesigner from "@/hooks/useDesigner";
 import FormElement from "../formElements/FormElement"; 
 import ModelPopupType from "@/components/ui/ModelPopupType";
+import { motion } from "framer-motion";
 
 export default function FormBuilder() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,6 +18,8 @@ export default function FormBuilder() {
     number | null
   >(null);
   const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
+  const constraintsRef = useRef(null)
+
   const {
     elements, 
     setElements,
@@ -53,6 +56,7 @@ export default function FormBuilder() {
 
   return (
     <>
+    
       <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
         <DragDropContext
           onDragUpdate={handleOnDragUpdate}
@@ -71,6 +75,12 @@ export default function FormBuilder() {
                   >
                     {(provided, snapshot) => (
                       <>
+                      <motion.div 
+                    
+                      dragConstraints={{ top: 0, bottom: 300 }}
+                      ref={constraintsRef}
+                      >
+                        
                         <div
                           key={element.elementType.name}
                           ref={provided.innerRef}
@@ -92,6 +102,8 @@ export default function FormBuilder() {
                             }}
                           />
                         </div>
+                      </motion.div>
+
                         {destinationIndex === index &&
                           draggingElementIndex !== null && (
                             <div className="border-t-4 border-blue-100 mt-0 w-full h-4 mb-0"></div>

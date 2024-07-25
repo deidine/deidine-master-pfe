@@ -229,9 +229,7 @@ export default function PreviewForm({
             </Form.Item>
           )}
         </div>
-      ))}
-          <Input type="datetime-local"  />
-
+      ))}   
       <div className="flex justify-center pt-6">
       { showSubmit ?null : <Button
           type="primary"
