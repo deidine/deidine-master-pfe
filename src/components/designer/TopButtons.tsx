@@ -3,12 +3,17 @@ import useDesigner from '@/hooks/useDesigner';
 import React, {   useState } from 'react'
 
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
+import useGeneral from '@/hooks/useGeneral';
 export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value:boolean) => void}) {
    const [preview, setPreview] = useState(false);
   const {  elements } = useDesigner();
  
+    const {isQuestUser}=useGeneral();
   const handleSave = async () => {
-    localStorage.setItem("elements", JSON.stringify(elements));
+    if (isQuestUser) {
+      // Save elements array to local storage
+      localStorage.setItem("elements", JSON.stringify(elements));
+    } else {
     try {
       const response = await fetch("/api/forms/", {
         method: "PUT",
@@ -29,7 +34,7 @@ export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value
       console.log("Data inserted:", data);
     } catch (error) {
       console.error("Error:", error);
-    }
+    }}
   };
  
   return (

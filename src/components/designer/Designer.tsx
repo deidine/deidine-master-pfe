@@ -6,18 +6,20 @@ import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";  
 import InsertElement from "../forms/InsertElement";
 import TopButtons from "./TopButtons";
+import useGeneral from "@/hooks/useGeneral";
 
 export default function Designer({ form }: { form: Form }) {
   const [preview, setPreview] = useState(false);
   const { setElements } = useDesigner();
   const [isReady, setIsReady] = useState(false);
+  const {isQuestUser}=useGeneral();
 
  
   useEffect(() => {
     if (isReady) return;
 
-    const elements = form.content;
-    // const elements=  JSON.parse (localStorage.getItem("elements" ) || "[]");
+    const elements = isQuestUser ?  JSON.parse (localStorage.getItem("elements" ) || "[]") : form.content;
+   
     setElements(elements);
 
     const readyTimeout = setTimeout(() => setIsReady(true), 500);
