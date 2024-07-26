@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   try {
     const supabase = createClient();
     const formId = req.url.split("/api/forms/").pop();
-    
+     
     const { data: form, error } = await supabase
       .from("form")
       .select("*")
