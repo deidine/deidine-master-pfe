@@ -1,31 +1,30 @@
 "use client";
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { redirect } from "next/navigation"; 
-import { createClient } from "@/utils/supabase/server";
+import { createClientBrowser } from "@/utils/supabase/client";
 const SigninForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = async(values: any) => {
-// "use server";
+ 
     
-//     console.log("Form submitted:", values);
+    console.log("Form submitted:", values);
  
 
-//     const email = values.get("email") as string;
-//     const password = values.get("password") as string;
-//     const supabase = createClient();
+    const email = values.email;
+    const password = values.password;
+    const supabase = createClientBrowser();
 
-//     const { error } = await supabase.auth.signInWithPassword({
-//       email,
-//       password,
-//     });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-//     if (error) {
-//       return redirect("/login?message=Could not authenticate user");
-//     }
+    if (error) {
+      return alert("/login?message=Could not authenticate user");
+    }
 
-//     return redirect("/protected");
+    return alert("/protected");
   };
 
   return (

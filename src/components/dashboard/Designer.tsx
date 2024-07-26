@@ -91,7 +91,7 @@ export default function Designer({ form }: { form: Form }) {
           </div>
           <div className="flex flex-row   gap-2">
             <button
-              className="border-[0.5px] border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px]  p-2"
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px]  p-2"
               onClick={handleSave}
             >
               Save Changes

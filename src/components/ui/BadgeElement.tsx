@@ -27,13 +27,17 @@ export default function BadgeElement({
           onClick={onClick}
         >
           <div className="flex gap-2 flex-wrap">
-          <Badge
-            className={` ${elementType?.bgColor}  ${elementType?.textColor} border hover:outline-none flex items-center gap-2`}
-          >
-            {elementType?.icon && React.createElement(elementType.icon)}
-            {element.type}
-          </Badge>
-          <Badge className="bg-blue-500">{element.placeholder}</Badge>
+            <Badge
+              className="border hover:outline-none flex items-center gap-2"
+              style={{
+                backgroundColor: elementType?.bgColor,
+                color: elementType?.textColor,
+              }}
+            >
+              {elementType?.icon && React.createElement(elementType.icon)}
+              {element.type}
+            </Badge>
+            <Badge className="bg-blue-500">{element.placeholder}</Badge>
           </div>
           <div className="flex flex-wrap gap-2">
             {element.required && (
@@ -41,7 +45,6 @@ export default function BadgeElement({
                 Required
               </Badge>
             )}
-           
             {element.pattern!.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {patternOptions.map(

@@ -1,34 +1,28 @@
  "use client";
 import React from "react";
-import { Form, Input, Button } from "antd"; 
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
+import { Form, Input, Button } from "antd";  
+import { createClientBrowser } from "@/utils/supabase/client";
 const SignupForm = () => {
   const [form] = Form.useForm();
 
-  const onFinish = async(values: any) => {
-    
-// "use server";
+  const onFinish = async(values: any) => {  
+    const email = values.email ;
+    const password = values.password  ;
+    const supabase = createClientBrowser();
 
-//     const origin = headers().get("origin");
-//     const email = values.get("email") as string;
-//     const password = values.get("password") as string;
-//     const supabase = createClient();
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        
+      }
+    });
 
-//     const { error } = await supabase.auth.signUp({
-//       email,
-//       password,
-//       options: {
-//         emailRedirectTo: `${origin}/auth/callback`,
-//       },
-//     });
+    if (error) {
+      return alert("/signup?message=Could not authenticate user");
+    }
 
-//     if (error) {
-//       return redirect("/login?message=Could not authenticate user");
-//     }
-
-//     return redirect("/login?message=Check email to continue sign in process");
+    return alert("/login?message=Check email to continue sign in process");
   };
   return (
     <div className="selection:bg-indigo-500 selection:text-white">

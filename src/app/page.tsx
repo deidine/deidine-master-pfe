@@ -1,8 +1,12 @@
-import Dashboard from "@/components/dashboard/Dashboard";
+import { Button } from "antd";
+import Link from "next/link";
+
+ 
 export default function Home() {
   return (
-    <>
-      <Dashboard/>
-    </>
+   <div>
+   <Link href="/login">  <Button>login</Button></Link>
+    <Button>create form localy</Button>
+   </div>
   );
 }

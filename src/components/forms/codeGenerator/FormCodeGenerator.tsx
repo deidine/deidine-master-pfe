@@ -134,7 +134,7 @@ const FormCodeGenerator = () => {
       };
 
       export default GeneratedForm;
-    `;
+    `.trim();
 
     setComponentCode(exportCode);
     setIsModalOpen(true);
@@ -164,7 +164,7 @@ const FormCodeGenerator = () => {
   return (
     <>
       <button
-        className="btn_header"
+        className="btn_header bg-zinc-100"
         type="button"
         onClick={generateComponentCode}
       >
