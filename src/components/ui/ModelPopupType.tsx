@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Divider } from "antd";
-import { idGenerator, nameGenerator, newElement, renderOptions } from "@/utils/utilsFunctions";
+import {   newElement, renderOptions } from "@/utils/utilsFunctions";
 import useDesigner from "@/hooks/useDesigner";
 import { inputTypeOptions, selectTypeOptions } from "@/data/data";
 import PreviewForm from "../forms/previews/PreviewForm";

@@ -1,5 +1,4 @@
-import { elementsData } from "@/data/data";
-
+ 
  function idGenerator(): string {
     return Math.floor(Math.random() * 10001).toString();
   }
@@ -9,20 +8,8 @@ import { elementsData } from "@/data/data";
     // return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
-function GetFormById(id:number):Form{
-    const data= elementsData.find((element)=>(
-         element.id==id
-     ))
- return data!;
- }
-
- function DeleteFormById(id:number):Form[]{
-    const data= elementsData.filter(
-        (element)=>(
-         element.id==id
-     ))
- return data!;
- }
+ 
+ 
 
  const renderOptions = (type: ElementType) => {
   
@@ -35,10 +22,7 @@ function GetFormById(id:number):Form{
       value: "",
       required: false,
       pattern: [],
-      style: `h-10 text-sm focus-visible:outline-none focus-visible:ring-2
-             focus-visible:bg-white border-zinc-200 duration-100 placeholder:text-zinc-400 ring-2 
-             ring-transparent focus:bg-white focus-visible:ring-indigo-400 shadow-sm py-2 px-3 w-full
-              rounded-lg border `,
+      style: `h-10   rounded-lg border `,
       ...((type === "select" && {
         options: ["Option 1", "Option 2"],
       }) ||
@@ -64,10 +48,7 @@ const newElement = (type: ElementType) => {
        value: "",
        required: false,
        pattern: [],
-       style: `h-10 text-sm focus-visible:outline-none focus-visible:ring-2
-              focus-visible:bg-white border-zinc-200 duration-100 placeholder:text-zinc-400 ring-2 
-              ring-transparent focus:bg-white focus-visible:ring-indigo-400 shadow-sm py-2 px-3 w-full
-               rounded-lg border `,
+       style: `h-10 rounded-lg border `,
        ...((type === "select" && {
          options: ["Option 1", "Option 2"],
        }) ||
@@ -83,4 +64,4 @@ const newElement = (type: ElementType) => {
    };
    return renderElement;
  }
-export { idGenerator,nameGenerator,GetFormById,DeleteFormById ,renderOptions,newElement}
+export { idGenerator,nameGenerator, renderOptions,newElement}

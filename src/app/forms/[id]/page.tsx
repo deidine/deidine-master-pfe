@@ -1,5 +1,5 @@
 "use client";
-import Designer from "@/components/dashboard/Designer";
+import Designer from "@/components/designer/Designer";
 import { useEffect, useState } from "react";
 
 export default function FormDetailPage({

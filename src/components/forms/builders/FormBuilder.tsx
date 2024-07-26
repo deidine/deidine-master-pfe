@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { Button, Modal, Select } from "antd";
+import { Button } from "antd";
 import {
   DragDropContext,
   Draggable,
@@ -8,8 +8,7 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import useDesigner from "@/hooks/useDesigner";
-import FormElement from "../formElements/FormElement"; 
-import ModelPopupType from "@/components/ui/ModelPopupType";
+import FormElement from "../formElements/FormElement";  
 import { motion } from "framer-motion";
 
 export default function FormBuilder() {
@@ -50,10 +49,8 @@ export default function FormBuilder() {
     }
   };
 
-  return (
-    <>
-    
-      <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
+  return ( 
+  <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
         <DragDropContext
           onDragUpdate={handleOnDragUpdate}
           onDragStart={handleOnDragStart}
@@ -123,8 +120,6 @@ export default function FormBuilder() {
             </Button>
           </div>
         </DragDropContext>
-      </div>
-   
-    </>
+      </div> 
   );
 }

@@ -1,0 +1,81 @@
+"use client";
+import useDesigner from '@/hooks/useDesigner';
+import React, {   useState } from 'react'
+
+import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
+export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value:boolean) => void}) {
+   const [preview, setPreview] = useState(false);
+  const {  elements } = useDesigner();
+ 
+  const handleSave = async () => {
+    localStorage.setItem("elements", JSON.stringify(elements));
+    try {
+      const response = await fetch("/api/forms/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          content: elements,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error inserting data");
+      }
+
+      const data = await response.json();
+      console.log("Data inserted:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+ 
+  return (
+    <div className="flex justify-center py-4 gap-[23%]">
+    <div className="flex flex-row   gap-2">
+      <button
+        className={`btn_header
+           ${
+             !preview
+               ? "bg-zinc-100 text-zinc-800"
+               : "bg-white"
+           }
+          `}
+        onClick={() => {
+            onPreview(true)
+          setPreview(true);
+        }}
+      >
+        Preview
+      </button>
+      <button
+        className={`btn_header
+           ${
+             preview
+               ? "bg-zinc-100 text-zinc-800"
+               : "bg-white"
+           }
+          `}
+        onClick={() => {
+            onPreview(false)
+          setPreview(false);
+        }}
+      >
+        Edit
+      </button>
+    </div>
+    <div className="flex flex-row   gap-2">
+      <button
+        className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px]  p-2"
+        onClick={handleSave}
+      >
+        Save Changes
+      </button>
+      <FormCodeGenerator />
+    </div>
+  </div>
+  
+  )
+}

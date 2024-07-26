@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button, Form, Input, Modal, message } from "antd";
 import PreviewForm from "@/components/forms/previews/PreviewForm";
-import { elementsData } from "@/data/data";
-import { DeleteFormById, GetFormById } from "@/utils/utilsFunctions";
+ 
 import { Badge } from "../ui/badge";
 
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [elements, setElements] = useState<Form []>([]);
-  const [lastId, setLastId] = useState(elements.length);
+ 
   const [form, setForm] = useState<Form>( );
 
   useEffect(() => {
@@ -19,6 +18,7 @@ export default function Dashboard() {
   }, []);
 
   const fetchForms = async () => {
+    localStorage.getItem("forms" ); 
     try {
       const response = await fetch("/api/forms");
       if (!response.ok) {
@@ -26,6 +26,7 @@ export default function Dashboard() {
       }
       const data = await response.json();
       setElements(data.forms);
+
     } catch (error) {
       console.error("Error fetching forms:", error);
     }
@@ -50,13 +51,7 @@ export default function Dashboard() {
   };
 
   const onFinish = async (values: any) => {
-    elementsData.push({
-      content: [],
-      description: values.description,
-      title: values.title,
-      id: lastId + 1,
-    });
-    setLastId(lastId + 1);
+ 
     await handleSave(values.title, values.description);
     fetchForms();
   };
