@@ -14,7 +14,7 @@ export default function ModelPopupType({
 }) {
   const { elements, addElement, setIsEditFormCard } = useDesigner();
   const [selectedType, setSelectedType] = useState<ElementType>();
-  const [previewElements, setPreviewElements] = useState<Form []>([]);
+  const [previewElements, setPreviewElements] = useState<Form [] | FormElement[]>([]);
 
   const handleOk = (type: ElementType) => {
     const newElementInstance = newElement(type);

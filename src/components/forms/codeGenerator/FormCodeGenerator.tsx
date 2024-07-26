@@ -164,7 +164,7 @@ const FormCodeGenerator = () => {
   return (
     <>
       <button
-        className="border border-zinc-200 bg-white hover:bg-zinc-100 h-9 rounded-lg text-zinc-800"
+        className="btn_header"
         type="button"
         onClick={generateComponentCode}
       >

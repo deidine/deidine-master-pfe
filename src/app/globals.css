@@ -7,4 +7,7 @@
     color: white;
     border-color: #4caf50;
   }
-  
+ .btn_header{
+    @apply   border-[0.5px] border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px]  p-2
+  }
+ 

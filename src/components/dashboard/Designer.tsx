@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import PreviewForm from "../forms/previews/PreviewForm";
 import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";
-import FormLinkShare from "../ui/FormLinkShare"; 
+import FormLinkShare from "../ui/FormLinkShare";
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
- 
+import InsertElement from "../forms/InsertElement";
+
 export default function Designer({ form }: { form: Form }) {
   const [preview, setPreview] = useState(false);
   const { setElements, elements } = useDesigner();
@@ -24,28 +25,27 @@ export default function Designer({ form }: { form: Form }) {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/forms/', {
-        method: 'PUT',
+      const response = await fetch("/api/forms/", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: form.id, 
-          content: elements, 
+          id: form.id,
+          content: elements,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Error inserting data');
+        throw new Error("Error inserting data");
       }
 
       const data = await response.json();
-      console.log('Data inserted:', data);
+      console.log("Data inserted:", data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-
 
   if (!isReady) {
     return (
@@ -57,38 +57,53 @@ export default function Designer({ form }: { form: Form }) {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center justify-center relative overflow-y-auto bg-accent bg-[url(/paper.svg)] dark:bg-[url(/paper-dark.svg)]">
-        <div className="inline-flex gap-x-3 mt-4 p-1 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400 rounded-lg text-sm bg-zinc-50 justify-center items-center outline border w-1/2 h-20">
-          <button
-            onClick={() => {
-              setPreview(true);
-            }}
-            className={`btn2 border border-zinc-200 hover:bg-zinc-900/90 hover:text-white h-9 px-3 rounded-lg text-zinc-800 ${
-              !preview ? "bg-zinc-100 text-zinc-800" : "bg-white text-black font-semibold"
-            }`}
-          >
-            Preview
-          </button>
-          <button
-            className={`btn2 hover:bg-zinc-900/90 h-9 px-3 rounded-lg border hover:text-white ${
-              preview ? "bg-zinc-100 text-zinc-800" : "bg-white text-black font-semibold"
-            }`}
-            onClick={() => {
-              setPreview(false);
-            }}
-          >
-            Edit
-          </button>
-          <button
-          className={`btn2 hover:bg-zinc-900/90 h-9 px-3 rounded-lg border hover:text-white ${
-            preview ? "bg-zinc-100 text-zinc-800" : "bg-white text-black font-semibold"
-          }`}
-          onClick={handleSave}>Save Changes</button>
-          <FormCodeGenerator />
+      <div className="flex flex-col justify-center gap-2  w-full">
+        <div className="flex justify-center py-4 gap-[23%]">
+          <div className="flex flex-row   gap-2">
+            <button
+              className={`btn_header
+                 ${
+                   !preview
+                     ? "bg-zinc-100 text-zinc-800"
+                     : "bg-white"
+                 }
+                `}
+              onClick={() => {
+                setPreview(true);
+              }}
+            >
+              Preview
+            </button>
+            <button
+              className={`btn_header
+                 ${
+                   preview
+                     ? "bg-zinc-100 text-zinc-800"
+                     : "bg-white"
+                 }
+                `}
+              onClick={() => {
+                setPreview(false);
+              }}
+            >
+              Edit
+            </button>
+          </div>
+          <div className="flex flex-row   gap-2">
+            <button
+              className="border-[0.5px] border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px]  p-2"
+              onClick={handleSave}
+            >
+              Save Changes
+            </button>
+            <FormCodeGenerator />
+          </div>
         </div>
         {/* <FormLinkShare shareUrl={'deidine'}/> */}
-
-        {preview ? <PreviewForm /> : <FormBuilder />}
+        <div className="mx-auto w-full flex flex-col items-center justify-center">
+          {preview ? <PreviewForm /> : <FormBuilder />}
+        <InsertElement/>
+        </div>
       </div>
     </>
   );

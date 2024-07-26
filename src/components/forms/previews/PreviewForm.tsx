@@ -9,7 +9,7 @@ export default function PreviewForm({
 }: {
   isTemplate?: boolean;
   showSubmit?: boolean;
-  elementsTemplate?: Form [];
+  elementsTemplate?: Form [] | FormElement[];
 }) {
   const onFinish = (values: any) => {
     console.log("Form submitted:", values);
@@ -17,7 +17,7 @@ export default function PreviewForm({
   };
   const [submitted, setSubmitted] = useState(false);
   const [isTemlate, setisTemlate] = useState<boolean>(isTemplate || false);
-  const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<Form[]>(elementsTemplate!);
+  const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<Form[] | FormElement[]>(elementsTemplate!);
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
 
