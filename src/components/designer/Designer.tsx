@@ -5,15 +5,12 @@ import PreviewForm from "../forms/previews/PreviewForm";
 import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";  
 import InsertElement from "../forms/InsertElement";
-import TopButtons from "./TopButtons";
-import useGeneral from "@/hooks/useGeneral";
+import TopButtons from "./TopButtons"; 
 
 export default function Designer({ form }: { form: Form }) {
   const [preview, setPreview] = useState(false);
   const { setElements } = useDesigner();
   const [isReady, setIsReady] = useState(false);
-  const {isQuestUser}=useGeneral();
-
  
   useEffect(() => {
     if (isReady) return;
