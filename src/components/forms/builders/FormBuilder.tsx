@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import {
   DragDropContext,
   Draggable,
@@ -17,7 +17,6 @@ export default function FormBuilder() {
   const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
   const constraintsRef = useRef(null);
   
-  
   const {
     elements,
     setElements,
@@ -26,7 +25,14 @@ export default function FormBuilder() {
     isEditFormCard,
     undo,
     redo,
-    redoStack,undoStack
+    redoStack,
+    undoStack,
+    copyElement,
+    duplicateElement,
+    cutElement,
+    pasteElement,
+    selectedElement,
+    setSelectedElement
   } = useDesigner();
 
   const handleOnDragEnd = (result: any) => {
@@ -53,12 +59,29 @@ export default function FormBuilder() {
 
   return (
     <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
-      <Button onClick={undo} disabled={undoStack.length === 0}>
-        Undo
-      </Button>
-      <Button onClick={redo} disabled={redoStack.length === 0}>
-        Redo
-      </Button>
+      <div className="flex justify-between mb-4">
+        <Button onClick={undo} disabled={undoStack.length === 0}>
+          Undo
+        </Button>
+        <Button onClick={redo} disabled={redoStack.length === 0}>
+          Redo
+        </Button>
+        <Button onClick={() => selectedElement && copyElement(selectedElement.elementType.name)}
+         disabled={!selectedElement}>
+          Copy
+        </Button>
+        <Button
+         onClick={() => selectedElement && duplicateElement(elements.length, selectedElement.elementType.name)} disabled={!selectedElement}>
+          Duplicate
+        </Button>
+        <Button onClick={() => selectedElement && cutElement(selectedElement.elementType.name)}
+         disabled={!selectedElement}>
+          Cut
+        </Button>
+        <Button onClick={() => pasteElement(elements.length)} disabled={!selectedElement}>
+          Paste
+        </Button>
+      </div>
 
       <DragDropContext
         onDragUpdate={handleOnDragUpdate}
@@ -89,8 +112,9 @@ export default function FormBuilder() {
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
                           }`}
+                          onClick={() => setSelectedElement(element)}
                         >
-                          <FormElement
+                         deiein <FormElement
                             index={index}
                             element={element.elementType}
                             setElement={(value: SelectElement | InputElement) => {

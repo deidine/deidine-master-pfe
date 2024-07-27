@@ -19,6 +19,10 @@ type DesignerContextType = {
   redo: () => void;
   redoStack: FormElement[][];
   undoStack: FormElement[][];
+  copyElement: (id: string) => void;
+  duplicateElement: (index: number, id: string) => void;
+  cutElement: (id: string) => void;
+  pasteElement: (index: number) => void;
 };
 
 export const DesignerContext = createContext<DesignerContextType | null>(null);
@@ -31,6 +35,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
 
   const undoStack = useRef<FormElement[][]>([]);
   const redoStack = useRef<FormElement[][]>([]);
+  const copiedElement = useRef<FormElement | null>(null);
 
   const addElement = (index: number, element: FormElement) => {
     setElements((prev) => {
@@ -81,6 +86,35 @@ export default function DesignerContextProvider({ children }: { children: ReactN
     });
   };
 
+  const copyElement = (name: string) => {
+    const element = elements.find((el) => el.elementType.name === name);
+    if (element) {
+      copiedElement.current = { ...element };
+    }
+  };
+
+  const duplicateElement = (index: number, name: string) => {
+    const element = elements.find((el) => el.elementType.name === name);
+    if (element) {
+      addElement(index, { ...element });
+    }
+  };
+
+  const cutElement = (name: string) => {
+    const element = elements.find((el) => el.elementType.name === name);
+    if (element) {
+      copiedElement.current = { ...element };
+      removeElement(name);
+    }
+  };
+
+  const pasteElement = (index: number) => {
+    if (copiedElement.current) {
+      addElement(index, copiedElement.current);
+      copiedElement.current = null;
+    }
+  };
+
   return (
     <DesignerContext.Provider
       value={{
@@ -99,6 +133,10 @@ export default function DesignerContextProvider({ children }: { children: ReactN
         redo,
         redoStack: redoStack.current,
         undoStack: undoStack.current,
+        copyElement,
+        duplicateElement,
+        cutElement,
+        pasteElement,
       }}
     >
       {children}
