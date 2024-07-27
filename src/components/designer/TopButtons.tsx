@@ -11,30 +11,44 @@ export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value
     const {isQuestUser}=useGeneral();
   const handleSave = async () => {
     if (isQuestUser) {
-      // Save elements array to local storage
-      localStorage.setItem("elements", JSON.stringify(elements));
-    } else {
-    try {
-      const response = await fetch("/api/forms/", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          content: elements,
-        }),
-      });
+      try {
+        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+        const formIndex = forms.findIndex((form: any) => form.id === id);
 
-      if (!response.ok) {
-        throw new Error("Error inserting data");
+        if (formIndex !== -1) {
+          forms[formIndex].content = elements;
+        } else {
+          forms.push({ id, content: elements });
+        }
+
+        localStorage.setItem("forms", JSON.stringify(forms));
+        console.log("Data saved to localStorage");
+      } catch (error) {
+        console.error("Error saving to localStorage:", error);
       }
+    } else {
+      try {
+        const response = await fetch("/api/forms/", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            content: elements,
+          }),
+        });
 
-      const data = await response.json();
-      console.log("Data inserted:", data);
-    } catch (error) {
-      console.error("Error:", error);
-    }}
+        if (!response.ok) {
+          throw new Error("Error inserting data");
+        }
+
+        const data = await response.json();
+        console.log("Data inserted:", data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }  
   };
  
   return (
@@ -79,6 +93,7 @@ export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value
         Save Changes
       </button>
       <FormCodeGenerator />
+      <button>seting</button>
     </div>
   </div>
   

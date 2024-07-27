@@ -11,7 +11,7 @@ export const GeneralContext = createContext<GeneralContextType | null>(null);
 
 export default function GeneralContextProvider({ children }: { children: ReactNode }) {
  
-const [isQuestUser, setIsQuestUser] = useState<boolean>(false);
+const [isQuestUser, setIsQuestUser] = useState<boolean>(true);
  
 
   return (

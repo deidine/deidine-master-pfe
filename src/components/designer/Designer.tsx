@@ -18,9 +18,8 @@ export default function Designer({ form }: { form: Form }) {
   useEffect(() => {
     if (isReady) return;
 
-    const elements = isQuestUser ?  JSON.parse (localStorage.getItem("elements" ) || "[]") : form.content;
-   
-    setElements(elements);
+ 
+    setElements(form.content);
 
     const readyTimeout = setTimeout(() => setIsReady(true), 500);
     return () => clearTimeout(readyTimeout);

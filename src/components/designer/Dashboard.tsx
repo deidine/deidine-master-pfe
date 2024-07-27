@@ -1,4 +1,5 @@
 "use client";
+import useGeneral from "@/hooks/useGeneral";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button, Form, Input, Modal, message } from "antd";
@@ -10,7 +11,7 @@ export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [elements, setElements] = useState<Form []>([]);
- 
+  const {isQuestUser}=useGeneral();
   const [form, setForm] = useState<Form>( );
 
   useEffect(() => {
@@ -18,9 +19,9 @@ export default function Dashboard() {
   }, []);
 
   const fetchForms = async () => {
-    localStorage.getItem("forms" ); 
-    try {
-      const response = await fetch("/api/forms");
+     if (!isQuestUser) {
+      try {
+        const response = await fetch("/api/forms");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -30,6 +31,10 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Error fetching forms:", error);
     }
+    } else { 
+      setElements(JSON.parse(localStorage.getItem("forms") || "[]"));
+    }
+ 
   };
 
   const handleOk = () => {
@@ -57,6 +62,7 @@ export default function Dashboard() {
   };
 
   const handleSave = async (title: string, description: string) => {
+   if (!isQuestUser) {
     try {
       const response = await fetch("/api/forms/", {
         method: "POST",
@@ -78,43 +84,69 @@ export default function Dashboard() {
       console.log("Data inserted:", data);
     } catch (error) {
       console.error("Error:", error);
-    }
+    } 
+  } else {
+    const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+    forms.push({
+      id: Date.now(), // unique ID for local storage
+      title: title,
+      content: [],
+      description: description,
+    });
+    localStorage.setItem("forms", JSON.stringify(forms));
+  }
+
+   
   };
 
   const fetchForm = async (id: number) => {
-    try {
-      const response = await fetch(`/api/forms/${id}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+    if (!isQuestUser) {
+      try {
+        const response = await fetch(`/api/forms/${id}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setForm(data.form);
+        return data.form;
+      } catch (error) {
+        console.error("Error fetching form:", error);
+        return null;
       }
-      const data = await response.json();
-      setForm(data.form);
-      return data.form;
-    } catch (error) {
-      console.error("Error fetching form:", error);
-      return null;
+    } else {
+      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      const form = forms.find((form: Form) => form.id === id);
+      setForm(form);
+      return form;
     }
   };
 
   const deleteForm = async (id: number) => {
-    try {
-      const response = await fetch(`/api/forms/`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      });
+    if (!isQuestUser) {
+      try {
+        const response = await fetch(`/api/forms/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      if (!response.ok) {
-        throw new Error("Error deleting form");
+        if (!response.ok) {
+          throw new Error("Error deleting form");
+        }
+
+        message.success("Form deleted successfully");
+        fetchForms();
+      } catch (error) {
+        console.error("Error deleting form:", error);
+        message.error("Error deleting form");
       }
-
+    } else {
+      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      const updatedForms = forms.filter((form: Form) => form.id !== id);
+      localStorage.setItem("forms", JSON.stringify(updatedForms));
       message.success("Form deleted successfully");
       fetchForms();
-    } catch (error) {
-      console.error("Error deleting form:", error);
-      message.error("Error deleting form");
     }
   };
 
