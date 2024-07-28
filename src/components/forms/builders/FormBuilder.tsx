@@ -27,11 +27,6 @@ export default function FormBuilder() {
     redo,
     redoStack,
     undoStack,
-    copyElement,
-    duplicateElement,
-    cutElement,
-    pasteElement,
-    selectedElement,
     setSelectedElement
   } = useDesigner();
 
@@ -66,21 +61,7 @@ export default function FormBuilder() {
         <Button onClick={redo} disabled={redoStack.length === 0}>
           Redo
         </Button>
-        <Button onClick={() => selectedElement && copyElement(selectedElement.elementType.name)}
-         disabled={!selectedElement}>
-          Copy
-        </Button>
-        <Button
-         onClick={() => selectedElement && duplicateElement(elements.length, selectedElement.elementType.name)} disabled={!selectedElement}>
-          Duplicate
-        </Button>
-        <Button onClick={() => selectedElement && cutElement(selectedElement.elementType.name)}
-         disabled={!selectedElement}>
-          Cut
-        </Button>
-        <Button onClick={() => pasteElement(elements.length)} disabled={!selectedElement}>
-          Paste
-        </Button>
+        
       </div>
 
       <DragDropContext
