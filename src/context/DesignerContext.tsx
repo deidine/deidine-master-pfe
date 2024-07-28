@@ -115,7 +115,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
 
   const pasteElement = (index: number) => {
     if (copiedElement.current) {
-      alert(index)
+
       addElement(index, copiedElement.current);
       copiedElement.current = null;
     }

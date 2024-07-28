@@ -27,6 +27,7 @@ export default function FormBuilder() {
     undo,
     redo,
     setSelectedElement,
+    selectedElement,
     undoStack,
     redoStack,
   } = useDesigner();
@@ -99,9 +100,11 @@ export default function FormBuilder() {
                           {...provided.dragHandleProps}
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
-                          }`}
+                          }  
+                           ${selectedElement!.id === element.id ? " rounded-3xl border-2 border-blue-500 p-2" : ""}`}
                           onClick={() => setSelectedElement(element)}
                         >
+                         
                           <FormElement
                             index={index}
                             element={element.elementType}
