@@ -92,6 +92,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
       const newElement = { ...element, id: idGenerator(),elementType: { ...element.elementType, name: nameGenerator() } };
 
       copiedElement.current = newElement;
+      setSelectedElement(null)
     }
   };
 
@@ -99,6 +100,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
     const element = elements.find((el) => el.elementType.name === name);
     if (element) {
       const newElement = { ...element, id: idGenerator(),elementType: { ...element.elementType, name: nameGenerator() } };
+      setSelectedElement(null)
     
       addElement(index, newElement);
     }
@@ -108,6 +110,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
     const element = elements.find((el) => el.elementType.name === name);
     if (element) {
       const newElement = { ...element, id: idGenerator(),elementType: { ...element.elementType, name: nameGenerator() } };
+      setSelectedElement(null)
       copiedElement.current = newElement;
       removeElement(name);
     }
@@ -116,6 +119,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const pasteElement = (index: number) => {
     if (copiedElement.current) {
 
+      setSelectedElement(null)
       addElement(index, copiedElement.current);
       copiedElement.current = null;
     }

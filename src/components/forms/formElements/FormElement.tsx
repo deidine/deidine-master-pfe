@@ -31,10 +31,10 @@ export default function FormElement({
   };
 
   const handleDivClick = (e: React.MouseEvent) => { 
-    if (!isEditing) {
-      setIsSidebarVisible(true);
-      setIsEditFormCard(true);
-    }
+    // if (!isEditing) {
+    //   setIsSidebarVisible(true);
+    //   setIsEditFormCard(true);
+    // }
   };
  
   return (
