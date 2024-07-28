@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { Button, Tooltip } from "antd";
+import { Button } from "antd";
 import {
   DragDropContext,
   Draggable,
@@ -17,7 +17,7 @@ export default function FormBuilder() {
   const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
   const [selectElementIndex, setSelectElementIndex] = useState<number | null>(null);
   const constraintsRef = useRef(null);
-  
+
   const {
     elements,
     setElements,
@@ -26,23 +26,25 @@ export default function FormBuilder() {
     isEditFormCard,
     undo,
     redo,
-    redoStack,
+    setSelectedElement,
     undoStack,
-    copyElement,
-    duplicateElement,
-    cutElement,
-    pasteElement,
-    selectedElement,setSelectedElement
- 
+    redoStack,
   } = useDesigner();
 
   const handleOnDragEnd = (result: any) => {
     setDraggingElementIndex(null);
     setDestinationIndex(null);
     if (!result.destination) return;
+
     const items = Array.from(elements);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
+
+    // Push current state to undoStack before updating elements
+    undoStack.push(elements);
+    // Clear redoStack as new action is performed
+    // redoStack.pop() [];
+    // Update elements state
     setElements(items);
   };
 
@@ -67,8 +69,7 @@ export default function FormBuilder() {
         <Button onClick={redo} disabled={redoStack.length === 0}>
           Redo
         </Button>
-        
-         </div>
+      </div>
 
       <DragDropContext
         onDragUpdate={handleOnDragUpdate}
@@ -99,14 +100,9 @@ export default function FormBuilder() {
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
                           }`}
-                            onClick={() => {
-                              setSelectElementIndex(index)
-                              setSelectedElement(elements[index]);
-                              }}
-                          >
-                             
+                          onClick={() => setSelectedElement(element)}
+                        >
                           <FormElement
-                      
                             index={index}
                             element={element.elementType}
                             setElement={(value: SelectElement | InputElement) => {
@@ -143,3 +139,5 @@ export default function FormBuilder() {
     </div>
   );
 }
+
+
