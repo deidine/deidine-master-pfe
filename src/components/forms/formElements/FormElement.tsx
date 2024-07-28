@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState,MouseEventHandler, useRef } from "react";
 import { Button } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
@@ -11,10 +11,10 @@ import CardEditElement from "@/components/ui/CardEditElement";
 export default function FormElement({
   element,
   setElement,
-  index,
+  index,  
 }: {
-  index: number;
-  element: SelectElement | InputElement;
+  index: number;   
+  element: SelectElement | InputElement; 
   setElement: (value: SelectElement | InputElement) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +30,7 @@ export default function FormElement({
     setElement({ ...element, label: e.target.value });
   };
 
-  const handleDivClick = (e: React.MouseEvent) => {
+  const handleDivClick = (e: React.MouseEvent) => { 
     if (!isEditing) {
       setIsSidebarVisible(true);
       setIsEditFormCard(true);
@@ -68,6 +68,7 @@ export default function FormElement({
           </>
         )} 
         <OptionPopUp
+        index={index}
           name={element.name}
           removeElement={(name: string) => {
             removeElement(name);

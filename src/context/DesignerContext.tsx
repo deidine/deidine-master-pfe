@@ -1,6 +1,6 @@
-// DesignerContext.tsx
 "use client";
 
+import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
 import { Dispatch, ReactNode, SetStateAction, createContext, useRef, useState } from "react";
 
 type DesignerContextType = {
@@ -89,27 +89,33 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const copyElement = (name: string) => {
     const element = elements.find((el) => el.elementType.name === name);
     if (element) {
-      copiedElement.current = { ...element };
+      const newElement = { ...element, id: idGenerator(),elementType: { ...element.elementType, name: nameGenerator() } };
+
+      copiedElement.current = newElement;
     }
   };
 
   const duplicateElement = (index: number, name: string) => {
     const element = elements.find((el) => el.elementType.name === name);
     if (element) {
-      addElement(index, { ...element });
+      const newElement = { ...element, id: idGenerator(),elementType: { ...element.elementType, name: nameGenerator() } };
+    
+      addElement(index, newElement);
     }
   };
 
   const cutElement = (name: string) => {
     const element = elements.find((el) => el.elementType.name === name);
     if (element) {
-      copiedElement.current = { ...element };
+      const newElement = { ...element, id: idGenerator(),elementType: { ...element.elementType, name: nameGenerator() } };
+      copiedElement.current = newElement;
       removeElement(name);
     }
   };
 
   const pasteElement = (index: number) => {
     if (copiedElement.current) {
+      alert(index)
       addElement(index, copiedElement.current);
       copiedElement.current = null;
     }

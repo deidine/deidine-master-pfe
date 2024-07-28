@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 export default function FormBuilder() {
   const [draggingElementIndex, setDraggingElementIndex] = useState<number | null>(null);
   const [destinationIndex, setDestinationIndex] = useState<number | null>(null);
+  const [selectElementIndex, setSelectElementIndex] = useState<number | null>(null);
   const constraintsRef = useRef(null);
   
   const {
@@ -31,8 +32,8 @@ export default function FormBuilder() {
     duplicateElement,
     cutElement,
     pasteElement,
-    selectedElement,
-    setSelectedElement
+    selectedElement,setSelectedElement
+ 
   } = useDesigner();
 
   const handleOnDragEnd = (result: any) => {
@@ -66,22 +67,8 @@ export default function FormBuilder() {
         <Button onClick={redo} disabled={redoStack.length === 0}>
           Redo
         </Button>
-        <Button onClick={() => selectedElement && copyElement(selectedElement.elementType.name)}
-         disabled={!selectedElement}>
-          Copy
-        </Button>
-        <Button
-         onClick={() => selectedElement && duplicateElement(elements.length, selectedElement.elementType.name)} disabled={!selectedElement}>
-          Duplicate
-        </Button>
-        <Button onClick={() => selectedElement && cutElement(selectedElement.elementType.name)}
-         disabled={!selectedElement}>
-          Cut
-        </Button>
-        <Button onClick={() => pasteElement(elements.length)} disabled={!selectedElement}>
-          Paste
-        </Button>
-      </div>
+        
+         </div>
 
       <DragDropContext
         onDragUpdate={handleOnDragUpdate}
@@ -112,9 +99,14 @@ export default function FormBuilder() {
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
                           }`}
-                          onClick={() => setSelectedElement(element)}
-                        >
-                         deiein <FormElement
+                            onClick={() => {
+                              setSelectElementIndex(index)
+                              setSelectedElement(elements[index]);
+                              }}
+                          >
+                             
+                          <FormElement
+                      
                             index={index}
                             element={element.elementType}
                             setElement={(value: SelectElement | InputElement) => {
