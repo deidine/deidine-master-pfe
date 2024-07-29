@@ -23,7 +23,14 @@ const SigninForm = () => {
     if (error) {
       return alert("/login?message=Could not authenticate user");
     }
-
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      // return redirect("/login");
+    }else{
+      localStorage.setItem("user",JSON.stringify(user))
+    }
     return alert("/protected");
   };
 

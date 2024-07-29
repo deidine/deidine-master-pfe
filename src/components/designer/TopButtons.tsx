@@ -92,8 +92,7 @@ export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value
       >
         Save Changes
       </button>
-      <FormCodeGenerator />
-      <button>seting</button>
+      <FormCodeGenerator /> 
     </div>
   </div>
   
