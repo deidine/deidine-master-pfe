@@ -13,15 +13,23 @@ export default function Dashboard() {
   const [elements, setElements] = useState<Form []>([]);
   const {isQuestUser}=useGeneral();
   const [form, setForm] = useState<Form>( );
-
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
+  const uud = user?.id; 
   useEffect(() => {
     fetchForms();
   }, []);
 
   const fetchForms = async () => {
+
      if (!isQuestUser) {
       try {
-        const response = await fetch("/api/forms");
+        const response = await fetch(`/api/forms?user_id=${uud}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+ 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -34,7 +42,6 @@ export default function Dashboard() {
     } else { 
       setElements(JSON.parse(localStorage.getItem("forms") || "[]"));
     }
- 
   };
 
   const handleOk = () => {
@@ -73,6 +80,7 @@ export default function Dashboard() {
           title: title,
           content: [],
           description: description,
+          user_id:user.id,
         }),
       });
 
