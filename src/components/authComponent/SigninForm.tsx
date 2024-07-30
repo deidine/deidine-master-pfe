@@ -2,15 +2,13 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { createClientBrowser } from "@/utils/supabase/client";
+import useGeneral from "@/hooks/useGeneral";
 const SigninForm = () => {
   const [form] = Form.useForm();
 
+   const { setUser  } = useGeneral()
   const onFinish = async(values: any) => {
- 
-    
-    console.log("Form submitted:", values);
- 
-
+    console.log("Form submitted:", values); 
     const email = values.email;
     const password = values.password;
     const supabase = createClientBrowser();
@@ -29,6 +27,7 @@ const SigninForm = () => {
     if (!user) {
       // return redirect("/login");
     }else{
+      setUser(user)
       localStorage.setItem("user",JSON.stringify(user))
     }
     return alert("/protected");

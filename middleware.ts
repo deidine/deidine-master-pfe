@@ -3,13 +3,20 @@ import { updateSession } from "@/utils/supabase/middleware";
  
 export async function middleware(request: NextRequest) {
   // Check if the user is authenticated
-  const session = await updateSession(request);
-  if (!session) {
-    // If the user is not authenticated, redirect them to the login page or display an error message
-    return NextResponse.redirect("/login");
-  } 
+  
+  const { pathname } = request.nextUrl;
+  if (pathname === "/") {
+    console.log("Redirecting from root to localized path");
+    return NextResponse.redirect(new URL(`/deidne/`, request.url));
+  }
+
+  const response = await updateSession(request);
+  if (!response) {
+    // If the user is not authenticated, redirect them to the login page
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
   // If the user is authenticated, allow them to access the form page
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {

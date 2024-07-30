@@ -20,13 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
         <DesignerContextProvider>
           <GeneralContextProvider>
-             
+            <NavBar />
             <div className="flex w-full flex-col flex-grow mx-auto">
               {children}
-            </div> 
+            </div>
           </GeneralContextProvider>
         </DesignerContextProvider>
       </body>

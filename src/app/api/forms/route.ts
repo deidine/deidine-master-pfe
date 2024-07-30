@@ -62,6 +62,7 @@ export async function DELETE(req: NextRequest) {
     
     const { id  } = await req.json();
 
+    console.log("deidine deilting forms id ",id) 
     const { error  } = await supabase
       .from('form')
       .delete()
@@ -70,7 +71,6 @@ export async function DELETE(req: NextRequest) {
     if (error) {
       throw error;
     }
-
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting forms:", error);

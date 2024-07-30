@@ -4,13 +4,11 @@ import React, {   useState } from 'react'
 
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
 import useGeneral from '@/hooks/useGeneral';
-export default function TopButtons( {id,onPreview}: {id: number,onPreview:(value:boolean) => void}) {
+export default function TopButtons( {id,isFromLocalStorage,onPreview}: {id: number,isFromLocalStorage:boolean,onPreview:(value:boolean) => void}) {
    const [preview, setPreview] = useState(false);
-  const {  elements } = useDesigner();
- 
-    const {isQuestUser}=useGeneral();
+  const {  elements } = useDesigner(); 
   const handleSave = async () => {
-    if (isQuestUser) {
+    if (isFromLocalStorage) {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
         const formIndex = forms.findIndex((form: any) => form.id === id);
