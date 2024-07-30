@@ -17,16 +17,13 @@ export default function FormDetailPage({
   const [form, setForm] = useState<Form >( );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const user = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user")!)
-  : null;
-
+ 
   useEffect(() => {
     fetchForm();
   }, []);
 
   const fetchForm = async () => { 
-    if (localStorageParam === 'true' && user) {
+    if (localStorageParam === 'true') {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
         const form = forms.find((form: Form) => form.id === parseInt(id));

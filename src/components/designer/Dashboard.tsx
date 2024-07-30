@@ -1,8 +1,7 @@
-// /pages/Dashboard.js
-"use client"; 
+"use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button, Form, Input, Modal, message } from "antd";
+import { Button, Descriptions, Form, Input, Modal, message } from "antd";
 import PreviewForm from "@/components/forms/previews/PreviewForm";
 import { Badge } from "../ui/badge";
 
@@ -10,46 +9,36 @@ export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [elements, setElements] = useState<Form[]>([]);
-
-  const [_, setForm] = useState<Form>();
+  const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")!)
     : null;
-  const uud = user?.id; 
+  const uud = user?.id;
   useEffect(() => {
     fetchForms();
   }, []);
 
   const fetchForms = async () => {
-    if (user) {
-      try {
-        let dataForms = [];
-        const response = await fetch(`/api/forms?user_id=${uud}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        dataForms = data.forms;
-
-        const localStorageForms = JSON.parse(
-          localStorage.getItem("forms") || "[]"
-        );
-        const combinedForms = [...dataForms, ...localStorageForms];
-        setElements(combinedForms);
-      } catch (error) {
-        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-        setElements(forms);
-        console.error("Error fetching forms:", error);
-      }
-    } else {
+    try {
+      let dataForms = [];
+      const response = await fetch(`/api/forms?user_id=${uud}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      dataForms = data.forms;
+      const localStorageForms = JSON.parse(
+        localStorage.getItem("forms") || "[]"
+      );
+      const combinedForms = [...dataForms, ...localStorageForms];
+      setElements(combinedForms);
+    } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       setElements(forms);
+
+      console.error("Error fetching forms:", error);
     }
   };
 
@@ -59,12 +48,10 @@ export default function Dashboard() {
 
   const handlePreviewOk = () => {
     setIsModalPreviewVisible(false);
-    setElements([]);
   };
 
   const handlePreviewCancel = () => {
     setIsModalPreviewVisible(false);
-    setElements([]);
   };
 
   const handleCancel = () => {
@@ -77,97 +64,104 @@ export default function Dashboard() {
   };
 
   const handleSave = async (title: string, description: string) => {
-    if (user) {
-      try {
-        const response = await fetch("/api/forms/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: title,
-            content: [],
-            description: description,
-            user_id: user.id,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Error inserting data");
-        }
-
-        const data = await response.json();
-        console.log("Data inserted:", data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    } else {
+    try {
+      const response = await fetch("/api/forms/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          content: [],
+          description: description,
+          user_id: user.id,
+        }),
+      });
+      const data = await response.json();
+      console.log("Data inserted:", data);
+    } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       forms.push({
-        id: Date.now(), // unique ID for local storage
+        id: Date.now(),
         title: title,
         content: [],
         isFromLocalStorage: true,
         description: description,
       });
       localStorage.setItem("forms", JSON.stringify(forms));
+      console.error("Error:", error);
     }
   };
 
   const fetchForm = async (id: number) => {
-    if (user) {
-      try {
-        const response = await fetch(`/api/forms/${id}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setForm(data.form);
-        return data.form;
-      } catch (error) {
-        console.error("Error fetching form:", error);
-        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-        const form = forms.find((form: Form) => form.id === id);
-        setForm(form);
-        return null;
-      }
-    } else {
+    try {
+      const response = await fetch(`/api/forms/${id}`);
+      const data = await response.json();
+      return data.form;
+    } catch (error) {
+      console.error("Error fetching form:", error);
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const form = forms.find((form: Form) => form.id === id);
-      setForm(form);
+
       return form;
     }
   };
 
   const deleteForm = async (id: number) => {
-    if (user) {
-      try {
-        const response = await fetch(`/api/forms/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+    try {
+      const response = await fetch(`/api/forms/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-        if (!response.ok) {
-          throw new Error("Error deleting form");
-        }
-
-        message.success("Form deleted successfully");
-        fetchForms();
-      } catch (error) {
-        console.error("Error deleting form:", error);
-        message.error("Error deleting form");
+      if (!response.ok) {
+        throw new Error("Error deleting form");
       }
-    } else {
+
+      message.success("Form deleted successfully");
+      fetchForms();
+    } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const updatedForms = forms.filter((form: Form) => form.id !== id);
       localStorage.setItem("forms", JSON.stringify(updatedForms));
-      message.success("Form deleted successfully");
+      forms && message.success("localStorage Form deleted successfully");
+
       fetchForms();
     }
   };
+  const saveToDatabase = async (
+    id:number,
+    title: string,
+    content: FormElement[],
+    description: string
+  ) => {
+    try {
+      const response = await fetch("/api/forms/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+          description: description,
+          user_id: user.id,
+        }),
+      });
 
+      if (!response.ok) {
+        throw new Error("Error inserting data");
+      }
+
+      const data = await response.json();
+      console.log("Data inserted:", data);
+      deleteForm( id);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <>
       <div className="p-4">
@@ -184,20 +178,53 @@ export default function Dashboard() {
                 key={element.id}
                 onClick={async () => {
                   const form = await fetchForm(element.id);
-                  setElements(form ? form.content : []);
+                  setElementsPreview(form ? form.content : []);
                   setIsModalPreviewVisible(true);
                 }}
-                className="flex flex-col md:flex-row justify-between items-center rounded-lg border-2 border-gray-300 p-4 hover:shadow-md cursor-pointer"
+                className="flex flex-col md:flex-row  items-center 
+                justify-between
+                rounded-lg border-2 border-gray-300 gap-4
+                p-4 hover:shadow-md cursor-pointer"
               >
-                <div className="text-lg font-semibold">
-                  <u>Title:</u> {element.title}
+                <div className="flex flex-row gap-3 items-center ">
+                  <div className="w-[30px] h-[30px] text-center  rounded-lg border-2">
+                    ...
+                  </div>
+                  <div className="flex flex-col gap-3 text-lg font-semibold">
+                    <p className="text-lg"> {element.title}</p>
+                    <Badge
+                      className={` ${
+                        element.isFromLocalStorage
+                          ? "bg-[#bccdda70]"
+                          : "bg-[#65b1eb70]"
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      {element.isFromLocalStorage
+                        ? "Local Storage"
+                        : "Database"}
+                    </Badge>
+                  </div>
                 </div>
-                <div className="text-lg">
-                  <u>Description:</u> {element.description}
-                </div>
+
                 <div className="flex gap-2">
                   {element.isFromLocalStorage && (
-                    <Button type="default">save to database</Button>
+                    <Badge
+                      onClick={(e) =>
+                    { 
+                      saveToDatabase( 
+                        element.id,
+                        element.title,
+                        element.content,
+                        element.description
+                      )
+                    }
+                      }
+                    >
+                      save to database
+                    </Badge>
                   )}
                   <Badge
                     onClick={(e) => {
@@ -261,7 +288,7 @@ export default function Dashboard() {
         onCancel={handlePreviewCancel}
         footer={null}
       >
-        <PreviewForm isTemplate={true} elementsTemplate={elements} />
+        <PreviewForm isTemplate={true} elementsTemplate={elementsPreview} />
       </Modal>
     </>
   );
