@@ -8,14 +8,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function  POST(req:NextRequest ) {
   const supabase = createClient();
   
-  const { title, content, description } = await req.json();
+  const { title, content, description,user_id } = await req.json();
   
   
   try {
     const { data, error } = await supabase
     .from('form')
     .insert([
-      { title, content, description }
+      { title, content, description,user_id }
     ]);
     
     if (error) throw error;
@@ -30,14 +30,19 @@ export async function  POST(req:NextRequest ) {
   
   
   
-  export async function GET() {
+  export async function GET(req:NextRequest) {
   const supabaseclient = createClientBrowser();
   try {
-    
+  
+    const user_id = req.nextUrl.searchParams.get('user_id');
+
+
 
     const { data: forms, error } = await supabaseclient
       .from('form')
-      .select('*');
+      .select('*')
+      .eq('user_id', user_id) 
+      ;
 
     if (error) {
       throw error;
@@ -57,6 +62,7 @@ export async function DELETE(req: NextRequest) {
     
     const { id  } = await req.json();
 
+    console.log("deidine deilting forms id ",id) 
     const { error  } = await supabase
       .from('form')
       .delete()
@@ -65,7 +71,6 @@ export async function DELETE(req: NextRequest) {
     if (error) {
       throw error;
     }
-
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting forms:", error);

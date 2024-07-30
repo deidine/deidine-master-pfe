@@ -1,31 +1,23 @@
-import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+"use client";
+import Link from "next/link"; 
 import React from "react";
-
-export default async function NavBar() {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    // return redirect("/login");
-  }
- 
+import Signout from "./Signout";
+import useGeneral from "@/hooks/useGeneral";
+export default   function NavBar() {
+  const user =localStorage.getItem( "user")?JSON.parse(localStorage.getItem( "user")!):null
+  const { isQuestUser,  setUser } = useGeneral();
+  // setUser(user2)
   return (
- 
-        <header className="bg-white rounded-lg border-2 h-20 ">
-          <nav className="flex flex-row items-center my-auto mt-4 gap-4">
-            <Link href="/">FormBiulder</Link> 
-            <Link href="/forms">Dashboard</Link>
-            <div className="flex gap-4 justify-end w-full">
-            
-            { <Link href="/login">{user ?"Login":"Signup"}</Link>}
-           
-
-            </div>
-          </nav>
-        </header> 
+    <header className="bg-white rounded-lg border-2 h-20 ">
+      <nav className="flex flex-row items-center my-auto mt-4 gap-4">
+        <Link href="/">FormBiulder</Link>
+        <Link href="/forms">Dashboard</Link>
+        <div className="flex gap-4 justify-end w-full">
+          {<Link href="/login">{user ? <Signout /> : "Login"}</Link>}
+          {user && user.email}
+          {isQuestUser ? " Form in localstorage" : " Form in database"}
+        </div>
+      </nav>
+    </header>
   );
 }

@@ -1,25 +1,24 @@
 "use client";
 
+import { User } from "@supabase/supabase-js";
 import {  ReactNode , createContext, useState } from "react";
  
-type GeneralContextType = {  
-isQuestUser: boolean; 
-setIsQuestUser:(value:boolean) => void;
+type GeneralContextType = {   
+user?:User;
+setUser:(value:User) => void;
 };
 
 export const GeneralContext = createContext<GeneralContextType | null>(null);
 
 export default function GeneralContextProvider({ children }: { children: ReactNode }) {
- 
-const [isQuestUser, setIsQuestUser] = useState<boolean>(true);
- 
+  
+const [ user, setUser ] = useState<User >();
 
   return (
     <GeneralContext.Provider
-      value={{
-        isQuestUser,
-       
-        setIsQuestUser 
+      value={{ 
+        user,
+        setUser 
       }}
     >
       {children}

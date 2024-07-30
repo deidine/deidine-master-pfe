@@ -3,6 +3,8 @@ type Form= {
   title :string ;
   description:string;
   content:FormElement[]; 
+  isFromLocalStorage?:boolean;
+  create_at?: Date;
 }
 
 type FormElement = {

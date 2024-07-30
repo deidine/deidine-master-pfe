@@ -63,14 +63,14 @@ export default function FormBuilder() {
 
   return (
     <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
-      <div className="flex justify-between mb-4">
+      {/* <div className="flex justify-between mb-4">
         <Button onClick={undo} disabled={undoStack.length === 0}>
           Undo
         </Button>
         <Button onClick={redo} disabled={redoStack.length === 0}>
           Redo
         </Button>
-      </div>
+      </div> */}
 
       <DragDropContext
         onDragUpdate={handleOnDragUpdate}
