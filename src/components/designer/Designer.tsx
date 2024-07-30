@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import PreviewForm from "../forms/previews/PreviewForm";
+import FlutterPreviewForm from "../forms/previews/FlutterPreviewForm";
 import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";  
 import InsertElement from "../forms/InsertElement";
@@ -36,7 +36,7 @@ export default function Designer({ form ,isFromLocalStorage}: { form: Form,isFro
      <TopButtons id={form.id} onPreview={(value: boolean) => setPreview(value)} isFromLocalStorage={isFromLocalStorage}/>
         {/* <FormLinkShare shareUrl={'deidine'}/> */}
         <div className="mx-auto w-full flex flex-col items-center justify-center">
-          {preview ? <PreviewForm /> : <FormBuilder />}
+          {preview ? <FlutterPreviewForm /> : <FormBuilder />}
         <InsertElement/>
         </div>
       </div>

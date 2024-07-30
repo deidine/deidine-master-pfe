@@ -1,7 +1,7 @@
 "use client";
 import useDesigner from '@/hooks/useDesigner';
 import React, {   useState } from 'react' 
-import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator"; 
+import FormFlutterCodeGenerator from "../forms/codeGenerator/FormFlutterCodeGenerator"; 
 export default function TopButtons( {id,isFromLocalStorage,onPreview}: {id: number,isFromLocalStorage:boolean,onPreview:(value:boolean) => void}) {
    const [preview, setPreview] = useState(false);
   const {  elements } = useDesigner(); 
@@ -88,7 +88,7 @@ export default function TopButtons( {id,isFromLocalStorage,onPreview}: {id: numb
       >
         Save Changes
       </button>
-      <FormCodeGenerator /> 
+      <FormFlutterCodeGenerator /> 
     </div>
   </div>
   
