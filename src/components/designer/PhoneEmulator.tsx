@@ -1,14 +1,24 @@
 import React from "react";
+import { DeviceFrameset, DeviceFramesetProps } from "react-device-frameset";
 
-const PhoneEmulator = ({ children }:{ children: React.ReactNode}) => {
+import 'react-device-frameset/styles/marvel-devices.min.css';
+import 'react-device-frameset/styles/device-selector.min.css';
+
+type DeviceName = "iPhone X" | "iPhone 8" | "iPhone 8 Plus" | "iPhone 5s" | "iPhone 5c" | "iPhone 4s" | "Galaxy Note 8" | "Nexus 5" | "Lumia 920" | "Samsung Galaxy S5" | "HTC One" | "iPad Mini" | "MacBook Pro";
+
+type DeviceEmulatorProps = {
+  banDevices?: DeviceName[];
+  children: (props: DeviceFramesetProps) => React.ReactNode;
+  value?: DeviceFramesetProps;
+  onChange?: (deviceConfig: DeviceFramesetProps) => void;
+};
+
+const PhoneEmulator = ({ value, onChange, banDevices = [], children }: DeviceEmulatorProps) => {
   return (
-    <div className="flex justify-center items-center  py-10">
-      {/* <div className="bg-black w-72 h-150 rounded-3xl relative shadow-lg">
-        <div className="bg-gray-700 h-6 w-1/2 absolute top-2 left-1/4 rounded-md"></div>
-        <div className="bg-white w-full h-full mt-6 rounded-b-3xl"> */}
-          {children}
-        {/* </div>
-      </div> */}
+    <div className="flex justify-center items-center py-10">
+      <DeviceFrameset device="iPhone 8" color="gold" landscape>
+        {children(value!)}
+      </DeviceFrameset>
     </div>
   );
 };

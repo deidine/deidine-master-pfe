@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import useDesigner from "@/hooks/useDesigner";
 import PhoneEmulator from "@/components/designer/PhoneEmulator";
 
-import DeviceEmulator from 'react-device-emulator';
-import 'react-device-emulator/lib/styles/style.css';
 export default function FlutterPreviewForm({
   isTemplate,
   showSubmit,
@@ -11,7 +9,7 @@ export default function FlutterPreviewForm({
 }: {
   isTemplate?: boolean;
   showSubmit?: boolean;
-  elementsTemplate?: Form [] | FormElement[];
+  elementsTemplate?: Form[] | FormElement[];
 }) {
   const onFinish = (values: any) => {
     console.log("Form submitted:", values);
@@ -19,7 +17,9 @@ export default function FlutterPreviewForm({
   };
   const [submitted, setSubmitted] = useState(false);
   const [isTemlate, setisTemlate] = useState<boolean>(isTemplate || false);
-  const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<Form[] | FormElement[]>(elementsTemplate!);
+  const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<
+    Form[] | FormElement[]
+  >(elementsTemplate!);
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
 
@@ -32,20 +32,25 @@ export default function FlutterPreviewForm({
       <div className="flex justify-center w-full h-full items-center p-8">
         <div className="max-w-[620px] flex flex-col gap-4 flex-grow bg-background w-full p-8 overflow-y-auto border shadow-xl shadow-blue-700 rounded">
           <h1 className="text-2xl font-bold">Form submitted</h1>
-          <p className="text-muted-foreground">Thank you for submitting the form, you can close this page now.</p>
+          <p className="text-muted-foreground">
+            Thank you for submitting the form, you can close this page now.
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <PhoneEmulator>
-<DeviceEmulator withDeviceSwitch withRotator>    
-   <form onSubmit={onFinish} className="p-4">
-        {mapElement.map((element:any, index) => (
+    <PhoneEmulator banDevices={["iPhone 8"]} value={mapElement} onChange={() => {}}>
+      <form onSubmit={onFinish} className="p-4">
+        {mapElement.map((element: any, index) => (
           <div key={index} className="mb-4">
-            <label className="block text-sm font-medium mb-2">{element.elementType.label}</label>
-            {["text", "number", "email", "password", "file"].includes(element.elementType.type) && (
+            <label className="block text-sm font-medium mb-2">
+              {element.elementType.label}
+            </label>
+            {["text", "number", "email", "password", "file"].includes(
+              element.elementType.type
+            ) && (
               <input
                 type={element.elementType.type}
                 name={element.elementType.name}
@@ -96,7 +101,9 @@ export default function FlutterPreviewForm({
                 required={element.elementType.required}
                 className="w-full px-3 py-2 border rounded"
               >
-                <option value="" disabled selected>{element.elementType.placeholder}</option>
+                <option value="" disabled selected>
+                  {element.elementType.placeholder}
+                </option>
                 {element.elementType.options.map((option: any, idx: number) => (
                   <option key={idx} value={option}>
                     {option}
@@ -111,7 +118,9 @@ export default function FlutterPreviewForm({
                 multiple
                 className="w-full px-3 py-2 border rounded"
               >
-                <option value="" disabled>{element.elementType.placeholder}</option>
+                <option value="" disabled>
+                  {element.elementType.placeholder}
+                </option>
                 {element.elementType.options.map((option: any, idx: number) => (
                   <option key={idx} value={option}>
                     {option}
@@ -163,7 +172,7 @@ export default function FlutterPreviewForm({
             </button>
           )}
         </div>
-      </form> 
-      </DeviceEmulator>
-</PhoneEmulator>  );
+      </form>
+    </PhoneEmulator>
+  );
 }
