@@ -10,10 +10,9 @@ export default function Dashboard() {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [elements, setElements] = useState<Form[]>([]);
   const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
-  const user = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user")!)
-    : null;
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("user")!) : null;
   const uud = user?.id;
+
   useEffect(() => {
     fetchForms();
   }, []);

@@ -5,20 +5,21 @@ import {  ReactNode , createContext, useState } from "react";
  
 type GeneralContextType = {   
 user?:User;
-setUser:(value:User) => void;
+setUser:(value:User|null) => void;
 };
 
 export const GeneralContext = createContext<GeneralContextType | null>(null);
 
 export default function GeneralContextProvider({ children }: { children: ReactNode }) {
+  const userLocal = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("user")!) : null;
   
-const [ user, setUser ] = useState<User >();
-
+const [ user, setUser ] = useState<User >(userLocal);
+ 
   return (
     <GeneralContext.Provider
       value={{ 
         user,
-        setUser 
+        setUser:(value:User|null)=>{setUser(value!)} 
       }}
     >
       {children}

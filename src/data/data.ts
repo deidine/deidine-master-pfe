@@ -31,6 +31,7 @@ const patternOptions = [
     
   ];
 
-  
+    const shortcuts = [
+    { shortcut: "CTRL+S", title: "Save diagram", description: "" },]
  
-export { patternOptions,selectTypeOptions,inputTypeOptions  }
+export { patternOptions,selectTypeOptions,inputTypeOptions,shortcuts  }
