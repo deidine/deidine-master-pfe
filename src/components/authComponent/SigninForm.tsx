@@ -24,13 +24,15 @@ const SigninForm = () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if (!user) {
-      // return redirect("/login");
-    }else{
+    if ( user) {
       setUser(user)
       localStorage.setItem("user",JSON.stringify(user))
+      if (typeof window !== "undefined") {
+        window.location.href = "/forms"; 
+      }
+    }else{
+      // return redirect("/login");
     }
-    return alert("/protected");
   };
 
   return (
