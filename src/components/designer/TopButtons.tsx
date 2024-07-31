@@ -1,6 +1,8 @@
 "use client";
 import useDesigner from '@/hooks/useDesigner';
 import React, {   useState } from 'react' 
+import { useHotkeys } from 'react-hotkeys-hook';
+
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator"; 
 export default function TopButtons( {id,isFromLocalStorage,onPreview}: {id: number,isFromLocalStorage:boolean,onPreview:(value:boolean) => void}) {
    const [preview, setPreview] = useState(false);
@@ -46,6 +48,7 @@ export default function TopButtons( {id,isFromLocalStorage,onPreview}: {id: numb
       }
     }  
   };
+  useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
  
   return (
     <div className="flex justify-center py-4 gap-[23%]">
@@ -94,3 +97,4 @@ export default function TopButtons( {id,isFromLocalStorage,onPreview}: {id: numb
   
   )
 }
+ 
