@@ -6,6 +6,7 @@ import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
 
 export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: number, isFromLocalStorage: boolean, onPreview: (value: boolean) => void }) {
   const [preview, setPreview] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);  // State to track save status
   const { elements } = useDesigner();
 
   const handleSave = async () => {
@@ -48,27 +49,32 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
         console.error("Error:", error);
       }
     }
+    setIsSaved(true);  // Set isSaved to true after saving
   };
 
   useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      handleSave();
-    }, 60000); // 60000 milliseconds = 1 minute
+      if (!isSaved) {
+        handleSave();
+      }
+    }, 60000);  
 
     return () => clearInterval(interval);
-  }, [elements]);
+  }, [elements, isSaved]);
 
   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-    const message = "You have unsaved changes. Are you sure you want to leave?";
-    event.preventDefault();
-    event.returnValue = message;
-    return message;
+    if (!isSaved) {
+      const message = "You have unsaved changes. Are you sure you want to leave?";
+      event.preventDefault();
+      event.returnValue = message;
+      return message;
+    }
   };
 
   const handleVisibilityChange = () => {
-    if (document.visibilityState === "hidden") {
+    if (document.visibilityState === "hidden" && !isSaved) {
       const userConfirmed = confirm("You have unsaved changes. Do you want to save them before leaving?");
       if (userConfirmed) {
         handleSave();
@@ -76,15 +82,30 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
     }
   };
 
-  // useEffect(() => {
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("popstate", handlePopState);
 
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
-  //   };
-  // }, [elements]);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isSaved]);
+
+  const handlePopState = () => {
+    if (!isSaved) {
+      const userConfirmed = confirm("You have unsaved changes. Do you want to save them before navigating away?");
+      if (userConfirmed) {
+        handleSave();
+      }
+    }
+  };
+
+  useEffect(() => {
+    setIsSaved(false);  
+  }, [elements]);
 
   return (
     <div className="flex justify-center py-4 gap-[23%]">
