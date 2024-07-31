@@ -11,6 +11,7 @@ import {
 import useDesigner from "@/hooks/useDesigner";
 import FormElement from "../formElements/FormElement";
 import { motion } from "framer-motion";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export default function FormBuilder() {
   const [draggingElementIndex, setDraggingElementIndex] = useState<number | null>(null);
@@ -61,6 +62,8 @@ export default function FormBuilder() {
     }
   };
 
+  useHotkeys("ctrl+z, meta+z", undo, { preventDefault: true });
+  useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
   return (
     <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
       {/* <div className="flex justify-between mb-4">

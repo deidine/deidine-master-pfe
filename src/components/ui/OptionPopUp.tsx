@@ -4,6 +4,7 @@ import { DeleteFilled, EditOutlined, MoreOutlined, CopyOutlined, ScissorOutlined
 import useDesigner from "@/hooks/useDesigner";
 import { Badge } from "./badge";
 import { FiSidebar } from "react-icons/fi";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export default function OptionPopUp({
   name,
@@ -30,20 +31,37 @@ export default function OptionPopUp({
     cutElement,
     pasteElement,
   } = useDesigner();
+  const duplicate = ( ) => {
+    selectedElement && duplicateElement(index, selectedElement.elementType.name);
+    
+  }
+  const copy = ( ) => {
+    selectedElement && copyElement(selectedElement.elementType.name);
+
+  }
+ 
+  const cut = ( ) => {
+    selectedElement && cutElement(selectedElement.elementType.name);
+ 
+  }
+  const paste = ( ) => {
+    selectedElement && duplicateElement(index, selectedElement.elementType.name);
+    pasteElement(index);
+  }
 
   const handleMenuClick = ({ key }: { key: string }) => {
     switch (key) {
       case "copy":
-        selectedElement && copyElement(selectedElement.elementType.name);
+        copy
         break;
       case "cut":
-        selectedElement && cutElement(selectedElement.elementType.name);
+        cut
         break;
       case "duplicate":
-        selectedElement && duplicateElement(index, selectedElement.elementType.name);
+        duplicate
         break;
       case "paste":
-        pasteElement(index);
+        paste
         break;
       default:
         break;
@@ -65,8 +83,11 @@ export default function OptionPopUp({
         Paste
       </Menu.Item>
     </Menu>
-  );
-
+  ); 
+  useHotkeys("ctrl+v, meta+v", paste, { preventDefault: true });
+  useHotkeys("ctrl+x, meta+x", cut, { preventDefault: true });
+  useHotkeys("ctrl+c, meta+c", copy, { preventDefault: true });
+  useHotkeys("ctrl+d, meta+d", duplicate, { preventDefault: true });
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
       <Tooltip title="Open side bar">
