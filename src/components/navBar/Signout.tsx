@@ -1,11 +1,10 @@
-"use client"
-import { createClientBrowser } from '@/utils/supabase/client';
-import React from 'react' 
-export default function Signout() {  
-    const supabase = createClientBrowser();
-    const signOut = async () => {
-        await supabase.auth.signOut();
-       localStorage.clear();
+"use client"  
+import React from 'react'  
+import signout from './signout';
+export default function Signout() {   
+    const signOut =   () => {
+     
+      signout()
       };
   return (
     <div><button onClick={signOut}>Logout</button></div>
