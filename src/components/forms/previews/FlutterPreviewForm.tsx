@@ -41,8 +41,8 @@ export default function FlutterPreviewForm({
   }
 
   return (
-    <PhoneEmulator banDevices={["iPhone 8"]} value={mapElement} onChange={() => {}}>
-      <form onSubmit={onFinish} className="p-4">
+    <PhoneEmulator banDevices={["iPhone 8"] } color="blue" onChange={() => {}}>
+   {() => (   <form onSubmit={onFinish} className="p-4">
         {mapElement.map((element: any, index) => (
           <div key={index} className="mb-4">
             <label className="block text-sm font-medium mb-2">
@@ -172,7 +172,8 @@ export default function FlutterPreviewForm({
             </button>
           )}
         </div>
-      </form>
+      </form> 
+     )}
     </PhoneEmulator>
   );
 }
