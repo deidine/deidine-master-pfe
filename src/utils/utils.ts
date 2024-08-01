@@ -14,12 +14,40 @@ export const openNotification = ( placement: any,type: 'success' | 'error' | 'in
     // duration: 3
   });
 };
+export const deleteForm = async (id: number) => {
+  try {
+    const response = await fetch(`/api/forms/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+   
+    if (!response.ok) {
+      throw new Error("Error deleting form");
+    }
+    openNotification("topRight","success","Form deleted successfully", "Form deleted successfully from database");
+
+  } catch (error) {
+    const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+    const updatedForms = forms.filter((form: Form) => form.id !== id);
+    localStorage.setItem("forms", JSON.stringify(updatedForms));
+    updatedForms[0].isFromLocalStorage &&  openNotification("topRight",'success',"Form deleted successfully", "Form deleted successfully from Localstorage");
+    // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("topRight","Error Deleting  forms :", ""+error);
+
+  }
+}; 
 export const saveToDatabase = async (
   id: number,
   title: string,
   content: FormElement[],
-  description: string,user_id: number,isSaveAll?: boolean
+  description: string, isSaveAll?: boolean
 ) => {
+  const user =
+  typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("user")!)
+    : null;
+const user_id = user?.id;
   try {
     const response = await fetch("/api/forms/", {
       method: "POST",

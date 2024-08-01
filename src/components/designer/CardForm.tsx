@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import {  Modal } from "antd";
 import PreviewForm from "../forms/previews/PreviewForm";
@@ -14,20 +14,42 @@ export default function CardForm({
   reftchForm: () => void;
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
+  const [isUserOnline, setIsUserOnline] = useState(navigator.onLine);
+
   const user =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user")!)
       : null;
+
   const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
+  const handleOnlineStatus = () => {
+    setIsUserOnline(navigator.onLine);
+  };
+  useEffect(() => { 
+    window.addEventListener("online", handleOnlineStatus);
+    window.addEventListener("offline", handleOnlineStatus);
+
+    return () => {
+      window.removeEventListener("online", handleOnlineStatus);
+      window.removeEventListener("offline", handleOnlineStatus);
+    };
+  }, []);
+
   const fetchForm = async (id: number) => {
     try {
+      if (isUserOnline) {
       const response = await fetch(`/api/forms/${id}`);
       const data = await response.json();
       return data.form;
-    } catch (error) {
-      console.error("Error fetching form:", error);
+    } else {
+      
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const form = forms.find((form: Form) => form.id === id);
+      return form;
+
+    }
+    } catch (error) {
+      console.error("Error fetching form:", error);
       openNotification("topRight",'error',"Error fetching database forms :", ""+error);
 
       return form;
@@ -105,7 +127,7 @@ export default function CardForm({
                   form.id,
                   form.title,
                   form.content,
-                  form.description,user.id
+                  form.description 
                 );
                 deleteForm(user.id);
               }}
