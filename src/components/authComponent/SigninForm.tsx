@@ -1,14 +1,22 @@
 "use client";
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Spin, notification } from "antd";
 import { createClientBrowser } from "@/utils/supabase/client";
 import useGeneral from "@/hooks/useGeneral";
+import { LoadingOutlined } from "@ant-design/icons";
+import { openNotification } from "@/utils/utils";
+
 const SigninForm = () => {
   const [form] = Form.useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
-   const { setUser  } = useGeneral()
-  const onFinish = async(values: any) => {
-    console.log("Form submitted:", values); 
+  const { setUser } = useGeneral();
+
+
+
+  const onFinish = async (values: any) => {
+    setIsLoading(true); // Set loading state to true
+
     const email = values.email;
     const password = values.password;
     const supabase = createClientBrowser();
@@ -19,19 +27,25 @@ const SigninForm = () => {
     });
 
     if (error) {
-      return alert("/login?message=Could not authenticate user");
+      setIsLoading(false);
+      openNotification("bottomRight",'error', 'Login Failed', 'Could not authenticate user');
+      return;
     }
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if ( user) {
-      setUser(user)
-      localStorage.setItem("user",JSON.stringify(user))
+
+    if (user) {
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      openNotification("topRight",'success', 'Login Successful', 'You have successfully logged in.');
       if (typeof window !== "undefined") {
-        window.location.href = "/forms"; 
+        window.location.href = "/forms";
       }
-    }else{
-      // return redirect("/login");
+    } else {
+      setIsLoading(false);
+      openNotification("bottomRight",'error', 'Login Failed', 'Could not retrieve user data');
     }
   };
 
@@ -95,12 +109,12 @@ const SigninForm = () => {
                     type="primary"
                     htmlType="submit"
                     className="mt-20 w-full uppercase rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+                    loading={isLoading} // Set loading state to spinning indicator
                   >
                     Sign in
                   </Button>
                 </Form.Item>
               </Form>
-
               <a
                 href="#"
                 className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"

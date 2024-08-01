@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { Badge } from "../ui/badge";
-import { message, Modal } from "antd";
+import {  Modal } from "antd";
 import PreviewForm from "../forms/previews/PreviewForm";
 import Link from "next/link";
+import { openNotification } from "@/utils/utils";
 
 export default function CardForm({
   form,
@@ -16,7 +17,7 @@ export default function CardForm({
   const user =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user")!)
-      : null; 
+      : null;
   const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
   const fetchForm = async (id: number) => {
     try {
@@ -27,6 +28,7 @@ export default function CardForm({
       console.error("Error fetching form:", error);
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const form = forms.find((form: Form) => form.id === id);
+      openNotification("bottomRight",'error',"Error fetching database forms :", ""+error);
 
       return form;
     }
@@ -44,13 +46,15 @@ export default function CardForm({
       if (!response.ok) {
         throw new Error("Error deleting form");
       }
-
-      message.success("Form deleted successfully");
+      openNotification("topRight","success","Form deleted successfully", "Form deleted successfully from database");
+ 
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const updatedForms = forms.filter((form: Form) => form.id !== id);
       localStorage.setItem("forms", JSON.stringify(updatedForms));
-      forms && message.success("localStorage Form deleted successfully");
+      updatedForms[0].isFromLocalStorage &&  openNotification("topRight",'success',"Form deleted successfully", "Form deleted successfully from Localstorage");
+      // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("bottomRight","Error Deleting  forms :", ""+error);
+ 
     }
   };
   const saveToDatabase = async (
@@ -76,10 +80,11 @@ export default function CardForm({
       if (!response.ok) {
         throw new Error("Error inserting data");
       }
-
+      
       const data = await response.json();
       console.log("Data inserted:", data);
       deleteForm(id);
+      openNotification ("topRight",'success',"Data inserted:", "Data inserted successfully in database");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -107,8 +112,6 @@ export default function CardForm({
                 p-4 hover:shadow-md cursor-pointer"
       >
         <div className="flex flex-row gap-3 items-center ">
-       
-
           <div className="flex flex-col gap-3 text-lg font-semibold">
             <p className="text-lg"> {form.title}</p>
 

@@ -1,6 +1,6 @@
 "use client";
 import useDesigner from '@/hooks/useDesigner';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
 
@@ -8,6 +8,7 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
   const [preview, setPreview] = useState(false);
   const [isSaved, setIsSaved] = useState(true);  // State to track save status
   const { elements } = useDesigner();
+  const isFirstRender = useRef(true); // Track the first render
 
   const handleSave = async () => {
     if (isFromLocalStorage) {
@@ -59,10 +60,22 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
       if (!isSaved) {
         handleSave();
       }
-    }, 60000);  
+    }, 60000); // 60000 milliseconds = 1 minute
 
     return () => clearInterval(interval);
   }, [elements, isSaved]);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isSaved]);
 
   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
     if (!isSaved) {
@@ -82,18 +95,6 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("popstate", handlePopState);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, [isSaved]);
-
   const handlePopState = () => {
     if (!isSaved) {
       const userConfirmed = confirm("You have unsaved changes. Do you want to save them before navigating away?");
@@ -104,7 +105,11 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
   };
 
   useEffect(() => {
-    setIsSaved(false);  
+    if (isFirstRender.current) {
+      isFirstRender.current = false; // Set to false after the first render
+      return;
+    }
+    setIsSaved(false); // Set isSaved to false whenever elements change after the first render
   }, [elements]);
 
   return (

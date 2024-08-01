@@ -1,13 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import CardForm from "./CardForm";
+import { openNotification, openNotificationErro } from "@/utils/utils";
 
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [elements, setElements] = useState<Form[]>([]);
   const [elementsLocalstrage, setElementsLocalstrage] = useState<Form[]>([]);
+  const [createform] = Form.useForm();
   const user =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user")!)
@@ -37,6 +39,8 @@ export default function Dashboard() {
       setElementsLocalstrage(localStorageForms);
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      openNotification("bottomRight",'error',"Error fetching database forms :", ""+error);
+
       setElementsLocalstrage(forms);
       console.error("Error fetching forms:", error);
     }
@@ -50,8 +54,10 @@ export default function Dashboard() {
     setIsModalVisible(false);
   };
 
+  
   const onFinish = async (values: any) => {
     await handleSave(values.title, values.description);
+  
     fetchForms();
   };
 
@@ -71,6 +77,9 @@ export default function Dashboard() {
       });
       const data = await response.json();
       console.log("Data inserted:", data);
+      setIsModalVisible(false);
+      createform.resetFields();
+      openNotification("topRight",'success',"Data inserted:", "Data inserted successfully in database");
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       forms.push({
@@ -81,7 +90,9 @@ export default function Dashboard() {
         description: description,
       });
       localStorage.setItem("forms", JSON.stringify(forms));
-
+      openNotification("topRight",'success',"Data inserted:", "Data inserted successfully in localstorage");
+      setIsModalVisible(false);
+      createform.resetFields();
       console.error("Error:", error);
     }
   };
@@ -129,16 +140,16 @@ export default function Dashboard() {
         onCancel={handleCancel}
         footer={null}
       >
-        <Form onFinish={onFinish} layout="vertical">
+        <Form onFinish={onFinish} form={createform} layout="vertical">
           <Form.Item label="Title" name="title" rules={[{ required: true }]}>
             <Input placeholder="Title" />
           </Form.Item>
           <Form.Item
             label="Description"
             name="description"
-            rules={[{ required: true }]}
+            rules={[{ required: false }]}
           >
-            <Input placeholder="Description" />
+            <Input.TextArea className="h-[2.5rem]" placeholder="Description" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" block>
