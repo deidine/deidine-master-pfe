@@ -1,5 +1,6 @@
 "use client";
 import Designer from "@/components/designer/Designer";
+import useGeneral from "@/hooks/useGeneral";
 import { useSearchParams } from 'next/navigation' 
 import { useEffect, useState } from "react"; 
 export default function FormDetailPage({
@@ -10,7 +11,7 @@ export default function FormDetailPage({
   };
 }) {
   const searchParams = useSearchParams()
- 
+ const {user  } = useGeneral();
   const localStorageParam = searchParams.get('localStorage')
  
   const { id } = params;
@@ -62,7 +63,11 @@ export default function FormDetailPage({
   if (error) {
     return <div>{error}</div>;
   }
-
+if(!user && localStorageParam !== 'true') {
+  if (typeof window !== "undefined") {
+    window.location.href = "/login"; 
+  }
+}
   if (!form) {
     return <div>Form not found</div>;
   }

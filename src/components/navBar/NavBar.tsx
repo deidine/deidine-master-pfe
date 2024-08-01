@@ -8,8 +8,7 @@ import { Menu } from '@headlessui/react';
 
 export default function NavBar() {
   const { user, setUser } = useGeneral();
-  const [showDropdown, setShowDropdown] = useState(false);
-
+ 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "user") {
@@ -30,7 +29,7 @@ export default function NavBar() {
       await supabase.auth.signOut();
       localStorage.removeItem("user");
       setUser(null);
-      window.location.reload();
+      window.location.href = "/forms";
     }
   };
 

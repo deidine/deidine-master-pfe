@@ -8,11 +8,14 @@ import { Button } from 'antd';
 
 export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: number, isFromLocalStorage: boolean, onPreview: (value: boolean) => void }) {
   const [preview, setPreview] = useState(false);
-  const [isSaved, setIsSaved] = useState(true);  // State to track save status
+  const [isSaved, setIsSaved] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);   
   const { elements } = useDesigner();
   const isFirstRender = useRef(true); // Track the first render
 
   const handleSave = async () => {
+    setIsLoading(true);
+
     if (isFromLocalStorage && !isSaved) {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -49,12 +52,13 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
 
         const data = await response.json();
         console.log("Data inserted:", data);
-        openNotification("topRight", 'success', "Data inserted", "Data inserted successfully in database");
+        !isLoading && openNotification("topRight", 'success', "Data inserted", "Data inserted successfully in database");
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    setIsSaved(true);  // Set isSaved to true after saving
+    setIsSaved(true);   
+    setIsLoading(false);
   };
 
   useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
@@ -75,7 +79,7 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
     }, 60000); // 60000 milliseconds = 1 minute
 
     return () => clearInterval(interval);
-  }, [isSaved, handleSave]);
+  }, [isSaved ]);
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -86,33 +90,12 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
         return message;
       }
     };
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "hidden" && !isSaved) {
-        const userConfirmed = confirm("You have unsaved changes. Do you want to save them before leaving?");
-        if (userConfirmed) {
-          handleSave();
-        }
-      }
-    };
-
-    const handlePopState = () => {
-      if (!isSaved) {
-        const userConfirmed = confirm("You have unsaved changes. Do you want to save them before navigating away?");
-        if (userConfirmed) {
-          handleSave();
-        }
-      }
-    };
+ 
 
     window.addEventListener("beforeunload", handleBeforeUnload);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("popstate", handlePopState);
-
+ 
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener("beforeunload", handleBeforeUnload); 
     };
   }, [isSaved]);
 
@@ -140,7 +123,7 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
       </div>
       <div className="flex flex-row gap-2">
         <Button
-        loading={isSaved}
+        loading={isLoading}
           className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
           onClick={handleSave}
         >

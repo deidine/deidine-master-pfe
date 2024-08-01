@@ -46,8 +46,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
       newElements.splice(index, 0, element);
       return newElements;
     });
-    openNotification("topRight",'success', 'Element Added', `Element ${element.elementType.label} has been added successfully`);
-  };
+     };
 
   const removeElement = (name: string) => {
     setElements((prev) => {

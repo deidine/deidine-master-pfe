@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 import {  Modal } from "antd";
 import PreviewForm from "../forms/previews/PreviewForm";
 import Link from "next/link";
-import { openNotification } from "@/utils/utils";
+import { openNotification, saveToDatabase } from "@/utils/utils";
 
 export default function CardForm({
   form,
@@ -28,7 +28,7 @@ export default function CardForm({
       console.error("Error fetching form:", error);
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const form = forms.find((form: Form) => form.id === id);
-      openNotification("bottomRight",'error',"Error fetching database forms :", ""+error);
+      openNotification("topRight",'error',"Error fetching database forms :", ""+error);
 
       return form;
     }
@@ -53,42 +53,10 @@ export default function CardForm({
       const updatedForms = forms.filter((form: Form) => form.id !== id);
       localStorage.setItem("forms", JSON.stringify(updatedForms));
       updatedForms[0].isFromLocalStorage &&  openNotification("topRight",'success',"Form deleted successfully", "Form deleted successfully from Localstorage");
-      // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("bottomRight","Error Deleting  forms :", ""+error);
+      // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("topRight","Error Deleting  forms :", ""+error);
  
     }
-  };
-  const saveToDatabase = async (
-    id: number,
-    title: string,
-    content: FormElement[],
-    description: string
-  ) => {
-    try {
-      const response = await fetch("/api/forms/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          content: content,
-          description: description,
-          user_id: user.id,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error inserting data");
-      }
-      
-      const data = await response.json();
-      console.log("Data inserted:", data);
-      deleteForm(id);
-      openNotification ("topRight",'success',"Data inserted:", "Data inserted successfully in database");
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  }; 
   const handlePreviewOk = () => {
     setIsModalPreviewVisible(false);
   };
@@ -133,12 +101,13 @@ export default function CardForm({
           {form.isFromLocalStorage && user && (
             <Badge
               onClick={(e) => {
-                saveToDatabase(
+                saveToDatabase( 
                   form.id,
                   form.title,
                   form.content,
-                  form.description
+                  form.description,user.id
                 );
+                deleteForm(user.id);
               }}
             >
               save to database

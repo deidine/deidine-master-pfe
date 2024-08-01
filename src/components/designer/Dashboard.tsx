@@ -39,7 +39,7 @@ export default function Dashboard() {
       setElementsLocalstrage(localStorageForms);
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-      openNotification("bottomRight",'error',"Error fetching database forms :", ""+error);
+      openNotification("topRight",'error',"Error fetching database forms :", ""+error);
 
       setElementsLocalstrage(forms);
       console.error("Error fetching forms:", error);

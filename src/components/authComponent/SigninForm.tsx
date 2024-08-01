@@ -4,23 +4,17 @@ import { Form, Input, Button, Spin, notification } from "antd";
 import { createClientBrowser } from "@/utils/supabase/client";
 import useGeneral from "@/hooks/useGeneral";
 import { LoadingOutlined } from "@ant-design/icons";
-import { openNotification } from "@/utils/utils";
+import { openNotification, saveToDatabase } from "@/utils/utils";
 
 const SigninForm = () => {
   const [form] = Form.useForm();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { setUser } = useGeneral();
-
-
-
+  const [isLoading, setIsLoading] = useState(false); 
+  const { setUser } = useGeneral(); 
   const onFinish = async (values: any) => {
-    setIsLoading(true); // Set loading state to true
-
+    setIsLoading(true);  
     const email = values.email;
     const password = values.password;
-    const supabase = createClientBrowser();
-
+    const supabase = createClientBrowser(); 
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -28,7 +22,7 @@ const SigninForm = () => {
 
     if (error) {
       setIsLoading(false);
-      openNotification("bottomRight",'error', 'Login Failed', 'Could not authenticate user');
+      openNotification("topRight",'error', 'Login Failed', 'Could not authenticate user');
       return;
     }
 
@@ -39,13 +33,26 @@ const SigninForm = () => {
     if (user) {
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
+      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      for (const form of forms) {
+        await saveToDatabase(
+          form.id,
+          form.title,
+          form.content,
+          form.description,
+          form.user_id,true
+        );
+        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+        const updatedForms = forms.filter((form: Form) => form.id !==  form.id);
+        localStorage.setItem("forms", JSON.stringify(updatedForms));
+      } 
       openNotification("topRight",'success', 'Login Successful', 'You have successfully logged in.');
       if (typeof window !== "undefined") {
         window.location.href = "/forms";
       }
     } else {
       setIsLoading(false);
-      openNotification("bottomRight",'error', 'Login Failed', 'Could not retrieve user data');
+      openNotification("topRight",'error', 'Login Failed', 'Could not retrieve user data');
     }
   };
 if(isLoading){
@@ -113,7 +120,7 @@ if(isLoading){
                     type="primary"
                     htmlType="submit"
                     className="mt-20 w-full uppercase rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
-                    loading={isLoading} // Set loading state to spinning indicator
+                    loading={isLoading} 
                   >
                     Sign in
                   </Button>
