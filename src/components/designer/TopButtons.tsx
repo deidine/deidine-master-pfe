@@ -3,6 +3,8 @@ import useDesigner from '@/hooks/useDesigner';
 import React, { useEffect, useState, useRef } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
+import { openNotification } from '@/utils/utils';
+import { Button } from 'antd';
 
 export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: number, isFromLocalStorage: boolean, onPreview: (value: boolean) => void }) {
   const [preview, setPreview] = useState(false);
@@ -11,7 +13,7 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
   const isFirstRender = useRef(true); // Track the first render
 
   const handleSave = async () => {
-    if (isFromLocalStorage) {
+    if (isFromLocalStorage && !isSaved) {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
         const formIndex = forms.findIndex((form: any) => form.id === id);
@@ -24,10 +26,11 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
 
         localStorage.setItem("forms", JSON.stringify(forms));
         console.log("Data saved to localStorage");
+        openNotification("topRight", 'success', "Data saved to localStorage", "Data saved to localStorage successfully");
       } catch (error) {
         console.error("Error saving to localStorage:", error);
       }
-    } else {
+    } else if (!isFromLocalStorage && !isSaved) {
       try {
         const response = await fetch("/api/forms/", {
           method: "PUT",
@@ -46,6 +49,7 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
 
         const data = await response.json();
         console.log("Data inserted:", data);
+        openNotification("topRight", 'success', "Data inserted", "Data inserted successfully in database");
       } catch (error) {
         console.error("Error:", error);
       }
@@ -56,6 +60,14 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
   useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false; // Set to false after the first render
+      return;
+    }
+    setIsSaved(false); // Set isSaved to false whenever elements change after the first render
+  }, [elements]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (!isSaved) {
         handleSave();
@@ -63,9 +75,36 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
     }, 60000); // 60000 milliseconds = 1 minute
 
     return () => clearInterval(interval);
-  }, [elements, isSaved]);
+  }, [isSaved, handleSave]);
 
   useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!isSaved) {
+        const message = "You have unsaved changes. Are you sure you want to leave?";
+        event.preventDefault();
+        event.returnValue = message;
+        return message;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden" && !isSaved) {
+        const userConfirmed = confirm("You have unsaved changes. Do you want to save them before leaving?");
+        if (userConfirmed) {
+          handleSave();
+        }
+      }
+    };
+
+    const handlePopState = () => {
+      if (!isSaved) {
+        const userConfirmed = confirm("You have unsaved changes. Do you want to save them before navigating away?");
+        if (userConfirmed) {
+          handleSave();
+        }
+      }
+    };
+
     window.addEventListener("beforeunload", handleBeforeUnload);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("popstate", handlePopState);
@@ -77,45 +116,10 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
     };
   }, [isSaved]);
 
-  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-    if (!isSaved) {
-      const message = "You have unsaved changes. Are you sure you want to leave?";
-      event.preventDefault();
-      event.returnValue = message;
-      return message;
-    }
-  };
-
-  const handleVisibilityChange = () => {
-    if (document.visibilityState === "hidden" && !isSaved) {
-      const userConfirmed = confirm("You have unsaved changes. Do you want to save them before leaving?");
-      if (userConfirmed) {
-        handleSave();
-      }
-    }
-  };
-
-  const handlePopState = () => {
-    if (!isSaved) {
-      const userConfirmed = confirm("You have unsaved changes. Do you want to save them before navigating away?");
-      if (userConfirmed) {
-        handleSave();
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false; // Set to false after the first render
-      return;
-    }
-    setIsSaved(false); // Set isSaved to false whenever elements change after the first render
-  }, [elements]);
-
   return (
     <div className="flex justify-center py-4 gap-[23%]">
       <div className="flex flex-row gap-2">
-        <button
+        <Button
           className={`btn_header ${!preview ? "bg-zinc-100 text-zinc-800" : "bg-white"}`}
           onClick={() => {
             onPreview(true);
@@ -123,8 +127,8 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
           }}
         >
           Preview
-        </button>
-        <button
+        </Button>
+        <Button
           className={`btn_header ${preview ? "bg-zinc-100 text-zinc-800" : "bg-white"}`}
           onClick={() => {
             onPreview(false);
@@ -132,15 +136,16 @@ export default function TopButtons({ id, isFromLocalStorage, onPreview }: { id: 
           }}
         >
           Edit
-        </button>
+        </Button>
       </div>
       <div className="flex flex-row gap-2">
-        <button
+        <Button
+        loading={isSaved}
           className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
           onClick={handleSave}
         >
           Save Changes
-        </button>
+        </Button>
         <FormCodeGenerator />
       </div>
     </div>

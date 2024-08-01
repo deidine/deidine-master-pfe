@@ -163,13 +163,13 @@ const FormCodeGenerator = () => {
 
   return (
     <>
-      <button
+      <Button
         className="btn_header bg-zinc-100"
-        type="button"
+       
         onClick={generateComponentCode}
       >
         Export Form
-      </button> 
+      </Button> 
          
       {isModalOpen && ( 
             <Modal

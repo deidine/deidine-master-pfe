@@ -35,7 +35,8 @@ export default function NavBar() {
   };
 
   return (
-    <header className="bg-white rounded-lg border-2 h-20">
+    < >
+   <header className="bg-white rounded-lg border-2 h-20">
       <nav className="flex flex-row items-center my-auto mt-4 gap-4">
         <Link href="/">FormBuilder</Link>
         <Link href="/forms">Dashboard</Link>
@@ -73,5 +74,6 @@ export default function NavBar() {
         </div>
       </nav>
     </header>
+    </>
   );
 }

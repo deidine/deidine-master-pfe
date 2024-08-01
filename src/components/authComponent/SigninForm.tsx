@@ -48,7 +48,11 @@ const SigninForm = () => {
       openNotification("bottomRight",'error', 'Login Failed', 'Could not retrieve user data');
     }
   };
-
+if(isLoading){
+  return (
+    <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} /> 
+  )
+}
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
       <div className="flex justify-center items-center">

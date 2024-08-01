@@ -1,6 +1,7 @@
 // DesignerContext.tsx
 "use client";
 
+import { openNotification } from "@/utils/utils";
 import { Dispatch, ReactNode, SetStateAction, createContext, useRef, useState } from "react";
 
 type DesignerContextType = {
@@ -45,6 +46,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
       newElements.splice(index, 0, element);
       return newElements;
     });
+    openNotification("topRight",'success', 'Element Added', `Element ${element.elementType.label} has been added successfully`);
   };
 
   const removeElement = (name: string) => {
@@ -53,6 +55,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
       redoStack.current = [];
       return prev.filter((element) => element.elementType.name !== name);
     });
+    openNotification("topRight",'success', 'Element Deleted', `Element ${elements.filter((el) => el.elementType.name === name)[0].elementType.label} has been deleted successfully`);
   };
 
   const updateElement = (name: string, element: FormElement) => {
