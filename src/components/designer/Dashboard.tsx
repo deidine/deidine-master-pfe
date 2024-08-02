@@ -78,31 +78,27 @@ export default function Dashboard() {
     fetchForms();
   };
 
+  const saveToLocalStorage = (title: string, description: string) => {
+    const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+    forms.push({
+      id: Date.now(),
+      title: title,
+      content: [],
+      isFromLocalStorage: true,
+      description: description,
+    });
+    localStorage.setItem("forms", JSON.stringify(forms));
+    openNotification(   "topRight",  "success",   "Data inserted",    "Data inserted successfully in local storage"  );
+    setIsModalVisible(false);
+    createform.resetFields();
+  };
   const handleSave = async (title: string, description: string) => {
- 
-    const saveToLocalStorage = () => {
-      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-      forms.push({
-        id: Date.now(),
-        title: title,
-        content: [],
-        isFromLocalStorage: true,
-        description: description,
-      });
-      localStorage.setItem("forms", JSON.stringify(forms));
-      openNotification(
-        "topRight",
-        "success",
-        "Data inserted",
-        "Data inserted successfully in local storage"
-      );
-      setIsModalVisible(false);
-      createform.resetFields();
-    };
 
     if (!isUserOnline) {
-      saveToLocalStorage();
+      saveToLocalStorage( title,description);
       return;
+    } else{
+      setIsUserOnline(true)
     }
 
     try {
@@ -134,7 +130,7 @@ export default function Dashboard() {
         "Data inserted successfully in database"
       );
     } catch (error) {
-      saveToLocalStorage();
+      saveToLocalStorage( title,description);
       console.error("Error:", error);
     }
   };
