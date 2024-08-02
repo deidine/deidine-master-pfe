@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Menu } from '@headlessui/react';
 
 export default function NavBar() {
-  const { user, setUser } = useGeneral();
+  const { user, setUser,isUserOnline } = useGeneral();
  
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
@@ -42,8 +42,9 @@ export default function NavBar() {
         <div className="flex gap-4 justify-end w-full">
           {user ? (
             <Menu as="div" className="relative inline-block text-right">
-              <Menu.Button className=" mx-auto mt-2 w-48 ">
-                <FaUserCircle className="text-2xl" />
+              <Menu.Button className="flex  mx-auto mt-2 w-48 ">
+          <FaUserCircle className="text-2xl" />
+          <div className={`w-2 h-2 rounded-full ${isUserOnline ? "bg-green-500" : "bg-red-500"}`}></div>
                 
               </Menu.Button>
               <Menu.Items className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md 
