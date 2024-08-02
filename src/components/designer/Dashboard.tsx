@@ -3,35 +3,26 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import CardForm from "./CardForm";
 import { openNotification } from "@/utils/utils";
+import useGeneral from "@/hooks/useGeneral";
  
 export default function Dashboard() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isUserOnline, setIsUserOnline] = useState(navigator.onLine);
+  const [isModalVisible, setIsModalVisible] = useState(false); 
+  const {isUserOnline, setIsUserOnline} = useGeneral( );
   const [elements, setElements] = useState<Form[]>([]);
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const [createform] = Form.useForm();
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
+  const {user} =useGeneral()
+ 
   const userId = user?.id;
 
   useEffect(() => {
-    fetchForms();
-    window.addEventListener("online", handleOnlineStatus);
-    window.addEventListener("offline", handleOnlineStatus);
+    fetchForms(); 
+  }, [isUserOnline ]);
 
-    return () => {
-      window.removeEventListener("online", handleOnlineStatus);
-      window.removeEventListener("offline", handleOnlineStatus);
-    };
-  }, [createform ]);
-
-  const handleOnlineStatus = () => {
-    setIsUserOnline(navigator.onLine);
-  };
+   
 
   const fetchForms = async () => {
+
     try {
       let dataForms = [];
       if (isUserOnline) {
@@ -88,6 +79,7 @@ export default function Dashboard() {
   };
 
   const handleSave = async (title: string, description: string) => {
+ 
     const saveToLocalStorage = () => {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       forms.push({
@@ -150,6 +142,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="p-4">
+        {isUserOnline+"your are online "}
         <div className="flex justify-center mb-4">
           <Button type="primary" onClick={() => setIsModalVisible(true)}>
             + Create New Form

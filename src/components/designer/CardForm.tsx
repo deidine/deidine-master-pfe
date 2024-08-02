@@ -5,6 +5,7 @@ import {  Modal } from "antd";
 import PreviewForm from "../forms/previews/PreviewForm";
 import Link from "next/link";
 import { openNotification, saveToDatabase } from "@/utils/utils";
+import useGeneral from "@/hooks/useGeneral";
 
 export default function CardForm({
   form,
@@ -14,25 +15,13 @@ export default function CardForm({
   reftchForm: () => void;
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
-  const [isUserOnline, setIsUserOnline] = useState(navigator.onLine);
+  const {isUserOnline,user} = useGeneral( );
 
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
-
+ 
   const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
-  const handleOnlineStatus = () => {
-    setIsUserOnline(navigator.onLine);
-  };
+ 
   useEffect(() => { 
-    window.addEventListener("online", handleOnlineStatus);
-    window.addEventListener("offline", handleOnlineStatus);
-
-    return () => {
-      window.removeEventListener("online", handleOnlineStatus);
-      window.removeEventListener("offline", handleOnlineStatus);
-    };
+ 
   }, []);
 
   const fetchForm = async (id: number) => {
@@ -129,7 +118,7 @@ export default function CardForm({
                   form.content,
                   form.description 
                 );
-                deleteForm(user.id);
+                deleteForm(parseInt(user.id));
               }}
             >
               save to database
