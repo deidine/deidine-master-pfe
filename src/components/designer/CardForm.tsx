@@ -102,7 +102,7 @@ export default function CardForm({
                 e.stopPropagation();
               }}
             >
-              {form.isFromLocalStorage ? "Local Storage" : "Database"}
+              {form.isFromLocalStorage ? "LocalStorage" : "Database"}
             </Badge>
           </div>
           {form.create_at?.toDateString()}
@@ -143,7 +143,7 @@ export default function CardForm({
             className="bg-yellow-500 h-7 p-4 text-white font-bold"
           >
             <Link
-              href={`/forms/${form.id}?localStorage=${
+              href={`/forms/${form.id}?local=${
                 form.isFromLocalStorage ? "true" : "false"
               }`}
             >

@@ -24,8 +24,9 @@ export default function SidBarOptions({
   const { updateElement } = useDesigner();
 
   const handleTypeChange = (value: ElementType) => {
-    setInputType(value);
+    setInputType(value); 
     updateElement(element.name, { ...element, type: value });
+    updateElement(element.name, { ...element, pattern:"" });
   };
   const handleLabelChange = (e: any) => {
     setInputLabel(e.target.value);

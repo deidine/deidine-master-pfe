@@ -12,7 +12,7 @@ export default function FormDetailPage({
 }) {
   const searchParams = useSearchParams()
  const {user  } = useGeneral();
-  const localStorageParam = searchParams.get('localStorage')
+  const localStorageParam = searchParams.get('local')
  
   const { id } = params;
   const [form, setForm] = useState<Form >( );

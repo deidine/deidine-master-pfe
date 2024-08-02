@@ -19,7 +19,9 @@ export default function CardEditElement({
 
   const handleTypeChange = (value: ElementType) => {
     setInputType(value);
-    updateElement(element.name, { ...element, type: value } ); 
+    updateElement(element.name, { ...element, type: value } );
+    updateElement(element.name, { ...element, pattern: "" });
+
     setShowTypeSelect(false);
   };
 
