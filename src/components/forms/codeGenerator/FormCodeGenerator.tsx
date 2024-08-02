@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import useDesigner from "@/hooks/useDesigner";
 import { Button, message, Modal } from "antd";
 
@@ -30,7 +30,9 @@ const FormCodeGenerator = () => {
           break;
         case "select":
           inputElement = `
-            <Select placeholder="${input.elementType.placeholder}" style={{ width: "100%" }}>
+            <Select placeholder="${
+              input.elementType.placeholder
+            }" style={{ width: "100%" }}>
               ${input.elementType.options
                 ?.map(
                   (option, idx) =>
@@ -41,7 +43,9 @@ const FormCodeGenerator = () => {
           break;
         case "select_multiple":
           inputElement = `
-            <Select mode="multiple" placeholder="${input.elementType.placeholder}" style={{ width: "100%" }}>
+            <Select mode="multiple" placeholder="${
+              input.elementType.placeholder
+            }" style={{ width: "100%" }}>
               ${input.elementType.options
                 ?.map(
                   (option, idx) =>
@@ -97,34 +101,34 @@ const FormCodeGenerator = () => {
           ${inputElement}
         </Form.Item>`;
     });
- 
+
     const exportCode = `
-    "use client" 
-    import React from 'react';
-      import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
+"use client" 
+import React from 'react';
+import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
 
-      const GeneratedForm = () => {
-        const onFinish = (values:any) => {
-          console.log("Form submitted:", values);
-        };
+const GeneratedForm = () => {
+  const onFinish = (values:any) => {
+    console.log("Form submitted:", values);
+  };
 
-        return (
-          <Form
-            onFinish={onFinish}
-            layout="vertical"
-            className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
-          >
-            ${componentCode.join("\n")}
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                ${submitBtn}
-              </Button>
-            </Form.Item>
-          </Form>
-        );
-      };
+return (
+  <Form
+    onFinish={onFinish}
+    layout="vertical"
+    className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+  >
+    ${componentCode.join("\n")}
+    <Form.Item>
+      <Button type="primary" htmlType="submit">
+        ${submitBtn}
+      </Button>
+    </Form.Item>
+  </Form>
+);
+};
 
-      export default GeneratedForm;
+export default GeneratedForm;
     `.trim();
 
     setComponentCode(exportCode);
@@ -144,11 +148,10 @@ const FormCodeGenerator = () => {
     try {
       await navigator.clipboard.writeText(componentCode);
       message.success("Copied to clipboard!");
-     
-      setIsModalOpen(false);
-    } catch (error) { 
-      message.error("Failed to copy: "+error);
 
+      setIsModalOpen(false);
+    } catch (error) {
+      message.error("Failed to copy: " + error);
     }
   };
 
@@ -156,42 +159,32 @@ const FormCodeGenerator = () => {
     <>
       <Button
         className="btn_header bg-zinc-100"
-       
         onClick={generateComponentCode}
       >
         Export Form
-      </Button> 
-         
-      {isModalOpen && ( 
-            <Modal
-              title="Select Input Type"
-              visible={isModalOpen}
-              onCancel={() => setIsModalOpen(false)}
-              footer={[
-             <div key="footer" className="flex flex-row justify-between w-full">
-                 <Button
-                  key="copy"
-                  type="primary"
-                  onClick={ 
-                    copyToClipboard }
-                >
-                  copy
-                </Button>,
-                <Button
-                  key="download"
-                  type="primary"
-                  onClick={ 
-                    downloadCode }
-                >
-                  Download code
-                </Button>
-             </div>
-              ]}
-            >
-              <code className=" whitespace-pre-wrap text-sm text-gray-900">
-                {componentCode}
-              </code>
-            </Modal>  
+      </Button>
+
+      {isModalOpen && (
+        <Modal
+          title="Select Input Type"
+          visible={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          footer={[
+            <div key="footer" className="flex flex-row justify-between w-full">
+              <Button key="copy" type="primary" onClick={copyToClipboard}>
+                copy
+              </Button>
+              ,
+              <Button key="download" type="primary" onClick={downloadCode}>
+                Download code
+              </Button>
+            </div>,
+          ]}
+        >
+          <code className=" whitespace-pre-wrap text-sm text-gray-900">
+            {componentCode}
+          </code>
+        </Modal>
       )}
     </>
   );

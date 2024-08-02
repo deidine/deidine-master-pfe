@@ -27,7 +27,7 @@
                 pattern: new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"),
                 message: `Please match the requested format for Label`,
                 
-              } ]}>
+              }  ]}>
        
           <Input type="password" placeholder="Enter your data" />
         </Form.Item>
