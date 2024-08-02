@@ -8,9 +8,6 @@
     // return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
- 
- 
-
  const renderOptions = (type: ElementType) => {
   
   const renderElement: FormElement = {
@@ -21,7 +18,7 @@
       placeholder: "placholder",
       value: "",
       required: false,
-      pattern: [],
+      pattern: "",
       style: `h-10   rounded-lg border `,
       ...((type === "select" && {
         options: ["Option 1", "Option 2"],
@@ -47,7 +44,7 @@ const newElement = (type: ElementType) => {
        placeholder: "Enter your data",
        value: "",
        required: false,
-       pattern: [],
+       pattern: "",
        style: `h-10 rounded-lg border `,
        ...((type === "select" && {
          options: ["Option 1", "Option 2"],

@@ -28,9 +28,7 @@ export default function FormBuilder() {
     undo,
     redo,
     setSelectedElement,
-    selectedElement,
-    undoStack,
-    redoStack,
+    undoStack, 
   } = useDesigner();
 
   const handleOnDragEnd = (result: any) => {
@@ -61,7 +59,6 @@ export default function FormBuilder() {
       setDestinationIndex(null);
     }
   };
-
   useHotkeys("ctrl+z, meta+z", undo, { preventDefault: true });
   useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
   return (
@@ -111,11 +108,11 @@ export default function FormBuilder() {
                           <FormElement
                             index={index}
                             element={element.elementType}
-                            setElement={(value: SelectElement | InputElement) => {
-                              const updatedElements = [...elements];
-                              updatedElements[index].elementType = value;
-                              setElements(updatedElements);
-                            }}
+                            // setElement={(value: SelectElement | InputElement) => {
+                            //   const updatedElements = [...elements];
+                            //   updatedElements[index].elementType = value;
+                            //   setElements(updatedElements);
+                            // }}
                           />
                         </div>
                       </motion.div>

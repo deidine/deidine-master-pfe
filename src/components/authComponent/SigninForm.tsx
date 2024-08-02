@@ -1,38 +1,78 @@
 "use client";
-import React from "react";
-import { Form, Input, Button } from "antd";
-import { createClientBrowser } from "@/utils/supabase/client";
-import useGeneral from "@/hooks/useGeneral";
+import React, { useState } from "react";
+import { Form, Input, Button, Spin, notification } from "antd";
+import { createClientBrowser } from "@/utils/supabase/client"; 
+import { LoadingOutlined } from "@ant-design/icons";
+import { openNotification, saveToDatabase } from "@/utils/utils";
+
 const SigninForm = () => {
   const [form] = Form.useForm();
-
-   const { setUser  } = useGeneral()
-  const onFinish = async(values: any) => {
-    console.log("Form submitted:", values); 
+  const [isLoading, setIsLoading] = useState(false); 
+  const onFinish = async (values: any) => {
+    setIsLoading(true);
     const email = values.email;
     const password = values.password;
     const supabase = createClientBrowser();
-
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      return alert("/login?message=Could not authenticate user");
+      setIsLoading(false);
+      openNotification(
+        "topRight",
+        "error",
+        "Login Failed",
+        "Could not authenticate user"
+      );
+      return;
     }
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if (!user) {
-      // return redirect("/login");
-    }else{
-      setUser(user)
-      localStorage.setItem("user",JSON.stringify(user))
-    }
-    return alert("/protected");
-  };
 
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user)); 
+      openNotification(
+        "topRight",
+        "success",
+        "Login Successful",
+        "You have successfully logged in We try to save your data to our database automatically."
+      );
+      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      for (const form of forms) {
+        await saveToDatabase( 
+          form.title,
+          form.content,
+          form.description, 
+          true,
+          user.id
+        );
+        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+        const updatedForms = forms.filter((form: Form) => form.id !== form.id);
+        localStorage.setItem("forms", JSON.stringify(updatedForms));
+      }
+  
+      if (typeof window !== "undefined") {
+        window.location.href = "/forms";
+      }
+    } else {
+      setIsLoading(false);
+      openNotification(
+        "topRight",
+        "error",
+        "Login Failed",
+        "Could not retrieve user data"
+      );
+    }
+  };
+  if (isLoading) {
+    return (
+      <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+    );
+  }
   return (
     <div className="selection:bg-indigo-500 selection:text-white">
       <div className="flex justify-center items-center">
@@ -93,12 +133,12 @@ const SigninForm = () => {
                     type="primary"
                     htmlType="submit"
                     className="mt-20 w-full uppercase rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+                    loading={isLoading}
                   >
                     Sign in
                   </Button>
                 </Form.Item>
               </Form>
-
               <a
                 href="#"
                 className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
