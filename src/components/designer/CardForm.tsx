@@ -15,13 +15,9 @@ export default function CardForm({
   reftchForm: () => void;
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
-  const {isUserOnline, setIsUserOnline} = useGeneral( );
+  const {isUserOnline,user} = useGeneral( );
 
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
-
+ 
   const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
  
   useEffect(() => { 
@@ -117,12 +113,13 @@ export default function CardForm({
             <Badge
               onClick={(e) => {
                 saveToDatabase( 
-                  form.id,
                   form.title,
                   form.content,
-                  form.description 
+                  form.description ,
+                  false, 
+                  user.id
                 );
-                deleteForm(user.id);
+                deleteForm(form.id);
               }}
             >
               save to database

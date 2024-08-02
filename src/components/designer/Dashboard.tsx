@@ -11,10 +11,8 @@ export default function Dashboard() {
   const [elements, setElements] = useState<Form[]>([]);
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const [createform] = Form.useForm();
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
+  const {user} =useGeneral()
+ 
   const userId = user?.id;
 
   useEffect(() => {
@@ -76,35 +74,31 @@ export default function Dashboard() {
   };
 
   const onFinish = async (values: any) => {
-    await handleSave(values.title, values.description);
+    await handleSave(values.TitleForm, values.description);
     fetchForms();
   };
 
+  const saveToLocalStorage = (title: string, description: string) => {
+    const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+    forms.push({
+      id: Date.now(),
+      title: title,
+      content: [],
+      isFromLocalStorage: true,
+      description: description,
+    });
+    localStorage.setItem("forms", JSON.stringify(forms));
+    openNotification(   "topRight",  "success",   "Data inserted",    "Data inserted successfully in local storage"  );
+    setIsModalVisible(false);
+    createform.resetFields();
+  };
   const handleSave = async (title: string, description: string) => {
- 
-    const saveToLocalStorage = () => {
-      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-      forms.push({
-        id: Date.now(),
-        title: title,
-        content: [],
-        isFromLocalStorage: true,
-        description: description,
-      });
-      localStorage.setItem("forms", JSON.stringify(forms));
-      openNotification(
-        "topRight",
-        "success",
-        "Data inserted",
-        "Data inserted successfully in local storage"
-      );
-      setIsModalVisible(false);
-      createform.resetFields();
-    };
 
     if (!isUserOnline) {
-      saveToLocalStorage();
+      saveToLocalStorage( title,description);
       return;
+    } else{
+      setIsUserOnline(true)
     }
 
     try {
@@ -136,7 +130,7 @@ export default function Dashboard() {
         "Data inserted successfully in database"
       );
     } catch (error) {
-      saveToLocalStorage();
+      saveToLocalStorage( title,description);
       console.error("Error:", error);
     }
   };
@@ -182,7 +176,7 @@ export default function Dashboard() {
         footer={null}
       >
         <Form onFinish={onFinish} form={createform} layout="vertical">
-          <Form.Item label="Title" name="title" rules={[{ required: true }]}>
+          <Form.Item label="Title" name="TitleForm" rules={[{ required: true }]}>
             <Input placeholder="Title" />
           </Form.Item>
           <Form.Item

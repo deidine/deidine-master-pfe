@@ -105,11 +105,11 @@ export default function FormBuilder() {
                           <FormElement
                             index={index}
                             element={element.elementType}
-                            setElement={(value: SelectElement | InputElement) => {
-                              const updatedElements = [...elements];
-                              updatedElements[index].elementType = value;
-                              setElements(updatedElements);
-                            }}
+                            // setElement={(value: SelectElement | InputElement) => {
+                            //   const updatedElements = [...elements];
+                            //   updatedElements[index].elementType = value;
+                            //   setElements(updatedElements);
+                            // }}
                           />
                         </div>
                       </motion.div>

@@ -33,9 +33,9 @@ export default function GeneralContextProvider({
       window.removeEventListener("online", handleOnlineStatus);
       window.removeEventListener("offline", handleOnlineStatus);
     };
-  }, [isUserOnline]);
+  }, [typeof navigator !== "undefined" ? navigator.onLine : null]);
 
-  const handleOnlineStatus = () => {
+  const handleOnlineStatus = () => {  
     setIsUserOnline(navigator.onLine);
   };
 

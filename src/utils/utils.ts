@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { notification } from "antd";
+import useGeneral from "@/hooks/useGeneral";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -37,17 +38,15 @@ export const deleteForm = async (id: number) => {
 
   }
 }; 
-export const saveToDatabase = async (
-  id: number,
+export const saveToDatabase = async ( 
   title: string,
   content: FormElement[],
-  description: string, isSaveAll?: boolean
+  description: string,
+   isSaveAll: boolean,
+  user_id:string
 ) => {
-  const user =
-  typeof window !== "undefined"
-    ? JSON.parse(localStorage.getItem("user")!)
-    : null;
-const user_id = user?.id;
+ 
+console.error(content)
   try {
     const response = await fetch("/api/forms/", {
       method: "POST",

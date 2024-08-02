@@ -6,28 +6,25 @@ import OptionPopUp from "@/components/ui/OptionPopUp";
 import SidBarOptions from "@/components/ui/SidBarOptions";
 import AutoResizeTextarea from "@/components/ui/AutoResizeTextarea";
 import BadgeElement from "@/components/ui/BadgeElement";
-import CardEditElement from "@/components/ui/CardEditElement";
-
+import CardEditElement from "@/components/ui/CardEditElement"; 
 export default function FormElement({
-  element,
-  setElement,
+  element, 
   index,
 }: {
   index: number;
-  element: SelectElement | InputElement;
-  setElement: (value: SelectElement | InputElement) => void;
+  element: SelectElement | InputElement; 
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [inputLabel, setInputLabel] = useState(element.label);
-  const { removeElement, setIsEditFormCard } = useDesigner();
+  const { removeElement, setIsEditFormCard,updateElement } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
   const colseSideBarref = useRef<any>(null);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputLabel(e.target.value);
-    setElement({ ...element, label: e.target.value });
+    setInputLabel(e.target.value); 
+    updateElement(element.name, { ...element, label: e.target.value }  );
   };
 
   const handleDivClick = (e: React.MouseEvent) => {
@@ -54,7 +51,7 @@ export default function FormElement({
               handleLabelChange={handleLabelChange}
               isEditing={isEditing}
             />
-            <CardEditElement element={element} setElement={setElement} />
+            <CardEditElement element={element}  />
           </>
         ) : (
           <>
@@ -100,7 +97,7 @@ export default function FormElement({
               }}
               icon={<CloseCircleOutlined />}
             />
-            <SidBarOptions element={element} setElement={setElement} />
+            <SidBarOptions element={element}   />
           </div>
         </div>
       )}

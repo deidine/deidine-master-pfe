@@ -15,7 +15,7 @@ type DesignerContextType = {
   setSelectedElement: Dispatch<SetStateAction<FormElement | null>>;
   isEditFormCard: boolean;
   setIsEditFormCard: (value: boolean) => void;
-  updateElement: (id: string, element: FormElement) => void;
+  updateElement: (name: string, element: SelectElement | InputElement) => void;
   undo: () => void;
   redo: () => void;
   redoStack: FormElement[][];
@@ -57,13 +57,17 @@ export default function DesignerContextProvider({ children }: { children: ReactN
     openNotification("topRight",'success', 'Element Deleted', `Element ${elements.filter((el) => el.elementType.name === name)[0].elementType.label} has been deleted successfully`);
   };
 
-  const updateElement = (name: string, element: FormElement) => {
+  const updateElement = (name: string, element: SelectElement | InputElement) => {
+    const updatedElements = [...elements];
+     
     setElements((prev) => {
       undoStack.current.push(prev);
       redoStack.current = [];
       const newElements = [...prev];
       const index = newElements.findIndex((el) => el.elementType.name === name);
-      newElements[index] = element;
+      updatedElements[index].elementType = element;
+      
+      setElements(updatedElements);
       return newElements;
     });
   };
