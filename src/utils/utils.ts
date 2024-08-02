@@ -38,14 +38,15 @@ export const deleteForm = async (id: number) => {
 
   }
 }; 
-export const saveToDatabase = async (
-  id: number,
+export const saveToDatabase = async ( 
   title: string,
   content: FormElement[],
-  description: string, isSaveAll?: boolean
+  description: string,
+   isSaveAll: boolean,
+  user_id:string
 ) => {
- const {user}=useGeneral()
-const user_id = user?.id;
+ 
+console.error(content)
   try {
     const response = await fetch("/api/forms/", {
       method: "POST",

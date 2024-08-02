@@ -74,7 +74,7 @@ export default function Dashboard() {
   };
 
   const onFinish = async (values: any) => {
-    await handleSave(values.title, values.description);
+    await handleSave(values.TitleForm, values.description);
     fetchForms();
   };
 
@@ -180,7 +180,7 @@ export default function Dashboard() {
         footer={null}
       >
         <Form onFinish={onFinish} form={createform} layout="vertical">
-          <Form.Item label="Title" name="title" rules={[{ required: true }]}>
+          <Form.Item label="Title" name="TitleForm" rules={[{ required: true }]}>
             <Input placeholder="Title" />
           </Form.Item>
           <Form.Item

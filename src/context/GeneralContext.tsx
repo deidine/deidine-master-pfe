@@ -27,16 +27,19 @@ export default function GeneralContextProvider({
   const [isUserOnline, setIsUserOnline] = useState( typeof navigator !== "undefined" ? navigator.onLine : null);
   useEffect(() => {
     window.addEventListener("online", handleOnlineStatus);
-    window.addEventListener("offline", handleOnlineStatus);
+    window.addEventListener("offline", handleOfflineStatus);
 
     return () => {
       window.removeEventListener("online", handleOnlineStatus);
-      window.removeEventListener("offline", handleOnlineStatus);
+      window.removeEventListener("offline", handleOfflineStatus);
     };
   }, [isUserOnline]);
-
+ 
   const handleOnlineStatus = () => {
-    setIsUserOnline(navigator.onLine);
+    setIsUserOnline(true);
+  };
+  const handleOfflineStatus = () => {
+    setIsUserOnline(false);
   };
 
   return (

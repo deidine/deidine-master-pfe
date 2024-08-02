@@ -1,15 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { Form, Input, Button, Spin, notification } from "antd";
-import { createClientBrowser } from "@/utils/supabase/client";
-import useGeneral from "@/hooks/useGeneral";
+import { createClientBrowser } from "@/utils/supabase/client"; 
 import { LoadingOutlined } from "@ant-design/icons";
 import { openNotification, saveToDatabase } from "@/utils/utils";
 
 const SigninForm = () => {
   const [form] = Form.useForm();
-  const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useGeneral();
+  const [isLoading, setIsLoading] = useState(false); 
   const onFinish = async (values: any) => {
     setIsLoading(true);
     const email = values.email;
@@ -36,28 +34,27 @@ const SigninForm = () => {
     } = await supabase.auth.getUser();
 
     if (user) {
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      
+      localStorage.setItem("user", JSON.stringify(user)); 
+      openNotification(
+        "topRight",
+        "success",
+        "Login Successful",
+        "You have successfully logged in We try to save your data to our database automatically."
+      );
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       for (const form of forms) {
-        await saveToDatabase(
-          form.id,
+        await saveToDatabase( 
           form.title,
           form.content,
           form.description, 
-          true
+          true,
+          user.id
         );
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
         const updatedForms = forms.filter((form: Form) => form.id !== form.id);
         localStorage.setItem("forms", JSON.stringify(updatedForms));
       }
-      openNotification(
-        "topRight",
-        "success",
-        "Login Successful",
-        "You have successfully logged in."
-      );
+  
       if (typeof window !== "undefined") {
         window.location.href = "/forms";
       }

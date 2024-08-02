@@ -113,12 +113,13 @@ export default function CardForm({
             <Badge
               onClick={(e) => {
                 saveToDatabase( 
-                  form.id,
                   form.title,
                   form.content,
-                  form.description 
+                  form.description ,
+                  false, 
+                  user.id
                 );
-                deleteForm(parseInt(user.id));
+                deleteForm(form.id);
               }}
             >
               save to database
