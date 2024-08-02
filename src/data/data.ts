@@ -2,15 +2,42 @@
 import { FiSidebar, FiList, FiRadio, FiFile,FiCheckSquare, FiType, FiHash, FiMail, FiLock, FiAlignLeft, FiEyeOff, FiDatabase } from 'react-icons/fi';
 
 const patternOptions = [
-    { value: "phone", label: "Phone", pattern: "\\d{10}" },
-    {
+  { value: "No Pattern", label: "No Pattern", pattern: "" },
+  { value: "phone", label: "Phone", pattern: "\\d{10}" },
+  {
       value: "email",
       label: "Email",
       pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
-    },
-    // { value: "regex", label: "Custom Regex", pattern: customPattern },
+  },
+  {
+      value: "creditCard",
+      label: "Credit Card",
+      pattern: "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$",
+  },
+  {
+      value: "zipCode",
+      label: "Zip Code",
+      pattern: "^\\d{5}(?:[-\\s]\\d{4})?$",
+  }, 
+  {
+      value: "url",
+      label: "URL",
+      pattern: "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$",
+  },
+ 
+  {
+      value: "currency",
+      label: "Currency",
+      pattern: "^\\$?\\d+(?:\\.\\d{2})?$",
+  },
+  {
+      value: "password",
+      label: "Password",
+      pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
+  },
   
-  ];
+  // { value: "regex", label: "Custom Regex", pattern: customPattern },
+];
   const selectTypeOptions  = [
     { value: "select", label: "Select", bgColor: "bg-[#f1cc68]", textColor: "text-black", icon: FiSidebar },
     { value: "select_multiple", label: "Select Multiple", bgColor: "bg-[#d5eaee]", textColor: "text-black", icon: FiList },

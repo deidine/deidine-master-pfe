@@ -4,22 +4,22 @@ import { inputTypeOptions, patternOptions } from "@/data/data";
 import { selectTypeOptions } from "@/data/data";
 import { useState } from "react";
 import RequiredComponent from "./RequiredComponent";
+import useDesigner from "@/hooks/useDesigner";
 const { Option } = Select;
 
 export default function CardEditElement({
-  element,
-  setElement,
+  element, 
 }: {
-  element: SelectElement | InputElement;
-  setElement: (value: SelectElement | InputElement) => void;
+  element: SelectElement | InputElement; 
 }) {
   const [showTypeSelect, setShowTypeSelect] = useState(false);
   const [inputType, setInputType] = useState<ElementType>(element.type);
   const [isRequired, setIsRequired] = useState(element.required);
+  const { updateElement } = useDesigner();
 
   const handleTypeChange = (value: ElementType) => {
     setInputType(value);
-    setElement({ ...element, type: value });
+    updateElement(element.name, { ...element, type: value } ); 
     setShowTypeSelect(false);
   };
 
@@ -83,7 +83,8 @@ export default function CardEditElement({
       <RequiredComponent
         required={element.required!}
         toggleRequired={() => {
-          setElement({ ...element, required: !isRequired });
+           updateElement(element.name, { ...element, required: !isRequired } ); 
+       
           setIsRequired(!isRequired);
         }}
         isSwitchButton={false}
