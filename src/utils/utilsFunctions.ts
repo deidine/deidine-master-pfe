@@ -18,7 +18,7 @@
       placeholder: "placholder",
       value: "",
       required: false,
-      pattern: [],
+      pattern: "",
       style: `h-10   rounded-lg border `,
       ...((type === "select" && {
         options: ["Option 1", "Option 2"],
@@ -44,7 +44,7 @@ const newElement = (type: ElementType) => {
        placeholder: "Enter your data",
        value: "",
        required: false,
-       pattern: [],
+       pattern: "",
        style: `h-10 rounded-lg border `,
        ...((type === "select" && {
          options: ["Option 1", "Option 2"],

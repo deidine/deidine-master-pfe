@@ -92,7 +92,7 @@ const FormCodeGenerator = () => {
                 pattern: new RegExp("${input.elementType.pattern}"),
                 message: \`Please match the requested format for ${input.elementType.label}\`,
                 
-              } >
+              }  ]}>
        
           ${inputElement}
         </Form.Item>`;
