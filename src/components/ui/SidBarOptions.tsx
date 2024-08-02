@@ -13,9 +13,9 @@ import useDesigner from "@/hooks/useDesigner";
 const { Option } = Select;
 
 export default function SidBarOptions({
-  element, 
+  element,
 }: {
-  element: SelectElement | InputElement; 
+  element: SelectElement | InputElement;
 }) {
   const [placholder, setPlacholder] = useState(element.placeholder);
   const [inputLabel, setInputLabel] = useState(element.label);
@@ -25,18 +25,15 @@ export default function SidBarOptions({
 
   const handleTypeChange = (value: ElementType) => {
     setInputType(value);
-    updateElement(element.name, { ...element, type: value } ); 
-
-   };
+    updateElement(element.name, { ...element, type: value });
+  };
   const handleLabelChange = (e: any) => {
     setInputLabel(e.target.value);
-    updateElement(element.name, { ...element, label: e.target.value }); 
- 
+    updateElement(element.name, { ...element, label: e.target.value });
   };
   const handlePlaceholderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlacholder(e.target.value);
-    updateElement(element.name, { ...element, placeholder: e.target.value }); 
- 
+    updateElement(element.name, { ...element, placeholder: e.target.value });
   };
   return (
     <AnimatePresence initial={true}>
@@ -83,9 +80,12 @@ export default function SidBarOptions({
             <RequiredComponent
               required={element.required!}
               toggleRequired={() => {
-           updateElement(element.name, { ...element, required: !isRequired } ); 
+                updateElement(element.name, {
+                  ...element,
+                  required: !isRequired,
+                });
 
-                 setIsRequired(!isRequired);
+                setIsRequired(!isRequired);
               }}
               isSwitchButton={true}
             />
@@ -103,14 +103,11 @@ export default function SidBarOptions({
             element.type === "select_multiple" ||
             element.type === "radio" ||
             element.type === "checkbox" ? (
-              <SelectElementSidBarOptions
-                element={element} 
-              />
+              <SelectOptionSidBarOptions element={element} />
             ) : (
-              <InputElementSidBarOptions
-                element={element} 
-              />
+              <></>
             )}
+            <PatternSidBarOptions element={element} />
           </div>
         </div>
       </motion.div>
@@ -118,10 +115,10 @@ export default function SidBarOptions({
   );
 }
 
-const SelectElementSidBarOptions = ({
-  element, 
+const SelectOptionSidBarOptions = ({
+  element,
 }: {
-  element: SelectElement | InputElement; 
+  element: SelectElement | InputElement;
 }) => {
   const [selectedPatterns, setSelectedPatterns] = useState<string>(
     element.pattern || ""
@@ -136,8 +133,8 @@ const SelectElementSidBarOptions = ({
     if (newOption.trim() !== "") {
       const updatedOptions = [...options, newOption];
       setOptions(updatedOptions);
-      updateElement(element.name, { ...element,options: updatedOptions} ); 
- 
+      updateElement(element.name, { ...element, options: updatedOptions });
+
       setNewOption("");
     }
   };
@@ -146,14 +143,12 @@ const SelectElementSidBarOptions = ({
     const updatedOptions = [...options];
     updatedOptions[index] = value;
     setOptions(updatedOptions);
-    updateElement(element.name, { ...element,options: updatedOptions} ); 
-    
+    updateElement(element.name, { ...element, options: updatedOptions });
   };
   const removeOption = (index: number) => {
     const updatedOptions = options.filter((_, i) => i !== index);
     setOptions(updatedOptions);
-    updateElement(element.name, { ...element,options: updatedOptions} ); 
-    
+    updateElement(element.name, { ...element, options: updatedOptions });
   };
   return (
     <div className="flex flex-col">
@@ -191,41 +186,36 @@ const SelectElementSidBarOptions = ({
     </div>
   );
 };
-
-const InputElementSidBarOptions = ({
-  element, 
-}: {
-  element: SelectElement | InputElement; 
+  
+const PatternSidBarOptions  = ({ element }: {
+  element: SelectElement | InputElement;
 }) => {
   const { updateElement } = useDesigner();
 
-  const [customPattern, setCustomPattern] = useState(
-    element.customPattern || ""
-  );
-  const [selectedPatterns, setSelectedPatterns] = useState<string>(
-    element.pattern || ""
-  );
-  const [showPatternSelect, setShowPatternSelect] = useState(false);
+  const [customPattern, setCustomPattern] = useState(element.customPattern || "");
+  const [selectedPattern, setSelectedPattern] = useState<string>(element.pattern || "");
   const patternSelectWrapperRef = useRef(null);
 
-  const handleCustomPatternChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    
+  const handleCustomPatternChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = e.target.value;
     setCustomPattern(pattern);
-    updateElement(element.name, { ...element, customPattern: pattern} ); 
- 
+    updateElement(element.name, { ...element, customPattern: pattern });
   };
 
   const handlePatternChange = (value: string) => {
-    setSelectedPatterns(value);
-    updateElement(element.name, { ...element, pattern: value} ); 
- 
-    if (value.length === 0) {
-      setShowPatternSelect(false);
+    const selectedOption = patternOptions.find(option => option.pattern === value);
+    if (selectedOption && selectedOption.allowedTypes.includes(element.type)) {
+      setSelectedPattern(value);
+      updateElement(element.name, { ...element, pattern: value });
+    } else {
+      // Optionally, handle the case where the selected pattern is not allowed for the current input type
+      console.warn(`Pattern not allowed for input type: ${element.type}`);
     }
   };
+
+  const allowedPatternOptions = patternOptions.filter(option =>
+    option.allowedTypes.includes(element.type)
+  );
 
   return (
     <div className="flex flex-col gap-2">
@@ -233,20 +223,28 @@ const InputElementSidBarOptions = ({
 
       <div className="w-full mb-1">
         <Select
-          ref={patternSelectWrapperRef} 
+          ref={patternSelectWrapperRef}
           style={{ width: "100%" }}
           placeholder="Select patterns"
-          value={selectedPatterns}
+          value={selectedPattern}
           onChange={handlePatternChange}
         >
-          {patternOptions.map((option) => (
+          {allowedPatternOptions.map(option => (
             <Option key={option.value} value={option.pattern}>
               {option.label}
             </Option>
           ))}
         </Select>
       </div>
-      {/* {selectedPatterns.includes(customPattern) && (
+      {selectedPattern && (
+        <div className="mt-2">
+          <LabelValue value="Example Pattern" />
+          <div className="text-gray-600">
+            {allowedPatternOptions.find(option => option.pattern === selectedPattern)?.examplePattern}
+          </div>
+        </div>
+      )}
+      {/* {selectedPattern.includes(customPattern) && (
         <Input
           placeholder="Enter custom regex"
           value={customPattern}
@@ -256,7 +254,7 @@ const InputElementSidBarOptions = ({
       )} */}
     </div>
   );
-};
+}; 
 
 const LabelValue = ({ value }: { value: string }) => {
   return (
