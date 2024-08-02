@@ -1,6 +1,7 @@
 "use client";
 
 import { openNotification } from "@/utils/utils";
+import { idGenerator, nameGenerator } from "@/utils/utilsFunctions";
 import { Dispatch, ReactNode, SetStateAction, createContext, useRef, useState } from "react";
 
 type DesignerContextType = {

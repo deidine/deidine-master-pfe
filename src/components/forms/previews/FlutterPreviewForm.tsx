@@ -56,7 +56,7 @@ export default function FlutterPreviewForm({
                 name={element.elementType.name}
                 placeholder={element.elementType.placeholder}
                 required={element.elementType.required}
-                pattern={element.elementType.pattern?.join("|")}
+                pattern={element.elementType.pattern }
                 className="w-full px-3 py-2 border rounded"
               />
             )}

@@ -25,7 +25,7 @@ export default function FormBuilder() {
     submitBtn,
     setSubmitBtn,
     isEditFormCard,
-    undo,
+    undo,selectedElement,
     redo,
     setSelectedElement,
     undoStack, 
@@ -101,10 +101,9 @@ export default function FormBuilder() {
                           className={`flex items-center justify-center group ${
                             draggingElementIndex === index ? " opacity-50" : ""
                           }  
-                           ${selectedElement &&selectedElement.id === element.id ? " rounded-3xl border-2 border-blue-500 p-2" : ""}`}
+                           ${selectedElement && selectedElement.id === element.id ? " rounded-3xl border-2 border-blue-500 p-2" : ""}`}
                           onClick={() => setSelectedElement(element)}
-                        >
-                         
+                        > 
                           <FormElement
                             index={index}
                             element={element.elementType}
