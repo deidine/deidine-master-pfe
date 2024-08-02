@@ -87,22 +87,13 @@ const FormCodeGenerator = () => {
             {
               required: ${input.elementType.required},
               message: \`${input.elementType.label} is required\`,
-            },
-            ${
-              input.elementType.pattern
-                ? input.elementType.pattern
-                    .map(
-                      (pattern, idx) => `{
-                pattern: new RegExp("${pattern}"),
+            }, 
+               {
+                pattern: new RegExp("${input.elementType.pattern}"),
                 message: \`Please match the requested format for ${input.elementType.label}\`,
-                key: ${idx},
-              }`
-                    )
-                    .join(", ")
-                : ""
-            }
-          ]}
-        >
+                
+              } >
+       
           ${inputElement}
         </Form.Item>`;
     });
