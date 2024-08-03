@@ -35,7 +35,7 @@ export default function InputPrev(
                   style={{ padding: "8px" }}
                   type="file"
                   
-                  accept={element.elementType.allowedEtentions}
+                  accept={element.elementType.allowedEtentions!}
                   placeholder={element.elementType.placeholder}
                 />
               ) : (

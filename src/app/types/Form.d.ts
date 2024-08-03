@@ -24,7 +24,7 @@ type BaseElement = {
   required?: boolean;
   customPattern?: string; 
   pattern?: string ; 
-  allowedEtentions?: String,
+  allowedEtentions?: string,
   startDate?: string,
   endDate?: string,
  
