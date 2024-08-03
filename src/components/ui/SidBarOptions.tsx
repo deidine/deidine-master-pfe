@@ -100,7 +100,6 @@ export default function SidBarOptions({
             isSwitchButton={true}
           />
         </div>
-
         <div>
           <LabelValue value="Placeholder" />
           <Input
@@ -300,23 +299,30 @@ const LabelValue = ({ value }: { value: string }) => {
   );
 };
 
-
 function DateChoicePeriodInput({ element }: { element: any }) {
-  const [selectedPeriod, setSelectedPeriod] = useState<string>("");
+  const [selectedPeriods, setSelectedPeriods] = useState<string[]>([]);
+  const [dates, setDates] = useState<{ [key: string]: string }>({
+    start: "",
+    end: "",
+    current: "",
+  });
 
-  const handlePeriodChange = (checkedValues: any) => {
-    if (checkedValues.includes("start")) {
-      setSelectedPeriod("start");
-      element.allowedDateRange = [moment("2023-01-01"), moment()];
-    } else if (checkedValues.includes("end")) {
-      setSelectedPeriod("end");
-      element.allowedDateRange = [moment(), moment("2024-12-31")];
-    } else if (checkedValues.includes("current")) {
-      setSelectedPeriod("current");
-      element.allowedDateRange = [moment(), moment()];
-    } else {
-      setSelectedPeriod("");
-      element.allowedDateRange = null;
+  const handlePeriodChange = (checkedValues: string[]) => {
+    setSelectedPeriods(checkedValues);
+  };
+
+  const handleDateChange = (date: moment.Moment | null, dateString: string, key: string) => {
+    setDates({ ...dates, [key]: dateString });
+    updateElementPattern(key, dateString);
+  };
+
+  const updateElementPattern = (key: string, dateString: string) => {
+    if (key === "start") {
+      element.pattern = `Start date: ${dateString}`;
+    } else if (key === "end") {
+      element.pattern = `End date: ${dateString}`;
+    } else if (key === "current") {
+      element.pattern = `Current date: ${dateString}`;
     }
   };
 
@@ -330,32 +336,71 @@ function DateChoicePeriodInput({ element }: { element: any }) {
         </Checkbox.Group>
       </div>
 
-      <Form.Item
-        label={element.label}
-        name={element.name}
-        style={{ marginTop: "10px" }}
-        rules={[
-          {
-            required: element.required,
-            message: `${element.label} is required`,
-          },
-        ]}
-      >
-        <DatePicker
-          placeholder={element.placeholder}
-          style={{ width: "100%" }}
-          format="YYYY-MM-DD"
-          disabledDate={(current) => {
-            if (!element.allowedDateRange) return false;
-            const [start, end] = element.allowedDateRange;
-            return current && (current < start || current > end);
-          }}
-        />
-      </Form.Item>
+      {selectedPeriods.includes("start") && (
+        <Form.Item
+          label="Start Date"
+          name="startDate"
+          style={{ marginTop: "10px" }}
+          rules={[
+            {
+              required: true,
+              message: "Start date is required",
+            },
+          ]}
+        >
+          <DatePicker
+            placeholder="Select start date"
+            style={{ width: "100%" }}
+            format="YYYY-MM-DD"
+            onChange={(date, dateString) => handleDateChange(date, dateString, "start")}
+          />
+        </Form.Item>
+      )}
+
+      {selectedPeriods.includes("end") && (
+        <Form.Item
+          label="End Date"
+          name="endDate"
+          style={{ marginTop: "10px" }}
+          rules={[
+            {
+              required: true,
+              message: "End date is required",
+            },
+          ]}
+        >
+          <DatePicker
+            placeholder="Select end date"
+            style={{ width: "100%" }}
+            format="YYYY-MM-DD"
+            onChange={(date, dateString) => handleDateChange(date, dateString, "end")}
+          />
+        </Form.Item>
+      )}
+
+      {selectedPeriods.includes("current") && (
+        <Form.Item
+          label="Current Date"
+          name="currentDate"
+          style={{ marginTop: "10px" }}
+          rules={[
+            {
+              required: true,
+              message: "Current date is required",
+            },
+          ]}
+        >
+          <DatePicker
+            placeholder="Select current date"
+            style={{ width: "100%" }}
+            format="YYYY-MM-DD"
+            onChange={(date, dateString) => handleDateChange(date, dateString, "current")}
+          />
+        </Form.Item>
+      )}
     </div>
   );
 }
-
 
 function FileAllowedExtensions({
   element,
