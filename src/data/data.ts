@@ -13,7 +13,7 @@ import {
   FiDatabase,
 } from "react-icons/fi";
 
-const patternOptions:PatternType [] = [
+const patternOptions: PatternType[] = [
   {
     value: "phone",
     label: "Phone",
@@ -66,16 +66,9 @@ const patternOptions:PatternType [] = [
     examplePattern: "Abc123!@#",
   },
 ];
-const filetypealow=[
-  pdf,text
-  use delect multiple
-]
+const filetypealow = [".pdf", ".txt", ".png"];
 
-const dateliment=[
-  cureent,
-  end,
-  start
-]
+const dateliment = [{ curent: "a", end: "b", start: "c" }];
 const selectTypeOptions = [
   {
     value: "select",
@@ -121,6 +114,7 @@ const inputTypeOptions = [
     bgColor: "bg-[#FDECC8]",
     textColor: "text-black",
     icon: FiFile,
+  
   },
   {
     value: "time",
@@ -177,4 +171,4 @@ const shortcuts = [
   { shortcut: "CTRL+S", title: "Save diagram", description: "" },
 ];
 
-export { patternOptions, selectTypeOptions, inputTypeOptions, shortcuts };
+export { patternOptions, selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};

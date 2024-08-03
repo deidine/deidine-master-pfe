@@ -89,7 +89,7 @@ export default function PreviewForm({
                 <Input
                   style={{ padding: "8px" }}
                   type="file"
-                  accept=".png,.jpg,.jpeg,.pdf,.doc,.docx,.txt"
+                  accept={element.elementType.allowedEtentions}
                   placeholder={element.elementType.placeholder}
                 />
               ) : (

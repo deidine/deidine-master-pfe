@@ -14,6 +14,7 @@ type FormElement = {
 };
   
 type BaseElement = {
+  
   type:ElementType;
   name: string;
   label: string;
@@ -23,6 +24,7 @@ type BaseElement = {
   required?: boolean;
   customPattern?: string; 
   pattern?: string ; 
+  allowedEtentions?: String,
 };
  
 type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file";

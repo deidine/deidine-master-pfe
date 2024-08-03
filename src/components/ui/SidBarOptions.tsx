@@ -1,15 +1,12 @@
-import { Button, Input, Select } from "antd";
+import { Button, Checkbox,  DatePicker,  Form,  Input, Select } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import AutoResizeTextarea from "./AutoResizeTextarea";
-import {
-  inputTypeOptions,
-  patternOptions,
-  selectTypeOptions,
-} from "@/data/data";
+import {  dateliment,  filetypealow, inputTypeOptions,  patternOptions,  selectTypeOptions} from "@/data/data";
 import { DeleteFilled } from "@ant-design/icons";
 import RequiredComponent from "./RequiredComponent";
 import { AnimatePresence, motion } from "framer-motion";
 import useDesigner from "@/hooks/useDesigner";
+import moment from "moment";
 const { Option } = Select;
 
 export default function SidBarOptions({
@@ -29,7 +26,7 @@ export default function SidBarOptions({
   const { updateElement } = useDesigner();
   const handleTypeChange = (value: ElementType) => {
     setInputType(value);
-    updateElement(element.name, { ...element, type: value, pattern: "" });
+    updateElement(element.name, { ...element, type: value, pattern: "" ,allowedEtentions:""});
   };
 
   const handleLabelChange = (e: any) => {
@@ -123,6 +120,8 @@ export default function SidBarOptions({
             element={element}
           />
         </div>
+        {element.type === "date" && <DateChoicePeriodInput  element={element} />}
+        {element.type == "file" && <FileAllowedExtensions element={element} />}
       </motion.div>
     </AnimatePresence>
   );
@@ -300,3 +299,106 @@ const LabelValue = ({ value }: { value: string }) => {
     </div>
   );
 };
+
+
+function DateChoicePeriodInput({ element }: { element: any }) {
+  const [selectedPeriod, setSelectedPeriod] = useState<string>("");
+
+  const handlePeriodChange = (checkedValues: any) => {
+    if (checkedValues.includes("start")) {
+      setSelectedPeriod("start");
+      element.allowedDateRange = [moment("2023-01-01"), moment()];
+    } else if (checkedValues.includes("end")) {
+      setSelectedPeriod("end");
+      element.allowedDateRange = [moment(), moment("2024-12-31")];
+    } else if (checkedValues.includes("current")) {
+      setSelectedPeriod("current");
+      element.allowedDateRange = [moment(), moment()];
+    } else {
+      setSelectedPeriod("");
+      element.allowedDateRange = null;
+    }
+  };
+
+  return (
+    <div>
+      <div className="flex flex-col space-y-2">
+        <Checkbox.Group onChange={handlePeriodChange}>
+          <Checkbox value="start">Start</Checkbox>
+          <Checkbox value="end">End</Checkbox>
+          <Checkbox value="current">Current</Checkbox>
+        </Checkbox.Group>
+      </div>
+
+      <Form.Item
+        label={element.label}
+        name={element.name}
+        style={{ marginTop: "10px" }}
+        rules={[
+          {
+            required: element.required,
+            message: `${element.label} is required`,
+          },
+        ]}
+      >
+        <DatePicker
+          placeholder={element.placeholder}
+          style={{ width: "100%" }}
+          format="YYYY-MM-DD"
+          disabledDate={(current) => {
+            if (!element.allowedDateRange) return false;
+            const [start, end] = element.allowedDateRange;
+            return current && (current < start || current > end);
+          }}
+        />
+      </Form.Item>
+    </div>
+  );
+}
+
+
+function FileAllowedExtensions({
+  element,
+}: {
+  element: SelectElement | InputElement;
+}) {
+  const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
+  const { updateElement } = useDesigner();
+
+  useEffect(() => {
+    if (element.allowedEtentions) {
+      setSelectedFileTypes(element.allowedEtentions.split(", "));
+    } else {
+      setSelectedFileTypes([]);
+    }
+  }, [element.allowedEtentions]);
+
+  const handleFileTypeChange = (selected: string[]) => {
+    setSelectedFileTypes(selected);
+    const updatedExtensions = selected.join(", ");
+    updateElement(element.name, { ...element, allowedEtentions: updatedExtensions });
+
+    if (!updatedExtensions) {
+      setSelectedFileTypes([]);
+    }
+  };
+
+  return (
+    <div>
+      <Select
+        mode="multiple"
+        placeholder={"Allowed file types"}
+        style={{ width: "100%" }}
+        onChange={handleFileTypeChange}
+        value={selectedFileTypes}
+      >
+        {filetypealow.map((option: string, idx: number) => (
+          <Select.Option key={idx} value={option}>
+            {option}
+          </Select.Option>
+        ))}
+      </Select>
+    </div>
+  );
+}
+
