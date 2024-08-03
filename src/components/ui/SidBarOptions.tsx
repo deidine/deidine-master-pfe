@@ -196,7 +196,7 @@ const PatternSidBarOptions  = ({ element }: {
   const [customPattern, setCustomPattern] = useState(element.customPattern || "");
   const [selectedPattern, setSelectedPattern] = useState<string>(element.pattern || "");
   const patternSelectWrapperRef = useRef(null);
-
+const [allowedPatternOptionsState,_]=useState<PatternType[]>(allowedPatternOptions)
   const handleCustomPatternChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = e.target.value;
     setCustomPattern(pattern);
