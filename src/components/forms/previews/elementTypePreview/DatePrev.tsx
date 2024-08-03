@@ -34,8 +34,8 @@ export default function DatePrev({
                 : "date"
             }
             placeholder={element.elementType.placeholder}
-            min={element.elementType.startDate}
-            max={element.elementType.endDate}
+            min={element.elementType.startDate!}
+            max={element.elementType.endDate!}
           />
         </Form.Item>
       ) : (
