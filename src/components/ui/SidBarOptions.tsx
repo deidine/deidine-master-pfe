@@ -1,5 +1,5 @@
 import { Button, Input, Select } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AutoResizeTextarea from "./AutoResizeTextarea";
 import {
   inputTypeOptions,
@@ -21,13 +21,17 @@ export default function SidBarOptions({
   const [inputLabel, setInputLabel] = useState(element.label);
   const [inputType, setInputType] = useState<ElementType>(element.type);
   const [isRequired, setIsRequired] = useState(element.required);
+  const [allowedPatternOptions, setAllowedPatternOptions] = useState(
+    patternOptions.filter((option) =>
+      option.allowedTypes.includes(element.type)
+    )
+  );
   const { updateElement } = useDesigner();
-
   const handleTypeChange = (value: ElementType) => {
-    setInputType(value); 
-    updateElement(element.name, { ...element, type: value });
-    updateElement(element.name, { ...element, pattern:"" });
+    setInputType(value);
+    updateElement(element.name, { ...element, type: value, pattern: "" });
   };
+
   const handleLabelChange = (e: any) => {
     setInputLabel(e.target.value);
     updateElement(element.name, { ...element, label: e.target.value });
@@ -36,6 +40,13 @@ export default function SidBarOptions({
     setPlacholder(e.target.value);
     updateElement(element.name, { ...element, placeholder: e.target.value });
   };
+
+  useEffect(() => {
+    setAllowedPatternOptions(
+      patternOptions.filter((option) => option.allowedTypes.includes(inputType))
+    );
+  }, [inputType]);
+
   return (
     <AnimatePresence initial={true}>
       <motion.div
@@ -43,73 +54,74 @@ export default function SidBarOptions({
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -100, opacity: 0 }}
+        className="space-y-6"
       >
-        <div className="flex flex-col gap-2 h-auto">
-          <div>
-            <AutoResizeTextarea
-              inputLabel={inputLabel}
-              handleLabelChange={handleLabelChange}
-              isEditing={true}
-            />
-          </div>
+        <div>
+          <AutoResizeTextarea
+            inputLabel={inputLabel}
+            handleLabelChange={handleLabelChange}
+            isEditing={true}
+          />
+        </div>
 
-          <div>
-            <LabelValue value="type" />
-            <Select
-              className="w-full"
-              value={inputType}
-              onChange={handleTypeChange}
-              placeholder="Select input type"
-            >
-              {element.type === "select" ||
-              element.type === "select_multiple" ||
-              element.type === "radio" ||
-              element.type === "checkbox"
-                ? selectTypeOptions.map((option) => (
-                    <Option key={option.value} value={option.value}>
-                      {option.label}
-                    </Option>
-                  ))
-                : inputTypeOptions.map((option, index) => (
-                    <Option key={index} value={option.value}>
-                      {option.label}
-                    </Option>
-                  ))}
-            </Select>
-          </div>
-          <div>
-            <RequiredComponent
-              required={element.required!}
-              toggleRequired={() => {
-                updateElement(element.name, {
-                  ...element,
-                  required: !isRequired,
-                });
-
-                setIsRequired(!isRequired);
-              }}
-              isSwitchButton={true}
-            />
-          </div>
-          <div>
-            <LabelValue value="Placholder" />
-
-            <Input
-              placeholder="placholder"
-              value={placholder}
-              onChange={handlePlaceholderChange}
-              style={{ marginBottom: "8px" }}
-            />
+        <div>
+          <LabelValue value="Type" />
+          <Select
+            className="w-full"
+            value={inputType}
+            onChange={handleTypeChange}
+            placeholder="Select input type"
+          >
             {element.type === "select" ||
             element.type === "select_multiple" ||
             element.type === "radio" ||
-            element.type === "checkbox" ? (
-              <SelectOptionSidBarOptions element={element} />
-            ) : (
-              <></>
-            )}
-            <PatternSidBarOptions element={element} />
-          </div>
+            element.type === "checkbox"
+              ? selectTypeOptions.map((option) => (
+                  <Select.Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Select.Option>
+                ))
+              : inputTypeOptions.map((option, index) => (
+                  <Select.Option key={index} value={option.value}>
+                    {option.label}
+                  </Select.Option>
+                ))}
+          </Select>
+        </div>
+
+        <div>
+          <RequiredComponent
+            required={element.required!}
+            toggleRequired={() => {
+              updateElement(element.name, {
+                ...element,
+                required: !isRequired,
+              });
+
+              setIsRequired(!isRequired);
+            }}
+            isSwitchButton={true}
+          />
+        </div>
+
+        <div>
+          <LabelValue value="Placeholder" />
+          <Input
+            placeholder="Placeholder"
+            value={placholder}
+            onChange={handlePlaceholderChange}
+            className="mb-4"
+          />
+          {(element.type === "select" ||
+            element.type === "select_multiple" ||
+            element.type === "radio" ||
+            element.type === "checkbox") && (
+            <SelectOptionSidBarOptions element={element} />
+          )}
+          <PatternSidBarOptions
+            allowedPatternOptions={allowedPatternOptions}
+            element={element}
+          />
         </div>
       </motion.div>
     </AnimatePresence>
@@ -187,24 +199,37 @@ const SelectOptionSidBarOptions = ({
     </div>
   );
 };
-  
-const PatternSidBarOptions  = ({ element }: {
+
+const PatternSidBarOptions = ({
+  element,
+  allowedPatternOptions,
+}: {
   element: SelectElement | InputElement;
+  allowedPatternOptions: PatternType[];
 }) => {
   const { updateElement } = useDesigner();
 
-  const [customPattern, setCustomPattern] = useState(element.customPattern || "");
-  const [selectedPattern, setSelectedPattern] = useState<string>(element.pattern || "");
+  const [customPattern, setCustomPattern] = useState(
+    element.customPattern || ""
+  );
+  const [selectedPattern, setSelectedPattern] = useState<string>(
+    element.pattern || ""
+  );
   const patternSelectWrapperRef = useRef(null);
-const [allowedPatternOptionsState,_]=useState<PatternType[]>(allowedPatternOptions)
-  const handleCustomPatternChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [allowedPatternOptionsState, setAllowedPatternOptionsState] = useState<
+    PatternType[]
+  >(allowedPatternOptions);
+  const handleCustomPatternChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const pattern = e.target.value;
     setCustomPattern(pattern);
     updateElement(element.name, { ...element, customPattern: pattern });
   };
-
   const handlePatternChange = (value: string) => {
-    const selectedOption = patternOptions.find(option => option.pattern === value);
+    const selectedOption = patternOptions.find(
+      (option) => option.pattern === value
+    );
     if (selectedOption && selectedOption.allowedTypes.includes(element.type)) {
       setSelectedPattern(value);
       updateElement(element.name, { ...element, pattern: value });
@@ -213,10 +238,14 @@ const [allowedPatternOptionsState,_]=useState<PatternType[]>(allowedPatternOptio
       console.warn(`Pattern not allowed for input type: ${element.type}`);
     }
   };
-
-  const allowedPatternOptions = patternOptions.filter(option =>
-    option.allowedTypes.includes(element.type)
-  );
+  useEffect(() => {
+    setAllowedPatternOptionsState(
+      patternOptions.filter((option) =>
+        option.allowedTypes.includes(element.type)
+      )
+    );
+    setSelectedPattern("");
+  }, [allowedPatternOptions]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -230,7 +259,7 @@ const [allowedPatternOptionsState,_]=useState<PatternType[]>(allowedPatternOptio
           value={selectedPattern}
           onChange={handlePatternChange}
         >
-          {allowedPatternOptions.map(option => (
+          {allowedPatternOptionsState.map((option) => (
             <Option key={option.value} value={option.pattern}>
               {option.label}
             </Option>
@@ -241,7 +270,11 @@ const [allowedPatternOptionsState,_]=useState<PatternType[]>(allowedPatternOptio
         <div className="mt-2">
           <LabelValue value="Example Pattern" />
           <div className="text-gray-600">
-            {allowedPatternOptions.find(option => option.pattern === selectedPattern)?.examplePattern}
+            {
+              allowedPatternOptionsState.find(
+                (option) => option.pattern === selectedPattern
+              )?.examplePattern
+            }
           </div>
         </div>
       )}
@@ -255,7 +288,7 @@ const [allowedPatternOptionsState,_]=useState<PatternType[]>(allowedPatternOptio
       )} */}
     </div>
   );
-}; 
+};
 
 const LabelValue = ({ value }: { value: string }) => {
   return (

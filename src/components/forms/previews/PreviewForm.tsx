@@ -10,6 +10,7 @@ import {
   TimePicker,
 } from "antd";
 import useDesigner from "@/hooks/useDesigner";
+import moment from "moment";
 
 export default function PreviewForm({
   isTemplate,
@@ -84,6 +85,13 @@ export default function PreviewForm({
                   style={{ padding: "8px" }}
                   placeholder={element.elementType.placeholder}
                 />
+              ) : element.elementType.type === "file" ? (
+                <Input
+                  style={{ padding: "8px" }}
+                  type="file"
+                  accept=".png,.jpg,.jpeg,.pdf,.doc,.docx,.txt"
+                  placeholder={element.elementType.placeholder}
+                />
               ) : (
                 <Input
                   style={{ padding: "8px" }}
@@ -103,15 +111,31 @@ export default function PreviewForm({
                   required: element.elementType.required,
                   message: `${element.elementType.label} is required`,
                 },
+                {
+                  validator: (_, value) =>
+                    value && moment(value).isBetween("2023-01-01", "2024-12-31")
+                      ? Promise.resolve()
+                      : Promise.reject(
+                          new Error(
+                            "Date must be between 2023-01-01 and 2024-12-31"
+                          )
+                        ),
+                },
               ]}
             >
               <DatePicker
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
                 format="YYYY-MM-DD"
+                disabledDate={(current) =>
+                  current &&
+                  (current < moment("2023-01-01") ||
+                    current > moment("2024-12-31"))
+                }
               />
             </Form.Item>
-          )}{" "}
+          )}
+
           {element.elementType.type === "datetime-local" && (
             <Form.Item
               label={element.elementType.label}
@@ -122,15 +146,22 @@ export default function PreviewForm({
                   required: element.elementType.required,
                   message: `${element.elementType.label} is required`,
                 },
+                {
+                  type: "date",
+                  message: `Please enter a valid date and time for ${element.elementType.label}`,
+                },
               ]}
             >
               <Input
                 style={{ padding: "8px" }}
-                type={element.elementType.type}
+                type="datetime-local"
                 placeholder={element.elementType.placeholder}
+                min="2023-01-01T00:00"
+                max="2024-12-31T23:59"
               />
             </Form.Item>
           )}
+
           {element.elementType.type === "time" && (
             <Form.Item
               label={element.elementType.label}
@@ -141,6 +172,10 @@ export default function PreviewForm({
                   required: element.elementType.required,
                   message: `${element.elementType.label} is required`,
                 },
+                {
+                  pattern: new RegExp("^(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$"),
+                  message: `Please enter a valid time (HH:mm:ss) for ${element.elementType.label}`,
+                },
               ]}
             >
               <TimePicker
@@ -149,9 +184,11 @@ export default function PreviewForm({
                 format="HH:mm:ss"
                 showHour
                 showMinute
+                showSecond
               />
             </Form.Item>
           )}
+
           {element.elementType.type === "select" && (
             <Form.Item
               label={element.elementType.label}

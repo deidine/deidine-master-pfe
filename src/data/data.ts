@@ -13,14 +13,7 @@ import {
   FiDatabase,
 } from "react-icons/fi";
 
-const patternOptions  = [
-  // {
-  //   value: "noPattern",
-  //   label: "No Pattern",
-  //   pattern: "",
-  //   allowedTypes: [],
-  //   examplePattern: "",
-  // },
+const patternOptions:PatternType [] = [
   {
     value: "phone",
     label: "Phone",
@@ -73,6 +66,16 @@ const patternOptions  = [
     examplePattern: "Abc123!@#",
   },
 ];
+const filetypealow=[
+  pdf,text
+  use delect multiple
+]
+
+const dateliment=[
+  cureent,
+  end,
+  start
+]
 const selectTypeOptions = [
   {
     value: "select",

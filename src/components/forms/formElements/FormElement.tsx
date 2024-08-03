@@ -76,9 +76,10 @@ export default function FormElement({
           toogleSidBar={( ) => setIsSidebarVisible(isSidebarVisible ? false : true)}
         />
       </div>
+      <>
       {isSidebarVisible && (
         <div
-          className={`fixed top-0 right-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto transition-all duration-300 ease-in-out`}
+          className="fixed inset-0  bg-black bg-opacity-50 z-50 overflow-auto transition-opacity duration-300 ease-in-out"
           onClick={() => {
             setIsSidebarVisible(false);
             setIsEditFormCard(false);
@@ -86,21 +87,27 @@ export default function FormElement({
           }}
         >
           <div
-            className={`absolute top-0 right-0 w-1/3 pl-3 h-full bg-white shadow-lg z-50 sidebar`}
+            className="absolute top-0 right-0   w-full md:w-1/3 sm:w-[200px] pl-3 overflow-y-scroll scroll-m-0 h-full bg-white shadow-lg z-50 sidebar transition-transform duration-300 transform translate-x-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <Button
-              ref={colseSideBarref}
-              onClick={() => {
-                setIsSidebarVisible(false);
-                setIsEditFormCard(false);
-              }}
-              icon={<CloseCircleOutlined />}
-            />
-            <SidBarOptions element={element}   />
+            <div className="flex justify-end p-4 border-b">
+              <Button
+                ref={colseSideBarref}
+                onClick={() => {
+                  setIsSidebarVisible(false);
+                  setIsEditFormCard(false);
+                }}
+                icon={<CloseCircleOutlined />}
+                className="text-red-500 hover:text-red-700 transition-colors"
+              />
+            </div>
+            <div className="p-6">
+              <SidBarOptions element={element} />
+            </div>
           </div>
         </div>
       )}
+    </>
     </div>
   );
 }
