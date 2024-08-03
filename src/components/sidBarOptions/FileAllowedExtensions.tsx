@@ -1,7 +1,8 @@
 import { filetypealow } from "@/data/data";
 import useDesigner from "@/hooks/useDesigner";
-import { Button, Input, Select } from "antd";
+import {  Select } from "antd";
 import { useEffect, useRef, useState } from "react";
+import { LabelValue } from "./LabelValue";
 
 export function FileAllowedExtensions({
     element,
@@ -34,6 +35,8 @@ export function FileAllowedExtensions({
   
     return (
       <div>
+          <LabelValue value="File allowed extensions For file" />
+
         <Select
           mode="multiple"
           placeholder={"Allowed file types"}

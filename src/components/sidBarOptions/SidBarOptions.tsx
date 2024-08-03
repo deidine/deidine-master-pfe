@@ -123,13 +123,16 @@ export default function SidBarOptions({
           {(element.type === "select" ||
             element.type === "select_multiple" ||
             element.type === "radio" ||
-            element.type === "checkbox") && (
+            element.type === "checkbox") ? (
             <SelectOptionSidBarOptions element={element} />
-          )}
+          ) :
           <PatternSidBarOptions
-            allowedPatternOptions={allowedPatternOptions}
-            element={element}
-          />
+          allowedPatternOptions={allowedPatternOptions}
+          element={element}
+        />
+        
+        }
+         
         </div>
         {element.type === "date" && <DateChoicePeriodInput element={element} />}
         {element.type == "file" && <FileAllowedExtensions element={element} />}
