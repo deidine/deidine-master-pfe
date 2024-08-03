@@ -113,11 +113,11 @@ export default function PreviewForm({
                 },
                 {
                   validator: (_, value) =>
-                    value && moment(value).isBetween("2023-01-01", "2024-12-31")
+                    value && moment(value).isBetween(element.elementType.startDate, element.elementType.endDate)
                       ? Promise.resolve()
                       : Promise.reject(
                           new Error(
-                            "Date must be between 2023-01-01 and 2024-12-31"
+                            "Date must be between"+element.elementType.startDate+" and "+element.elementType.endDate
                           )
                         ),
                 },
@@ -127,10 +127,11 @@ export default function PreviewForm({
                 placeholder={element.elementType.placeholder}
                 style={{ width: "100%" }}
                 format="YYYY-MM-DD"
+                readOnly
                 disabledDate={(current) =>
                   current &&
-                  (current < moment("2023-01-01") ||
-                    current > moment("2024-12-31"))
+                  (current < moment(element.elementType.startDate) ||
+                    current > moment(element.elementType.endDate))
                 }
               />
             </Form.Item>

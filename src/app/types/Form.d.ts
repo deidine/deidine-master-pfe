@@ -25,6 +25,9 @@ type BaseElement = {
   customPattern?: string; 
   pattern?: string ; 
   allowedEtentions?: String,
+  startDate?: String,
+  endDate?: String,
+ 
 };
  
 type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file";
