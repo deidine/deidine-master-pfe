@@ -4,4 +4,7 @@ type PatternType= {
     allowedTypes: string[];
     pattern: string;
     examplePattern: string;
+    icon: IconType;
+    bgColor: string;
+    textColor: string;
   }

@@ -1,6 +1,6 @@
 import { filetypealow } from "@/data/data"; 
 import {  Select } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useEffect,useState } from "react";
 import { LabelValue } from "./LabelValue";
 
 export function FileAllowedExtensions({
@@ -30,7 +30,7 @@ export function FileAllowedExtensions({
   
     return (
       <div>
-          <LabelValue value="File allowed extensions For file" />
+          <LabelValue value="File extensions" />
 
         <Select
           mode="multiple"

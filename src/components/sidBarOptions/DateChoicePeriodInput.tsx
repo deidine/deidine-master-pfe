@@ -9,8 +9,6 @@ export  function DateChoicePeriodInput({ element }: { element: any }) {
       end: "",
       current: "",
     });
-  
-   
     const handleDateChange = (
       date: moment.Moment | null,
       dateString: string,
@@ -34,6 +32,8 @@ export  function DateChoicePeriodInput({ element }: { element: any }) {
    
             <DatePicker
               placeholder="Select min date"
+              value={element.startDate ? moment(element.startDate) : null} 
+              
               style={{ width: "100%" }}
               format="YYYY-MM-DD"
               onChange={(date: moment.Moment, dateString: any) =>
@@ -44,11 +44,13 @@ export  function DateChoicePeriodInput({ element }: { element: any }) {
          
             <DatePicker
               placeholder="Select max date"
+              value={element.endDate ? moment(element.endDate) : null} 
               style={{ width: "100%" }}
               format="YYYY-MM-DD"
               onChange={(date: moment.Moment, dateString: any) =>
                 handleDateChange(date, dateString, "end")
               }
+
             /> 
       </div>
     );

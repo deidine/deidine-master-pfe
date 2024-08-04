@@ -11,6 +11,9 @@ import {
   FiAlignLeft,
   FiEyeOff,
   FiDatabase,
+  FiHeadphones,
+  FiExternalLink,
+  FiDollarSign,
 } from "react-icons/fi";
 
 const patternOptions: PatternType[] = [
@@ -20,6 +23,10 @@ const patternOptions: PatternType[] = [
     allowedTypes: ["text", "number"],
     pattern: "\\d{10}",
     examplePattern: "1234567890",
+    icon: FiHeadphones,
+    bgColor: "bg-[#E8DEEE]",
+    textColor: "text-black",
+
   },
   {
     value: "email",
@@ -27,22 +34,12 @@ const patternOptions: PatternType[] = [
     allowedTypes: ["text", "email"],
     pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
     examplePattern: "example@example.com",
+    icon: FiMail,
+    bgColor: "bg-[#E8DEEE]",
+    textColor: "text-black",
+
   },
-  {
-    value: "creditCard",
-    label: "Credit Card",
-    allowedTypes: ["text", "number"],
-    pattern:
-      "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$",
-    examplePattern: "4111111111111111",
-  },
-  {
-    value: "zipCode",
-    label: "Zip Code",
-    allowedTypes: ["text", "number"],
-    pattern: "^\\d{5}(?:[-\\s]\\d{4})?$",
-    examplePattern: "12345",
-  },
+ 
   {
     value: "url",
     label: "URL",
@@ -50,6 +47,10 @@ const patternOptions: PatternType[] = [
     pattern:
       "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$",
     examplePattern: "https://www.example.com",
+    icon: FiExternalLink,
+    bgColor: "bg-[#E8DEEE]",
+    textColor: "text-black",
+
   },
   {
     value: "currency",
@@ -57,6 +58,10 @@ const patternOptions: PatternType[] = [
     allowedTypes: ["text", "number"],
     pattern: "^\\$?\\d+(?:\\.\\d{2})?$",
     examplePattern: "$10.00",
+    icon: FiDollarSign,
+    bgColor: "bg-[#E8DEEE]",
+    textColor: "text-black",
+
   },
   {
     value: "password",
@@ -64,6 +69,10 @@ const patternOptions: PatternType[] = [
     allowedTypes: ["text", "password"],
     pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
     examplePattern: "Abc123!@#",
+    icon: FiLock,
+    bgColor: "bg-[#E8DEEE]",
+    textColor: "text-black",
+
   },
 ];
 const filetypealow = [".pdf", ".txt", ".png"];

@@ -1,4 +1,4 @@
-import {  Select } from "antd";
+import {  Input, Select } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { LabelValue } from "./LabelValue";
 import { patternOptions } from "@/data/data";
@@ -11,10 +11,7 @@ export const PatternSidBarOptions = ({
     element: SelectElement | InputElement;
     allowedPatternOptions: PatternType[];
   }) => { 
-  
-    const [customPattern, setCustomPattern] = useState(
-      element.customPattern || ""
-    );
+ 
     const [selectedPattern, setSelectedPattern] = useState<string>(
       element.pattern || ""
     );
@@ -22,13 +19,7 @@ export const PatternSidBarOptions = ({
     const [allowedPatternOptionsState, setAllowedPatternOptionsState] = useState<
       PatternType[]
     >(allowedPatternOptions);
-    const handleCustomPatternChange = (
-      e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      const pattern = e.target.value;
-      setCustomPattern(pattern);
-      element.customPattern= pattern 
-    };
+ 
     const handlePatternChange = (value: string) => {
       const selectedOption = patternOptions.find(
         (option) => option.pattern === value
@@ -59,7 +50,7 @@ export const PatternSidBarOptions = ({
             ref={patternSelectWrapperRef}
             style={{ width: "100%" }}
             placeholder="Select patterns"
-            value={selectedPattern}
+            value={element.pattern ? element.pattern : undefined}
             onChange={handlePatternChange}
           >
             {allowedPatternOptionsState.map((option) => (
@@ -81,14 +72,7 @@ export const PatternSidBarOptions = ({
             </div>
           </div>
         )}
-        {/* {selectedPattern.includes(customPattern) && (
-          <Input
-            placeholder="Enter custom regex"
-            value={customPattern}
-            onChange={handleCustomPatternChange}
-            className="mt-2"
-          />
-        )} */}
+ 
       </div>
     );
   };

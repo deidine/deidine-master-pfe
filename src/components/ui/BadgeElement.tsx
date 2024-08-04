@@ -17,6 +17,9 @@ export default function BadgeElement({
   const elementType = elementTypeOptions.find(
     (option) => option.value === element.type
   );
+  const elementPattern  = patternOptions.find(
+    (option) => option.pattern === element.pattern
+  );
 
   return (
     <div className="flex flex-col p-2 w-full font-bold text-lg h-auto overflow-hidden">
@@ -45,17 +48,14 @@ export default function BadgeElement({
                 Required
               </Badge>
             )}
-            {element.pattern!.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {patternOptions.map(
-                  (option, index) =>
-                    option.value !== "" &&
-                    element.pattern!.includes(option.pattern!) && (
-                      <Badge className="bg-blue-500" key={index}>
-                        {option.label}
-                      </Badge>
-                    )
-                )}
+            {elementPattern && (
+              
+              <div className="flex flex-wrap gap-2"> 
+                <Badge className="border hover:outline-none flex items-center gap-2 bg-blue-500">
+                  {elementPattern?.icon &&
+                    React.createElement(elementPattern?.icon)}
+                  {elementPattern?.value}
+                </Badge>
               </div>
             )}
             {element.options && (
@@ -63,7 +63,9 @@ export default function BadgeElement({
                 options
                 <div
                   className={`rounded-full w-6 h-6 flex items-center justify-center ${
-                    element.options.length !== 2 ? "bg-yellow-700" : "bg-red-700"
+                    element.options.length !== 2
+                      ? "bg-yellow-700"
+                      : "bg-red-700"
                   }`}
                 >
                   {element.options.length}
