@@ -3,7 +3,7 @@ import { Modal, Button, Divider } from "antd";
 import {   newElement, renderOptions } from "@/utils/utilsFunctions";
 import useDesigner from "@/hooks/useDesigner";
 import { inputTypeOptions, selectTypeOptions } from "@/data/data";
-import PreviewForm from "../forms/previews/PreviewForm";
+import PreviewForm from "../previews/PreviewForm";
 
 export default function ModelPopupType({
   isModalVisible,

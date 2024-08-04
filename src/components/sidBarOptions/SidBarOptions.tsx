@@ -120,19 +120,22 @@ export default function SidBarOptions({
             onChange={handlePlaceholderChange}
             className="mb-4"
           />
-          {(element.type === "select" ||
-            element.type === "select_multiple" ||
-            element.type === "radio" ||
-            element.type === "checkbox") ? (
+          {element.type === "select" ||
+          element.type === "select_multiple" ||
+          element.type === "radio" ||
+          element.type === "checkbox" ? (
             <SelectOptionSidBarOptions element={element} />
-          ) :
-          <PatternSidBarOptions
-          allowedPatternOptions={allowedPatternOptions}
-          element={element}
-        />
-        
-        }
-         
+          ) : element.type === "file" ||
+            element.type === "date" ||
+            element.type === "datetime-local" ||
+            element.type === "time" ? (
+            <> </>
+          ) : (
+            <PatternSidBarOptions
+              allowedPatternOptions={allowedPatternOptions}
+              element={element}
+            />
+          )}
         </div>
         {element.type === "date" && <DateChoicePeriodInput element={element} />}
         {element.type == "file" && <FileAllowedExtensions element={element} />}
@@ -140,6 +143,3 @@ export default function SidBarOptions({
     </AnimatePresence>
   );
 }
-
-
-

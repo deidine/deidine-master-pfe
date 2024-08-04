@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
-import ModelPopupType from "../ui/ModelPopupType";
+import ModelPopupType from "./builders/ModelPopupType";
 
 export default function InsertElement() {
  

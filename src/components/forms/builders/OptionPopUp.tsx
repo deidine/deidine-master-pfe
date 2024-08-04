@@ -5,7 +5,7 @@ import {
   EditOutlined, 
 } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
-import { Badge } from "./badge";
+import { Badge } from "../../ui/badge";
 import { FiSidebar } from "react-icons/fi";
 
 export default function OptionPopUp({

@@ -1,5 +1,4 @@
-import useDesigner from "@/hooks/useDesigner";
-import { Button, Input, Select } from "antd";
+import {  Select } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { LabelValue } from "./LabelValue";
 import { patternOptions } from "@/data/data";
@@ -11,8 +10,7 @@ export const PatternSidBarOptions = ({
   }: {
     element: SelectElement | InputElement;
     allowedPatternOptions: PatternType[];
-  }) => {
-    const { updateElement } = useDesigner();
+  }) => { 
   
     const [customPattern, setCustomPattern] = useState(
       element.customPattern || ""
@@ -29,15 +27,15 @@ export const PatternSidBarOptions = ({
     ) => {
       const pattern = e.target.value;
       setCustomPattern(pattern);
-      updateElement(element.name, { ...element, customPattern: pattern });
+      element.customPattern= pattern 
     };
     const handlePatternChange = (value: string) => {
       const selectedOption = patternOptions.find(
         (option) => option.pattern === value
       );
       if (selectedOption && selectedOption.allowedTypes.includes(element.type)) {
+        element.pattern=value
         setSelectedPattern(value);
-        updateElement(element.name, { ...element, pattern: value });
       } else {
         // Optionally, handle the case where the selected pattern is not allowed for the current input type
         console.warn(`Pattern not allowed for input type: ${element.type}`);

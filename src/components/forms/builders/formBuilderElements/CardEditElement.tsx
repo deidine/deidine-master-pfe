@@ -1,9 +1,8 @@
-import { CloseCircleOutlined, LeftCircleFilled } from "@ant-design/icons";
 import { Button, Select } from "antd";
-import { inputTypeOptions, patternOptions } from "@/data/data";
+import { inputTypeOptions  } from "@/data/data";
 import { selectTypeOptions } from "@/data/data";
 import { useState } from "react";
-import RequiredComponent from "./RequiredComponent";
+import RequiredComponent from "../../../ui/RequiredComponent";
 import useDesigner from "@/hooks/useDesigner";
 const { Option } = Select;
 

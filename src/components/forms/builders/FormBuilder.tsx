@@ -9,7 +9,7 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import useDesigner from "@/hooks/useDesigner";
-import FormElement from "../formElements/FormElement";
+import FormElement from "./formBuilderElements/FormElement";
 import { motion } from "framer-motion";
 import { useHotkeys } from "react-hotkeys-hook";
 

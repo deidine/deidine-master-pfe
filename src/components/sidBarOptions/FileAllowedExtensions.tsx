@@ -1,5 +1,4 @@
-import { filetypealow } from "@/data/data";
-import useDesigner from "@/hooks/useDesigner";
+import { filetypealow } from "@/data/data"; 
 import {  Select } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { LabelValue } from "./LabelValue";
@@ -10,8 +9,7 @@ export function FileAllowedExtensions({
     element: SelectElement | InputElement;
   }) {
     const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
-    const { updateElement } = useDesigner();
-  
+ 
     useEffect(() => {
       if (element.allowedEtentions) {
         setSelectedFileTypes(element.allowedEtentions.split(", "));
@@ -23,10 +21,7 @@ export function FileAllowedExtensions({
     const handleFileTypeChange = (selected: string[]) => {
       setSelectedFileTypes(selected);
       const updatedExtensions = selected.join(", ");
-      updateElement(element.name, {
-        ...element,
-        allowedEtentions: updatedExtensions,
-      });
+      element.allowedEtentions = updatedExtensions; 
   
       if (!updatedExtensions) {
         setSelectedFileTypes([]);
