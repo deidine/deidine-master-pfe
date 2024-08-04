@@ -67,7 +67,6 @@ export default function FormBuilder() {
           Redo
         </Button>
       </div> */}
-{isEditFormCard+" isEditFormCard"}
       <DragDropContext
         onDragUpdate={handleOnDragUpdate}
         onDragStart={handleOnDragStart}
@@ -131,5 +130,3 @@ export default function FormBuilder() {
     </div>
   );
 }
-
-

@@ -29,13 +29,8 @@ export default function FormElement({
   };
 
   const handleDivClick = (e: React.MouseEvent) => {
-    if (isEditing) {
-      // Disable dragging and set isEditFormCard to true if editing
-      setIsEditFormCard(true);
-    } else {
-      // Enable dragging, show the sidebar, and set isEditFormCard to false
-      setIsSidebarVisible(true);
-      setIsEditFormCard(false);
+    if (!isEditing) {  
+        setIsSidebarVisible(true);
     }
   };
 
@@ -48,7 +43,6 @@ export default function FormElement({
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm group`}
     >
-      {isEditFormCard + "isEditFormCard2"}
       <div className="flex flex-col space-y-3  relative flex-1">
         {isEditing ? (
           <>
@@ -65,6 +59,7 @@ export default function FormElement({
               onClick={(e) => {
                 e.stopPropagation();
                 setIsEditing(!isEditing);
+                setIsEditFormCard(!isEditFormCard);
               }}
               element={element}
             />
@@ -78,17 +73,22 @@ export default function FormElement({
           isEditingSate={!isEditing}
           setIsEditingState={(value: boolean) => {
             setIsEditing(!isEditing);
+            
           }}
-          toogleSidBar={() => setIsSidebarVisible(!isSidebarVisible)}
+          toogleSidBar={() => {
+            setIsSidebarVisible(!isSidebarVisible)
+            
+            setIsEditFormCard(!isEditFormCard);
+          }}
         />
       </div>
       {isSidebarVisible && (
         <div
           className="fixed inset-0  bg-black bg-opacity-50 z-50 overflow-auto transition-opacity duration-300 ease-in-out"
           onClick={() => {
-            setIsSidebarVisible(false);
+            setIsSidebarVisible(!isSidebarVisible);
             setIsEditFormCard(!isEditFormCard);
-            colseSideBarref.current?.click();
+            // colseSideBarref.current?.click();
           }}
         >
           <div
