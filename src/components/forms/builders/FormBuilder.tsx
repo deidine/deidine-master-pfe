@@ -41,9 +41,6 @@ export default function FormBuilder() {
 
     // Push current state to undoStack before updating elements
     undoStack.push(elements);
-    // Clear redoStack as new action is performed
-    // redoStack.pop() [];
-    // Update elements state
     setElements(items);
   };
 
@@ -70,7 +67,7 @@ export default function FormBuilder() {
           Redo
         </Button>
       </div> */}
-
+{isEditFormCard+" isEditFormCard"}
       <DragDropContext
         onDragUpdate={handleOnDragUpdate}
         onDragStart={handleOnDragStart}
@@ -105,11 +102,6 @@ export default function FormBuilder() {
                           <FormElement
                             index={index}
                             element={element.elementType}
-                            // setElement={(value: SelectElement | InputElement) => {
-                            //   const updatedElements = [...elements];
-                            //   updatedElements[index].elementType = value;
-                            //   setElements(updatedElements);
-                            // }}
                           />
                         </div>
                       </motion.div>

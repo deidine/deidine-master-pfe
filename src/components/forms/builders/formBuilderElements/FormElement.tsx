@@ -7,6 +7,7 @@ import SidBarOptions from "@/components/sidBarOptions/SidBarOptions";
 import AutoResizeTextarea from "@/components/ui/AutoResizeTextarea";
 import BadgeElement from "@/components/forms/builders/formBuilderElements/BadgeElement";
 import CardEditElement from "@/components/forms/builders/formBuilderElements/CardEditElement"; 
+
 export default function FormElement({
   element, 
   index,
@@ -17,23 +18,27 @@ export default function FormElement({
   const [isEditing, setIsEditing] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [inputLabel, setInputLabel] = useState(element.label);
-  const { removeElement, setIsEditFormCard,updateElement } = useDesigner();
+  const { removeElement, setIsEditFormCard, updateElement, isEditFormCard } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
   const colseSideBarref = useRef<any>(null);
 
   const handleLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputLabel(e.target.value); 
-    updateElement(element.name, { ...element, label: e.target.value }  );
+    updateElement(element.name, { ...element, label: e.target.value });
   };
 
   const handleDivClick = (e: React.MouseEvent) => {
-    if (!isEditing) {
-      setIsSidebarVisible(true);
+    if (isEditing) {
+      // Disable dragging and set isEditFormCard to true if editing
       setIsEditFormCard(true);
+    } else {
+      // Enable dragging, show the sidebar, and set isEditFormCard to false
+      setIsSidebarVisible(true);
+      setIsEditFormCard(false);
     }
   };
- 
+
   return (
     <div
       key={index}
@@ -43,6 +48,7 @@ export default function FormElement({
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm group`}
     >
+      {isEditFormCard + "isEditFormCard2"}
       <div className="flex flex-col space-y-3  relative flex-1">
         {isEditing ? (
           <>
@@ -51,7 +57,7 @@ export default function FormElement({
               handleLabelChange={handleLabelChange}
               isEditing={isEditing}
             />
-            <CardEditElement element={element}  />
+            <CardEditElement element={element} />
           </>
         ) : (
           <>
@@ -63,26 +69,25 @@ export default function FormElement({
               element={element}
             />
           </>
-        )} 
+        )}
         <OptionPopUp
           name={element.name}
           removeElement={(name: string) => {
             removeElement(name);
           }}
-          isEditingSate={isEditing ? false : true}
-          setIsEditingState={( ) => {
-            setIsEditing(isEditing ? false : true);
+          isEditingSate={!isEditing}
+          setIsEditingState={(value: boolean) => {
+            setIsEditing(!isEditing);
           }}
-          toogleSidBar={( ) => setIsSidebarVisible(isSidebarVisible ? false : true)}
+          toogleSidBar={() => setIsSidebarVisible(!isSidebarVisible)}
         />
       </div>
-      <>
       {isSidebarVisible && (
         <div
           className="fixed inset-0  bg-black bg-opacity-50 z-50 overflow-auto transition-opacity duration-300 ease-in-out"
           onClick={() => {
             setIsSidebarVisible(false);
-            setIsEditFormCard(false);
+            setIsEditFormCard(!isEditFormCard);
             colseSideBarref.current?.click();
           }}
         >
@@ -95,7 +100,7 @@ export default function FormElement({
                 ref={colseSideBarref}
                 onClick={() => {
                   setIsSidebarVisible(false);
-                  setIsEditFormCard(false);
+                  setIsEditFormCard(!isEditFormCard);
                 }}
                 icon={<CloseCircleOutlined />}
                 className="text-red-500 hover:text-red-700 transition-colors"
@@ -107,7 +112,6 @@ export default function FormElement({
           </div>
         </div>
       )}
-    </>
     </div>
   );
 }

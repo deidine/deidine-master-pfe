@@ -4,9 +4,9 @@ import {
   DeleteFilled,
   EditOutlined, 
 } from "@ant-design/icons";
-import useDesigner from "@/hooks/useDesigner";
-import { Badge } from "../../ui/badge";
+import useDesigner from "@/hooks/useDesigner"; 
 import { FiSidebar } from "react-icons/fi";
+import { Badge } from "@/components/ui/badge";
 
 export default function OptionPopUp({
   name,
@@ -18,11 +18,11 @@ export default function OptionPopUp({
   toogleSidBar: () => void;
   isEditingSate: boolean;
   name: string;
-  setIsEditingState: () => void;
+  setIsEditingState: (value:boolean ) => void;
   removeElement: (name: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(isEditingSate);
-  const { setIsEditFormCard, isEditFormCard } = useDesigner();
+      const { setIsEditFormCard ,isEditFormCard} = useDesigner();
 
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
@@ -44,7 +44,7 @@ export default function OptionPopUp({
             e.stopPropagation();
             setIsEditing(!isEditing);
             setIsEditFormCard(!isEditFormCard);
-            setIsEditingState();
+            setIsEditingState(!isEditing);
           }}
         >
           <EditOutlined />

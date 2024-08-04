@@ -43,8 +43,18 @@ export const PatternSidBarOptions = ({
   
     return (
       <div className="flex flex-col gap-2">
-        <LabelValue value="Pattern" />
-  
+        <LabelValue value={`${selectedPattern ? "Pattern Example" : "Pattern"}`} />
+        {selectedPattern && (
+          <div >
+            <div className="text-gray-600">
+              {
+                allowedPatternOptionsState.find(
+                  (option) => option.pattern === selectedPattern
+                )?.examplePattern
+              }
+            </div>
+          </div>
+        )}
         <div className="w-full mb-1">
           <Select
             ref={patternSelectWrapperRef}
@@ -60,18 +70,7 @@ export const PatternSidBarOptions = ({
             ))}
           </Select>
         </div>
-        {selectedPattern && (
-          <div className="mt-2">
-            <LabelValue value="Example Pattern" />
-            <div className="text-gray-600">
-              {
-                allowedPatternOptionsState.find(
-                  (option) => option.pattern === selectedPattern
-                )?.examplePattern
-              }
-            </div>
-          </div>
-        )}
+  
  
       </div>
     );

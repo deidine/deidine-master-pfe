@@ -52,7 +52,12 @@ export default function BadgeElement({
             {elementPattern && (
               
               <div className="flex flex-wrap gap-2"> 
-                <Badge className="border hover:outline-none flex items-center gap-2 bg-blue-500">
+                <Badge className="border hover:outline-none flex items-center gap-2"
+                 style={{
+                  backgroundColor: elementPattern?.bgColor,
+                  color: elementPattern?.textColor,
+                }}
+                >
                   {elementPattern?.icon &&
                     React.createElement(elementPattern?.icon)}
                   {elementPattern?.value}
