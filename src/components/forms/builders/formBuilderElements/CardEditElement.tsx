@@ -15,7 +15,6 @@ export default function CardEditElement({
   const [inputType, setInputType] = useState<ElementType>(element.type);
   const [isRequired, setIsRequired] = useState(element.required);
   const { updateElement } = useDesigner();
-
   const handleTypeChange = (value: ElementType) => {
     setInputType(value);
     updateElement(element.name, { ...element, type: value } );
@@ -26,6 +25,7 @@ export default function CardEditElement({
 
   return (
     <div className="flex flex-col lg:w-1/2 sm:w-full gap-2">
+    
       {showTypeSelect ? (
         <Select
           value={inputType}

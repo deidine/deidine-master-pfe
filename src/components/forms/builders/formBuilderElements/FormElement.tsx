@@ -5,7 +5,7 @@ import useDesigner from "@/hooks/useDesigner";
 import OptionPopUp from "@/components/forms/builders/OptionPopUp";
 import SidBarOptions from "@/components/sidBarOptions/SidBarOptions";
 import AutoResizeTextarea from "@/components/ui/AutoResizeTextarea";
-import BadgeElement from "@/components/ui/BadgeElement";
+import BadgeElement from "@/components/forms/builders/formBuilderElements/BadgeElement";
 import CardEditElement from "@/components/forms/builders/formBuilderElements/CardEditElement"; 
 export default function FormElement({
   element, 

@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import { Badge } from "./badge";
+import { Badge } from "../../../ui/badge";
 import {
   inputTypeOptions,
   patternOptions,
@@ -13,16 +13,16 @@ export default function BadgeElement({
   onClick: MouseEventHandler;
   element: SelectElement | InputElement;
 }) {
-  const elementTypeOptions = [...selectTypeOptions, ...inputTypeOptions];
-  const elementType = elementTypeOptions.find(
+  const elementTypeOptions :InputTypeList[] = [...selectTypeOptions, ...inputTypeOptions];
+  const elementType :InputTypeList[] = elementTypeOptions.filter(
     (option) => option.value === element.type
   );
   const elementPattern  = patternOptions.find(
     (option) => option.pattern === element.pattern
   );
-
   return (
     <div className="flex flex-col p-2 w-full font-bold text-lg h-auto overflow-hidden">
+ 
       <div>{element.label}</div>
       <div className="flex flex-col w-full items-start space-y-2">
         <div
@@ -30,14 +30,15 @@ export default function BadgeElement({
           onClick={onClick}
         >
           <div className="flex gap-2 flex-wrap">
+           
             <Badge
               className="border hover:outline-none flex items-center gap-2"
               style={{
-                backgroundColor: elementType?.bgColor,
-                color: elementType?.textColor,
+                backgroundColor: elementType[0].bgColor,
+                color: elementType[0].textColor,
               }}
             >
-              {elementType?.icon && React.createElement(elementType.icon)}
+             {elementType[0].icon && React.createElement(elementType[0].icon)}
               {element.type}
             </Badge>
             <Badge className="bg-blue-500">{element.placeholder}</Badge>
