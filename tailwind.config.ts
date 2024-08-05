@@ -8,26 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        mono: ["var(--font-roboto-mono)", "monospace"],
-        serif: ["var(--font-roboto)", "serif"],
-        'serif-bold': ["var(--font-roboto-bold)", "serif"],
-        'serif-light': ["var(--font-roboto-light)", "serif"],
-        'serif-italic': ["var(--font-roboto-italic)", "serif"],
-        'serif-bold-italic': ["var(--font-roboto-bold-italic)", "serif"],
-        'serif-light-italic': ["var(--font-roboto-light-italic)", "serif"],
-        'serif-italic-bold': ["var(--font-roboto-italic-bold)", "serif"],
+      fontFamily: { 
+        title: ["var(--font-roboto)", "serif"], 
       },
       colors: {
-        primary: "#0070f3",
-        secondary: "#ffcd00",
-        danger: "#ff0000",
-        success: "#00ff00",
-        warning: "#ff00ff",
-        info: "#00ffff",
-        light: "#f0f0f0",
-        dark: "#000000",
+    
+        title:  "#0070f3",
         mainColor: "#f0f0f0",
       },
 

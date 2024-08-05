@@ -4,11 +4,12 @@ import { createClientBrowser } from "@/utils/supabase/client";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
-import { Menu } from '@headlessui/react';
+import { Popover } from "antd";
 
 export default function NavBar() {
-  const { user, setUser,isUserOnline } = useGeneral();
- 
+  const { user, setUser, isUserOnline } = useGeneral();
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "user") {
@@ -33,47 +34,64 @@ export default function NavBar() {
     }
   };
 
+ 
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
+
   return (
-    < >
-   <header className="bg-white rounded-lg border-2 h-20">
-      <nav className="flex flex-row items-center my-auto mt-4 gap-4">
-        <Link href="/">FormBuilder</Link>
-        <Link href="/forms">Dashboard</Link>
-        <div className="flex gap-4 justify-end w-full">
-          {user ? (
-            <Menu as="div" className="relative inline-block text-right">
-              <Menu.Button className="flex  mx-auto mt-2 w-48 ">
-          <FaUserCircle className="text-2xl" />
-          <div className={`w-2 h-2 rounded-full ${isUserOnline ? "bg-green-500" : "bg-red-500"}`}></div>
-                
-              </Menu.Button>
-              <Menu.Items className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md 
-              shadow-lg">
-              <Menu.Item>
-                  {({ active }) => (
+    <>
+      <header className="bg-white rounded-lg relative border-2">
+        <nav className="flex flex-row mt-0 w-full gap-4">
+          <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
+            <Link href="/">
+              <FaUserCircle className="text-[50px]" />
+            </Link>
+          </div>
+          <div className="flex dw-[200px] shrink-0 flex-col justify-between items-center bg-blue-200">
+            <div className="font-semibold text-white mt-[1rem] mx-[1rem]">
+              <Link href="/forms">Forms</Link>
+            </div>
+            <span className="font-semibold bg-title w-[75%] h-2 mx-2"></span>
+          </div>
+          <div className="flex flex-grow justify-end items-center mr-4">
+            {user ? (
+              <Popover
+                content={
+                  <div>
                     <button
-                      className={`${
-                        active ? 'bg-gray-100' : ''
-                      } w-full text-left px-4 py-2 text-sm text-gray-700`}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700"
                       onClick={handleSignOut}
                     >
                       Sign Out
                     </button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
+                    <span className="ml-2">{user.email}</span>
                   
-                   <span className="ml-2">{user.email}</span>
-                   
-                </Menu.Item>
-              </Menu.Items>
-            </Menu>
-          ) : (
-            <Link href="/login">Login</Link>
-          )}
-        </div>
-      </nav>
-    </header>
+                  </div>
+                }
+                title="User Menu"
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
+              >
+                <div className="flex relative flex-col items-center gap-2 cursor-pointer">
+                  <div
+                    className={`w-2 h-2 absolute top-0 right-0 rounded-full ${
+                      isUserOnline ? "bg-green-500" : "bg-red-500"
+                    }`}
+                  ></div>
+                  <FaUserCircle className="text-[50px]" />
+                </div>
+              </Popover>
+            ) : (
+              <div className="bg-black font-semibold text-white px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg">
+                <Link href="/login">Get Started</Link>
+              </div>
+            )}
+          </div>
+        </nav>
+      </header>
     </>
   );
 }
