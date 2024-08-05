@@ -13,8 +13,8 @@ type DesignerContextType = {
   submitBtn: string;
   selectedElement: FormElement | null;
   setSelectedElement: Dispatch<SetStateAction<FormElement | null>>;
-  isEditFormCard: boolean;
-  setIsEditFormCard: (value: boolean) => void;
+  isEditFormCard: string;
+  setIsEditFormCard: (value: string) => void;
   updateElement: (name: string, element: SelectElement | InputElement) => void;
   undo: () => void;
   redo: () => void;
@@ -32,7 +32,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [elements, setElements] = useState<FormElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
-  const [isEditFormCard, setIsEditFormCard] = useState<boolean>(false);
+  const [isEditFormCard, setIsEditFormCard] = useState<string>(localStorage.getItem("isEditing") || "false");
 
   const undoStack = useRef<FormElement[][]>([]);
   const redoStack = useRef<FormElement[][]>([]);

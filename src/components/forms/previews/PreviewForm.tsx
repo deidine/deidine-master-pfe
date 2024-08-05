@@ -45,7 +45,7 @@ export default function PreviewForm({
     >
       {mapElement.map((element: any, index) => (
         <div key={index}>
-          {["text", "number", "email", "password", "file", "textarea"].includes(
+          {["text", "number", "email", "password", "file", "textarea","url"].includes(
             element.elementType.type
           ) && <InputPrev element={element} />}
 

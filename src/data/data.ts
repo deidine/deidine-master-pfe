@@ -8,8 +8,7 @@ import {
   FiHash,
   FiMail,
   FiLock,
-  FiAlignLeft,
-  FiEyeOff,
+  FiAlignLeft, 
   FiDatabase,
   FiHeadphones,
   FiExternalLink,
@@ -20,7 +19,7 @@ const patternOptions: PatternType[] = [
   {
     value: "phone",
     label: "Phone",
-    allowedTypes: ["text", "number"],
+    allowedTypes: [  "number"],
     pattern: "\\d{10}",
     examplePattern: "1234567890",
     icon: FiHeadphones,
@@ -31,7 +30,7 @@ const patternOptions: PatternType[] = [
   {
     value: "email",
     label: "Email",
-    allowedTypes: ["text", "email"],
+    allowedTypes: [ "email"],
     pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
     examplePattern: "example@example.com",
     icon: FiMail,
@@ -52,21 +51,11 @@ const patternOptions: PatternType[] = [
     textColor: "text-black",
 
   },
-  {
-    value: "currency",
-    label: "Currency",
-    allowedTypes: ["text", "number"],
-    pattern: "^\\$?\\d+(?:\\.\\d{2})?$",
-    examplePattern: "$10.00",
-    icon: FiDollarSign,
-    bgColor: "#E8DEEE",
-    textColor: "text-black",
 
-  },
   {
     value: "password",
     label: "Password",
-    allowedTypes: ["text", "password"],
+    allowedTypes: [ "password"],
     pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
     examplePattern: "Abc123!@#",
     icon: FiLock,
@@ -75,7 +64,7 @@ const patternOptions: PatternType[] = [
 
   },
 ];
-const filetypealow = [".pdf", ".txt", ".png"];
+const filetypealow = [".pdf", ".txt", ".png", ".jpg", ".png", ".doc", ".docx", ".xlsx", ".pptx" ];
 
 const dateliment = [{ curent: "a", end: "b", start: "c" }];
 const selectTypeOptions = [
@@ -116,6 +105,12 @@ const inputTypeOptions :InputTypeList[] = [
     bgColor: "#FDECC8",
     textColor: "text-black",
     icon: FiType,
+  },  {
+    value: "url",
+    label: "url",
+    bgColor: "#FDECC8",
+    textColor: "text-black",
+    icon: FiExternalLink,
   },
   {
     value: "file",

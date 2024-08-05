@@ -30,7 +30,7 @@ type BaseElement = {
  
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file";
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url";
 
 type InputOptions = {
   isPasswordConfirm?: boolean;

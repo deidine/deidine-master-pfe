@@ -3,10 +3,10 @@ import { Tooltip } from "antd";
 import {
   DeleteFilled,
   EditOutlined, 
-} from "@ant-design/icons";
-import useDesigner from "@/hooks/useDesigner"; 
+} from "@ant-design/icons"; 
 import { FiSidebar } from "react-icons/fi";
 import { Badge } from "@/components/ui/badge";
+import useDesigner from "@/hooks/useDesigner";
 
 export default function OptionPopUp({
   name,
@@ -22,10 +22,10 @@ export default function OptionPopUp({
   removeElement: (name: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(isEditingSate);
-      const { setIsEditFormCard ,isEditFormCard} = useDesigner();
-
+const { setIsEditFormCard } = useDesigner();
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
+      {isEditing+""}
       <Tooltip title="Open side bar">
         <Badge
           className="w-auto text-center h-6 hover:text-green-500 bg-white rounded-md"
@@ -33,7 +33,7 @@ export default function OptionPopUp({
             toogleSidBar();
           }}
         >
-          {" "}
+ 
           <FiSidebar />
         </Badge>
       </Tooltip>
@@ -43,7 +43,8 @@ export default function OptionPopUp({
           onClick={(e: React.MouseEvent) => {
             e.stopPropagation();
             setIsEditing(!isEditing);
-            setIsEditFormCard(!isEditFormCard);
+            setIsEditFormCard(JSON.stringify(!isEditing));
+            localStorage.setItem("isEditing", JSON.stringify(!isEditing));
             setIsEditingState(!isEditing);
           }}
         >

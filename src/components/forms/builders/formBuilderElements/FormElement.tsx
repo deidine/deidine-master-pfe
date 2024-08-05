@@ -18,7 +18,7 @@ export default function FormElement({
   const [isEditing, setIsEditing] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [inputLabel, setInputLabel] = useState(element.label);
-  const { removeElement, setIsEditFormCard, updateElement, isEditFormCard } = useDesigner();
+  const { removeElement , updateElement  } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
   const colseSideBarref = useRef<any>(null);
@@ -59,8 +59,7 @@ export default function FormElement({
               onClick={(e) => {
                 e.stopPropagation();
                 setIsEditing(!isEditing);
-                setIsEditFormCard(!isEditFormCard);
-              }}
+               }}
               element={element}
             />
           </>
@@ -78,8 +77,7 @@ export default function FormElement({
           toogleSidBar={() => {
             setIsSidebarVisible(!isSidebarVisible)
             
-            setIsEditFormCard(!isEditFormCard);
-          }}
+           }}
         />
       </div>
       {isSidebarVisible && (
@@ -87,8 +85,7 @@ export default function FormElement({
           className="fixed inset-0  bg-black bg-opacity-50 z-50 overflow-auto transition-opacity duration-300 ease-in-out"
           onClick={() => {
             setIsSidebarVisible(!isSidebarVisible);
-            setIsEditFormCard(!isEditFormCard);
-            // colseSideBarref.current?.click();
+             // colseSideBarref.current?.click();
           }}
         >
           <div
@@ -100,8 +97,7 @@ export default function FormElement({
                 ref={colseSideBarref}
                 onClick={() => {
                   setIsSidebarVisible(false);
-                  setIsEditFormCard(!isEditFormCard);
-                }}
+                 }}
                 icon={<CloseCircleOutlined />}
                 className="text-red-500 hover:text-red-700 transition-colors"
               />

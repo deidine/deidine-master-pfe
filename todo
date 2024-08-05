@@ -2,3 +2,4 @@
 [] add darck mode
 [] add lanaguage 
 [x] fix on clcik card edit we can drag the div until we open side bar
+[] add localstorage if edit or no

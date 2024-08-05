@@ -13,11 +13,8 @@ export default function Designer({ form ,isFromLocalStorage}: { form: Form,isFro
   const [isReady, setIsReady] = useState(false);
  
   useEffect(() => {
-    if (isReady) return;
-
- 
-    setElements(form.content);
-
+    if (isReady) return; 
+    setElements(form.content); 
     const readyTimeout = setTimeout(() => setIsReady(true), 500);
     return () => clearTimeout(readyTimeout);
   }, [form, setElements, isReady]);

@@ -131,10 +131,11 @@ export default function SidBarOptions({
             element.type === "time" ? (
             <> </>
           ) : (
-            <PatternSidBarOptions
-              allowedPatternOptions={allowedPatternOptions}
-              element={element}
-            />
+            <></>
+            // <PatternSidBarOptions
+            //   allowedPatternOptions={allowedPatternOptions}
+            //   element={element}
+            // />
           )}
         </div>
         {element.type === "date" && <DateChoicePeriodInput element={element} />}

@@ -20,7 +20,10 @@ export default function InputPrev(
                   message: `${element.elementType.label} is required`,
                 },
                 {
-                  pattern: new RegExp(element.elementType.pattern!),
+                  pattern: element.elementType.type === "url" ? 
+                  new RegExp("^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$")
+                  :
+                   new RegExp(element.elementType.pattern!),
                   message: `Please match the requested format for ${element.elementType.label}`,
                 },
               ]}
