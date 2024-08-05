@@ -9,6 +9,7 @@ import { Popover } from "antd";
 export default function NavBar() {
   const { user, setUser, isUserOnline } = useGeneral();
   const [open, setOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("/");
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
@@ -34,8 +35,6 @@ export default function NavBar() {
     }
   };
 
- 
-
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
@@ -49,11 +48,27 @@ export default function NavBar() {
               <FaUserCircle className="text-[50px]" />
             </Link>
           </div>
-          <div className="flex dw-[200px] shrink-0 flex-col justify-between items-center bg-blue-200">
-            <div className="font-semibold text-white mt-[1rem] mx-[1rem]">
-              <Link href="/forms">Forms</Link>
+          <div className="flex dw-[200px] shrink-0 flex-col justify-between items-center">
+            <div className="font-semibold text-black mt-[1rem] mx-[1rem]">
+              <Link href="/forms">
+                <div onClick={() => setActiveLink("/forms")}>
+                  Forms
+                  {activeLink === "/forms" && (
+                    <span className="block h-1 mt-1 bg-blue-500"></span>
+                  )}
+                </div>
+              </Link>
             </div>
-            <span className="font-semibold bg-title w-[75%] h-2 mx-2"></span>
+            <div className="font-semibold text-black mt-[1rem] mx-[1rem]">
+              <Link href="/dashboard">
+                <div onClick={() => setActiveLink("/dashboard")}>
+                  Dashboard
+                  {activeLink === "/dashboard" && (
+                    <span className="block h-1 mt-1 bg-blue-500"></span>
+                  )}
+                </div>
+              </Link>
+            </div>
           </div>
           <div className="flex flex-grow justify-end items-center mr-4">
             {user ? (
@@ -67,7 +82,6 @@ export default function NavBar() {
                       Sign Out
                     </button>
                     <span className="ml-2">{user.email}</span>
-                  
                   </div>
                 }
                 title="User Menu"
