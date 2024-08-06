@@ -25,7 +25,7 @@ export default function OptionPopUp({
 const { setIsEditFormCard } = useDesigner();
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
-      {isEditing+""}
+    
       <Tooltip title="Open side bar">
         <Badge
           className="w-auto text-center h-6 hover:text-green-500 bg-white rounded-md"
