@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Modal, Dropdown, Menu } from "antd";
 import PreviewForm from "../forms/previews/PreviewForm";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { CiCircleCheck } from "react-icons/ci";
 import { openNotification, saveToDatabase } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral";
 import { CiCircleInfo } from "react-icons/ci";
 import { MdMoreHoriz } from "react-icons/md";
+import Link from "next/link";
 
 export default function CardForm({
   form,
@@ -19,6 +20,7 @@ export default function CardForm({
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const { isUserOnline, user } = useGeneral();
+  const router = useRouter();
 
   const [elementsPreview, setElementsPreview] = useState<Form[]>([]);
 
@@ -77,7 +79,6 @@ export default function CardForm({
           "Form deleted successfully",
           "Form deleted successfully from Localstorage"
         );
-      // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("topRight","Error Deleting  forms :", ""+error);
     }
   };
 
@@ -93,18 +94,17 @@ export default function CardForm({
     <Menu>
       <Menu.Item key="edit">
         <Link
-          onClick={(e) => e.stopPropagation()}
-          href={`/forms/${form.id}?local=${
-            form.isFromLocalStorage ? "true" : "false"
-          }`}
+          href={`/forms/${form.id}?local=${form.isFromLocalStorage ? "true" : "false"}`}
         >
           Edit
         </Link>
       </Menu.Item>
-      <Menu.Item key="delete" onClick={() => deleteForm(form.id)}>
-        Delete
+      <Menu.Item key="delete" >
+        <button onClick={(e) => {
+        e.stopPropagation(); 
+        deleteForm(form.id)}}>Delete</button>
       </Menu.Item>
-      <Menu.Item key="delete">
+      <Menu.Item key="preivew">
         <span
           onClick={async (e) => {
             e.stopPropagation();
@@ -123,23 +123,22 @@ export default function CardForm({
     <div>
       <div
         key={form.id}
-        className="rounded-[15px] relative bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer "
+        onClick={async () => {
+          router.push(`/forms/${form.id}?local=${form.isFromLocalStorage ? "true" : "false"}`);
+        }}
+        className="rounded-[15px] relative bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer"
       >
         <div className="flex flex-row justify-between items-center gap-4">
           <div className="text-3xl flex flex-row justify-between items-center gap-4">
-            {form.isFromLocalStorage ? (
-              <CiCircleInfo className="text-red-300" />
-            ) : (
-              <CiCircleCheck className="text-green-500" />
-            )}{" "}
+            {form.isFromLocalStorage ? <CiCircleInfo /> : <CiCircleCheck />}{" "}
             <p className="text-lg"> {form.title}</p>
           </div>{" "}
-          <Dropdown overlay={menu} trigger={["click"]}>
+          <Dropdown overlay={menu} trigger={['click']}>
             <button
-              onClick={(e) => e.stopPropagation()}
               className="mb-[18px] mr-[18px]"
+              onClick={(e) => e.stopPropagation()}
             >
-              <MdMoreHoriz className="text-3xl" />
+              <MdMoreHoriz />
             </button>
           </Dropdown>
         </div>
@@ -150,6 +149,7 @@ export default function CardForm({
             <Badge
               className="bg-[#B5B5B5] h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white"
               onClick={(e) => {
+                e.stopPropagation();
                 saveToDatabase(
                   form.title,
                   form.content,

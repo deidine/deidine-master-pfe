@@ -180,13 +180,11 @@ export default function Dashboard() {
           )}{" "}
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
           {elements.map((element) => (
-              <Link  onClick={(e) => e.stopPropagation()} 
-              href={`/forms/${element.id}?local=${element.isFromLocalStorage ? "true" : "false"}`}
-            >   <CardForm
+              <CardForm
                 form={element}
                 key={element.id}
                 reftchForm={fetchForms}
-              /></Link>
+              />
             ))}
           </div>
         </div>
