@@ -2,7 +2,7 @@
 "use client";
 
 import { openNotification } from "@/utils/utils";
-import { Dispatch, ReactNode, SetStateAction, createContext, useRef, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useRef, useState } from "react";
 
 type DesignerContextType = {
   elements: FormElement[];
@@ -32,7 +32,13 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [elements, setElements] = useState<FormElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
-  const [isEditFormCard, setIsEditFormCard] = useState<string>(localStorage.getItem("isEditing") || "false");
+  const [isEditFormCard, setIsEditFormCard] = useState<string>( "false");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isEditing = localStorage.getItem("isEditing") || "false";
+      setIsEditFormCard(isEditing);
+    }
+  }, []);
 
   const undoStack = useRef<FormElement[][]>([]);
   const redoStack = useRef<FormElement[][]>([]);
