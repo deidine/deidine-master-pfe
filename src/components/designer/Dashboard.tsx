@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Divider, Form, Input, Modal } from "antd";
 import CardForm from "./CardForm";
 import { openNotification } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral";
+import Link from "next/link";
 
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -138,32 +139,54 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="p-4 ">
-        <div className="flex justify-center mb-4">
-          <Button type="primary" onClick={() => setIsModalVisible(true)}>
-            + Create New Form
-          </Button>
-        </div>
-        <div className="flex justify-center mb-4"></div>
-        <div className="flex  flex-col rounded-lg border-2  p-4">
-          {elementsLocalStorage.length > 0 && <h2>Forms from Local Storage</h2>}{" "}
-          <div className="flex  flex-wrap  gap-4">
+      <div  >
+        <div className="w-full flex justify-end px-[2.5rem] pt-[1rem] items-end">
+          <div className="flex gap-4">
+            <button
+              className="btn_header bg-blue-400"
+              onClick={() => setIsModalVisible(true)}
+            >
+              Create New Form
+            </button>
+            <button
+              className="btn_header bg-blue-400"
+              onClick={() => setIsModalVisible(true)}
+            >
+              Create New Form
+            </button>
+          </div>
+        </div> 
+        <div className="flex  flex-col justify-between gap-4 rounded-lg border-2  p-4">
+          {elementsLocalStorage.length > 0 && (
+            <p className="text-[25px]  px-[2.5rem]  mb-4">Forms from Local Storage</p>
+          )}{" "}
+          <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
             {elementsLocalStorage.map((element) => (
-              <CardForm
+               <Link  onClick={(e) => e.stopPropagation()} 
+               href={`/forms/${element.id}?local=${element.isFromLocalStorage ? "true" : "false"}`}
+             >
+             <CardForm
                 reftchForm={fetchForms}
                 form={element}
                 key={element.id}
               />
+              </Link>
             ))}
           </div>
-          {elements.length > 0 && <h2>Forms from Database</h2>}{" "}
-          <div className="flex  flex-wrap  gap-4">
-            {elements.map((element) => (
-              <CardForm
+          <Divider  className="py-2 w-full"/>
+          {/* <span></span> */}
+          {elements.length > 0 && (
+            <p  className="text-[25px]  px-[2.5rem]  mb-4">Forms from Database</p>
+          )}{" "}
+          <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
+          {elements.map((element) => (
+              <Link  onClick={(e) => e.stopPropagation()} 
+              href={`/forms/${element.id}?local=${element.isFromLocalStorage ? "true" : "false"}`}
+            >   <CardForm
                 form={element}
                 key={element.id}
                 reftchForm={fetchForms}
-              />
+              /></Link>
             ))}
           </div>
         </div>
