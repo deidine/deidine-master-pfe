@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Divider, Form, Input, Modal } from "antd";
 import CardForm from "./CardForm";
-import { openNotification } from "@/utils/utils";
+import { openNotification, saveToDatabase } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral";
-import Link from "next/link";
-
+import { FcAcceptDatabase } from "react-icons/fc";
+import { BsSave } from "react-icons/bs";
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { isUserOnline, setIsUserOnline } = useGeneral();
@@ -137,46 +137,69 @@ export default function Dashboard() {
     }
   };
 
+ async function  saveAllToDb()  {
+    const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+    for (const form of forms) {
+    user &&   await saveToDatabase( 
+        form.title,
+        form.content,
+        form.description, 
+        true,
+        user.id
+      );
+      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      const updatedForms = forms.filter((form: Form) => form.id !== form.id);
+      localStorage.setItem("forms", JSON.stringify(updatedForms));
+  }
+  fetchForms();
+}
+
   return (
     <>
       <div  >
-        <div className="w-full flex justify-end px-[2.5rem] pt-[1rem] items-end">
+        <div className="w-full  bg-mainColor  flex justify-end px-[2.5rem] pt-[1rem] items-end">
           <div className="flex gap-4">
             <button
+              className="btn_header bg-inheritx"
+              onClick={() => saveAllToDb()}
+            >
+              Sync all form to dtabase
+            </button>   
+              <button
               className="btn_header bg-blue-400"
               onClick={() => setIsModalVisible(true)}
             >
               Create New Form
             </button>
-            <button
-              className="btn_header bg-blue-400"
-              onClick={() => setIsModalVisible(true)}
-            >
-              Create New Form
-            </button>
+       
           </div>
         </div> 
         <div className="flex  flex-col justify-between gap-4 rounded-lg border-2  p-4">
           {elementsLocalStorage.length > 0 && (
-            <p className="text-[25px]  px-[2.5rem]  mb-4">Forms from Local Storage</p>
+            <p className="text-[25px]  px-[2.5rem] flex flex-row gap-3  text-center items-center   mb-4"><BsSave/>Forms from Local Storage</p>
           )}{" "}
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
             {elementsLocalStorage.map((element) => (
-               <Link  onClick={(e) => e.stopPropagation()} 
-               href={`/forms/${element.id}?local=${element.isFromLocalStorage ? "true" : "false"}`}
-             >
+           
              <CardForm
                 reftchForm={fetchForms}
                 form={element}
                 key={element.id}
               />
-              </Link>
+          
             ))}
           </div>
-          <Divider  className="py-2 w-full"/>
-          {/* <span></span> */}
+          {elements.length > 0 &&  elementsLocalStorage.length > 0 &&  (
+         
+              <Divider 
+           style={{ borderColor: "black", marginTop: "1rem", marginBottom: "1rem", width: "100%", height: "1px" }} 
+           />)}
+          
           {elements.length > 0 && (
-            <p  className="text-[25px]  px-[2.5rem]  mb-4">Forms from Database</p>
+            <>
+               
+            <p  className="text-[25px]  px-[2.5rem]  flex flex-row gap-3  text-center items-center  mb-4"> <FcAcceptDatabase/> Forms from Database</p>
+            </>
           )}{" "}
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
           {elements.map((element) => (

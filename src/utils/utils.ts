@@ -17,6 +17,7 @@ export const openNotification = ( placement: any,type: 'success' | 'error' | 'in
 };
 export const deleteForm = async (id: number) => {
   try {
+    
     const response = await fetch(`/api/forms/${id}`, {
       method: "DELETE",
       headers: {
@@ -30,6 +31,7 @@ export const deleteForm = async (id: number) => {
     openNotification("topRight","success","Form deleted successfully", "Form deleted successfully from database");
 
   } catch (error) {
+    
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     const updatedForms = forms.filter((form: Form) => form.id !== id);
     localStorage.setItem("forms", JSON.stringify(updatedForms));
@@ -43,7 +45,8 @@ export const saveToDatabase = async (
   content: FormElement[],
   description: string,
    isSaveAll: boolean,
-  user_id:string
+  user_id:string,
+  id?:number
 ) => {
  
 console.error(content)
@@ -54,6 +57,7 @@ console.error(content)
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+
         title: title,
         content: content,
         description: description,
@@ -67,8 +71,9 @@ console.error(content)
     
     const data = await response.json();
     console.log("Data inserted:", data);
-    // deleteForm(id);
     !isSaveAll && openNotification ("topRight",'success',"Data inserted:", "Data inserted successfully in database");
+  
+    id && deleteForm(id);
   } catch (error) {
     console.error("Error:", error);
   }
