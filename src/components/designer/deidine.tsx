@@ -4,22 +4,25 @@ import { Button, Form, Input, Modal } from "antd";
 import CardForm from "./CardForm";
 import { openNotification } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral";
-
+ 
 export default function Dashboard() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const { isUserOnline, setIsUserOnline } = useGeneral();
+  const [isModalVisible, setIsModalVisible] = useState(false); 
+  const {isUserOnline, setIsUserOnline} = useGeneral( );
   const [elements, setElements] = useState<Form[]>([]);
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const [createform] = Form.useForm();
-  const { user } = useGeneral();
-
+  const {user} =useGeneral()
+ 
   const userId = user?.id;
 
   useEffect(() => {
-    fetchForms();
-  }, [isUserOnline]);
+    fetchForms(); 
+  }, [isUserOnline ]);
+
+   
 
   const fetchForms = async () => {
+
     try {
       let dataForms = [];
       if (isUserOnline) {
@@ -85,21 +88,17 @@ export default function Dashboard() {
       description: description,
     });
     localStorage.setItem("forms", JSON.stringify(forms));
-    openNotification(
-      "topRight",
-      "success",
-      "Data inserted",
-      "Data inserted successfully in local storage"
-    );
+    openNotification(   "topRight",  "success",   "Data inserted",    "Data inserted successfully in local storage"  );
     setIsModalVisible(false);
     createform.resetFields();
   };
   const handleSave = async (title: string, description: string) => {
+
     if (!isUserOnline) {
-      saveToLocalStorage(title, description);
+      saveToLocalStorage( title,description);
       return;
-    } else {
-      setIsUserOnline(true);
+    } else{
+      setIsUserOnline(true)
     }
 
     try {
@@ -131,38 +130,39 @@ export default function Dashboard() {
         "Data inserted successfully in database"
       );
     } catch (error) {
-      saveToLocalStorage(title, description);
+      saveToLocalStorage( title,description);
       console.error("Error:", error);
     }
   };
 
   return (
     <>
-      <div className="p-4 ">
+      <div className="p-4">
+ 
         <div className="flex justify-center mb-4">
           <Button type="primary" onClick={() => setIsModalVisible(true)}>
             + Create New Form
           </Button>
         </div>
         <div className="flex justify-center mb-4"></div>
-        <div className="flex  flex-col rounded-lg border-2  p-4">
-          {elementsLocalStorage.length > 0 && <h2>Forms from Local Storage</h2>}{" "}
-          <div className="flex  flex-wrap  gap-4">
-            {elementsLocalStorage.map((element) => (
-              <CardForm
-                reftchForm={fetchForms}
-                form={element}
-                key={element.id}
-              />
-            ))}
-          </div>
-          {elements.length > 0 && <h2>Forms from Database</h2>}{" "}
-          <div className="flex  flex-wrap  gap-4">
+        <div className="flex flex-col rounded-lg border-2 border-black p-4">
+          <div className="flex flex-col gap-4">
+            {elements.length > 0 && <h2>Forms from Database</h2>}
             {elements.map((element) => (
               <CardForm
                 form={element}
                 key={element.id}
                 reftchForm={fetchForms}
+              />
+            ))}
+            {elementsLocalStorage.length > 0 && (
+              <h2>Forms from Local Storage</h2>
+            )}
+            {elementsLocalStorage.map((element) => (
+              <CardForm
+                reftchForm={fetchForms}
+                form={element}
+                key={element.id}
               />
             ))}
           </div>
@@ -176,11 +176,7 @@ export default function Dashboard() {
         footer={null}
       >
         <Form onFinish={onFinish} form={createform} layout="vertical">
-          <Form.Item
-            label="Title"
-            name="TitleForm"
-            rules={[{ required: true }]}
-          >
+          <Form.Item label="Title" name="TitleForm" rules={[{ required: true }]}>
             <Input placeholder="Title" />
           </Form.Item>
           <Form.Item

@@ -4,7 +4,8 @@ import { createClientBrowser } from "@/utils/supabase/client";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
-import { Popover } from "antd";
+import { Divider, Popover } from "antd";
+import { FiLogOut } from "react-icons/fi";
 
 export default function NavBar() {
   const { user, setUser, isUserOnline } = useGeneral();
@@ -38,6 +39,9 @@ export default function NavBar() {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
+useEffect(() => {
+  setActiveLink(window.location.pathname);
+}, [ ])
 
   return (
     <>
@@ -48,7 +52,7 @@ export default function NavBar() {
               <FaUserCircle className="text-[50px]" />
             </Link>
           </div>
-          <div className="flex dw-[200px] shrink-0 flex-col justify-between items-center">
+          <div className="flex flex-row  shrink-0  justify-between items-center">
             <div className="font-semibold text-black mt-[1rem] mx-[1rem]">
               <Link href="/forms">
                 <div onClick={() => setActiveLink("/forms")}>
@@ -74,17 +78,19 @@ export default function NavBar() {
             {user ? (
               <Popover
                 content={
-                  <div>
+                  <div> 
+                    <button className="ml-2 font-semibold">{user.email}</button>
+                       <Divider />
                     <button
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700"
+                      className="flex flex-row font-semibold justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
                       onClick={handleSignOut}
                     >
-                      Sign Out
+                       <span><FiLogOut className="ml-2" /> </span> <span>Sign Out</span>
                     </button>
-                    <span className="ml-2">{user.email}</span>
+               
                   </div>
                 }
-                title="User Menu"
+               
                 trigger="click"
                 open={open}
                 onOpenChange={handleOpenChange}
@@ -100,7 +106,7 @@ export default function NavBar() {
               </Popover>
             ) : (
               <div className="bg-black font-semibold text-white px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg">
-                <Link href="/login">Get Started</Link>
+                <Link href="/login">Login</Link>
               </div>
             )}
           </div>

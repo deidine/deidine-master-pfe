@@ -14,7 +14,8 @@ const config: Config = {
       colors: {
     
         title:  "#0070f3",
-        mainColor: "#f0f0f0",
+        mainColor: "#E8E8E8;",
+        
       },
 
       animation: {
