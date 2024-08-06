@@ -79,10 +79,10 @@ useEffect(() => {
               <Popover
                 content={
                   <div> 
-                    <button className="ml-2 font-semibold">{user.email}</button>
+                    <button className="ml-2 font-semibold  hover:bg-[#E8E8E8]  ">{user.email}</button>
                        <Divider />
                     <button
-                      className="flex flex-row font-semibold justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
+                      className="flex flex-row font-semibold  hover:bg-[#E8E8E8] hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
                       onClick={handleSignOut}
                     >
                        <span><FiLogOut className="ml-2" /> </span> <span>Sign Out</span>

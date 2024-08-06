@@ -198,7 +198,7 @@ export default function CardForm({
               className="  mr-[18px]"
               onClick={(e) => e.stopPropagation()}
             >
-              <MdMoreHoriz className="text-3xl hover:text-[#E8E8E8]" />
+              <MdMoreHoriz className="text-3xl hover:text-[#817d7d]" />
             </button>
           </Dropdown>
         </div>

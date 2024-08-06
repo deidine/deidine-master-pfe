@@ -20,7 +20,7 @@ export default function ModelPopupType({
     const newElementInstance = newElement(type);
     addElement(elements.length, newElementInstance);
     setIsModalVisible(false);
-    setIsEditFormCard(false);
+    setIsEditFormCard("false");
   };
 
   const handleCancel = () => {
