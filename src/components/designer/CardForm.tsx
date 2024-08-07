@@ -19,7 +19,7 @@ export default function CardForm({
   reftchForm,
 }: {
   form: Form;
-  reftchForm: () => void;
+  reftchForm: (ok: boolean) => void;
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -149,7 +149,7 @@ export default function CardForm({
               response!
             );
             handleMenuClick(); // Close the dropdown menu
-            reftchForm();
+            reftchForm(true);
           }}
         >
           <MdDeleteSweep /> Delete
@@ -251,7 +251,7 @@ export default function CardForm({
                 );
                 setIsLoading(false);
                 deleteForm(form.id);
-                reftchForm();
+                reftchForm(true);
               }}
               loading={isLoading}
             >

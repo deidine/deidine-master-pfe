@@ -35,7 +35,7 @@ return "Form deleted successfully from database"
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     const updatedForms = forms.filter((form: Form) => form.id !== id);
     localStorage.setItem("forms", JSON.stringify(updatedForms)); 
-    return   error ? "error deleting form" : "Form deleted successfully from Localstorage"
+    return   !updatedForms && error ? "error deleting form" : "Form deleted successfully from Localstorage"
 
   }
 }; 

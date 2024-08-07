@@ -189,7 +189,7 @@ export default function Dashboard() {
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
             {elementsLocalStorage.map((element) => (
               <CardForm
-                reftchForm={fetchForms}
+                reftchForm={(ok: boolean) => ok &&fetchForms()}
                 form={element}
                 key={element.id}
               />
