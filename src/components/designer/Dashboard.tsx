@@ -8,11 +8,12 @@ import { FcAcceptDatabase } from "react-icons/fc";
 import { BsSave } from "react-icons/bs";
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { isUserOnline, setIsUserOnline } = useGeneral();
-  const [elements, setElements] = useState<Form[]>([]);
+  const { isUserOnline, setIsUserOnline, user } = useGeneral();
+  const [elements, setElements] = useState<Form[]>([]); 
+   const [isLoading, setIsLoading] = useState(false);   
+
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const [createform] = Form.useForm();
-  const { user } = useGeneral();
 
   const userId = user?.id;
 
@@ -137,72 +138,84 @@ export default function Dashboard() {
     }
   };
 
- async function  saveAllToDb()  {
+  async function saveAllToDb() {
+    setIsLoading(true);
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     for (const form of forms) {
-    user &&   await saveToDatabase( 
-        form.title,
-        form.content,
-        form.description, 
-        true,
-        user.id
-      );
+      user &&
+        (await saveToDatabase(
+          form.title,
+          form.content,
+          form.description, 
+          user.id
+        ));
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const updatedForms = forms.filter((form: Form) => form.id !== form.id);
       localStorage.setItem("forms", JSON.stringify(updatedForms));
+    }
+    openNotification ("topRight",'success',"Data inserted:", "Data inserted successfully in database");
+    fetchForms();
+    setIsLoading(false);
   }
-  fetchForms();
-}
-
-  return (
+   return (
     <>
-      <div  >
+      <div>
         <div className="w-full  bg-mainColor  flex justify-end px-[2.5rem] pt-[1rem] items-end">
           <div className="flex gap-4">
+            {elementsLocalStorage.length > 0 && user && isUserOnline && (
+              <Button
+              loading={isLoading}
+                className="btn_header bg-inheritx"
+                onClick={() => saveAllToDb()}
+              >
+                Sync all form to dtabase
+              </Button>
+            )}
             <button
-              className="btn_header bg-inheritx"
-              onClick={() => saveAllToDb()}
-            >
-              Sync all form to dtabase
-            </button>   
-              <button
               className="btn_header bg-blue-400"
               onClick={() => setIsModalVisible(true)}
             >
               Create New Form
             </button>
-       
           </div>
-        </div> 
+        </div>
         <div className="flex  flex-col justify-between gap-4 rounded-lg border-2  p-4">
           {elementsLocalStorage.length > 0 && (
-            <p className="text-[25px]  px-[2.5rem] flex flex-row gap-3  text-center items-center   mb-4"><BsSave/>Forms from Local Storage</p>
+            <p className="text-[25px]  px-[2.5rem] flex flex-row gap-3  text-center items-center   mb-4">
+              <BsSave />
+              Forms from Local Storage
+            </p>
           )}{" "}
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
             {elementsLocalStorage.map((element) => (
-           
-             <CardForm
+              <CardForm
                 reftchForm={fetchForms}
                 form={element}
                 key={element.id}
               />
-          
             ))}
           </div>
-          {elements.length > 0 &&  elementsLocalStorage.length > 0 &&  (
-         
-              <Divider 
-           style={{ borderColor: "black", marginTop: "1rem", marginBottom: "1rem", width: "100%", height: "1px" }} 
-           />)}
-          
+          {elements.length > 0 && elementsLocalStorage.length > 0 && (
+            <Divider
+              style={{
+                borderColor: "black",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+                width: "100%",
+                height: "1px",
+              }}
+            />
+          )}
           {elements.length > 0 && (
             <>
-               
-            <p  className="text-[25px]  px-[2.5rem]  flex flex-row gap-3  text-center items-center  mb-4"> <FcAcceptDatabase/> Forms from Database</p>
+              <p className="text-[25px]  px-[2.5rem]  flex flex-row gap-3  text-center items-center  mb-4">
+                {" "}
+                <FcAcceptDatabase /> Forms from Database
+              </p>
             </>
           )}{" "}
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
-          {elements.map((element) => (
+            {elements.map((element) => (
               <CardForm
                 form={element}
                 key={element.id}

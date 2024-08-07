@@ -15,7 +15,7 @@ export const openNotification = ( placement: any,type: 'success' | 'error' | 'in
     // duration: 3
   });
 };
-export const deleteForm = async (id: number) => {
+export const deleteForm = async (id: number) : Promise<string|void> => {
   try {
     
     const response = await fetch(`/api/forms/${id}`, {
@@ -28,26 +28,26 @@ export const deleteForm = async (id: number) => {
     if (!response.ok) {
       throw new Error("Error deleting form");
     }
-    openNotification("topRight","success","Form deleted successfully", "Form deleted successfully from database");
-
+    // openNotification("topRight","success","Form deleted successfully", "Form deleted successfully from database");
+return "Form deleted successfully from database"
   } catch (error) {
     
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     const updatedForms = forms.filter((form: Form) => form.id !== id);
     localStorage.setItem("forms", JSON.stringify(updatedForms));
-    updatedForms[0].isFromLocalStorage &&  openNotification("topRight",'success',"Form deleted successfully", "Form deleted successfully from Localstorage");
+    // updatedForms[0].isFromLocalStorage &&  openNotification("topRight",'success',"Form deleted successfully", "Form deleted successfully from Localstorage");
     // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("topRight","Error Deleting  forms :", ""+error);
+    return "Form deleted successfully from Localstorage"
 
   }
 }; 
 export const saveToDatabase = async ( 
   title: string,
   content: FormElement[],
-  description: string,
-   isSaveAll: boolean,
+  description: string, 
   user_id:string,
   id?:number
-) => {
+): Promise<string|void> => {
  
 console.error(content)
   try {
@@ -71,9 +71,9 @@ console.error(content)
     
     const data = await response.json();
     console.log("Data inserted:", data);
-    !isSaveAll && openNotification ("topRight",'success',"Data inserted:", "Data inserted successfully in database");
-  
+ 
     id && deleteForm(id);
+  return "Data inserted successfully in database"
   } catch (error) {
     console.error("Error:", error);
   }

@@ -133,9 +133,10 @@ export default function CardForm({
       <Menu.Item key="delete">
         <button
           className="flex flex-row gap-3 justify-between text-center items-center "
-          onClick={(e) => {
+          onClick={async(e) => {
             e.stopPropagation();
-            deleteForm(form.id);
+          const response=await  deleteForm(form.id);
+          openNotification("topRight","success","Form deleted successfully",response!);
             handleMenuClick(); // Close the dropdown menu
             reftchForm();
           }}
@@ -223,10 +224,10 @@ export default function CardForm({
           </span>
         )} */}
         <div className="absolute text-white right-0 mb-[18px] mr-[18px] bottom-0">
-          {form.isFromLocalStorage && user && (
+          {form.isFromLocalStorage && user && isUserOnline &&(
             <Button 
               className="bg-[#B5B5B5] h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white"
-              onClick={(e) => {
+              onClick={async(e) => {
                 setIsLoading(true);
 
                 e.stopPropagation();
@@ -234,11 +235,12 @@ export default function CardForm({
                   form.title,
                   form.content,
                   form.description,
-                  false,
                   user.id,
                   form.id
                 ); 
-                setIsLoading(false);
+                setIsLoading(false); 
+                deleteForm(form.id);
+            reftchForm();
 
               }}     
               loading={isLoading}
