@@ -13,17 +13,21 @@ import { deleteForm, openNotification, saveToDatabase } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral";
 import { CiCircleInfo } from "react-icons/ci";
 import { MdMoreHoriz } from "react-icons/md";
+import { title } from "process";
 
 export default function CardForm({
   form,
   reftchForm,
+  isEditForm
 }: {
+  isEditForm: (value: boolean) => void;
   form: Form;
   reftchForm: (ok: boolean) => void;
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const { isUserOnline, user } = useGeneral();
   const router = useRouter();
@@ -69,38 +73,6 @@ export default function CardForm({
     }
   };
 
-  // const deleteForm = async (id: number) => {
-  //   try {
-  //     const response = await fetch(`/api/forms/${id}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     reftchForm();
-  //     if (!response.ok) {
-  //       throw new Error("Error deleting form");
-  //     }
-  //     openNotification(
-  //       "topRight",
-  //       "success",
-  //       "Form deleted successfully",
-  //       "Form deleted successfully from database"
-  //     );
-  //   } catch (error) {
-  //     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-  //     const updatedForms = forms.filter((form: Form) => form.id !== id);
-  //     localStorage.setItem("forms", JSON.stringify(updatedForms));
-  //     updatedForms[0].isFromLocalStorage &&
-  //       openNotification(
-  //         "topRight",
-  //         "success",
-  //         "Form deleted successfully",
-  //         "Form deleted successfully from Localstorage"
-  //       );
-  //   }
-  // };
-
   const handlePreviewOk = () => {
     setIsModalPreviewVisible(false);
   };
@@ -121,10 +93,57 @@ export default function CardForm({
     handleMenuClick(); // Close the dropdown menu
   };
 
+  const duplicateFormToLocalStorage = async (formToDuplicate: Form) => {
+    const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+    const newForm = { ...formToDuplicate, id: Date.now(),title: `${formToDuplicate.title} (Copy)` }; 
+        forms.push(newForm);
+    localStorage.setItem("forms", JSON.stringify(forms));
+    openNotification(
+      "topRight",
+      "success",
+      "Form duplicated successfully",
+      "Form duplicated successfully in Local Storage"
+    );
+  };
+
+  const handleDuplicateClick = async (e: any) => {
+    e.stopPropagation();
+    
+    if (form.isFromLocalStorage) {
+      duplicateFormToLocalStorage(form );
+    } else { 
+        const response = await saveToDatabase(
+          `${form.title} (Copy)`,
+          form.content,
+          form.description,
+          user!.id,
+          undefined // New form, so no ID
+        );
+        openNotification(
+          "topRight",
+          "success",
+          "Form duplicated successfully",
+          response!
+        );
+      }
+      reftchForm(true);
+   
+    handleMenuClick(); // Close the dropdown menu
+  };
+
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="edit">
-        <button className="flex flex-row gap-3 justify-between text-center items-center ">
+      <Menu.Item key="edit" 
+    
+      >
+        <button
+          onClick={async (e) => {
+            e.stopPropagation();
+            setIsEdit(true);
+            isEditForm(true);
+            handleMenuClick(); // Close the dropdown menu
+          }}
+        className="flex flex-row gap-3 justify-between text-center items-center ">
           <TbEdit /> Edit
         </button>
       </Menu.Item>
@@ -134,7 +153,7 @@ export default function CardForm({
           onClick={async (e) => {
             e.stopPropagation();
             const response = await deleteForm(form.id);
-            response === "error deleting form"?
+            !form.isFromLocalStorage &&  response === "error deleting form"?
             openNotification(
               "topRight",
               "error",
@@ -148,6 +167,12 @@ export default function CardForm({
               "Form deleted successfully",
               response!
             );
+            form.isFromLocalStorage && openNotification(
+              "topRight",
+              "success",
+              "Form deleted successfully",
+              "Form deleted successfully from Localstorage"
+            )
             handleMenuClick(); // Close the dropdown menu
             reftchForm(true);
           }}
@@ -158,11 +183,7 @@ export default function CardForm({
       <Menu.Item key="duplicate">
         <button
           className="flex flex-row gap-3 justify-between text-center items-center "
-          onClick={(e) => {
-            e.stopPropagation();
-            // Add duplicate functionality here
-            handleMenuClick(); // Close the dropdown menu
-          }}
+          onClick={handleDuplicateClick}
         >
           <HiDocumentDuplicate /> Duplicate
         </button>
@@ -189,7 +210,7 @@ export default function CardForm({
             }`
           );
         }}
-        className="rounded-[15px] relative bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer"
+        className="rounded-[15px] relative hover:bg-slate-100 shadow-sm bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer"
       >
         <div className="flex flex-row justify-between items-center gap-4">
           <div className="text-3xl flex flex-row justify-between items-center gap-4">
@@ -217,23 +238,12 @@ export default function CardForm({
 
         <p
           ref={descriptionRef}
-          className={`text-lg mt-4 ${
+          className={`text-md mt-4 ${
             !showFullDescription ? "line-clamp-3" : ""
           }`}
         >
           {form.description || "No description"}
         </p>
-        {/* {isTruncated && (
-          <span
-            className="text-blue-500 cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowFullDescription(!showFullDescription);
-            }}
-          >
-            {showFullDescription ? "View less" : "View more"}
-          </span>
-        )} */}
         <div className="absolute text-white right-0 mb-[18px] mr-[18px] bottom-0">
           {form.isFromLocalStorage && user && isUserOnline && (
             <Button
@@ -242,7 +252,7 @@ export default function CardForm({
                 setIsLoading(true);
 
                 e.stopPropagation();
-                saveToDatabase(
+           const response = await saveToDatabase(
                   form.title,
                   form.content,
                   form.description,
@@ -250,6 +260,12 @@ export default function CardForm({
                   form.id
                 );
                 setIsLoading(false);
+                openNotification(
+                  "topRight",
+                  "success",
+                  "Form saved successfully",
+                  response!
+                )
                 deleteForm(form.id);
                 reftchForm(true);
               }}

@@ -47,7 +47,7 @@ const SigninForm = () => {
           form.title,
           form.content,
           form.description, 
-          true,
+        
           user.id
         );
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");

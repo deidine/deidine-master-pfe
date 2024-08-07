@@ -19,11 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="bg-mainColor ">
         <DesignerContextProvider>
           <GeneralContextProvider>
             <NavBar />
-            <div className="flex w-full flex-col  flex-grow mx-auto">
+            <div className="flex w-full flex-col flex-grow mx-auto">
               {children}
             </div>
           </GeneralContextProvider>

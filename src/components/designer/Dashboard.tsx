@@ -6,11 +6,13 @@ import { openNotification, saveToDatabase } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral";
 import { FcAcceptDatabase } from "react-icons/fc";
 import { BsSave } from "react-icons/bs";
+import { CiCircleCheck, CiCircleInfo } from "react-icons/ci";
+import ModelForm from "./ModelForm";
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { isUserOnline, setIsUserOnline, user } = useGeneral();
-  const [elements, setElements] = useState<Form[]>([]); 
-   const [isLoading, setIsLoading] = useState(false);   
+  const [elements, setElements] = useState<Form[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const [createform] = Form.useForm();
@@ -146,25 +148,30 @@ export default function Dashboard() {
         (await saveToDatabase(
           form.title,
           form.content,
-          form.description, 
+          form.description,
           user.id
         ));
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       const updatedForms = forms.filter((form: Form) => form.id !== form.id);
       localStorage.setItem("forms", JSON.stringify(updatedForms));
     }
-    openNotification ("topRight",'success',"Data inserted:", "Data inserted successfully in database");
+    openNotification(
+      "topRight",
+      "success",
+      "Data inserted:",
+      "Data inserted successfully in database"
+    );
     fetchForms();
     setIsLoading(false);
   }
-   return (
+  return (
     <>
       <div>
         <div className="w-full  bg-mainColor  flex justify-end px-[2.5rem] pt-[1rem] items-end">
           <div className="flex gap-4">
             {elementsLocalStorage.length > 0 && user && isUserOnline && (
               <Button
-              loading={isLoading}
+                loading={isLoading}
                 className="btn_header bg-inheritx"
                 onClick={() => saveAllToDb()}
               >
@@ -182,16 +189,18 @@ export default function Dashboard() {
         <div className="flex  flex-col justify-between gap-4 rounded-lg border-2  p-4">
           {elementsLocalStorage.length > 0 && (
             <p className="text-[25px]  px-[2.5rem] flex flex-row gap-3  text-center items-center   mb-4">
-              <BsSave />
-              Forms from Local Storage
+              <CiCircleInfo className="text-red-500" /> Forms from Local Storage
             </p>
           )}{" "}
           <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
             {elementsLocalStorage.map((element) => (
               <CardForm
-                reftchForm={(ok: boolean) => ok &&fetchForms()}
+                reftchForm={(ok: boolean) => ok && fetchForms()}
                 form={element}
                 key={element.id}
+                isEditForm={function (value: boolean): void {
+                  throw new Error("Function not implemented.");
+                }}
               />
             ))}
           </div>
@@ -210,7 +219,7 @@ export default function Dashboard() {
             <>
               <p className="text-[25px]  px-[2.5rem]  flex flex-row gap-3  text-center items-center  mb-4">
                 {" "}
-                <FcAcceptDatabase /> Forms from Database
+                <CiCircleCheck className="text-green-500" /> Forms from Database
               </p>
             </>
           )}{" "}
@@ -220,12 +229,26 @@ export default function Dashboard() {
                 form={element}
                 key={element.id}
                 reftchForm={fetchForms}
+                isEditForm={function (value: boolean): void {
+                  throw new Error("Function not implemented.");
+                }}
               />
             ))}
           </div>
         </div>
       </div>
-      <Modal
+      
+      <ModelForm
+        isAdd={false}
+        isModalVisible={isModalVisible}
+        handleOk={function (): void {handleOk}}
+        handleCancel={function (): void {handleCancel}}
+        onFinish={function (values: any): void {onFinish}}
+        setIsModalVisible={function (isModalVisible: boolean): void {
+          setIsModalVisible(isModalVisible);
+        }}
+      />
+      {/* <Modal
         title="Create New Form"
         visible={isModalVisible}
         onOk={handleOk}
@@ -253,7 +276,7 @@ export default function Dashboard() {
             </Button>
           </Form.Item>
         </Form>
-      </Modal>
+      </Modal> */}
     </>
   );
 }
