@@ -1,11 +1,11 @@
  
-chmod +x deidine.sh
-cd C:\\Users\\DELL\\Desktop\\master_project\\formbuilder
-eval "$(ssh-agent -s)"
-ssh-add deidine 
+# chmod +x deidine.sh
+# cd C:\\Users\\DELL\\Desktop\\master_project\\formbuilder
+# eval "$(ssh-agent -s)"
+# ssh-add deidine 
 
-
-
+echo 'eval "$(ssh-agent -s)"'
+echo 'ssh-add deidine'
 
 # #!/bin/bash
 
