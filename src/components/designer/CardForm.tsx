@@ -23,7 +23,7 @@ export default function CardForm({
 }) {
   const [isModalPreviewVisible, setIsModalPreviewVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);   
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isUserOnline, user } = useGeneral();
   const router = useRouter();
@@ -124,19 +124,30 @@ export default function CardForm({
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="edit">
-        <button
-          className="flex flex-row gap-3 justify-between text-center items-center "         
-        >
+        <button className="flex flex-row gap-3 justify-between text-center items-center ">
           <TbEdit /> Edit
         </button>
       </Menu.Item>
       <Menu.Item key="delete">
         <button
           className="flex flex-row gap-3 justify-between text-center items-center "
-          onClick={async(e) => {
+          onClick={async (e) => {
             e.stopPropagation();
-          const response=await  deleteForm(form.id);
-          openNotification("topRight","success","Form deleted successfully",response!);
+            const response = await deleteForm(form.id);
+            response === "error deleting form"?
+            openNotification(
+              "topRight",
+              "error",
+              "Error Deleting  forms :",
+              response!
+            )
+            :
+            openNotification(
+              "topRight",
+              "success",
+              "Form deleted successfully",
+              response!
+            );
             handleMenuClick(); // Close the dropdown menu
             reftchForm();
           }}
@@ -224,10 +235,10 @@ export default function CardForm({
           </span>
         )} */}
         <div className="absolute text-white right-0 mb-[18px] mr-[18px] bottom-0">
-          {form.isFromLocalStorage && user && isUserOnline &&(
-            <Button 
+          {form.isFromLocalStorage && user && isUserOnline && (
+            <Button
               className="bg-[#B5B5B5] h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white"
-              onClick={async(e) => {
+              onClick={async (e) => {
                 setIsLoading(true);
 
                 e.stopPropagation();
@@ -237,12 +248,11 @@ export default function CardForm({
                   form.description,
                   user.id,
                   form.id
-                ); 
-                setIsLoading(false); 
+                );
+                setIsLoading(false);
                 deleteForm(form.id);
-            reftchForm();
-
-              }}     
+                reftchForm();
+              }}
               loading={isLoading}
             >
               Sync to database

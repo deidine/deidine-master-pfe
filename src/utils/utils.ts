@@ -28,16 +28,14 @@ export const deleteForm = async (id: number) : Promise<string|void> => {
     if (!response.ok) {
       throw new Error("Error deleting form");
     }
-    // openNotification("topRight","success","Form deleted successfully", "Form deleted successfully from database");
+    
 return "Form deleted successfully from database"
   } catch (error) {
     
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     const updatedForms = forms.filter((form: Form) => form.id !== id);
-    localStorage.setItem("forms", JSON.stringify(updatedForms));
-    // updatedForms[0].isFromLocalStorage &&  openNotification("topRight",'success',"Form deleted successfully", "Form deleted successfully from Localstorage");
-    // !updatedForms[0].isFromLocalStorage &&    openNotificationErro("topRight","Error Deleting  forms :", ""+error);
-    return "Form deleted successfully from Localstorage"
+    localStorage.setItem("forms", JSON.stringify(updatedForms)); 
+    return   error ? "error deleting form" : "Form deleted successfully from Localstorage"
 
   }
 }; 
