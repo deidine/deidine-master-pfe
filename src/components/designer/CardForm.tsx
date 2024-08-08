@@ -51,7 +51,7 @@ export default function CardForm({
 
   const fetchForm = async (id: number) => {
     try {
-      if (isUserOnline) {
+      if (isUserOnline && !form.isFromLocalStorage) {
         const response = await fetch(`/api/forms/${id}`);
         const data = await response.json();
         return data.form;
@@ -68,8 +68,7 @@ export default function CardForm({
         "Error fetching database forms :",
         "" + error
       );
-
-      return form;
+      return null;
     }
   };
 
