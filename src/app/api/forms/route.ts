@@ -39,6 +39,8 @@ export async function  POST(req:NextRequest ) {
       .from('form')
       .select('*')
       .eq('user_id', user_id) 
+      .order("created_at", { ascending: false })
+
       ;
 
     if (error) {
@@ -97,35 +99,4 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-
-
-
-
-
-
-
-//this for client components
-// const handleSave = async () => {
  
-  //   
-
-  //   try {
-  //     const { data, error } = await supabase
-  //       .from('form') 
-  //       .insert([
-  //         {
-  //           title: form.title,
-  //           content: elements,
-  //           description: form.description,
-  //         },
-  //       ]);
-
-  //     if (error) {
-  //       console.error('Error inserting data:', error);
-  //     } else {
-  //       console.log('Data inserted:', data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
