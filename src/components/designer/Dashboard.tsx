@@ -13,9 +13,9 @@ export default function Dashboard() {
   const { isUserOnline, setIsUserOnline, user } = useGeneral();
   const [elements, setElements] = useState<Form[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
+ 
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
-  const [createform] = Form.useForm();
+ 
 
   const userId = user?.id;
 
@@ -65,19 +65,7 @@ export default function Dashboard() {
       console.error("Error fetching forms:", error);
     }
   };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const onFinish = async (values: any) => {
-    await handleSave(values.TitleForm, values.description);
-    fetchForms();
-  };
+ 
 
   const saveToLocalStorage = (title: string, description: string) => {
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -95,8 +83,7 @@ export default function Dashboard() {
       "Data inserted",
       "Data inserted successfully in local storage"
     );
-    setIsModalVisible(false);
-    createform.resetFields();
+    setIsModalVisible(false); 
   };
   const handleSave = async (title: string, description: string) => {
     if (!isUserOnline) {
@@ -126,8 +113,7 @@ export default function Dashboard() {
 
       const data = await response.json();
       console.log("Data inserted:", data);
-      setIsModalVisible(false);
-      createform.resetFields();
+      setIsModalVisible(false); 
       openNotification(
         "topRight",
         "success",
@@ -198,10 +184,10 @@ export default function Dashboard() {
                 reftchForm={(ok: boolean) => ok && fetchForms()}
                 form={element}
                 key={element.id}
-                isEditForm={function (value: boolean): void {
-                  throw new Error("Function not implemented.");
-                }}
-              />
+                                isEditFormtrriger={(  ): void => {
+                                  fetchForms()
+                                }}
+                  />
             ))}
           </div>
           {elements.length > 0 && elementsLocalStorage.length > 0 && (
@@ -229,9 +215,9 @@ export default function Dashboard() {
                 form={element}
                 key={element.id}
                 reftchForm={fetchForms}
-                isEditForm={function (value: boolean): void {
-                  throw new Error("Function not implemented.");
-                }}
+                isEditFormtrriger={(  ): void => {
+                  fetchForms()
+                }}  
               />
             ))}
           </div>
@@ -239,44 +225,24 @@ export default function Dashboard() {
       </div>
       
       <ModelForm
-        isAdd={false}
+        isAdd={true}
         isModalVisible={isModalVisible}
-        handleOk={function (): void {handleOk}}
-        handleCancel={function (): void {handleCancel}}
-        onFinish={function (values: any): void {onFinish}}
+        handleOk={function (): void {
+    setIsModalVisible(false);
+          
+        }}
+        handleCancel={function (): void {
+          setIsModalVisible(false);
+        }}
+        onFinish={async function (values: any): Promise<void> {
+          await handleSave(values.TitleForm, values.description);
+          fetchForms();
+        }}
         setIsModalVisible={function (isModalVisible: boolean): void {
           setIsModalVisible(isModalVisible);
         }}
       />
-      {/* <Modal
-        title="Create New Form"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <Form onFinish={onFinish} form={createform} layout="vertical">
-          <Form.Item
-            label="Title"
-            name="TitleForm"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="Title" />
-          </Form.Item>
-          <Form.Item
-            label="Description"
-            name="description"
-            rules={[{ required: false }]}
-          >
-            <Input.TextArea className="h-[2.5rem]" placeholder="Description" />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" block>
-              Create
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal> */}
+ 
     </>
   );
 }

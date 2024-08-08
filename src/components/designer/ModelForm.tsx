@@ -1,37 +1,57 @@
 "use client";
-import React, {   useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, Modal } from "antd";
- 
+
 export default function ModelForm({
   isModalVisible,
-
   isAdd,
   setIsModalVisible,
   handleCancel,
-handleOk,
-onFinish
+  handleOk,
+  onFinish,
+  initialValues,
 }: {
   isAdd: boolean;
   isModalVisible: boolean;
-handleOk: () => void;
-handleCancel: () => void,
-onFinish : (values: any) => void,
+  handleOk: () => void;
+  handleCancel: () => void;
+  onFinish: (values: any) => void;
   setIsModalVisible: (isModalVisible: boolean) => void;
-}) {
-  // const [isModalVisible, setIsModalVisible] = useState(false); 
+  initialValues?: any; // This will hold the values to edit
+}) { 
   const [createform] = Form.useForm();
-  
-   return (
+
+  // Prefill the form fields if editing
+  useEffect(() => {
+    if (!isAdd && initialValues) {
+      createform.setFieldsValue(initialValues);
+    }
+  }, [isAdd, initialValues, createform]);
+
+  const onSubmit = (values: any) => {
+    onFinish(values);
+    createform.resetFields();
+    setIsModalVisible(false);
+  };
+
+  const handleOkAction = () => {
+    handleOk();
+  };
+
+  const handleCancelAction = () => {
+    handleCancel();
+  };
+
+  return (
     <>
-  
       <Modal
-        title="Create New Form"
+        title={isAdd ? "Create New Form" : "Edit Form"}
         visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        onOk={handleOkAction}
+        onCancel={handleCancelAction}
         footer={null}
       >
-        <Form onFinish={onFinish} form={createform} layout="vertical">
+        <Form onFinish={onSubmit} form={createform} layout="vertical">
           <Form.Item
             label="Title"
             name="TitleForm"
@@ -48,11 +68,11 @@ onFinish : (values: any) => void,
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" block>
-              Create
+              {isAdd ? "Create" : "Update"}
             </Button>
           </Form.Item>
         </Form>
-      </Modal> 
+      </Modal>
     </>
   );
 }
