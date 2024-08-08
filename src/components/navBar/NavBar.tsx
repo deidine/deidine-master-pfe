@@ -45,7 +45,7 @@ useEffect(() => {
 
   return (
     <>
-      <header className="bg-white rounded-lg relative border-2">
+      <header className="bg-white mt-0 pt-0 relative border-gray-300 shadow-sm z-10 border-b-2">
         <nav className="flex flex-row mt-0 w-full gap-4">
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
             <Link href="/">
