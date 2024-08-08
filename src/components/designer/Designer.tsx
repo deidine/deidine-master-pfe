@@ -142,21 +142,24 @@ export default function Designer({
        <SideButtons onPreview={(value: boolean) => setPreview(value)} /> 
          <div>
        
-          <div className="bg-white flex justify-end  h-[60px] border-b-1   items-center border-black w-full  ">
-            <Button
+          <div className="bg-white flex justify-around  h-[60px] border-b-1   items-center border-black w-full  ">
+           <p>
+              {form.title} . {preview ? "Preview" : "Field"}
+            </p>  <Button
               loading={isLoading}
               className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
               onClick={handleSave}
             >
               Save Changes
-            </Button>
+            </Button> 
+         
           </div>
         </div>
 
         {/* <FormLinkShare shareUrl={'deidine'}/> */}
         <div className="mx-auto  w-full flex flex-col items-center justify-center">
           {preview ? <PreviewForm /> : <FormBuilder />}
-         <div className="fixed bottom-0 right-0 shadow-lg  h-auto z-10 ">
+         <div className="w-full fixed bottom-0 flex justify-end pr-[100px] pb-[100px] items-center right-0 shadow-lg   h-auto z-10 ">
          <InsertElement />
          </div>
         </div>

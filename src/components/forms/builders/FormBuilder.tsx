@@ -4,7 +4,7 @@ import SubmitButton from "@/components/ui/SubmitButton";
 import DragDropAria from "./formBuilderElements/DragDropAria";
 
 export default function FormBuilder() {
-  const { undo, redo,undoStack, redoStack } = useDesigner();
+  const { undo, redo ,elements } = useDesigner();
 
   useHotkeys("ctrl+z, meta+z", undo, { preventDefault: true });
   useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
@@ -18,6 +18,7 @@ export default function FormBuilder() {
           Redo
         </Button>
       </div> */}
+      {elements.length==0 && "No elements added yet"}
       <DragDropAria />
       <SubmitButton/>
     </div>
