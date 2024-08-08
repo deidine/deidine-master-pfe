@@ -10,11 +10,10 @@ export default function InsertElement() {
       };
       return (
  <>
-    <div className="pt-[4.5rem]"></div>
-    <div className="shadow-sm w-1/2 h-auto border-2 ml-4 mt-2 rounded-lg">
-      <div className="flex justify-center max-w-2xl mx-auto border shadow rounded-xl">
+  
+    <div className=""> 
         <Button
-          className="h-auto font-bold py-2 px-4 w-full"
+          className="h-auto font-bold py-2 px-4 w-[290px]"
           onClick={showModal}
         >
           <svg
@@ -31,11 +30,11 @@ export default function InsertElement() {
           >
             <path d="M5 12h14"></path>
             <path d="M12 5v14"></path>
-          </svg>{" "}
+          </svg> 
           Insert Element
         </Button>
       </div>
-    </div>
+    
 
     {/* Modal for selecting input type */}
     {isModalVisible && (
