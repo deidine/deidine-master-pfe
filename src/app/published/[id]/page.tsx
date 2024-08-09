@@ -15,10 +15,7 @@ export default function PublishFormPage({
     id: string;
   };
 }) {
-  const [form, setForm] = useState<Form >( );
-  const searchParams = useSearchParams()
-
-  const localStorageParam = searchParams.get('local')
+  const [form, setForm] = useState<Form >( ); 
   const [loading, setLoading] = useState<boolean>(true);
   const { id } = params;
  
@@ -31,22 +28,23 @@ export default function PublishFormPage({
   useEffect(() => {
     fetchForm();
   }, []);
+  useEffect(() => {
+    // Create a script element
+    const script = document.createElement("script");
+    script.src = "https://app.rapidforms.co/embed/index.js";
+    script.async = true;
+
+    // Append the script to the document body
+    document.body.appendChild(script);
+
+    // Cleanup script when component is unmounted
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const fetchForm = async () => { 
-    if (localStorageParam === 'true') {
-      try {
-        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-        const form = forms.find((form: Form) => form.id === parseInt(id));
-        if (form) {
-          setForm(form);
-        } else {
-        }
-      } catch (error) {
-        console.error("Error fetching form from local storage:", error);
-      } finally {
-        setLoading(false);
-      }
-    } else {
+  
       try {
         const response = await fetch(`/api/forms/${id}`);
         if (!response.ok) {
@@ -59,12 +57,22 @@ export default function PublishFormPage({
       } finally {
         setLoading(false);
       }
-    }
+  
   };
   if (!form) {
     return <div>Form not found</div>;
   }
   return (
+    <>
+      <iframe
+        loading="lazy"
+        id="rapidforms-iframe"
+        src="https://app.rapidforms.co/embed/fb8460"
+        width="100%"
+        height="640px"
+        frameBorder="0" 
+        title="RapidForms"
+      ></iframe>
     <Form
       onFinish={onFinish}
       layout="vertical" // Set the layout to vertical
@@ -112,7 +120,9 @@ export default function PublishFormPage({
           </Button>
         ) 
       </div>
+
     </Form>
+    </>
   );
 }
 
