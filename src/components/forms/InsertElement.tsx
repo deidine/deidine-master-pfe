@@ -2,6 +2,7 @@
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import ModelPopupType from "./builders/ModelPopupType";
+import { CgAdd } from "react-icons/cg";
 
 export default function InsertElement() {
  
@@ -10,33 +11,16 @@ export default function InsertElement() {
       };
       return (
  <>
-  
-    <div className=""> 
-        <Button
-          className="h-auto font-bold py-2 px-4 w-[290px]"
+           <div className="w-full fixed bottom-0 flex  justify-end pr-[100px] pb-[50px] items-center right-0 shadow-lg   h-auto z-10 ">
+        <button
+          className="h-auto fixed btn_header text-white flex items-center justify-around   bg-[#36b3fa]  font-[14px] text-2xl gap-4 "
           onClick={showModal}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-plus w-5 h-5 text-zinc-500"
-          >
-            <path d="M5 12h14"></path>
-            <path d="M12 5v14"></path>
-          </svg> 
-          Insert Element
-        </Button>
-      </div>
-    
-
-    {/* Modal for selecting input type */}
+          <CgAdd  className="w-10  h-10   text-white" />
+          Add Element
+        </button></div>
+     
+ 
     {isModalVisible && (
       <ModelPopupType
         isModalVisible={isModalVisible}

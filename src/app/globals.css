@@ -8,7 +8,11 @@
     color: white;
     border-color: #4caf50;
   }
- .btn_header{
+  .btn_header{
     @apply   border-[0.5px] border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px]  p-2
+  }
+  .btn_sid{
+    @apply rounded-[4px]  flex flex-col items-center gap-1 p-4 cursor-pointer hover:text-black hover:bg-[#e1f2fe] 
+ 
   }
  

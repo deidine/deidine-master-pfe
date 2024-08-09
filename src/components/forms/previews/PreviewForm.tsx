@@ -39,10 +39,12 @@ export default function PreviewForm({
       layout="vertical" // Set the layout to vertical
       className={`${
         !isTemplate
-          ? "max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+          ? "max-w-2xl mt-3  bg-white border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
           : ""
       }`}
     >
+    <span className="text-md font-semibold"> {elements.length==0 && "No elements to Preview"}</span> 
+
       {mapElement.map((element: any, index) => (
         <div key={index}>
           {["text", "number", "email", "password", "file", "textarea","url"].includes(

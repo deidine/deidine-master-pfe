@@ -39,13 +39,14 @@ export default function NavBar() {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
-useEffect(() => {
-  setActiveLink(window.location.pathname);
-}, [ ])
+
+  useEffect(() => {
+    setActiveLink(window.location.pathname);
+  }, []);
 
   return (
     <>
-      <header className="bg-white mt-0 pt-0 relative border-gray-300 shadow-sm z-10 border-b-2">
+      <header className="bg-white mt-0 pt-0 fixed top-0 w-full border-gray-300 shadow-sm z-10 border-b-2">
         <nav className="flex flex-row mt-0 w-full gap-4">
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
             <Link href="/">
@@ -78,19 +79,22 @@ useEffect(() => {
             {user ? (
               <Popover
                 content={
-                  <div> 
-                    <button className="ml-2 font-semibold  hover:bg-[#E8E8E8]  ">{user.email}</button>
-                       <Divider />
+                  <div>
+                    <button className="ml-2 font-semibold hover:bg-[#E8E8E8]">
+                      {user.email}
+                    </button>
+                    <Divider />
                     <button
-                      className="flex flex-row font-semibold  hover:bg-[#E8E8E8] hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
+                      className="flex flex-row font-semibold hover:bg-[#E8E8E8] hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
                       onClick={handleSignOut}
                     >
-                       <span><FiLogOut className="ml-2" /> </span> <span>Sign Out</span>
+                      <span>
+                        <FiLogOut className="ml-2" />
+                      </span>{" "}
+                      <span>Sign Out</span>
                     </button>
-               
                   </div>
                 }
-               
                 trigger="click"
                 open={open}
                 onOpenChange={handleOpenChange}
@@ -112,6 +116,7 @@ useEffect(() => {
           </div>
         </nav>
       </header>
+      <div className="mt-[60px]" /> {/* Add margin to offset the fixed navbar */}
     </>
   );
 }

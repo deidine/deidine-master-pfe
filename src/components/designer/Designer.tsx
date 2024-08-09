@@ -6,7 +6,7 @@ import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";
 import InsertElement from "../forms/InsertElement";
 import SideButtons from "./SideButtons";
-import { Button } from "antd";
+import { Avatar, Badge, Button } from "antd";
 import { useHotkeys } from "react-hotkeys-hook";
 import { openNotification } from "@/utils/utils";
 
@@ -22,13 +22,16 @@ export default function Designer({
   const [isReady, setIsReady] = useState(false);
   const { elements } = useDesigner();
   const isFirstRender = useRef(true);
+  const [selectedButton, setSelectedButton] = useState<
+    "preview" | "field" | "design"
+  >("field");
 
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const handleSave = async () => {
     setIsLoading(true);
 
-    if (isFromLocalStorage && !isSaved) {
+    if (isFromLocalStorage) {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
         const idForm = form.id;
@@ -51,7 +54,7 @@ export default function Designer({
       } catch (error) {
         console.error("Error saving to localStorage:", error);
       }
-    } else if (!isFromLocalStorage && !isSaved) {
+    } else if (!isFromLocalStorage) {
       try {
         const response = await fetch("/api/forms/", {
           method: "PUT",
@@ -137,31 +140,50 @@ export default function Designer({
   }
 
   return (
-    <>  
-      <div className="flex relative flex-col justify-center gap-2  w-full">
-       <SideButtons onPreview={(value: boolean) => setPreview(value)} /> 
-         <div>
-       
-          <div className="bg-white flex justify-around  h-[60px] border-b-1   items-center border-black w-full  ">
-           <p>
-              {form.title} . {preview ? "Preview" : "Field"}
-            </p>  <Button
-              loading={isLoading}
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-              onClick={handleSave}
-            >
-              Save Changes
-            </Button> 
-         
+    <>
+      <div className="flex relative  flex-col justify-center gap-2  w-full">
+        <SideButtons
+          onPreview={(value: boolean) => setPreview(value)}
+          selected={function (current: "preview" | "field" | "design"): void {
+            setSelectedButton(current);
+          }}
+        />
+        <div>
+          <div className="bg-white flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
+            <div className="flex items-center  text-lg pl-[100px] font-semibold">
+              {form.title}{" "}
+              <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>{" "}
+              <div>
+                <Badge count={elements.length}>
+                  <div className="w-[60px]">{selectedButton}</div>{" "}
+                </Badge>
+              </div>
+            </div>{" "}
+            <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
+              {" "}
+              <Button
+                loading={isLoading}
+                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                onClick={handleSave}
+                disabled={isSaved}
+              >
+                Save Changes
+              </Button>{" "}
+            </Badge>
           </div>
         </div>
 
         {/* <FormLinkShare shareUrl={'deidine'}/> */}
-        <div className="mx-auto  w-full flex flex-col items-center justify-center">
-          {preview ? <PreviewForm /> : <FormBuilder />}
-         <div className="w-full fixed bottom-0 flex justify-end pr-[100px] pb-[100px] items-center right-0 shadow-lg   h-auto z-10 ">
-         <InsertElement />
-         </div>
+        <div className="mx-auto  w-full flex flex-col items-center pt-[50px]  justify-center">
+          {preview ? (
+            <>
+              <PreviewForm /> <InsertElement />
+            </>
+          ) : (
+            <>
+              <FormBuilder /> <InsertElement />
+            </>
+          )}
         </div>
       </div>
     </>

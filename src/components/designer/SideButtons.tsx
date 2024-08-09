@@ -7,46 +7,51 @@ import { MdOutlineDesignServices } from "react-icons/md";
 import { MdOutlinePreview } from "react-icons/md";
 
 
-export default function SideButtons({ onPreview }: { onPreview: (value: boolean) => void }) {
+export default function SideButtons({ onPreview,selected }: { onPreview: (value: boolean) => void ;selected :(current:'preview' | 'field' | 'design') =>void}) {
   const [selectedButton, setSelectedButton] = useState<'preview' | 'field' | 'design'>('field');
 
   return (
-    <div className="flex fixed pt-[80px] border-black border-r-[0.5px] bg-white w-[150px] h-[100vh]
-    flex-col items-center justify-start top-0 gap-[23%]">
+    <div className="flex fixed pt-[80px] border border-r-[2px] gap-3 bg-white w-[110px] h-[100vh]
+    flex-col items-center justify-start top-0 ">
       <div className="flex flex-col gap-2 ">
-           <Button
-          className={`btn_header ${selectedButton === 'field' ? "bg-blue-300 text-zinc-800" : "bg-white"}`}
+           <div
+          className={` btn_sid ${selectedButton === 'field' ? "bg-[#36b3fa]  text-white" : "bg-white"}`}
           onClick={() => {
             onPreview(false);
             setSelectedButton('field');
+            selected('field');
+
           }}
         >
           <FiEdit/>
           Field
-        </Button>
-            <Button
-          className={`btn_header ${selectedButton === 'preview' ? "bg-blue-300 text-zinc-800" : "bg-white"}`}
+        </div>
+            <div
+          className={`btn_sid ${selectedButton === 'preview' ? "bg-[#36b3fa] text-white" : "bg-white"}`}
           onClick={() => {
             onPreview(true);
             setSelectedButton('preview');
+            selected('preview');
           }}
         >
           <MdOutlinePreview/>
           Preview
-        </Button>
+        </div>
  
-        <Button
-          className={`btn_header ${selectedButton === 'design' ? "bg-blue-300 text-zinc-800" : "bg-white"}`}
+        <div
+          className={`btn_sid ${selectedButton === 'design' ? "bg-[#36b3fa] text-white" : "bg-white"}`}
           onClick={() => {
             // Add your logic for the design button here
             setSelectedButton('design');
+            selected('design');
+
           }}
         > 
           <MdOutlineDesignServices/>
           Design
-        </Button>
+        </div>
        
-        <FormCodeGenerator />
+        {/* <FormCodeGenerator /> */}
       </div>
     </div>
   );

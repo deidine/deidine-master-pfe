@@ -9,7 +9,7 @@ export default function FormBuilder() {
   useHotkeys("ctrl+z, meta+z", undo, { preventDefault: true });
   useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
   return (
-    <div className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
+    <div className="max-w-2xl mt-3   bg-white border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
       {/* <div className="flex justify-between mb-4">
       <Button onClick={undo} disabled={undoStack.length === 0}>
           Undo
@@ -18,7 +18,8 @@ export default function FormBuilder() {
           Redo
         </Button>
       </div> */}
-      {elements.length==0 && "No elements added yet"}
+     <span className="text-md font-semibold"> {elements.length==0 && "No elements added yet"}</span> 
+
       <DragDropAria />
       <SubmitButton/>
     </div>

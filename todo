@@ -3,3 +3,7 @@
 [] add lanaguage 
 [x] fix on clcik card edit we can drag the div until we open side bar
 [] add localstorage if edit or no
+[] add badge from antd
+[] disable butnnoon save
+[] ui 
+[] short cat for edit previw
