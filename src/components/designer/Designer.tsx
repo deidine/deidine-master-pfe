@@ -24,7 +24,7 @@ export default function Designer({
   const { elements } = useDesigner();
   const isFirstRender = useRef(true);
   const [selectedButton, setSelectedButton] = useState<
-    "preview" | "field" | "design" | "codeGenerator"
+    "preview" | "field" | "design" | "Export code"
   >("field");
 
   const [isSaved, setIsSaved] = useState(true);
@@ -147,7 +147,7 @@ export default function Designer({
       <div className="flex relative  flex-col justify-center gap-2  w-full">
         <SideButtons
           selected={function (
-            current: "preview" | "field" | "design" | "codeGenerator"
+            current: "preview" | "field" | "design" | "Export code"
           ): void {
             setSelectedButton(current);
           }}
@@ -194,7 +194,7 @@ export default function Designer({
             </>
           )}
           {selectedButton === "design" && <FormDesign />}
-          {selectedButton === "codeGenerator" && <FormCodeGenerator />}
+          {selectedButton === "Export code" && <FormCodeGenerator />}
         </div>
       </div>
     </>

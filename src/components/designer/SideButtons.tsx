@@ -6,8 +6,8 @@ import { MdOutlineDesignServices ,MdOutlineCode} from "react-icons/md";
 import { MdOutlinePreview } from "react-icons/md";
 
 
-export default function SideButtons({  selected }: { selected :(current:'preview' | 'field' | 'design'|'codeGenerator') =>void}) {
-  const [selectedButton, setSelectedButton] = useState<'preview' | 'field' | 'design' | 'codeGenerator'>('field');
+export default function SideButtons({  selected }: { selected :(current:'preview' | 'field' | 'design'|'Export code') =>void}) {
+  const [selectedButton, setSelectedButton] = useState<'preview' | 'field' | 'design' | 'Export code'>('field');
 
   return (
     <div className="flex fixed z-30  pt-[80px]  border border-r-[2px] gap-3 bg-white w-auto p-4 h-[100vh]
@@ -49,11 +49,11 @@ export default function SideButtons({  selected }: { selected :(current:'preview
         </div>
        
         <div
-          className={`btn_sid ${selectedButton === 'codeGenerator' ? "bg-[#36b3fa] text-white" : "bg-white"}`}
+          className={`btn_sid ${selectedButton === 'Export code' ? "bg-[#36b3fa] text-white" : "bg-white"}`}
           onClick={() => {
             // Add your logic for the design button here
-            setSelectedButton('codeGenerator');
-            selected('codeGenerator');
+            setSelectedButton('Export code');
+            selected('Export code');
 
           }}
         > 
