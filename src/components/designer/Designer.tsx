@@ -6,7 +6,7 @@ import FormBuilder from "../forms/builders/FormBuilder";
 import useDesigner from "@/hooks/useDesigner";
 import InsertElement from "../forms/InsertElement";
 import SideButtons from "./SideButtons";
-import { Avatar, Badge, Button } from "antd";
+import { Avatar, Badge, Button, message } from "antd";
 import { useHotkeys } from "react-hotkeys-hook";
 import { openNotification } from "@/utils/utils";
 import FormDesign from "../forms/designs/FormDesign";
@@ -26,7 +26,10 @@ export default function Designer({
   const [selectedButton, setSelectedButton] = useState<
     "preview" | "field" | "design" | "Export code"
   >("field");
+  const childRef = useRef();
 
+  const [isCopied, setIsCopied] = useState(false);
+  const [isDownload, setIsDownload] = useState(false);
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const handleSave = async () => {
@@ -162,7 +165,7 @@ export default function Designer({
               {elements.length > 0 ? (
                 <Badge
                   style={{ backgroundColor: "#36b3fa" }}
-                  count={elements.length}
+                  count={elements.length + " Element(s)"}
                 ></Badge>
               ) : (
                 <Badge
@@ -171,16 +174,48 @@ export default function Designer({
                 ></Badge>
               )}
             </div>
-            <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
-              <Button
-                loading={isLoading}
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                onClick={handleSave}
-                disabled={isSaved}
-              >
-                Save Changes
-              </Button>
-            </Badge>
+            {selectedButton === "field" && (
+              <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
+                <Button
+                  loading={isLoading}
+                  className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                  onClick={handleSave}
+                  disabled={isSaved}
+                >
+                  Save Changes
+                </Button>
+              </Badge>
+            )}
+
+            {selectedButton === "Export code" && (
+              <>
+                {" "}
+                <div className="flex justify-between space-x-5 px-4 py-4">
+                  <Button
+                    key="copy"
+                    type="primary"
+                    onClick={() => {
+                      if (childRef.current) {
+                        childRef.current.copyToClipboard();
+                      }
+                    }} 
+                  >
+                    Copy
+                  </Button>
+                  <Button
+                    key="download"
+                    type="primary"
+                    onClick={() => {
+                      if (childRef.current) {
+                        childRef.current.downloadCode();
+                      }
+                    }} 
+                  >
+                    Download Code
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -194,7 +229,16 @@ export default function Designer({
             </>
           )}
           {selectedButton === "design" && <FormDesign />}
-          {selectedButton === "Export code" && <FormCodeGenerator />}
+          {selectedButton === "Export code" && (
+            <FormCodeGenerator 
+            ref={childRef} 
+            onCopyComplete={( componentCode:string) => {
+        
+            }}
+            onDownloadComplete={( componentCode:string) =>  {
+ 
+            }} />
+          )}
         </div>
       </div>
     </>

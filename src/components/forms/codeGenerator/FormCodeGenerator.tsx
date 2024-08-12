@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import useDesigner from "@/hooks/useDesigner";
 import { Button, message } from "antd";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow as codeStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-const FormCodeGenerator = () => {
-  const [componentCode, setComponentCode] = useState("");
-  const { elements, submitBtn } = useDesigner();
+interface FormCodeGeneratorProps { 
+  onCopyComplete?: (componentCode: string) => void;
+  onDownloadComplete?: ( componentCode: string) => void;
+}
 
+const FormCodeGenerator = forwardRef(({
+  onCopyComplete, 
+  onDownloadComplete
+}: FormCodeGeneratorProps, ref)  =>  {
+  const [componentCode, setComponentCode] = useState("");
+  const { elements, submitBtn } = useDesigner(); 
+ 
   const generateComponentCode = () => {
     const componentCode = elements.map((input, index) => {
       let inputElement = "";
@@ -134,6 +142,10 @@ export default GeneratedForm;
     setComponentCode(exportCode);
   };
 
+  useEffect(() => {
+    generateComponentCode();
+  }, [elements]);
+
   const downloadCode = () => {
     const element = document.createElement("a");
     const file = new Blob([componentCode], { type: "text/plain" });
@@ -141,36 +153,54 @@ export default GeneratedForm;
     element.download = "generated_code.tsx";
     document.body.appendChild(element);
     element.click();
-  };
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(componentCode);
-      message.success("Copied to clipboard!");
-    } catch (error) {
-      message.error("Failed to copy: " + error);
+    if (onDownloadComplete) {
+      onDownloadComplete(componentCode);
     }
   };
 
-  useEffect(() => {
-    generateComponentCode();
-  }, [elements]);
+  const copyToClipboard = async () => {
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(componentCode);
+        message.success("Copied to clipboard!");
+        if (onCopyComplete) {
+          onCopyComplete(componentCode);
+        }
+      } catch (error) {
+        message.error("Failed to copy: " + error);
+      }
+    } else {
+      // Fallback for unsupported environments
+      const textArea = document.createElement("textarea");
+      textArea.value = componentCode;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        message.success("Copied to clipboard!");
+        if (onCopyComplete) {
+          onCopyComplete(componentCode);
+        }
+      } catch (error) {
+        message.error("Failed to copy: " + error);
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    }
+  };
+  
+  useImperativeHandle(ref, () => ({
+    downloadCode,
+    copyToClipboard,
+  }));
 
   return (
-    <div className="  text-white my-6 rounded-lg   mx-auto flex pl-[4.5rem]  flex-col justify-center">
-      <div className="flex justify-between space-x-5 px-4 py-4">
-        <Button key="copy" type="primary" onClick={copyToClipboard}>
-          Copy
-        </Button>
-        <Button key="download" type="primary" onClick={downloadCode}>
-          Download Code
-        </Button>
-      </div>
+    <div className="text-white my-6 rounded-lg mx-auto flex pl-[4.5rem] flex-col justify-center">
       <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
       </SyntaxHighlighter>
     </div>
   );
-};
+});
 
 export default FormCodeGenerator;

@@ -59,7 +59,9 @@ export default function BadgeElement({
               </div>
             )  }
            
-           <AntBadge count={element.options && element.options?.length !==0 ?  element.options && element.options.length :0}  >
+           <AntBadge
+            style={{ backgroundColor: "#36b3fa" }}
+           count={element.options && element.options?.length !==0 ?  element.options && element.options.length :0}  >
             
             <Badge
             className=" shadow-lg z-10 rounded-lg hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
