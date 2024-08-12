@@ -156,11 +156,18 @@ export default function Designer({
               {form.title}
               <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>
               <div className="pr-4">{selectedButton}</div>
+            
+              {elements.length > 0 ?
+              <Badge style={{ backgroundColor: "#36b3fa" }} count={elements.length}>
+                
+              </Badge>
+              :  
+              
               <Badge
                 style={{ backgroundColor: "#36b3fa" }}
-                count={elements.length}
+                count= { "0 Element" }
               >
-              </Badge>
+              </Badge>}
             </div>
             <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
               <Button

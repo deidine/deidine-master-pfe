@@ -14,6 +14,7 @@ import useGeneral from "@/hooks/useGeneral";
 import { CiCircleInfo } from "react-icons/ci";
 import { MdMoreHoriz } from "react-icons/md";
 import ModelForm from "./ModelForm";
+import { Badge as AntBadge } from "antd";
 
 export default function CardForm({
   form,
@@ -21,7 +22,7 @@ export default function CardForm({
   reftchForm,
 }: {
   form: Form;
-  isEditFormtrriger: ( ) => void;
+  isEditFormtrriger: () => void;
   reftchForm: (ok: boolean) => void;
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -94,12 +95,14 @@ export default function CardForm({
 
   const duplicateFormToLocalStorage = async (formToDuplicate: Form) => {
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-    
+
     const baseTitle = formToDuplicate.title.replace(/\s*\(\d*\)$/, "").trim();
-    
+
     let highestCopyNumber = 0;
     forms.forEach((form: Form) => {
-      const match = form.title.match(new RegExp(`^${baseTitle}\\s*\\((\\d*)\\)$`));
+      const match = form.title.match(
+        new RegExp(`^${baseTitle}\\s*\\((\\d*)\\)$`)
+      );
       if (match) {
         const copyNumber = parseInt(match[1] || "1", 10);
         if (copyNumber > highestCopyNumber) {
@@ -107,15 +110,15 @@ export default function CardForm({
         }
       }
     });
-   
+
     const newTitle = `${baseTitle} (${highestCopyNumber + 1})`;
-  
+
     const newForm = {
       ...formToDuplicate,
       id: Date.now(),
       title: newTitle,
     };
-  
+
     forms.push(newForm);
     localStorage.setItem("forms", JSON.stringify(forms));
     openNotification(
@@ -125,23 +128,24 @@ export default function CardForm({
       "Form duplicated successfully in Local Storage"
     );
   };
-  
 
   const handleDuplicateClick = async (e: any) => {
     e.stopPropagation();
-  
+
     if (form.isFromLocalStorage) {
       duplicateFormToLocalStorage(form);
     } else {
       const baseTitle = form.title.replace(/\s*\(\d*\)$/, "").trim();
-      
+
       // Fetch all forms to find the highest copy number
       const response = await fetch(`/api/forms/?user_id=${user?.id}`);
-    const  data= await response.json();
-      const forms =  data.forms
+      const data = await response.json();
+      const forms = data.forms;
       let highestCopyNumber = 0;
       forms.forEach((existingForm: Form) => {
-        const match = existingForm.title.match(new RegExp(`^${baseTitle}\\s*\\((\\d*)\\)$`));
+        const match = existingForm.title.match(
+          new RegExp(`^${baseTitle}\\s*\\((\\d*)\\)$`)
+        );
         if (match) {
           const copyNumber = parseInt(match[1] || "1", 10);
           if (copyNumber > highestCopyNumber) {
@@ -149,10 +153,10 @@ export default function CardForm({
           }
         }
       });
-  
+
       // Create the new title with incremented copy number
       const newTitle = `${baseTitle} (${highestCopyNumber + 1})`;
-  
+
       const saveResponse = await saveToDatabase(
         newTitle,
         form.content,
@@ -168,11 +172,15 @@ export default function CardForm({
       );
     }
     reftchForm(true);
-  
+
     handleMenuClick(); // Close the dropdown menu
   };
-  
-  const editToLocalStorage = (title: string, description: string, formId: number) => {
+
+  const editToLocalStorage = (
+    title: string,
+    description: string,
+    formId: number
+  ) => {
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     const updatedForms = forms.map((form: any) => {
       if (form.id === formId) {
@@ -192,11 +200,11 @@ export default function CardForm({
       "Data updated successfully in local storage"
     );
     setIsModalVisible(false);
-    isEditFormtrriger()
+    isEditFormtrriger();
   };
   const handleEdit = async (title: string, description: string) => {
     if (!isUserOnline) {
-      editToLocalStorage(title, description,form.id);
+      editToLocalStorage(title, description, form.id);
       return;
     } else {
       setIsUserOnline(true);
@@ -227,9 +235,9 @@ export default function CardForm({
         "Data inserted",
         "Data inserted successfully in database"
       );
-      isEditFormtrriger()
+      isEditFormtrriger();
     } catch (error) {
-      editToLocalStorage(title, description,form.id);
+      editToLocalStorage(title, description, form.id);
       console.error("Error:", error);
     }
   };
@@ -240,7 +248,7 @@ export default function CardForm({
         <button
           onClick={async (e) => {
             e.stopPropagation();
-         
+
             setIsModalVisible(true);
             handleMenuClick(); // Close the dropdown menu
           }}
@@ -321,7 +329,21 @@ export default function CardForm({
             ) : (
               <CiCircleCheck className="text-green-500" />
             )}{" "}
-            <p className="text-lg"> {form.title}</p>
+            <p className="text-lg">
+              {" "}
+              {form.title}{" "}
+              {form.content.length > 0 ? (
+                <AntBadge
+                  style={{ backgroundColor: "#36b3fa" }}
+                  count={form.content.length}
+                ></AntBadge>
+              ) : (
+                <AntBadge
+                  style={{ backgroundColor: "#36b3fa" }}
+                  count={"0 Element"}
+                ></AntBadge>
+              )}
+            </p>
           </div>{" "}
           <Dropdown
             overlay={menu}
