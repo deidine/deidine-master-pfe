@@ -24,7 +24,10 @@ export default function OptionPopUp({
   const [isEditing, setIsEditing] = useState(isEditingSate);
 const { setIsEditFormCard } = useDesigner();
   return (
-    <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100">
+    <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100"
+    onClick={(e) => {
+      e.stopPropagation(); 
+     }}>
     
       <Tooltip title="Open side bar">
         <Badge

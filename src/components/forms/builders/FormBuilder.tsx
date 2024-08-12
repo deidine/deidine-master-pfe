@@ -36,7 +36,6 @@ export default function FormBuilder() {
           className="fixed inset-0  bg-black bg-opacity-50 z-50 overflow-auto transition-opacity duration-300 ease-in-out"
           onClick={() => {
             setIsSidebarVisible(!isSidebarVisible);
-             // colseSideBarref.current?.click();
           }}
         >
           <div

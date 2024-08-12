@@ -30,6 +30,9 @@ export default function FormElement({
     <div
       key={index}
       ref={editButtonRef} 
+      onClick={() => {
+        setIsSidebarVisible(!isSidebarVisible);
+      }}
       className={`${
         isEditing ? "" : "hover:bg-slate-200"
       } flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm group`}
