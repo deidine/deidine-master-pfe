@@ -17,22 +17,22 @@ import { SelectOptionSidBarOptions } from "./SelectOptionSidBarOptions";
 export default function SidBarOptions({
   element,
 }: {
-  element: SelectElement | InputElement;
+  element?: SelectElement | InputElement ;
 }) {
-  const [placholder, setPlacholder] = useState(element.placeholder);
-  const [inputLabel, setInputLabel] = useState(element.label);
-  const [inputType, setInputType] = useState<ElementType>(element.type);
-  const [isRequired, setIsRequired] = useState(element.required);
+  const [placholder, setPlacholder] = useState(element!.placeholder);
+  const [inputLabel, setInputLabel] = useState(element!.label);
+  const [inputType, setInputType] = useState<ElementType>(element!.type);
+  const [isRequired, setIsRequired] = useState(element!.required);
   const [_, setAllowedPatternOptions] = useState(
     patternOptions.filter((option) =>
-      option.allowedTypes.includes(element.type)
+      option.allowedTypes.includes(element!.type)
     )
   );
   const { updateElement } = useDesigner();
   const handleTypeChange = (value: ElementType) => {
     setInputType(value);
-    updateElement(element.name, {
-      ...element,
+    updateElement(element!.name, {
+      ...element!,
       type: value,
       pattern: "",
       allowedEtentions: "",
@@ -41,11 +41,11 @@ export default function SidBarOptions({
 
   const handleLabelChange = (e: any) => {
     setInputLabel(e.target.value);
-    updateElement(element.name, { ...element, label: e.target.value });
+    updateElement(element!.name, { ...element!, label: e.target.value });
   };
   const handlePlaceholderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlacholder(e.target.value);
-    updateElement(element.name, { ...element, placeholder: e.target.value });
+    updateElement(element!.name, { ...element!, placeholder: e.target.value });
   };
 
   useEffect(() => {
@@ -79,10 +79,10 @@ export default function SidBarOptions({
             onChange={handleTypeChange}
             placeholder="Select input type"
           >
-            {element.type === "select" ||
-            element.type === "select_multiple" ||
-            element.type === "radio" ||
-            element.type === "checkbox"
+            {element!.type === "select" ||
+            element!.type === "select_multiple" ||
+            element!.type === "radio" ||
+            element!.type === "checkbox"
               ? selectTypeOptions.map((option) => (
                   <Select.Option key={option.value} value={option.value}>
                     {option.label}
@@ -98,10 +98,10 @@ export default function SidBarOptions({
 
         <div>
           <RequiredComponent
-            required={element.required!}
+            required={element!.required!}
             toggleRequired={() => {
-              updateElement(element.name, {
-                ...element,
+              updateElement(element!.name, {
+                ...element!,
                 required: !isRequired,
               });
 
@@ -118,15 +118,15 @@ export default function SidBarOptions({
             onChange={handlePlaceholderChange}
             className="mb-4"
           />
-          {element.type === "select" ||
-          element.type === "select_multiple" ||
-          element.type === "radio" ||
-          element.type === "checkbox" ? (
-            <SelectOptionSidBarOptions element={element} />
-          ) : element.type === "file" ||
-            element.type === "date" ||
-            element.type === "datetime-local" ||
-            element.type === "time" ? (
+          {element!.type === "select" ||
+          element!.type === "select_multiple" ||
+          element!.type === "radio" ||
+          element!.type === "checkbox" ? (
+            <SelectOptionSidBarOptions element={element!} />
+          ) : element!.type === "file" ||
+            element!.type === "date" ||
+            element!.type === "datetime-local" ||
+            element!.type === "time" ? (
             <> </>
           ) : (
             <></>
@@ -136,8 +136,8 @@ export default function SidBarOptions({
             // />
           )}
         </div>
-        {element.type === "date" && <DateChoicePeriodInput element={element} />}
-        {element.type == "file" && <FileAllowedExtensions element={element} />}
+        {element!.type === "date" && <DateChoicePeriodInput element={element} />}
+        {element!.type == "file" && <FileAllowedExtensions element={element!} />}
       </motion.div>
     </AnimatePresence>
   );

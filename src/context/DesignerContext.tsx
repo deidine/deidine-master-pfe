@@ -23,6 +23,7 @@ type DesignerContextType = {
   copyElement: (id: string) => void;
   duplicateElement: (index: number, id: string) => void;
   cutElement: (id: string) => void;
+  isSidebarVisible:boolean; setIsSidebarVisible:(value: boolean) => void;
   pasteElement: (index: number) => void;
 };
 
@@ -32,6 +33,8 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [elements, setElements] = useState<FormElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
+  
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [isEditFormCard, setIsEditFormCard] = useState<string>( "false");
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -129,7 +132,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
 
   return (
     <DesignerContext.Provider
-      value={{
+      value={{isSidebarVisible, setIsSidebarVisible,
         elements,
         isEditFormCard,
         submitBtn,

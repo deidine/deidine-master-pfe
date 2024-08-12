@@ -95,11 +95,11 @@ export default function CardForm({
   const duplicateFormToLocalStorage = async (formToDuplicate: Form) => {
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
     
-    const baseTitle = formToDuplicate.title.replace(/\s*\(Copy\d*\)$/, "").trim();
+    const baseTitle = formToDuplicate.title.replace(/\s*\(\d*\)$/, "").trim();
     
     let highestCopyNumber = 0;
     forms.forEach((form: Form) => {
-      const match = form.title.match(new RegExp(`^${baseTitle}\\s*\\(Copy(\\d*)\\)$`));
+      const match = form.title.match(new RegExp(`^${baseTitle}\\s*\\((\\d*)\\)$`));
       if (match) {
         const copyNumber = parseInt(match[1] || "1", 10);
         if (copyNumber > highestCopyNumber) {
@@ -108,7 +108,7 @@ export default function CardForm({
       }
     });
    
-    const newTitle = `${baseTitle} (Copy${highestCopyNumber + 1})`;
+    const newTitle = `${baseTitle} (${highestCopyNumber + 1})`;
   
     const newForm = {
       ...formToDuplicate,
@@ -133,7 +133,7 @@ export default function CardForm({
     if (form.isFromLocalStorage) {
       duplicateFormToLocalStorage(form);
     } else {
-      const baseTitle = form.title.replace(/\s*\(Copy\d*\)$/, "").trim();
+      const baseTitle = form.title.replace(/\s*\(\d*\)$/, "").trim();
       
       // Fetch all forms to find the highest copy number
       const response = await fetch(`/api/forms/?user_id=${user?.id}`);
@@ -141,7 +141,7 @@ export default function CardForm({
       const forms =  data.forms
       let highestCopyNumber = 0;
       forms.forEach((existingForm: Form) => {
-        const match = existingForm.title.match(new RegExp(`^${baseTitle}\\s*\\(Copy(\\d*)\\)$`));
+        const match = existingForm.title.match(new RegExp(`^${baseTitle}\\s*\\((\\d*)\\)$`));
         if (match) {
           const copyNumber = parseInt(match[1] || "1", 10);
           if (copyNumber > highestCopyNumber) {
@@ -151,7 +151,7 @@ export default function CardForm({
       });
   
       // Create the new title with incremented copy number
-      const newTitle = `${baseTitle} (Copy${highestCopyNumber + 1})`;
+      const newTitle = `${baseTitle} (${highestCopyNumber + 1})`;
   
       const saveResponse = await saveToDatabase(
         newTitle,
