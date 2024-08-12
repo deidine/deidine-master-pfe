@@ -22,9 +22,7 @@ export default function RequiredComponent({
           setIsRequired(!isRequired);
         }}
         className="flex flex-col items-start gap-2 cursor-pointer justify-between hover:bg-zinc-100 rounded-lg px-1 py-1">
-          <label className="text-xl leading-none  cursor-pointer  peer-disabled:cursor-not-allowed peer-disabled:opacity-70 font-normal flex-1 text-zinc-600">
-          {isRequired ? "Required" : "Not Required"}   :{"   "}
-          </label>
+          
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -67,9 +65,7 @@ export default function RequiredComponent({
               setIsRequired(!isRequired);
             }}
           >
-            <label className="text-sm leading-none font-normal  text-zinc-600">
-              Required {"   "}
-            </label>
+          
           </Checkbox>
         </Button>
       )}

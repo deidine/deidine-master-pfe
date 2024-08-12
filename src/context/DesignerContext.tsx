@@ -13,8 +13,7 @@ type DesignerContextType = {
   submitBtn: string;
   selectedElement: FormElement | null;
   setSelectedElement: Dispatch<SetStateAction<FormElement | null>>;
-  isEditFormCard: string;
-  setIsEditFormCard: (value: string) => void;
+ 
   updateElement: (name: string, element: SelectElement | InputElement) => void;
   undo: () => void;
   redo: () => void;
@@ -34,14 +33,13 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
   
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const [isEditFormCard, setIsEditFormCard] = useState<string>( "false");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isEditing = localStorage.getItem("isEditing") || "false";
-      setIsEditFormCard(isEditing);
-    }
-  }, []);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false); 
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const isEditing = localStorage.getItem("isEditing") || "false";
+  //     setIsEditFormCard(isEditing);
+  //   }
+  // }, []);
 
   const undoStack = useRef<FormElement[][]>([]);
   const redoStack = useRef<FormElement[][]>([]);
@@ -133,14 +131,12 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   return (
     <DesignerContext.Provider
       value={{isSidebarVisible, setIsSidebarVisible,
-        elements,
-        isEditFormCard,
+        elements, 
         submitBtn,
         setSubmitBtn,
         setElements,
         addElement,
-        removeElement,
-        setIsEditFormCard,
+        removeElement, 
         selectedElement,
         setSelectedElement,
         updateElement,

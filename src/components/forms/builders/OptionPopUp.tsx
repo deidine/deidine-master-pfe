@@ -10,28 +10,22 @@ import useDesigner from "@/hooks/useDesigner";
 
 export default function OptionPopUp({
   name,
-  form,
-  removeElement,
-  isEditingSate,
-  setIsEditingState,
-  toogleSidBar,
+  form,  
+  toogleSidBar,removeElement
 }: {
-  toogleSidBar: () => void;
-  isEditingSate: boolean;
+  toogleSidBar: () => void; 
   name: string;
-  form: FormElement;
-  setIsEditingState: (value:boolean ) => void;
+  form: FormElement; 
   removeElement: (name: string) => void;
-}) {
-  const [isEditing, setIsEditing] = useState(isEditingSate);
-  const { setIsEditFormCard,setSelectedElement } = useDesigner();
+}) { 
+  const {  setSelectedElement } = useDesigner();
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100"
     onClick={(e) => {
       e.stopPropagation(); 
      }}>
     
-      <Tooltip title="Open side bar">
+      {/* <Tooltip title="Open side bar">
         <Badge
           className="w-auto text-center h-6 hover:text-green-500 bg-white rounded-md"
           onClick={() => {
@@ -42,17 +36,21 @@ export default function OptionPopUp({
  
           <FiSidebar />
         </Badge>
-      </Tooltip>
+      </Tooltip> */}
       <Tooltip title="Edit Label">
         <Badge
           className="w-auto text-center hover:text-yellow-500 h-6 bg-white rounded-md"
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation();
-            setIsEditing(!isEditing);
+          // onClick={(e: React.MouseEvent) => {
+          //   e.stopPropagation();
+          //   setIsEditing(!isEditing);
           
-            setIsEditFormCard(JSON.stringify(!isEditing));
-            localStorage.setItem("isEditing", JSON.stringify(!isEditing));
-            setIsEditingState(!isEditing);
+          //   setIsEditFormCard(JSON.stringify(!isEditing));
+          //   localStorage.setItem("isEditing", JSON.stringify(!isEditing));
+          //   setIsEditingState(!isEditing);
+          // }}
+          onClick={() => {
+            toogleSidBar();
+            setSelectedElement(form);
           }}
         >
           <EditOutlined />

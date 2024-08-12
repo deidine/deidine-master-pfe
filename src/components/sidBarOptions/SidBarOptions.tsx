@@ -64,14 +64,24 @@ export default function SidBarOptions({
         className="space-y-6"
       >
         <div>
+        <LabelValue value="Label" />
+        <div>
           <AutoResizeTextarea
             inputLabel={inputLabel}
             handleLabelChange={handleLabelChange}
             isEditing={true}
           />
         </div>
+          <LabelValue value="Placeholder" />
+          <Input
+            placeholder="Placeholder"
+            value={placholder}
+            onChange={handlePlaceholderChange}
+            className="mb-4"
+          />
+        </div>
 
-        <div>
+        <div className="flex gap-2 items-center">
           <LabelValue value="Type" />
           <Select
             className="w-full"
@@ -94,9 +104,9 @@ export default function SidBarOptions({
                   </Select.Option>
                 ))}
           </Select>
-        </div>
-
-        <div>
+       
+          <div className="flex gap-2 items-center">
+            <LabelValue value={ isRequired ? "Required" : "Optional"} />
           <RequiredComponent
             required={element!.required!}
             toggleRequired={() => {
@@ -108,16 +118,12 @@ export default function SidBarOptions({
               setIsRequired(!isRequired);
             }}
             isSwitchButton={true}
-          />
+          />   
+       
+          </div>
         </div>
         <div>
-          <LabelValue value="Placeholder" />
-          <Input
-            placeholder="Placeholder"
-            value={placholder}
-            onChange={handlePlaceholderChange}
-            className="mb-4"
-          />
+       
           {element!.type === "select" ||
           element!.type === "select_multiple" ||
           element!.type === "radio" ||

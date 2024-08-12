@@ -41,7 +41,7 @@ const newElement = (type: ElementType) => {
        type: type,
        label: "Label",
        name: nameGenerator(),
-       placeholder: "Enter your data",
+       placeholder: "Placeholder",
        value: "",
        required: false,
        pattern: "",

@@ -157,7 +157,7 @@ export default GeneratedForm;
   }, [elements]);
 
   return (
-    <div className="  text-white my-6 rounded-lg shadow-lg mx-auto flex flex-col justify-center">
+    <div className="  text-white my-6 rounded-lg   mx-auto flex pl-[4.5rem]  flex-col justify-center">
       <div className="flex justify-between space-x-5 px-4 py-4">
         <Button key="copy" type="primary" onClick={copyToClipboard}>
           Copy
@@ -166,7 +166,7 @@ export default GeneratedForm;
           Download Code
         </Button>
       </div>
-      <SyntaxHighlighter language="typescript" style={codeStyle}>
+      <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
       </SyntaxHighlighter>
     </div>

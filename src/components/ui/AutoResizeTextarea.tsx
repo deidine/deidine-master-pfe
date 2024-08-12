@@ -21,7 +21,7 @@ const AutoResizeTextarea = ({
   }, [inputLabel]);
 
   return (
-    <div className="w-full mb-1 relative h-auto" 
+    <div className="w-full mb-1 relative h-auto border-2 rounded-lg p-2" 
      onClick={(e) => {
        e.stopPropagation();
     }}
