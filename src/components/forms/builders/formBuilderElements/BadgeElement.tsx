@@ -36,13 +36,7 @@ export default function BadgeElement({
            
           </div>
           <div className="flex flex-wrap gap-2">
-            {element.required && (
-              <Badge variant={"destructive"}
-            className=" shadow-lg z-10 rounded-lg text-black border-red-400 hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
-               >
-                Required
-              </Badge>
-            )}
+        
             {elementPattern && (
               
               <div className="flex flex-wrap gap-2"> 
@@ -60,7 +54,10 @@ export default function BadgeElement({
             )  }
            
            <AntBadge
-            style={{ backgroundColor: "#36b3fa" }}
+        style={{
+          backgroundColor: elementType[0].bgColor,
+          color: "black",
+        }}
            count={element.options && element.options?.length !==0 ?  element.options && element.options.length :0}  >
             
             <Badge
@@ -76,6 +73,16 @@ export default function BadgeElement({
            
           </Badge> 
              </AntBadge>
+             <div className="pl-4">
+
+        
+             {element.required && (
+              <Badge variant={"destructive"}
+            className=" shadow-lg  z-10 rounded-lg text-black border-mainColor hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
+               >
+                Required
+              </Badge>
+            )}     </div>
           </div>
         </div>
       </div>

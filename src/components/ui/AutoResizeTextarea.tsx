@@ -31,7 +31,7 @@ const AutoResizeTextarea = ({
         placeholder="label"
         className={`
           resize-none p-0 focus:outline-none w-full overflow-hidden
-          ${isEditing ? "text-xl font-bold" : "font-bold line-through"}
+          ${isEditing ? "" : "font-bold line-through"}
         `}
         readOnly = {!isEditing}
         value={inputLabel}

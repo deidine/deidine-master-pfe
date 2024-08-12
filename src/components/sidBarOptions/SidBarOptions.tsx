@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useDesigner from "@/hooks/useDesigner";
 import { DateChoicePeriodInput } from "./DateChoicePeriodInput";
 import { FileAllowedExtensions } from "./FileAllowedExtensions";
-import { LabelValue } from "./LabelValue";
+import { LabelValue, LabelValue2 } from "./LabelValue";
 import { SelectOptionSidBarOptions } from "./SelectOptionSidBarOptions";
  
 export default function SidBarOptions({
@@ -106,7 +106,7 @@ export default function SidBarOptions({
           </Select>
        
           <div className="flex gap-2 items-center">
-            <LabelValue value={ isRequired ? "Required" : "Optional"} />
+          
           <RequiredComponent
             required={element!.required!}
             toggleRequired={() => {
@@ -119,7 +119,7 @@ export default function SidBarOptions({
             }}
             isSwitchButton={true}
           />   
-       
+         <LabelValue2 value={ isRequired ? "Required" : "Required"} />
           </div>
         </div>
         <div>
