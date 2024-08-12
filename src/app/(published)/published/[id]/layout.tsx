@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "This is the published version of the form",
 };
 
-export default function PublishLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

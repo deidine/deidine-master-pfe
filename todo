@@ -7,3 +7,8 @@
 [] disable butnnoon save
 [] ui 
 [] short cat for edit previw
+
+
+[] change the form id to be id genarator
+[] table show submition for each form 
+[] create table in db for submition stor the submition of the user and of the form
