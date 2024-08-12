@@ -1,5 +1,6 @@
 "use client";
-
+import { FaUndo } from "react-icons/fa";
+import { FaRedo } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import PreviewForm from "../forms/previews/PreviewForm";
 import FormBuilder from "../forms/builders/FormBuilder";
@@ -19,17 +20,15 @@ export default function Designer({
   form: Form;
   isFromLocalStorage: boolean;
 }) {
-  const { setElements } = useDesigner();
+  const { setElements,undo,redo,undoStack,
+redoStack, } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const { elements } = useDesigner();
   const isFirstRender = useRef(true);
   const [selectedButton, setSelectedButton] = useState<
     "preview" | "field" | "design" | "Export code"
   >("field");
-  const childRef = useRef();
-
-  const [isCopied, setIsCopied] = useState(false);
-  const [isDownload, setIsDownload] = useState(false);
+  const childRef = useRef(); 
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const handleSave = async () => {
@@ -175,6 +174,15 @@ export default function Designer({
               )}
             </div>
             {selectedButton === "field" && (
+              <div className="flex justify-between space-x-5 px-4 py-4">
+              
+      <Button onClick={undo} disabled={undoStack.length === 0}>
+          <FaUndo/>
+        </Button>
+        <Button onClick={redo} disabled={redoStack.length === 0}>
+          <FaRedo/>
+        </Button>
+    
               <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
                 <Button
                   loading={isLoading}
@@ -185,6 +193,7 @@ export default function Designer({
                   Save Changes
                 </Button>
               </Badge>
+              </div>
             )}
 
             {selectedButton === "Export code" && (

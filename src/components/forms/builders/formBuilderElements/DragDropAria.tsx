@@ -13,11 +13,9 @@ export default function DragDropAria() {
         elements,
         setElements,  
         setSelectedElement,
-        undoStack, 
-        isEditFormCard
+        undoStack 
       } = useDesigner();
-      
-      const [isEditing, setIsEditing] = useState(isEditFormCard);
+       
       const handleOnDragEnd = (result: any) => {
         setDraggingElementIndex(null);
         setDestinationIndex(null);
