@@ -164,7 +164,7 @@ export default function Designer({
               :  
               
               <Badge
-                style={{ backgroundColor: "#36b3fa" }}
+                style={{ backgroundColor: "#A6b3fa" }}
                 count= { "0 Element" }
               >
               </Badge>}

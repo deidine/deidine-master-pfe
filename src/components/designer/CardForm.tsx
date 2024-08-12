@@ -329,21 +329,24 @@ export default function CardForm({
             ) : (
               <CiCircleCheck className="text-green-500" />
             )}{" "}
-            <p className="text-lg">
+            <div className="flex justify-between gap-3 items-center">
+
+            <p className="text-lg pr-4">
               {" "}
-              {form.title}{" "}
+              {form.title}{" "}  </p>
               {form.content.length > 0 ? (
                 <AntBadge
                   style={{ backgroundColor: "#36b3fa" }}
                   count={form.content.length}
-                ></AntBadge>
-              ) : (
-                <AntBadge
-                  style={{ backgroundColor: "#36b3fa" }}
+                  ></AntBadge>
+                ) : (
+                  <AntBadge
+                  style={{ backgroundColor: "#A6b3fa" }}
                   count={"0 Element"}
-                ></AntBadge>
-              )}
-            </p>
+                  ></AntBadge>
+                )}
+                </div>
+          
           </div>{" "}
           <Dropdown
             overlay={menu}
