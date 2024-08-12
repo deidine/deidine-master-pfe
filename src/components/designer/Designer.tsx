@@ -9,6 +9,8 @@ import SideButtons from "./SideButtons";
 import { Avatar, Badge, Button } from "antd";
 import { useHotkeys } from "react-hotkeys-hook";
 import { openNotification } from "@/utils/utils";
+import FormDesign from "../forms/designs/FormDesign";
+import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
 
 export default function Designer({
   form,
@@ -17,13 +19,12 @@ export default function Designer({
   form: Form;
   isFromLocalStorage: boolean;
 }) {
-  const [preview, setPreview] = useState(false);
   const { setElements } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const { elements } = useDesigner();
   const isFirstRender = useRef(true);
   const [selectedButton, setSelectedButton] = useState<
-    "preview" | "field" | "design"
+    "preview" | "field" | "design" | "codeGenerator"
   >("field");
 
   const [isSaved, setIsSaved] = useState(true);
@@ -145,8 +146,9 @@ export default function Designer({
     <>
       <div className="flex relative  flex-col justify-center gap-2  w-full">
         <SideButtons
-          onPreview={(value: boolean) => setPreview(value)}
-          selected={function (current: "preview" | "field" | "design"): void {
+          selected={function (
+            current: "preview" | "field" | "design" | "codeGenerator"
+          ): void {
             setSelectedButton(current);
           }}
         />
@@ -156,18 +158,18 @@ export default function Designer({
               {form.title}
               <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>
               <div className="pr-4">{selectedButton}</div>
-            
-              {elements.length > 0 ?
-              <Badge style={{ backgroundColor: "#36b3fa" }} count={elements.length}>
-                
-              </Badge>
-              :  
-              
-              <Badge
-                style={{ backgroundColor: "#A6b3fa" }}
-                count= { "0 Element" }
-              >
-              </Badge>}
+
+              {elements.length > 0 ? (
+                <Badge
+                  style={{ backgroundColor: "#36b3fa" }}
+                  count={elements.length}
+                ></Badge>
+              ) : (
+                <Badge
+                  style={{ backgroundColor: "#A6b3fa" }}
+                  count={"0 Element"}
+                ></Badge>
+              )}
             </div>
             <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
               <Button
@@ -183,15 +185,16 @@ export default function Designer({
         </div>
 
         <div className="mx-auto  w-full flex flex-col items-center pt-[50px]  justify-center">
-          {preview ? (
+          {selectedButton === "preview" && <PreviewForm />}
+
+          {selectedButton === "field" && (
             <>
-              <PreviewForm />
-            </>
-          ) : (
-            <>
+              {" "}
               <FormBuilder /> <InsertElement />
             </>
           )}
+          {selectedButton === "design" && <FormDesign />}
+          {selectedButton === "codeGenerator" && <FormCodeGenerator />}
         </div>
       </div>
     </>
