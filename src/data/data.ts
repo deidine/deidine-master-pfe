@@ -98,75 +98,75 @@ const selectTypeOptions = [
   },
 ];
 
-const inputTypeOptions :InputTypeList[] = [
+const inputTypeOptions: InputTypeList[] = [
   {
     value: "text",
     label: "Text",
-    bgColor: "#FDECC8",
-    textColor: "text-black",
+    bgColor: "#FFF4E6", // Soft peach
+    textColor: "text-gray-800", // Dark gray
     icon: FiType,
-  },  {
+  },
+  {
     value: "url",
-    label: "url",
-    bgColor: "#FDECC8",
-    textColor: "text-black",
+    label: "URL",
+    bgColor: "#E6F7FF", // Light blue
+    textColor: "text-gray-800", // Dark gray
     icon: FiExternalLink,
   },
   {
     value: "file",
     label: "File",
-    bgColor: "#FDECC8",
-    textColor: "text-black",
+    bgColor: "#E6FFFA", // Light teal
+    textColor: "text-gray-800", // Dark gray
     icon: FiFile,
-  
   },
   {
     value: "time",
     label: "Time",
-    bgColor: "#FDECC8",
-    textColor: "text-black",
+    bgColor: "#FFFBE6", // Light yellow
+    textColor: "text-gray-800", // Dark gray
     icon: FiDatabase,
   },
   {
     value: "date",
     label: "Date",
-    bgColor: "#FDECC8",
-    textColor: "text-black",
+    bgColor: "#F0F5FF", // Light lavender
+    textColor: "text-gray-800", // Dark gray
     icon: FiDatabase,
   },
   {
     value: "datetime-local",
     label: "Date with time",
-    bgColor: "#FDECC8",
-    textColor: "text-black",
+    bgColor: "#F0F5FF", // Light lavender (same as Date)
+    textColor: "text-gray-800", // Dark gray
     icon: FiDatabase,
   },
   {
     value: "number",
     label: "Number",
-    bgColor: "#E3E2E0",
-    textColor: "text-black",
+    bgColor: "#F0FFF4", // Light mint
+    textColor: "text-gray-800", // Dark gray
     icon: FiHash,
   },
   {
     value: "email",
     label: "Email",
-    bgColor: "#DBEDDB",
-    textColor: "text-black",
+    bgColor: "#E6F0FF", // Light blue-gray
+    textColor: "text-gray-800", // Dark gray
     icon: FiMail,
   },
   {
     value: "password",
     label: "Password",
-    bgColor: "#E8DEEE",
-    textColor: "text-black",
+    bgColor: "#F3E8FF", // Soft purple
+    textColor: "text-gray-800", // Dark gray
     icon: FiLock,
   },
   {
     value: "textarea",
     label: "Textarea",
-    bgColor: "#F5E0E9",
-    textColor: "text-black",
+    bgColor: "#FFE6E6", // Soft pink
+    textColor: "text-gray-800", // Dark gray
     icon: FiAlignLeft,
   },
 ];

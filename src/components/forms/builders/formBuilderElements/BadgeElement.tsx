@@ -21,7 +21,7 @@ export default function BadgeElement({
     (option) => option.pattern === element.pattern
   );
   return (
-    <div className="flex flex-col p-2 w-full font-bold text-lg h-auto overflow-hidden">
+    <div className="flex flex-col  p-2 w-full font-bold text-lg h-auto overflow-hidden">
  
       <div>{element.label}</div>
       <div className="flex flex-col w-full items-start space-y-2">
@@ -32,7 +32,7 @@ export default function BadgeElement({
           <div className="flex gap-2 flex-wrap">
            
             <Badge
-              className="border hover:outline-none flex items-center gap-2"
+              className="border hover:outline-none  flex items-center gap-2"
               style={{
                 backgroundColor: elementType[0].bgColor,
                 color: elementType[0].textColor,
@@ -41,18 +41,18 @@ export default function BadgeElement({
              {elementType[0].icon && React.createElement(elementType[0].icon)}
               {element.type}
             </Badge>
-            <Badge className="bg-blue-500">{element.placeholder}</Badge>
+            <Badge className="bg-[#36b3fa] text-white">{element.placeholder}</Badge>
           </div>
           <div className="flex flex-wrap gap-2">
             {element.required && (
-              <Badge variant={"destructive"} className="bg-red-400">
+              <Badge variant={"destructive"} className="bg-red-400 text-mainColor">
                 Required
               </Badge>
             )}
             {elementPattern && (
               
               <div className="flex flex-wrap gap-2"> 
-                <Badge className="border hover:outline-none flex items-center gap-2"
+                <Badge className="border hover:outline-none  flex items-center gap-2"
                  style={{
                   backgroundColor: elementPattern?.bgColor,
                   color: elementPattern?.textColor,
@@ -65,13 +65,13 @@ export default function BadgeElement({
               </div>
             )}
             {element.options && (
-              <Badge className="bg-green-500 flex items-center gap-2 justify-center">
+              <Badge className="bg-white flex items-center gap-2 justify-center">
                 options
                 <div
-                  className={`rounded-full w-6 h-6 flex items-center justify-center ${
+                  className={`rounded-full w-6 h-6 text-white flex items-center justify-center ${
                     element.options.length !== 2
                       ? "bg-yellow-700"
-                      : "bg-red-700"
+                      : "bg-red-400"
                   }`}
                 >
                   {element.options.length}
