@@ -1,4 +1,4 @@
-import { Button, Checkbox, DatePicker, Form, Input, Select } from "antd";
+import {Input, Select } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import AutoResizeTextarea from "../ui/AutoResizeTextarea";
 import {
@@ -12,10 +12,8 @@ import useDesigner from "@/hooks/useDesigner";
 import { DateChoicePeriodInput } from "./DateChoicePeriodInput";
 import { FileAllowedExtensions } from "./FileAllowedExtensions";
 import { LabelValue } from "./LabelValue";
-import { PatternSidBarOptions } from "./PatternSidBarOptions";
 import { SelectOptionSidBarOptions } from "./SelectOptionSidBarOptions";
-const { Option } = Select;
-
+ 
 export default function SidBarOptions({
   element,
 }: {
@@ -25,7 +23,7 @@ export default function SidBarOptions({
   const [inputLabel, setInputLabel] = useState(element.label);
   const [inputType, setInputType] = useState<ElementType>(element.type);
   const [isRequired, setIsRequired] = useState(element.required);
-  const [allowedPatternOptions, setAllowedPatternOptions] = useState(
+  const [_, setAllowedPatternOptions] = useState(
     patternOptions.filter((option) =>
       option.allowedTypes.includes(element.type)
     )

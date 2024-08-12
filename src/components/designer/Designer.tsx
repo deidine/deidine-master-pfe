@@ -95,13 +95,15 @@ export default function Designer({
   }, [form, setElements, isReady]);
 
   useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
+  useHotkeys("ctrl+e, meta+e", handleSave, { preventDefault: true });
+  useHotkeys("ctrl+p, meta+p", handleSave, { preventDefault: true });
 
   useEffect(() => {
     if (isFirstRender.current) {
-      isFirstRender.current = false; // Set to false after the first render
+      isFirstRender.current = false;
       return;
     }
-    setIsSaved(false); // Set isSaved to false whenever elements change after the first render
+    setIsSaved(false);
   }, [elements]);
 
   useEffect(() => {
@@ -109,7 +111,7 @@ export default function Designer({
       if (!isSaved) {
         handleSave();
       }
-    }, 60000); // 60000 milliseconds = 1 minute
+    }, 60000);
 
     return () => clearInterval(interval);
   }, [isSaved]);
@@ -149,18 +151,18 @@ export default function Designer({
           }}
         />
         <div>
-          <div className="bg-white flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
+          <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed  flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
             <div className="flex items-center  text-lg pl-[100px] font-semibold">
-              {form.title}{" "}
-              <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>{" "}
-              <div>
-                <Badge count={elements.length}>
-                  <div className="w-[60px]">{selectedButton}</div>{" "}
-                </Badge>
-              </div>
-            </div>{" "}
+              {form.title}
+              <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>
+              <div className="pr-4">{selectedButton}</div>
+              <Badge
+                style={{ backgroundColor: "#36b3fa" }}
+                count={elements.length}
+              >
+              </Badge>
+            </div>
             <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
-              {" "}
               <Button
                 loading={isLoading}
                 className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
@@ -168,16 +170,15 @@ export default function Designer({
                 disabled={isSaved}
               >
                 Save Changes
-              </Button>{" "}
+              </Button>
             </Badge>
           </div>
         </div>
 
-        {/* <FormLinkShare shareUrl={'deidine'}/> */}
         <div className="mx-auto  w-full flex flex-col items-center pt-[50px]  justify-center">
           {preview ? (
             <>
-              <PreviewForm /> <InsertElement />
+              <PreviewForm />
             </>
           ) : (
             <>

@@ -11,7 +11,7 @@ export default function SideButtons({ onPreview,selected }: { onPreview: (value:
   const [selectedButton, setSelectedButton] = useState<'preview' | 'field' | 'design'>('field');
 
   return (
-    <div className="flex fixed pt-[80px] border border-r-[2px] gap-3 bg-white w-[110px] h-[100vh]
+    <div className="flex fixed z-30  pt-[80px]  border border-r-[2px] gap-3 bg-white w-[110px] h-[100vh]
     flex-col items-center justify-start top-0 ">
       <div className="flex flex-col gap-2 ">
            <div
