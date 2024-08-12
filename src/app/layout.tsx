@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-mainColor ">
+      <body className={`${inter.className} bg-mainColor`}>
         <DesignerContextProvider>
           <GeneralContextProvider>
             <NavBar />
@@ -32,3 +32,4 @@ export default function RootLayout({
     </html>
   );
 }
+ 

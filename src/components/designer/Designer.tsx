@@ -197,11 +197,14 @@ redoStack, } = useDesigner();
                   Save Changes
                 </Button>
               </Badge>
-    <FormLinkShare shareUrl={shareUrl}/>
-
               </div>
             )}
-            
+            {selectedButton === "preview" && (
+                <div className="flex justify-between space-x-5 px-4 py-4">
+                
+    <FormLinkShare shareUrl={shareUrl}/>
+</div>
+            )}
             {selectedButton === "Export code" && (
               <>
                 {" "}
