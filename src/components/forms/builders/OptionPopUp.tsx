@@ -10,6 +10,7 @@ import useDesigner from "@/hooks/useDesigner";
 
 export default function OptionPopUp({
   name,
+  form,
   removeElement,
   isEditingSate,
   setIsEditingState,
@@ -18,11 +19,12 @@ export default function OptionPopUp({
   toogleSidBar: () => void;
   isEditingSate: boolean;
   name: string;
+  form: FormElement;
   setIsEditingState: (value:boolean ) => void;
   removeElement: (name: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(isEditingSate);
-const { setIsEditFormCard } = useDesigner();
+  const { setIsEditFormCard,setSelectedElement } = useDesigner();
   return (
     <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100"
     onClick={(e) => {
@@ -34,6 +36,7 @@ const { setIsEditFormCard } = useDesigner();
           className="w-auto text-center h-6 hover:text-green-500 bg-white rounded-md"
           onClick={() => {
             toogleSidBar();
+            setSelectedElement(form);
           }}
         >
  
@@ -46,6 +49,7 @@ const { setIsEditFormCard } = useDesigner();
           onClick={(e: React.MouseEvent) => {
             e.stopPropagation();
             setIsEditing(!isEditing);
+          
             setIsEditFormCard(JSON.stringify(!isEditing));
             localStorage.setItem("isEditing", JSON.stringify(!isEditing));
             setIsEditingState(!isEditing);

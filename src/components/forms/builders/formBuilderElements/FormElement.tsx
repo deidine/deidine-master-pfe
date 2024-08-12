@@ -8,11 +8,13 @@ import BadgeElement from "@/components/forms/builders/formBuilderElements/BadgeE
 import CardEditElement from "@/components/forms/builders/formBuilderElements/CardEditElement"; 
 
 export default function FormElement({
+  form,
   element, 
   index,
 }: {
   index: number;
   element: SelectElement | InputElement; 
+  form: FormElement;
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputLabel, setInputLabel] = useState(element.label);
@@ -59,6 +61,7 @@ export default function FormElement({
           </>
         )}
         <OptionPopUp
+        form={form}
           name={element.name}
           removeElement={(name: string) => {
             removeElement(name);

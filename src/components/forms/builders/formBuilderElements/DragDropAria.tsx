@@ -76,6 +76,7 @@ export default function DragDropAria() {
                     onClick={() => setSelectedElement(element)}
                   >
                     <FormElement
+                    form={element}
                       index={index}
                       element={element.elementType}
                     />

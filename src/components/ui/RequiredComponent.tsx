@@ -16,7 +16,8 @@ export default function RequiredComponent({
     <>
       {isSwitchButton ? (
         <div
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           toggleRequired(isRequired!);
           setIsRequired(!isRequired);
         }}
@@ -25,7 +26,8 @@ export default function RequiredComponent({
           {isRequired ? "Required" : "Not Required"}   :{"   "}
           </label>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               toggleRequired(isRequired!);
               setIsRequired(!isRequired);
             }}
@@ -48,7 +50,9 @@ export default function RequiredComponent({
       ) : (
         <Button
           size="small"
-          onClick={() => {
+          onClick={(e) => {
+          e.stopPropagation();
+
             toggleRequired(isRequired!);
             setIsRequired(!isRequired);
           }}
@@ -56,7 +60,9 @@ export default function RequiredComponent({
         >
           <Checkbox
             checked={isRequired}
-            onClick={() => {
+            onClick={(e) => {
+          e.stopPropagation();
+
               toggleRequired(isRequired!);
               setIsRequired(!isRequired);
             }}
