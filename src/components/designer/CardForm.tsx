@@ -337,7 +337,7 @@ export default function CardForm({
               {form.content.length > 0 ? (
                 <AntBadge
                   style={{ backgroundColor: "#36b3fa" }}
-                  count={form.content.length}
+                  count={form.content.length+" Element(s)"}
                   ></AntBadge>
                 ) : (
                   <AntBadge

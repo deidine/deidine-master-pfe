@@ -1,5 +1,5 @@
 "use client";
-import { FaUndo } from "react-icons/fa";
+import { FaSave, FaUndo } from "react-icons/fa";
 import { FaRedo } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import PreviewForm from "../forms/previews/PreviewForm";
@@ -12,7 +12,8 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { openNotification } from "@/utils/utils";
 import FormDesign from "../forms/designs/FormDesign";
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
-
+import FormLinkShare from "../publishedForm/FormLinkShare";
+import { FaRegSave } from "react-icons/fa";
 export default function Designer({
   form,
   isFromLocalStorage,
@@ -20,6 +21,8 @@ export default function Designer({
   form: Form;
   isFromLocalStorage: boolean;
 }) {
+  const shareUrl = window.location.href.replace("forms", "published");
+
   const { setElements,undo,redo,undoStack,
 redoStack, } = useDesigner();
   const [isReady, setIsReady] = useState(false);
@@ -185,6 +188,7 @@ redoStack, } = useDesigner();
     
               <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
                 <Button
+                icon={<FaSave />}
                   loading={isLoading}
                   className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
                   onClick={handleSave}
@@ -193,9 +197,11 @@ redoStack, } = useDesigner();
                   Save Changes
                 </Button>
               </Badge>
+    <FormLinkShare shareUrl={shareUrl}/>
+
               </div>
             )}
-
+            
             {selectedButton === "Export code" && (
               <>
                 {" "}
