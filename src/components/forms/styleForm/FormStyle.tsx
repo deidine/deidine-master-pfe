@@ -1,16 +1,33 @@
+"use client"
 import { Button, Input } from 'antd';
-import React, { useState } from 'react';
-import { SketchPicker } from 'react-color';
+import React, { useState, useEffect } from 'react';
+import SketchPicker from 'react-color/lib/components/sketch/Sketch';
 
-export default function FormStyle() {
+export default function FormStyle({
+  form
+}: { form: Form }) {
+
   const [styles, setStyles] = useState({
-    padding: '',
-    bgColor: '#ffffff',
-    textColor: '#000000',
-    borderColor: '#000000',
-    margin: '',
-    radius: '',
+    padding: form.style?.padding || '',
+    backgroundColor: form.style?.backgroundColor || '#ffffff',
+    color: form.style?.color || '#000000',
+    borderColor: form.style?.borderColor || '#000000',
+    margin: form.style?.margin || '',
+    borderRadius: form.style?.borderRadius || '',
   });
+
+  useEffect(() => {
+    // Update the form's style when the styles state changes
+    form.style = {
+      ...form.style,
+      padding: styles.padding,
+      backgroundColor: styles.backgroundColor,
+      color: styles.color,
+      borderColor: styles.borderColor,
+      margin: styles.margin,
+      borderRadius: styles.borderRadius,
+    };
+  }, [styles, form]);
 
   const handleStyleChange = (key: keyof typeof styles, value: string) => {
     setStyles({
@@ -33,22 +50,22 @@ export default function FormStyle() {
       <div>
         <Button>Bg Color</Button>
         <SketchPicker
-          color={styles.bgColor}
-          onChangeComplete={(color:any) => handleStyleChange('bgColor', color.hex)}
+          color={styles.backgroundColor}
+          onChangeComplete={(color: any) => handleStyleChange('backgroundColor', color.hex)}
         />
       </div>
       <div>
         <Button>Text Color</Button>
         <SketchPicker
-          color={styles.textColor}
-          onChangeComplete={(color:any) => handleStyleChange('textColor', color.hex)}
+          color={styles.color}
+          onChangeComplete={(color: any) => handleStyleChange('color', color.hex)}
         />
       </div>
       <div>
         <Button>Border Color</Button>
         <SketchPicker
           color={styles.borderColor}
-          onChangeComplete={(color:any) => handleStyleChange('borderColor', color.hex)}
+          onChangeComplete={(color: any) => handleStyleChange('borderColor', color.hex)}
         />
       </div>
       <div>
@@ -64,8 +81,8 @@ export default function FormStyle() {
         <Button>Radius</Button>
         <Input
           type="text"
-          value={styles.radius}
-          onChange={(e) => handleStyleChange('radius', e.target.value)}
+          value={styles.borderRadius}
+          onChange={(e) => handleStyleChange('borderRadius', e.target.value)}
           placeholder="Enter border radius"
         />
       </div>

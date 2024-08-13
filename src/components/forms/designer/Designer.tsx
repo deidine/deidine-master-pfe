@@ -53,7 +53,7 @@ const childRef = useRef<any>();
               <FormBuilder /> <InsertElement />
             </>
           )}
-          {selectedButton === "design" && <StyleForm />}
+          {selectedButton === "design" && <StyleForm form={form} />}
           {selectedButton === "Export code" && (
             <FormCodeGenerator
               ref={childRef}

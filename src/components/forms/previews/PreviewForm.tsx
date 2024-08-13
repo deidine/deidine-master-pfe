@@ -10,10 +10,11 @@ import RadioPrev from "./elementTypePreview/RadioPrev";
 export default function PreviewForm({
   isTemplate,
   showSubmit,
-  elementsTemplate,
+  elementsTemplate,form
 }: {
   isTemplate?: boolean;
   showSubmit?: boolean;
+  form?: Form
   elementsTemplate?: Form[] | FormElement[];
 }) {
   const onFinish = (values: any) => {
@@ -39,10 +40,14 @@ export default function PreviewForm({
       layout="vertical" // Set the layout to vertical
       className={`${
         !isTemplate
-          ? "max-w-2xl mt-3  bg-white border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+          ? "max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
           : ""
-      }`}
+      }  `}
+      style={{
+        backgroundColor: form && form?.style?.backgroundColor,
+      }}
     >
+      <p className="text-red-600">{form && form?.style?.backgroundColor} </p>
     <span className="text-md font-semibold"> {elements.length==0 && "No elements to Preview"}</span> 
 
       {mapElement.map((element: any, index) => (

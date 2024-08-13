@@ -4,6 +4,16 @@ type Form= {
   description:string;
   content:FormElement[]; 
   isFromLocalStorage?:boolean;
+  style?: {
+    padding?: string;
+    margin?: string;
+    backgroundColor?: string;
+    textColor?: string;
+    border?: string;
+    borderRadius?: string;
+    boxShadow?: string;
+    [key: string]: string | undefined; // To allow any additional CSS properties
+  };
   create_at?: Date;
 }
 
