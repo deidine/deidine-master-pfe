@@ -16,7 +16,7 @@ export default function StyleForm() {
     <div className='flex justify-center items-center w-full h-full bg-black'>
       <div className='w-1/4 h-full pl-40 bg-white'>
         <h1>Form</h1>
-        <FormStyle onStyleChange={(style) => handleStyleChange(style)} />
+        <FormStyle  />
         <h1>Elements</h1>
         <ElementsStyles />
         <h1>Button</h1>
