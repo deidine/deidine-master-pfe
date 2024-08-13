@@ -10,7 +10,7 @@ import { FiLogOut } from "react-icons/fi";
 export default function NavBar() {
   const { user, setUser, isUserOnline } = useGeneral();
   const [open, setOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("/");
+  const [activeLink, setActiveLink] = useState("/forms");
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {

@@ -14,6 +14,7 @@ import FormDesign from "../forms/designs/FormDesign";
 import FormCodeGenerator from "../forms/codeGenerator/FormCodeGenerator";
 import FormLinkShare from "../publishedForm/FormLinkShare";
 import { FaRegSave } from "react-icons/fa";
+import { CiCircleInfo, CiCircleCheck } from "react-icons/ci";
 export default function Designer({
   form,
   isFromLocalStorage,
@@ -31,7 +32,7 @@ redoStack, } = useDesigner();
   const [selectedButton, setSelectedButton] = useState<
     "preview" | "field" | "design" | "Export code"
   >("field");
-  const childRef = useRef(); 
+  const childRef = useRef<any>(); 
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const handleSave = async () => {
@@ -160,6 +161,13 @@ redoStack, } = useDesigner();
         <div>
           <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed  flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
             <div className="flex items-center  text-lg pl-[100px] font-semibold">
+           <div className="pr-2">
+           {form.isFromLocalStorage ? (
+              <CiCircleInfo className="text-red-500" />
+            ) : (
+              <CiCircleCheck className="text-green-500" />
+            )}
+           </div>
               {form.title}
               <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>
               <div className="pr-4">{selectedButton}</div>

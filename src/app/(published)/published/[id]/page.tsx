@@ -50,13 +50,13 @@ export default function PublishFormPage({
   }
   // add table call sun=bmiton that store the sumbtion for each user and easch form ans all of them
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center items-center w-full my-auto h-full">
     
     <Form
       onFinish={onFinish}
       layout="vertical" // Set the layout to vertical
       className={ 
-           "max-w-2xl mt-3 flex flex-col  justify-center mx-auto bg-white border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+           "mt-3 flex flex-col  justify-center mx-auto bg-white border shadow rounded-xl w-1/2 h-auto p-10 "
           
        }
     >
