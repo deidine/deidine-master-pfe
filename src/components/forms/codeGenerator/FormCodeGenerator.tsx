@@ -3,6 +3,7 @@ import useDesigner from "@/hooks/useDesigner";
 import { Button, message } from "antd";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow as codeStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { openNotification } from "@/utils/utils";
 
 interface FormCodeGeneratorProps { 
   onCopyComplete?: (componentCode: string) => void;
@@ -14,7 +15,7 @@ const FormCodeGenerator = forwardRef(({
   onDownloadComplete
 }: FormCodeGeneratorProps, ref)  =>  {
   const [componentCode, setComponentCode] = useState("");
-  const { elements, submitBtn } = useDesigner(); 
+  const { elements, submitBtn ,codeForLanguage} = useDesigner(); 
  
   const generateComponentCode = () => {
     const componentCode = elements.map((input, index) => {
@@ -162,7 +163,8 @@ export default GeneratedForm;
     if (navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(componentCode);
-        message.success("Copied to clipboard!");
+    openNotification("topRight",'success', 'Copyed', "Copied to clipboard!");
+
         if (onCopyComplete) {
           onCopyComplete(componentCode);
         }
@@ -177,7 +179,7 @@ export default GeneratedForm;
       textArea.select();
       try {
         document.execCommand("copy");
-        message.success("Copied to clipboard!");
+        openNotification("topRight",'success', 'Copyed', "Copied to clipboard!");
         if (onCopyComplete) {
           onCopyComplete(componentCode);
         }
@@ -196,6 +198,7 @@ export default GeneratedForm;
 
   return (
     <div className="text-white my-6 rounded-lg mx-auto flex pl-[4.5rem] flex-col justify-center">
+     
       <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
       </SyntaxHighlighter>

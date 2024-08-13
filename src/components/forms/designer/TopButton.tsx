@@ -2,10 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import FormLinkShare from "../../publishedForm/FormLinkShare";
 import { CiCircleInfo, CiCircleCheck } from "react-icons/ci";
-import { Badge, Button, Tooltip } from "antd";
+import { Badge, Button, Select, Tooltip } from "antd";
 import { FaSave, FaUndo, FaRedo } from "react-icons/fa";
 import useDesigner from "@/hooks/useDesigner";
 import { useHotkeys } from "react-hotkeys-hook";
+import { lnaguageGenerator } from "@/data/data";
 
 export default function TopButton({
   form,
@@ -21,9 +22,8 @@ export default function TopButton({
   onDownloadClick: (value: string) => void;
 }) {
   const shareUrl = window.location.href.replace("forms", "published");
-  const { setElements, undo, redo, undoStack, redoStack } = useDesigner();
+  const {elements,codeForLanguage, setCodeForLanguage , setElements, undo, redo, undoStack, redoStack } = useDesigner();
   const [isReady, setIsReady] = useState(false);
-  const { elements } = useDesigner();
   const isFirstRender = useRef(true);
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -129,6 +129,10 @@ export default function TopButton({
       </div>
     );
   }
+  const handleTypeChange = (value: string) => {
+    setCodeForLanguage(value);
+    
+  };
 
   return (
     <div>
@@ -220,6 +224,23 @@ export default function TopButton({
               >
                 Download
               </Button>
+             <div>
+             <Select
+            className="w-full"
+            value={codeForLanguage}
+            onChange={handleTypeChange}
+            placeholder="Select input type"
+          > 
+             {lnaguageGenerator.map((option) => (
+                  <Select.Option key={option.value} value={option.value}>
+                    <div className="flex gap-2 text-lg items-center">
+                      <option.icon /> {option.label}
+                    </div>
+                  </Select.Option>
+                ))
+           }
+          </Select>
+             </div>
             </div>
           </>
         )}

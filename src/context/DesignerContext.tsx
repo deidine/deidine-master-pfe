@@ -11,6 +11,8 @@ type DesignerContextType = {
   removeElement: (id: string) => void;
   setSubmitBtn: (value: string) => void;
   submitBtn: string;
+  setCodeForLanguage: (value: string) => void;
+  codeForLanguage: string;
   selectedElement: FormElement | null;
   setSelectedElement: Dispatch<SetStateAction<FormElement | null>>;
  
@@ -32,7 +34,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [elements, setElements] = useState<FormElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
-  
+  const [codeForLanguage, setCodeForLanguage] = useState<string>("ReactJS");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -130,7 +132,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
 
   return (
     <DesignerContext.Provider
-      value={{isSidebarVisible, setIsSidebarVisible,
+      value={{codeForLanguage, setCodeForLanguage,isSidebarVisible, setIsSidebarVisible,
         elements, 
         submitBtn,
         setSubmitBtn,

@@ -14,19 +14,14 @@ export default function FormElement({
 }) {
   const [inputLabel, setInputLabel] = useState(element.label);
   const {
-    removeElement,
-    updateElement,
+    removeElement, 
     setIsSidebarVisible,
     isSidebarVisible,
   } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
 
-  const handleLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputLabel(e.target.value);
-    updateElement(element.name, { ...element, label: e.target.value });
-  };
-
+ 
   return (
     <div
       key={index}
