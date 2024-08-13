@@ -1,142 +1,159 @@
-export const generateComponentCodeFlutter = (elements:FormElement[],submitBtn:string) => {
- 
-    const componentCode = elements.map((input:any, index) => {
-      let inputElement = "";
+export const generateComponentCodeFlutter = (elements: FormElement[], submitBtn: string) => {
+  const componentCode = elements.map((input: any) => {
+    let inputElement = '';
 
-      switch (input.elementType.type) {
-        case "text":
-        case "number":
-        case "email":
-        case "password":
-          inputElement = `TextFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              hintText: '${input.elementType.placeholder}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
+    switch (input.elementType.type) {
+      case 'text':
+      case 'number':
+      case 'email':
+      case 'password':
+        inputElement = `TextFormField(
+          decoration: InputDecoration(
+            labelText: '${input.elementType.label}',
+            hintText: '${input.elementType.placeholder}',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4), // Smaller radius to match antd
             ),
-            keyboardType: ${input.elementType.type === 'number' ? 'TextInputType.number' : 'TextInputType.text'},
-            obscureText: ${input.elementType.type === 'password'},
-          )`;
-          break;
-        case "textarea":
-          inputElement = `TextFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              hintText: '${input.elementType.placeholder}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
+          ),
+          keyboardType: ${input.elementType.type === 'number' ? 'TextInputType.number' : 'TextInputType.text'},
+          obscureText: ${input.elementType.type === 'password'},
+        )`;
+        break;
+      case 'textarea':
+        inputElement = `TextFormField(
+          decoration: InputDecoration(
+            labelText: '${input.elementType.label}',
+            hintText: '${input.elementType.placeholder}',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
             ),
-            maxLines: null,
-          )`;
-          break;
-        case "date":
-          inputElement = `DatePickerFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
+          ),
+          maxLines: null,
+        )`;
+        break;
+      case 'date':
+        inputElement = `TextFormField(
+          decoration: InputDecoration(
+            labelText: '${input.elementType.label}',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
             ),
-          )`;
-          break;
-        case "time":
-          inputElement = `TimePickerFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          )`;
-          break;
-        case "select":
-          inputElement = `DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            items: ${input.elementType.options.map(
-              (option:any) => `DropdownMenuItem<String>(
-              value: '${option}',
-              child: Text('${option}'),
-            )`
-            ).join(', ')},
-          )`;
-          break;
-        case "select_multiple":
-          inputElement = `MultiSelectFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            items: ${input.elementType.options.map(
-              (option:any) => `MultiSelectItem('${option}', '${option}')`
-            ).join(', ')},
-          )`;
-          break;
-        case "checkbox":
-          inputElement = input.elementType.options.map((option:any, idx:number) => `
-            CheckboxListTile(
-              title: Text('${option}'),
-              value: false,
-              onChanged: (bool value) {},
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          `).join('\n');
-          break;
-        case "radio":
-          inputElement = input.elementType.options.map((option:any, idx:number) => `
-            RadioListTile(
-              title: Text('${option}'),
-              value: '${option}',
-              groupValue: null,
-              onChanged: (value) {},
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          `).join('\n');
-          break;
-        default:
-          break;
-      }
-
-      return `
-        FormField(
-          builder: (FormFieldState state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ${inputElement}
-                state.hasError ? Text(
-                  state.errorText,
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
-                ) : Container(),
-              ],
+          ),
+          onTap: () async {
+            FocusScope.of(context).requestFocus(FocusNode());
+            DateTime? picked = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2100),
             );
           },
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return '${input.elementType.label} is required';
-            }
-            return null;
+        )`;
+        break;
+      case 'time':
+        inputElement = `TextFormField(
+          decoration: InputDecoration(
+            labelText: '${input.elementType.label}',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          onTap: () async {
+            FocusScope.of(context).requestFocus(FocusNode());
+            TimeOfDay? picked = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
           },
-        ),
-      `;
-    }).join('\n');
+        )`;
+        break;
+      case 'select':
+        inputElement = `DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            labelText: '${input.elementType.label}',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          items: ${input.elementType.options
+            .map(
+              (option: any) => `DropdownMenuItem<String>(
+            value: '${option}',
+            child: Text('${option}'),
+          )`,
+            )
+            .join(', ')},
+          onChanged: (value) {},
+        )`;
+        break;
+      case 'select_multiple':
+        inputElement = `MultiSelectFormField(
+          title: Text('${input.elementType.label}'),
+          dataSource: [${input.elementType.options
+            .map(
+              (option: any) => `{'display': '${option}', 'value': '${option}'}`,
+            )
+            .join(', ')}],
+          textField: 'display',
+          valueField: 'value',
+          onSaved: (value) {},
+        )`;
+        break;
+      case 'checkbox':
+        inputElement = input.elementType.options
+          .map(
+            (option: any) => `CheckboxListTile(
+          title: Text('${option}'),
+          value: false,
+          onChanged: (bool? value) {},
+        )`,
+          )
+          .join('\n');
+        break;
+      case 'radio':
+        inputElement = input.elementType.options
+          .map(
+            (option: any) => `RadioListTile<String>(
+          title: Text('${option}'),
+          value: '${option}',
+          groupValue: null,
+          onChanged: (value) {},
+        )`,
+          )
+          .join('\n');
+        break;
+      default:
+        break;
+    }
 
-    const exportCode = `
+    return `
+      FormField(
+        builder: (FormFieldState state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ${inputElement},
+              state.hasError ? Text(
+                state.errorText ?? '',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ) : SizedBox.shrink(),
+            ],
+          );
+        },
+        validator: (value) {
+          if (value == null || (value is String && value.isEmpty)) {
+            return '${input.elementType.label} is required';
+          }
+          return null;
+        },
+      ),
+      
+    `;
+  }).join('\n');
+
+  const exportCode = `
 import 'package:flutter/material.dart';
 
 class GeneratedForm extends StatelessWidget {
@@ -158,7 +175,7 @@ class GeneratedForm extends StatelessWidget {
             child: Text('${submitBtn}'),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(4), // Smaller radius for buttons
               ),
             ),
           ),
@@ -167,9 +184,7 @@ class GeneratedForm extends StatelessWidget {
     );
   }
 }
-    `.trim();
- 
-    return exportCode;
-  };
+  `.trim();
 
- 
+  return exportCode;
+};
