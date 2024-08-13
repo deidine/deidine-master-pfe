@@ -1,4 +1,4 @@
-import {Input, Select } from "antd";
+import { Input, Select } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import AutoResizeTextarea from "../ui/AutoResizeTextarea";
 import {
@@ -13,11 +13,11 @@ import { DateChoicePeriodInput } from "./DateChoicePeriodInput";
 import { FileAllowedExtensions } from "./FileAllowedExtensions";
 import { LabelValue, LabelValue2 } from "./LabelValue";
 import { SelectOptionSidBarOptions } from "./SelectOptionSidBarOptions";
- 
+
 export default function SidBarOptions({
   element,
 }: {
-  element?: SelectElement | InputElement ;
+  element?: SelectElement | InputElement;
 }) {
   const [placholder, setPlacholder] = useState(element!.placeholder);
   const [inputLabel, setInputLabel] = useState(element!.label);
@@ -64,14 +64,14 @@ export default function SidBarOptions({
         className="space-y-6"
       >
         <div>
-        <LabelValue value="Label" />
-        <div>
-          <AutoResizeTextarea
-            inputLabel={inputLabel}
-            handleLabelChange={handleLabelChange}
-            isEditing={true}
-          />
-        </div>
+          <LabelValue value="Label" />
+          <div>
+            <AutoResizeTextarea
+              inputLabel={inputLabel}
+              handleLabelChange={handleLabelChange}
+              isEditing={true}
+            />
+          </div>
           <LabelValue value="Placeholder" />
           <Input
             placeholder="Placeholder"
@@ -95,35 +95,37 @@ export default function SidBarOptions({
             element!.type === "checkbox"
               ? selectTypeOptions.map((option) => (
                   <Select.Option key={option.value} value={option.value}>
-                    {option.label}
+                    <div className="flex gap-2 items-center">
+                      <option.icon /> {option.label}
+                    </div>
                   </Select.Option>
                 ))
               : inputTypeOptions.map((option, index) => (
                   <Select.Option key={index} value={option.value}>
-                    {option.label}
+                    <div className="flex gap-2 items-center">
+                      <option.icon /> {option.label}
+                    </div>
                   </Select.Option>
                 ))}
           </Select>
-       
-          <div className="flex gap-2 items-center">
-          
-          <RequiredComponent
-            required={element!.required!}
-            toggleRequired={() => {
-              updateElement(element!.name, {
-                ...element!,
-                required: !isRequired,
-              });
 
-              setIsRequired(!isRequired);
-            }}
-            isSwitchButton={true}
-          />   
-         <LabelValue2 value={ isRequired ? "Required" : "Required"} />
+          <div className="flex gap-2 items-center">
+            <RequiredComponent
+              required={element!.required!}
+              toggleRequired={() => {
+                updateElement(element!.name, {
+                  ...element!,
+                  required: !isRequired,
+                });
+
+                setIsRequired(!isRequired);
+              }}
+              isSwitchButton={true}
+            />
+            <LabelValue2 value={isRequired ? "Required" : "Required"} />
           </div>
         </div>
         <div>
-       
           {element!.type === "select" ||
           element!.type === "select_multiple" ||
           element!.type === "radio" ||
@@ -142,8 +144,12 @@ export default function SidBarOptions({
             // />
           )}
         </div>
-        {element!.type === "date" && <DateChoicePeriodInput element={element} />}
-        {element!.type == "file" && <FileAllowedExtensions element={element!} />}
+        {element!.type === "date" && (
+          <DateChoicePeriodInput element={element} />
+        )}
+        {element!.type == "file" && (
+          <FileAllowedExtensions element={element!} />
+        )}
       </motion.div>
     </AnimatePresence>
   );

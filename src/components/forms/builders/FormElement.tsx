@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react"; 
 import useDesigner from "@/hooks/useDesigner";
 import OptionPopUp from "@/components/forms/builders/OptionPopUp"; 
-import BadgeElement from "@/components/forms/builders/formBuilderElements/BadgeElement";
+import BadgeElement from "@/components/forms/builders/BadgeElement";
  
 export default function FormElement({
   form,
@@ -14,19 +14,14 @@ export default function FormElement({
 }) {
   const [inputLabel, setInputLabel] = useState(element.label);
   const {
-    removeElement,
-    updateElement,
+    removeElement, 
     setIsSidebarVisible,
     isSidebarVisible,
   } = useDesigner();
 
   const editButtonRef = useRef<HTMLDivElement>(null);
 
-  const handleLabelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputLabel(e.target.value);
-    updateElement(element.name, { ...element, label: e.target.value });
-  };
-
+ 
   return (
     <div
       key={index}

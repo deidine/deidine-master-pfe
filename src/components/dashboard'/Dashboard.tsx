@@ -50,12 +50,6 @@ export default function Dashboard() {
       setElementsLocalStorage(localStorageForms);
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-      // openNotification(
-      //   "topRight",
-      //   "error",
-      //   "Error fetching database forms:",
-      //   ""
-      // );
       setIsUserOnline(false);
       setElementsLocalStorage(forms);
       console.error("Error fetching forms:", error);

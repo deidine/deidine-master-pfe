@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import { Badge } from "../../../ui/badge";
+import { Badge } from "../../ui/badge";
 import {
   inputTypeOptions,
   patternOptions,
@@ -78,7 +78,7 @@ export default function BadgeElement({
         
              {element.required && (
               <Badge variant={"destructive"}
-            className=" shadow-lg  z-10 rounded-lg text-black border-mainColor hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
+            className=" shadow-lg  z-10 rounded-lg text-black border-[#36b3fa] hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
                >
                 Required
               </Badge>

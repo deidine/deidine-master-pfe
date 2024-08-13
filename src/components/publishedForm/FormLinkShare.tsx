@@ -66,6 +66,8 @@ function FormLinkShare({ shareUrl }: { shareUrl: string }) {
     <div className="flex flex-grow gap-4 items-center">
       {/* <Input value={shareLink} readOnly /> */}
       <Button 
+                  className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+      
         onClick={() => {
           copyToClipboard(shareLink);
         }}

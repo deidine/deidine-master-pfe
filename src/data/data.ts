@@ -14,7 +14,9 @@ import {
   FiExternalLink,
   FiDollarSign,
 } from "react-icons/fi";
-
+import { FaReact } from "react-icons/fa6";
+import { SiFlutter } from "react-icons/si";
+import { TbBrandNextjs } from "react-icons/tb";
 const patternOptions: PatternType[] = [
   {
     value: "phone",
@@ -97,7 +99,27 @@ const selectTypeOptions = [
     icon: FiCheckSquare,
   },
 ];
-
+const lnaguageGenerator = [
+  {
+    value: "ReactJs",
+    label: "ReactJs",
+    bgColor: "#F0F5FF", // Light lavender
+    textColor: "text-gray-800", // Dark gray
+    icon: FaReact,
+  },  {
+    value: "NextJs",
+    label: "NextJs",
+    bgColor: "#F0F5FF", // Light lavender
+    textColor: "text-gray-800", // Dark gray
+    icon: TbBrandNextjs,
+  },  {
+    value: "Flutter",
+    label: "Flutter",
+    bgColor: "#F0F5FF", // Light lavender
+    textColor: "text-gray-800", // Dark gray
+    icon: SiFlutter,
+  },
+]
 const inputTypeOptions: InputTypeList[] = [
   {
     value: "text",
@@ -172,7 +194,7 @@ const inputTypeOptions: InputTypeList[] = [
 ];
 
 const shortcuts = [
-  { shortcut: "CTRL+S", title: "Save diagram", description: "" },
+  { shortcut: "CTRL+S", title: "Save diagram", description: " Ctrl + S - Save diagram " },
 ];
 
-export { patternOptions, selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};
+export { patternOptions, lnaguageGenerator,selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};

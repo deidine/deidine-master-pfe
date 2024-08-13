@@ -1,5 +1,5 @@
 "use client";
-import Designer from "@/components/designer/Designer";
+import Designer from "@/components/forms/designer/Designer";
 import useGeneral from "@/hooks/useGeneral";
 import { useSearchParams } from 'next/navigation' 
 import { useEffect, useState } from "react"; 
