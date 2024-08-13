@@ -19,10 +19,31 @@ export default function PublishFormPage({
   const [loading, setLoading] = useState<boolean>(true);
   const { id } = params;
  
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log("Form submitted:", values);
     setSubmitted(true);
+  const val:any[]=values
+    try {
+      const response = await fetch(`/api/submtion`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content:   val  ,formId:id }), // Sending the values as content
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+  
+      const data = await response.json();
+      console.log('Form data submitted:', data);
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
+  
   const [submitted, setSubmitted] = useState(false); 
  
   useEffect(() => {

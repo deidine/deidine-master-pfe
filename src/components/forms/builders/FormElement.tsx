@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react"; 
 import useDesigner from "@/hooks/useDesigner";
 import OptionPopUp from "@/components/forms/builders/OptionPopUp"; 
-import BadgeElement from "@/components/forms/builders/formBuilderElements/BadgeElement";
+import BadgeElement from "@/components/forms/builders/BadgeElement";
  
 export default function FormElement({
   form,
