@@ -194,7 +194,7 @@ const inputTypeOptions: InputTypeList[] = [
 ];
 
 const shortcuts = [
-  { shortcut: "CTRL+S", title: "Save diagram", description: "" },
+  { shortcut: "CTRL+S", title: "Save diagram", description: " Ctrl + S - Save diagram " },
 ];
 
 export { patternOptions, lnaguageGenerator,selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};

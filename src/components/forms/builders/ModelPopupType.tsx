@@ -12,15 +12,14 @@ export default function ModelPopupType({
   isModalVisible: boolean;
   setIsModalVisible: (isModalVisible: boolean) => void;
 }) {
-  const { elements, addElement, setIsEditFormCard } = useDesigner();
+  const { elements, addElement  } = useDesigner();
   const [selectedType, setSelectedType] = useState<ElementType>();
   const [previewElements, setPreviewElements] = useState<Form [] | FormElement[]>([]);
 
   const handleOk = (type: ElementType) => {
     const newElementInstance = newElement(type);
     addElement(elements.length, newElementInstance);
-    setIsModalVisible(false);
-    setIsEditFormCard("false");
+    setIsModalVisible(false); 
   };
 
   const handleCancel = () => {
