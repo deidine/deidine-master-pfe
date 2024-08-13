@@ -21,7 +21,7 @@ export default function FormDetailPage({
  
   useEffect(() => {
     fetchForm();
-  }, []);
+  }, [id]);
 
   const fetchForm = async () => { 
     if (localStorageParam === 'true') {

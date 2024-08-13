@@ -24,7 +24,7 @@ export default function NavBar() {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, []);
+  }, [setUser]);
 
   const handleSignOut = async () => {
     if (typeof window !== "undefined") {

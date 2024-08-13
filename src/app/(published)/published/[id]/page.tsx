@@ -27,7 +27,7 @@ export default function PublishFormPage({
  
   useEffect(() => {
     fetchForm();
-  }, []);
+  }, [id]);
  
   const fetchForm = async () => { 
   
