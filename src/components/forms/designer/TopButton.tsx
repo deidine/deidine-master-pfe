@@ -7,6 +7,7 @@ import { FaSave, FaUndo, FaRedo } from "react-icons/fa";
 import useDesigner from "@/hooks/useDesigner";
 import { useHotkeys } from "react-hotkeys-hook";
 import { lnaguageGenerator } from "@/data/data";
+import useStyle from "@/hooks/useStyle";
 
 export default function TopButton({
   form,
@@ -22,12 +23,12 @@ export default function TopButton({
   onDownloadClick: (value: string) => void;
 }) {
   const shareUrl = window.location.href.replace("forms", "published");
-  const {elements,codeForLanguage, setCodeForLanguage , setElements, undo,formStyle, redo, undoStack, redoStack } = useDesigner();
+  const {elements,codeForLanguage, setCodeForLanguage , setElements, undo, redo, undoStack, redoStack } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const isFirstRender = useRef(true);
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+const { formStyle,buttonStyle,elementStyle}=useStyle();
   const handleSave = async () => {
     setIsLoading(true);
 
@@ -40,7 +41,9 @@ export default function TopButton({
         if (formIndex !== -1) {
           forms[formIndex].content = elements;
         } else {
-          forms.push({ idForm, content: elements, style : formStyle });
+          forms.push({ idForm, content: elements, style : formStyle,
+            elementStyle: elementStyle,
+            buttonStyle: buttonStyle, });
         }
 
         localStorage.setItem("forms", JSON.stringify(forms));
@@ -59,6 +62,8 @@ export default function TopButton({
             id: form.id,
             content: elements,
             style: formStyle,
+            elementStyle: elementStyle,
+            buttonStyle: buttonStyle,
           }),
         });
 
@@ -207,7 +212,7 @@ export default function TopButton({
         {
           selectedButton2 === "design" && (
             <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
-              {formStyle?.color!}
+ 
             <Tooltip title="ctrl+s">
               <Button
                 icon={<FaSave />}

@@ -7,6 +7,7 @@ import SideButtons from "./SideButtons";
 import FormCodeGenerator from "../codeGenerator/FormCodeGenerator";
 import StyleForm from "../styleForm/styleForm";
 import TopButton from "./TopButton";
+import useStyle from "@/hooks/useStyle";
 export default function Designer({
   form,
   isFromLocalStorage,
@@ -14,12 +15,17 @@ export default function Designer({
   form: Form;
   isFromLocalStorage: boolean;
 }) {
-
+const {setButtonStyle,setElementStyle,setFormStyle}=useStyle();
   const [selectedButton, setSelectedButton] = useState<
   "preview" | "field" | "design" | "Export code"
 >("field");
 const childRef = useRef<any>();
-
+useEffect(() => {
+  
+setElementStyle(form.elementStyle!);
+setFormStyle(form.style!);
+setButtonStyle(form.buttonStyle!);
+},[])
   return (
     <>
       <div className="flex relative  flex-col justify-center gap-2  w-full">
