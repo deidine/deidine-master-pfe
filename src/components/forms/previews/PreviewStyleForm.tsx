@@ -16,10 +16,10 @@ export default function PreviewformStyles({
     form?.style
   );
   const [elementsStyles, setElementsStyles] = useState<FormStyle | undefined>(
-    form?.style
+    form?.elementStyle
   );
   const [buttonStyles, setButtonStyles] = useState<FormStyle | undefined>(
-    form?.style
+    form?.buttonStyle
   );
 
   const { elements, submitBtn } = useDesigner();
@@ -51,7 +51,7 @@ export default function PreviewformStyles({
           handelStylingChanging={setElementsStyles}
         />
         <Styling
-          currentStyling="Button"
+          currentStyling="Buttons"
           form={form}
           handelStylingChanging={setButtonStyles}
         />

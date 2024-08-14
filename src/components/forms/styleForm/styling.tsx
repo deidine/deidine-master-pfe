@@ -9,6 +9,8 @@ export default function Styling({ form, handelStylingChanging ,currentStyling  }
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
 const  {setFormStyle}=useDesigner();
   const [formStyles, setFormStyles] = useState<FormStyle | undefined>(form?.style);
+  const [ elementsStyles, setElementsStyles] = useState<FormStyle | undefined>(form?.elementStyle);
+  const [ buttonStyles, setButtonStyles] = useState<FormStyle | undefined>(form?.buttonStyle);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleSliderChange = (value: number, type: keyof FormStyle) => {
@@ -18,11 +20,26 @@ const  {setFormStyle}=useDesigner();
     setFormStyle( formStyles! )
   };
 
-  const handleColorChange = (color: any, type: keyof FormStyle) => {
-    const updatedStyles = { ...formStyles, [type]: color.hex };
-    setFormStyles(updatedStyles);
-    handelStylingChanging(updatedStyles);
-    setFormStyle(formStyles!  )
+  const handleColorChange = (color: any, type: keyof FormStyle ) => {
+    if(currentStyling=='Elements'){
+            
+      const updatedStyles = { ...elementsStyles, [type]: color.hex };
+      setFormStyles(updatedStyles);
+      handelStylingChanging(updatedStyles);
+      setElementsStyles(elementsStyles!  )
+    } else if(currentStyling=='Buttons'){
+            
+      const updatedStyles = { ...buttonStyles, [type]: color.hex };
+      setFormStyles(updatedStyles);
+      handelStylingChanging(updatedStyles);
+      setButtonStyles(buttonStyles!  )
+    } else if(currentStyling=='Form'){
+      
+      const updatedStyles = { ...formStyles, [type]: color.hex };
+      setFormStyles(updatedStyles);
+      handelStylingChanging(updatedStyles);
+      setFormStyle(formStyles!  )
+    }
   };
 
   const toggleVisibility = () => {
