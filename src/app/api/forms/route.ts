@@ -8,13 +8,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function  POST(req:NextRequest ) {
   const supabase = createClient();
   
-  const { title, content, style,description,user_id } = await req.json();
+  const { title, content, style,elementStyle,buttonStyle,description,user_id } = await req.json();
   
   try {
     const { data, error } = await supabase
     .from('form')
     .insert([
-      { title, content, style,description,user_id }
+      { title, content, style,buttonStyle,elementStyle,description,user_id }
     ]);
     
     if (error) throw error;

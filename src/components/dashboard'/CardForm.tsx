@@ -321,7 +321,7 @@ export default function CardForm({
           );
         }}
         className="rounded-[15px] relative hover:bg-slate-100  bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer"
-      >{form.style?.paddingX}deiewewdein
+      > 
         <div className="flex flex-row justify-between items-center gap-4">
           <div className="text-3xl flex flex-row justify-between items-center gap-4">
             {form.isFromLocalStorage ? (

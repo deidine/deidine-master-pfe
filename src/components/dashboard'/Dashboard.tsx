@@ -47,8 +47,7 @@ export default function Dashboard() {
         localStorage.getItem("forms") || "[]"
       );
       const combinedForms = [...dataForms, ...localStorageForms];
-      setElements(dataForms);
-      console.log([...dataForms][0].style.paddingX  )
+      setElements(dataForms); 
       console.log("deiidne")
       setElementsLocalStorage(localStorageForms);
     } catch (error) {
@@ -67,6 +66,7 @@ export default function Dashboard() {
       title: title,
       content: [],
       style : {},
+      buttonStyle: {},elementStyle: {},
       isFromLocalStorage: true,
       description: description,
     });
@@ -96,7 +96,7 @@ export default function Dashboard() {
         body: JSON.stringify({
           title: title,
           content: [],
-          style :{},
+          style :{}, buttonStyle: {},elementStyle: {},
           description: description,
           user_id: userId,
         }),

@@ -5,6 +5,8 @@ type Form= {
   content:FormElement[]; 
   isFromLocalStorage?:boolean;
   style?:FormStyle;
+  elementStyle?:FormStyle;
+  buttonStyle?:FormStyle;
   styleForm?:FormStyle;
   styleElement?:FormStyle;
   create_at?: Date;
