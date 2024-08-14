@@ -6,6 +6,7 @@ import DatePrev from "./elementTypePreview/DatePrev";
 import SelectPrev from "./elementTypePreview/SelectPrev";
 import CheckBoxPrev from "./elementTypePreview/CheckBoxPrev";
 import RadioPrev from "./elementTypePreview/RadioPrev";
+import useStyle from "@/hooks/useStyle";
 
 export default function PreviewForm({
   isTemplate,
@@ -27,11 +28,26 @@ export default function PreviewForm({
   const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<
     Form[] | FormElement[]
   >(elementsTemplate!);
+const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
+
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
   const [elementsStyles, setElementsStyles] = useState<FormStyle | undefined>(
     form?.style
   );
+  
+  const getFormStyles = () => {
+    return {
+      paddingLeft: formStyle?.paddingX  ,
+      paddingRight: formStyle?.paddingX  ,
+      paddingTop: formStyle?.paddingY  ,
+      paddingBottom: formStyle?.paddingY ,
+      color: formStyle?.color, 
+      border: formStyle?.border ,
+      borderRadius: formStyle?.borderRadius ,
+      backgroundColor: formStyle?.backgroundColor,
+    };
+  };
   useEffect(() => {
     setElementsTemplatePreviw(elementsTemplate!);
   }, [elementsTemplate]);
@@ -56,40 +72,40 @@ export default function PreviewForm({
       </span>
 
       {mapElement.map((element: any, index) => (
-        <div key={index}>
-          {[
-            "text",
-            "number",
-            "email",
-            "password",
-            "file",
-            "textarea",
-            "url",
-          ].includes(element.elementType.type) && (
-            <InputPrev styleForm={elementsStyles}  element={element} />
-          )}
+       <div key={index}>
+       {[
+         "text",
+         "number",
+         "email",
+         "password",
+         "file",
+         "textarea",
+         "url",
+       ].includes(element.elementType.type) && (
+         <InputPrev styleForm={elementStyle} element={element} />
+       )}
 
-          {["datetime-local", "date"].includes(element.elementType.type) && (
-            <DatePrev element={element} />
-          )}
+       {["datetime-local", "date"].includes(element.elementType.type) && (
+         <DatePrev styleForm={elementStyle} element={element} />
+       )}
 
-          {element.elementType.type === "time" && (
-            <DatePrev element={element} isTime={true} />
-          )}
+       {element.elementType.type === "time" && (
+         <DatePrev styleForm={elementStyle} element={element} isTime={true} />
+       )}
 
-          {element.elementType.type === "select" && (
-            <SelectPrev element={element} />
-          )}
-          {element.elementType.type === "select_multiple" && (
-            <SelectPrev element={element} isMultiple={true} />
-          )}
-          {element.elementType.type === "checkbox" && (
-            <CheckBoxPrev element={element} />
-          )}
-          {element.elementType.type === "radio" && (
-            <RadioPrev element={element} />
-          )}
-        </div>
+       {element.elementType.type === "select" && (
+         <SelectPrev styleForm={elementStyle} element={element} />
+       )}
+       {element.elementType.type === "select_multiple" && (
+         <SelectPrev styleForm={elementStyle} element={element} isMultiple={true} />
+       )}
+       {element.elementType.type === "checkbox" && (
+         <CheckBoxPrev styleForm={elementStyle} element={element} />
+       )}
+       {element.elementType.type === "radio" && (
+         <RadioPrev styleForm={elementStyle} element={element} />
+       )}
+     </div>
       ))}
       <div className="flex justify-center pt-6">
         {showSubmit ? null : (

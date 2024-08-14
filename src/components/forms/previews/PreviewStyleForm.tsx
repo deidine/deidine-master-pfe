@@ -11,7 +11,7 @@ import StylingForm from "../styleForm/allStylePattern/stylingForm";
 import StylingElements from "../styleForm/allStylePattern/stylingElements";
 import StylingButton from "../styleForm/allStylePattern/stylingButton";
 export default function PreviewformStyles( )  {
-const  { formStyle,elementStyle,setFormStyle,setButtonStyle,setElementStyle}=useStyle(); 
+const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
 
   const getFormStyles = () => {
@@ -66,24 +66,24 @@ const  { formStyle,elementStyle,setFormStyle,setButtonStyle,setElementStyle}=use
             )}
 
             {["datetime-local", "date"].includes(element.elementType.type) && (
-              <DatePrev element={element} />
+              <DatePrev styleForm={elementStyle} element={element} />
             )}
 
             {element.elementType.type === "time" && (
-              <DatePrev element={element} isTime={true} />
+              <DatePrev styleForm={elementStyle} element={element} isTime={true} />
             )}
 
             {element.elementType.type === "select" && (
-              <SelectPrev element={element} />
+              <SelectPrev styleForm={elementStyle} element={element} />
             )}
             {element.elementType.type === "select_multiple" && (
-              <SelectPrev element={element} isMultiple={true} />
+              <SelectPrev styleForm={elementStyle} element={element} isMultiple={true} />
             )}
             {element.elementType.type === "checkbox" && (
-              <CheckBoxPrev element={element} />
+              <CheckBoxPrev styleForm={elementStyle} element={element} />
             )}
             {element.elementType.type === "radio" && (
-              <RadioPrev element={element} />
+              <RadioPrev styleForm={elementStyle} element={element} />
             )}
           </div>
         ))}
