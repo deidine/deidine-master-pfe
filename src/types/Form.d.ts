@@ -4,19 +4,21 @@ type Form= {
   description:string;
   content:FormElement[]; 
   isFromLocalStorage?:boolean;
-  style?: {
-    padding?: string;
-    margin?: string;
-    backgroundColor?: string;
-    textColor?: string;
-    border?: string;
-    borderRadius?: string;
-    boxShadow?: string;
-    [key: string]: string | undefined; // To allow any additional CSS properties
-  };
+  style?:FormStyle;
   create_at?: Date;
 }
-
+type FormStyle  ={
+  paddingX?: string;
+  paddingY?: string;
+  marginY?: string;
+  marginX?: string;
+  backgroundColor?: string;
+  textColor?: string;
+  border?: string;
+  borderRadius?: string;
+  boxShadow?: string;
+  [key: string]: string | undefined; // To allow any additional CSS properties
+};
 type FormElement = {
   id:string;
   elementType: InputElement | SelectElement;

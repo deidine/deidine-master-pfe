@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  Button,  Form } from "antd";
+import { Button, Form } from "antd";
 import useDesigner from "@/hooks/useDesigner";
 import InputPrev from "./elementTypePreview/InputPrev";
 import DatePrev from "./elementTypePreview/DatePrev";
@@ -10,11 +10,12 @@ import RadioPrev from "./elementTypePreview/RadioPrev";
 export default function PreviewForm({
   isTemplate,
   showSubmit,
-  elementsTemplate,form
+  elementsTemplate,
+  form,
 }: {
   isTemplate?: boolean;
   showSubmit?: boolean;
-  form?: Form
+  form?: Form;
   elementsTemplate?: Form[] | FormElement[];
 }) {
   const onFinish = (values: any) => {
@@ -33,7 +34,6 @@ export default function PreviewForm({
     setElementsTemplatePreviw(elementsTemplate!);
   }, [elementsTemplate]);
 
- 
   return (
     <Form
       onFinish={onFinish}
@@ -48,20 +48,31 @@ export default function PreviewForm({
       }}
     >
       <p className="text-red-600">{form && form?.style?.backgroundColor} </p>
-    <span className="text-md font-semibold"> {elements.length==0 && "No elements to Preview"}</span> 
+      <span className="text-md font-semibold">
+        {" "}
+        {elements.length == 0 && "No elements to Preview"}
+      </span>
 
       {mapElement.map((element: any, index) => (
         <div key={index}>
-          {["text", "number", "email", "password", "file", "textarea","url"].includes(
-            element.elementType.type
-          ) && <InputPrev element={element} />}
+          {[
+            "text",
+            "number",
+            "email",
+            "password",
+            "file",
+            "textarea",
+            "url",
+          ].includes(element.elementType.type) && (
+            <InputPrev element={element} />
+          )}
 
           {["datetime-local", "date"].includes(element.elementType.type) && (
             <DatePrev element={element} />
           )}
 
           {element.elementType.type === "time" && (
-         <DatePrev element={element} isTime={true} />
+            <DatePrev element={element} isTime={true} />
           )}
 
           {element.elementType.type === "select" && (
@@ -69,7 +80,6 @@ export default function PreviewForm({
           )}
           {element.elementType.type === "select_multiple" && (
             <SelectPrev element={element} isMultiple={true} />
-         
           )}
           {element.elementType.type === "checkbox" && (
             <CheckBoxPrev element={element} />
@@ -93,4 +103,3 @@ export default function PreviewForm({
     </Form>
   );
 }
-

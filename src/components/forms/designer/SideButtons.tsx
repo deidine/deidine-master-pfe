@@ -38,7 +38,6 @@ export default function SideButtons({  selected }: { selected :(current:'preview
         <div
           className={`btn_sid ${selectedButton === 'design' ? "bg-[#36b3fa] text-white" : "bg-white"}`}
           onClick={() => {
-            // Add your logic for the design button here
             setSelectedButton('design');
             selected('design');
 
@@ -51,7 +50,6 @@ export default function SideButtons({  selected }: { selected :(current:'preview
         <div
           className={`btn_sid ${selectedButton === 'Export code' ? "bg-[#36b3fa] text-white" : "bg-white"}`}
           onClick={() => {
-            // Add your logic for the design button here
             setSelectedButton('Export code');
             selected('Export code');
 
