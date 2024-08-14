@@ -2,10 +2,26 @@ import { Form, Select } from 'antd'
 import React from 'react'
 
 export default function SelectPrev({
-    element,isMultiple}: {
+    element,isMultiple,
+    styleForm,}: {
     element: FormElement;
 isMultiple?:boolean
+  styleForm?: FormStyle;
 }) {
+  const getInputStyles = () => {
+    return {
+      paddingLeft: styleForm?.paddingX  || '8px',
+      paddingRight: styleForm?.paddingX  || '8px',
+      paddingTop: styleForm?.paddingY  || '8px',
+      paddingBottom: styleForm?.paddingY || '8px',
+      color: styleForm?.color, 
+      border: styleForm?.border ,
+      borderRadius: styleForm?.borderRadius ,
+      backgroundColor: styleForm?.backgroundColor,
+      width: "100%" 
+    };
+  };
+  
   return (
     <div>
         {!isMultiple ?         <Form.Item
@@ -21,7 +37,8 @@ isMultiple?:boolean
             >
               <Select
                 placeholder={element.elementType.placeholder}
-                style={{ width: "100%" }}
+               
+                style={getInputStyles()}
               >
                 {element.elementType.options!.map(
                   (option: any, idx: number) => (
@@ -48,7 +65,7 @@ isMultiple?:boolean
             <Select
               mode="multiple"
               placeholder={element.elementType.placeholder}
-              style={{ width: "100%" }}
+              style={getInputStyles()}
             >
               {element.elementType.options!.map(
                 (option: any, idx: number) => (

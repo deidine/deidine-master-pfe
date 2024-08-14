@@ -4,11 +4,26 @@ import { Form, Input, TimePicker } from "antd";
 export default function DatePrev({
   element,
   isTime,
+    styleForm,
 }: {
   element: FormElement;
   isTime?: boolean;
+    styleForm?: FormStyle;
 }) {
-  return (
+ 
+  const getInputStyles = () => {
+    return {
+      paddingLeft: styleForm?.paddingX  || '8px',
+      paddingRight: styleForm?.paddingX  || '8px',
+      paddingTop: styleForm?.paddingY  || '8px',
+      paddingBottom: styleForm?.paddingY || '8px',
+      color: styleForm?.color, 
+      border: styleForm?.border ,
+      borderRadius: styleForm?.borderRadius ,
+      backgroundColor: styleForm?.backgroundColor,width: "100%"
+    };
+  };
+   return (
     <div>
       {!isTime ? (
         <Form.Item
@@ -27,7 +42,8 @@ export default function DatePrev({
           ]}
         >
           <Input
-            style={{ padding: "8px" }}
+              style={getInputStyles()}
+ 
             type={
               element.elementType.type === "datetime-local"
                 ? "datetime-local"
@@ -56,7 +72,8 @@ export default function DatePrev({
         >
           <TimePicker
             placeholder={element.elementType.placeholder}
-            style={{ width: "100%" }}
+            style={getInputStyles()}
+ 
             format="HH:mm:ss"
             showHour
             showMinute

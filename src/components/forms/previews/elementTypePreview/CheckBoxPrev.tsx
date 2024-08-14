@@ -2,9 +2,25 @@ import { Checkbox, Form } from 'antd'
 import React from 'react'
 
 export default function CheckBoxPrev({
-    element,}: {
-    element: FormElement;}) {
-  return (
+    element,
+    styleForm,}: {
+    element: FormElement;
+    styleForm?: FormStyle;}) {
+ 
+      const getInputStyles = () => {
+        return {
+          paddingLeft: styleForm?.paddingX  || '8px',
+          paddingRight: styleForm?.paddingX  || '8px',
+          paddingTop: styleForm?.paddingY  || '8px',
+          paddingBottom: styleForm?.paddingY || '8px',
+          color: styleForm?.color, 
+          border: styleForm?.border ,
+          borderRadius: styleForm?.borderRadius ,
+          backgroundColor: styleForm?.backgroundColor,
+        };
+      };
+           return (
+    
     <div>
                     <Form.Item
               name={element.elementType.name}
@@ -17,7 +33,10 @@ export default function CheckBoxPrev({
                 },
               ]}
             >
-              <Checkbox.Group>
+              <Checkbox.Group
+              style={getInputStyles()}
+              
+              >
                 <div className="flex flex-col space-y-2">
                   {element.elementType.options!.map(
                     (option: any, idx: number) => (
