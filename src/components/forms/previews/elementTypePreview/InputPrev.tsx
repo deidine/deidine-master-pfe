@@ -1,7 +1,7 @@
 import { Form, Input } from 'antd';
 import React, { useEffect } from 'react';
 
-export default function q2InputPrev({
+export default function  InputPrev({
   element,
   styleForm,
 }: {

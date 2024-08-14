@@ -6,6 +6,7 @@ import { openNotification, saveToDatabase } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral"; 
 import { CiCircleCheck, CiCircleInfo } from "react-icons/ci";
 import ModelForm from "./ModelForm";
+import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { isUserOnline, setIsUserOnline, user } = useGeneral();
@@ -47,6 +48,8 @@ export default function Dashboard() {
       );
       const combinedForms = [...dataForms, ...localStorageForms];
       setElements(dataForms);
+      console.log([...dataForms][0].style.paddingX  )
+      console.log("deiidne")
       setElementsLocalStorage(localStorageForms);
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -63,6 +66,7 @@ export default function Dashboard() {
       id: Date.now(),
       title: title,
       content: [],
+      style : {},
       isFromLocalStorage: true,
       description: description,
     });
@@ -92,6 +96,7 @@ export default function Dashboard() {
         body: JSON.stringify({
           title: title,
           content: [],
+          style :{},
           description: description,
           user_id: userId,
         }),
@@ -143,6 +148,7 @@ export default function Dashboard() {
   return (
     <>
       <div>
+         
         <div className="w-full  bg-mainColor  flex justify-end px-[2.5rem] pt-[1rem] items-end">
           <div className="flex gap-4">
             {elementsLocalStorage.length > 0 && user && isUserOnline && (

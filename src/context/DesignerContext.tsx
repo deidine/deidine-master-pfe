@@ -7,6 +7,10 @@ import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useRef, 
 type DesignerContextType = {
   elements: FormElement[];
   setElements: Dispatch<SetStateAction<FormElement[]>>;
+  
+  formStyle?: FormStyle;
+  setFormStyle: Dispatch<SetStateAction<FormStyle>>;
+
   addElement: (index: number, element: FormElement) => void;
   removeElement: (id: string) => void;
   setSubmitBtn: (value: string) => void;
@@ -32,17 +36,11 @@ export const DesignerContext = createContext<DesignerContextType | null>(null);
 
 export default function DesignerContextProvider({ children }: { children: ReactNode }) {
   const [elements, setElements] = useState<FormElement[]>([]);
+  const [formStyle, setFormStyle] = useState<FormStyle >({});
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
   const [codeForLanguage, setCodeForLanguage] = useState<string>("ReactJS");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const isEditing = localStorage.getItem("isEditing") || "false";
-  //     setIsEditFormCard(isEditing);
-  //   }
-  // }, []);
-
   const undoStack = useRef<FormElement[][]>([]);
   const redoStack = useRef<FormElement[][]>([]);
   const copiedElement = useRef<FormElement | null>(null);
@@ -150,6 +148,8 @@ export default function DesignerContextProvider({ children }: { children: ReactN
         duplicateElement,
         cutElement,
         pasteElement,
+        formStyle,
+setFormStyle
       }}
     >
       {children}

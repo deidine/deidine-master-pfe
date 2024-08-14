@@ -8,14 +8,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function  POST(req:NextRequest ) {
   const supabase = createClient();
   
-  const { title, content, description,user_id } = await req.json();
-  
+  const { title, content, style,description,user_id } = await req.json();
   
   try {
     const { data, error } = await supabase
     .from('form')
     .insert([
-      { title, content, description,user_id }
+      { title, content, style,description,user_id }
     ]);
     
     if (error) throw error;
@@ -46,7 +45,7 @@ export async function  POST(req:NextRequest ) {
     if (error) {
       throw error;
     }
-
+console.log(forms)
     return NextResponse.json({ forms });
   } catch (error) {
     console.error("Error fetching forms:", error);
@@ -59,9 +58,7 @@ export async function DELETE(req: NextRequest) {
   try {
   const supabase = createClient();
     
-    const { id  } = await req.json();
-
-    console.log("deidine deilting forms id ",id) 
+    const { id  } = await req.json(); 
     const { error  } = await supabase
       .from('form')
       .delete()

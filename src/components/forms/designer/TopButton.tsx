@@ -22,7 +22,7 @@ export default function TopButton({
   onDownloadClick: (value: string) => void;
 }) {
   const shareUrl = window.location.href.replace("forms", "published");
-  const {elements,codeForLanguage, setCodeForLanguage , setElements, undo, redo, undoStack, redoStack } = useDesigner();
+  const {elements,codeForLanguage, setCodeForLanguage , setElements, undo,formStyle, redo, undoStack, redoStack } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const isFirstRender = useRef(true);
   const [isSaved, setIsSaved] = useState(true);
@@ -40,7 +40,7 @@ export default function TopButton({
         if (formIndex !== -1) {
           forms[formIndex].content = elements;
         } else {
-          forms.push({ idForm, content: elements });
+          forms.push({ idForm, content: elements, style : formStyle });
         }
 
         localStorage.setItem("forms", JSON.stringify(forms));
@@ -58,6 +58,7 @@ export default function TopButton({
           body: JSON.stringify({
             id: form.id,
             content: elements,
+            style: formStyle,
           }),
         });
 
@@ -202,6 +203,25 @@ export default function TopButton({
             <FormLinkShare shareUrl={shareUrl} />
           </div>
         )}
+
+        {
+          selectedButton2 === "design" && (
+            <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
+              {formStyle?.color!}
+            <Tooltip title="ctrl+s">
+              <Button
+                icon={<FaSave />}
+                loading={isLoading}
+                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                onClick={handleSave}
+                disabled={isSaved}
+              >
+                Save Changes
+              </Button>
+            </Tooltip>
+          </Badge>
+          )
+        }
         {selectedButton2 === "Export code" && (
           <>
             {" "}

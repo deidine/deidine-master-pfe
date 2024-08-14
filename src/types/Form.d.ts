@@ -5,15 +5,15 @@ type Form= {
   content:FormElement[]; 
   isFromLocalStorage?:boolean;
   style?:FormStyle;
+  styleForm?:FormStyle;
+  styleElement?:FormStyle;
   create_at?: Date;
 }
 type FormStyle  ={
   paddingX?: string;
-  paddingY?: string;
-  marginY?: string;
-  marginX?: string;
+  paddingY?: string; 
   backgroundColor?: string;
-  textColor?: string;
+   color?: string;
   border?: string;
   borderRadius?: string;
   boxShadow?: string;

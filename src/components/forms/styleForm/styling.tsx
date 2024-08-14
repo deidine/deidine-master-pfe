@@ -2,10 +2,12 @@ import { Button, Slider } from 'antd';
 import React, { useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import useDesigner from '@/hooks/useDesigner';
 
 export default function Styling({ form, handelStylingChanging ,currentStyling  }: {currentStyling:string , form?: Form; handelStylingChanging: (value: FormStyle | undefined) => void }) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
+const  {setFormStyle}=useDesigner();
   const [formStyles, setFormStyles] = useState<FormStyle | undefined>(form?.style);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -13,12 +15,14 @@ export default function Styling({ form, handelStylingChanging ,currentStyling  }
     const updatedStyles = { ...formStyles, [type]: `${value}px` };
     setFormStyles(updatedStyles);
     handelStylingChanging(updatedStyles);
+    setFormStyle( formStyles! )
   };
 
   const handleColorChange = (color: any, type: keyof FormStyle) => {
     const updatedStyles = { ...formStyles, [type]: color.hex };
     setFormStyles(updatedStyles);
     handelStylingChanging(updatedStyles);
+    setFormStyle(formStyles!  )
   };
 
   const toggleVisibility = () => {
@@ -46,9 +50,7 @@ export default function Styling({ form, handelStylingChanging ,currentStyling  }
               value={parseInt(formStyles?.paddingY || '0', 10)}
               onChange={(value) => handleSliderChange(value, 'paddingY')}
             />
-          </div>
-
-           
+          </div> 
           <div>
             <label>Border Width:</label>
             <Slider
@@ -87,8 +89,8 @@ export default function Styling({ form, handelStylingChanging ,currentStyling  }
             <Button>Text Color</Button>
             {colorPickerVisible && (
               <SketchPicker
-                color={formStyles?.textColor || '#000'}
-                onChange={(color) => handleColorChange(color, 'textColor')}
+                color={formStyles?.color || '#000'}
+                onChange={(color) => handleColorChange(color, 'color')}
               />
             )}
           </div>

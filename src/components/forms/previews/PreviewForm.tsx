@@ -29,7 +29,9 @@ export default function PreviewForm({
   >(elementsTemplate!);
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
-
+  const [elementsStyles, setElementsStyles] = useState<FormStyle | undefined>(
+    form?.style
+  );
   useEffect(() => {
     setElementsTemplatePreviw(elementsTemplate!);
   }, [elementsTemplate]);
@@ -64,7 +66,7 @@ export default function PreviewForm({
             "textarea",
             "url",
           ].includes(element.elementType.type) && (
-            <InputPrev element={element} />
+            <InputPrev styleForm={elementsStyles}  element={element} />
           )}
 
           {["datetime-local", "date"].includes(element.elementType.type) && (
