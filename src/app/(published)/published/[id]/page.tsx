@@ -59,6 +59,7 @@ export default function PublishFormPage({
         }
         const data = await response.json();
         setForm(data.form);
+        console.log("Form fetched:", data.form);
       } catch (error) {
         console.error("Error fetching form:", error);
       } finally {
@@ -80,37 +81,45 @@ export default function PublishFormPage({
            "mt-3 flex flex-col  justify-center mx-auto bg-white border shadow rounded-xl w-1/2 h-auto p-10 "
           
        }
+       style={form.style!}
     >
     <span className="text-md font-semibold"> {form!.content.length==0 && "No elements to Preview"}</span> 
-
+ 
       {form!.content.map((element: any, index) => (
-        <div key={index}>
-          {["text", "number", "email", "password", "file", "textarea","url"].includes(
-            element.elementType.type
-          ) && <InputPrev element={element} />}
+       <div key={index}>
+       {[
+         "text",
+         "number",
+         "email",
+         "password",
+         "file",
+         "textarea",
+         "url",
+       ].includes(element.elementType.type) && (
+         <InputPrev styleForm={form.elementStyle} element={element} />
+       )}
 
-          {["datetime-local", "date"].includes(element.elementType.type) && (
-            <DatePrev element={element} />
-          )}
+       {["datetime-local", "date"].includes(element.elementType.type) && (
+         <DatePrev styleForm={form.elementStyle} element={element} />
+       )}
 
-          {element.elementType.type === "time" && (
-         <DatePrev element={element} isTime={true} />
-          )}
+       {element.elementType.type === "time" && (
+         <DatePrev styleForm={form.elementStyle} element={element} isTime={true} />
+       )}
 
-          {element.elementType.type === "select" && (
-            <SelectPrev element={element} />
-          )}
-          {element.elementType.type === "select_multiple" && (
-            <SelectPrev element={element} isMultiple={true} />
-         
-          )}
-          {element.elementType.type === "checkbox" && (
-            <CheckBoxPrev element={element} />
-          )}
-          {element.elementType.type === "radio" && (
-            <RadioPrev element={element} />
-          )}
-        </div>
+       {element.elementType.type === "select" && (
+         <SelectPrev styleForm={form.elementStyle} element={element} />
+       )}
+       {element.elementType.type === "select_multiple" && (
+         <SelectPrev styleForm={form.elementStyle} element={element} isMultiple={true} />
+       )}
+       {element.elementType.type === "checkbox" && (
+         <CheckBoxPrev styleForm={form.elementStyle} element={element} />
+       )}
+       {element.elementType.type === "radio" && (
+         <RadioPrev styleForm={form.elementStyle} element={element} />
+       )}
+     </div>
       ))}
       <div className="flex justify-center pt-6">
      
