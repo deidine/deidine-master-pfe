@@ -29,7 +29,7 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
 
   return (
     <>
-      <div className="w-1/4   pl-40 bg-white">
+      <div className=" p-4 bg-white">
         <StylingForm
           currentStyling="Form" 
         />

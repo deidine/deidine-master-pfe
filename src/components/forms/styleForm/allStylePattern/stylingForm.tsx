@@ -3,26 +3,26 @@ import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import useStyle from "@/hooks/useStyle";
+
 export default function Styling({
-   
   currentStyling,
 }: {
-  currentStyling: string; 
+  currentStyling: string;
 }) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
-  const {formStyle,setFormStyle}=useStyle()
+  const { formStyle, setFormStyle } = useStyle();
 
   const [isVisible, setIsVisible] = useState(false);
 
   const handleSliderChange = (value: number, type: keyof FormStyle) => {
     const updatedStyles = { ...formStyle, [type]: `${value}px` };
-    setFormStyle(updatedStyles); 
+    setFormStyle(updatedStyles);
   };
 
   const handleColorChange = (color: any, type: keyof FormStyle) => {
     const updatedStyles = { ...formStyle, [type]: color.hex };
-    setFormStyle(updatedStyles); 
+    setFormStyle(updatedStyles);
   };
 
   const toggleVisibility = () => {
@@ -70,30 +70,36 @@ export default function Styling({
           </div>
 
           <div
+            className="relative" // Add relative positioning to parent div
             onMouseEnter={() => setBgColorPickerVisible(true)}
             onMouseLeave={() => setBgColorPickerVisible(false)}
           >
             <Button>Background Color</Button>
             {bgColorPickerVisible && (
-              <SketchPicker
-                color={formStyle?.backgroundColor || "#fff"}
-                onChange={(color) =>
-                  handleColorChange(color, "backgroundColor")
-                }
-              />
+              <div className="absolute z-10"> {/* Add absolute positioning to picker */}
+                <SketchPicker
+                  color={formStyle?.backgroundColor || "#fff"}
+                  onChange={(color) =>
+                    handleColorChange(color, "backgroundColor")
+                  }
+                />
+              </div>
             )}
           </div>
 
           <div
+            className="relative" // Add relative positioning to parent div
             onMouseEnter={() => setColorPickerVisible(true)}
             onMouseLeave={() => setColorPickerVisible(false)}
           >
             <Button>Text Color</Button>
             {colorPickerVisible && (
-              <SketchPicker
-                color={formStyle?.color || "#000"}
-                onChange={(color) => handleColorChange(color, "color")}
-              />
+              <div className="absolute z-10"> {/* Add absolute positioning to picker */}
+                <SketchPicker
+                  color={formStyle?.color || "#000"}
+                  onChange={(color) => handleColorChange(color, "color")}
+                />
+              </div>
             )}
           </div>
         </div>
@@ -101,3 +107,4 @@ export default function Styling({
     </div>
   );
 }
+ 
