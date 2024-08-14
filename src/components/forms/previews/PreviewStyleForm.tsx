@@ -5,10 +5,12 @@ import InputPrev from "./elementTypePreview/InputPrev";
 import DatePrev from "./elementTypePreview/DatePrev";
 import SelectPrev from "./elementTypePreview/SelectPrev";
 import CheckBoxPrev from "./elementTypePreview/CheckBoxPrev";
-import RadioPrev from "./elementTypePreview/RadioPrev";
-import Styling from "../styleForm/styling";
+import RadioPrev from "./elementTypePreview/RadioPrev"; 
 import useStyle from "@/hooks/useStyle";
-export default function PreviewformStyles({form}:{form:Form})  {
+import StylingForm from "../styleForm/allStylePattern/stylingForm";
+import StylingElements from "../styleForm/allStylePattern/stylingElements";
+import StylingButton from "../styleForm/allStylePattern/stylingButton";
+export default function PreviewformStyles( )  {
 const  { formStyle,elementStyle,setFormStyle,setButtonStyle,setElementStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
 
@@ -28,26 +30,16 @@ const  { formStyle,elementStyle,setFormStyle,setButtonStyle,setElementStyle}=use
   return (
     <>
       <div className="w-1/4   pl-40 bg-white">
-        <Styling
-          currentStyling="Form"
-          form={form}
-          handelStylingChanging={(value:FormStyle|undefined)=>{
-            setFormStyle(value!)
-           }}
+        <StylingForm
+          currentStyling="Form" 
         />
-        <Styling
+        <StylingElements
           currentStyling="Elements"
-          form={form}
-          handelStylingChanging={(value:FormStyle|undefined)=>{
-            setElementStyle(value!)
-           }}
+         
         />
-        <Styling
+        <StylingButton
           currentStyling="Buttons"
-          form={form}
-          handelStylingChanging={(value:FormStyle|undefined)=>{
-            setButtonStyle(value!)
-           }}
+         
         />
       </div>
       <Form

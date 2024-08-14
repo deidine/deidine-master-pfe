@@ -2,32 +2,27 @@ import { Button, Slider } from "antd";
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import useStyle from "@/hooks/useStyle";
 export default function Styling({
-  form,
-  handelStylingChanging,
+   
   currentStyling,
 }: {
   currentStyling: string;
-  form?: Form;
-  handelStylingChanging: (value: FormStyle | undefined) => void;
+   
 }) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
-  const [formStyles, setFormStyles] = useState<FormStyle | undefined>(
-    form?.style
-  );
+  const {buttonStyle,setButtonStyle}=useStyle()
   const [isVisible, setIsVisible] = useState(false);
 
   const handleSliderChange = (value: number, type: keyof FormStyle) => {
-    const updatedStyles = { ...formStyles, [type]: `${value}px` };
-    setFormStyles(updatedStyles);
-    handelStylingChanging(updatedStyles);
+    const updatedStyles = { ...buttonStyle, [type]: `${value}px` };
+    setButtonStyle(updatedStyles); 
   };
 
   const handleColorChange = (color: any, type: keyof FormStyle) => {
-    const updatedStyles = { ...formStyles, [type]: color.hex };
-    setFormStyles(updatedStyles);
-    handelStylingChanging(updatedStyles);
+    const updatedStyles = { ...buttonStyle, [type]: color.hex };
+    setButtonStyle(updatedStyles); 
   };
 
   const toggleVisibility = () => {
@@ -46,13 +41,13 @@ export default function Styling({
             <label>Padding X:</label>
             <Slider
               max={200}
-              value={parseInt(formStyles?.paddingX || "0", 10)}
+              value={parseInt(buttonStyle?.paddingX || "0", 10)}
               onChange={(value) => handleSliderChange(value, "paddingX")}
             />
             <label>Padding Y:</label>
             <Slider
               max={200}
-              value={parseInt(formStyles?.paddingY || "0", 10)}
+              value={parseInt(buttonStyle?.paddingY || "0", 10)}
               onChange={(value) => handleSliderChange(value, "paddingY")}
             />
           </div>
@@ -60,7 +55,7 @@ export default function Styling({
             <label>Border Width:</label>
             <Slider
               max={10}
-              value={parseInt(formStyles?.borderWidth || "0", 10)}
+              value={parseInt(buttonStyle?.borderWidth || "0", 10)}
               onChange={(value) => handleSliderChange(value, "borderWidth")}
             />
           </div>
@@ -69,7 +64,7 @@ export default function Styling({
             <label>Border Radius:</label>
             <Slider
               max={50}
-              value={parseInt(formStyles?.borderRadius || "0", 10)}
+              value={parseInt(buttonStyle?.borderRadius || "0", 10)}
               onChange={(value) => handleSliderChange(value, "borderRadius")}
             />
           </div>
@@ -81,7 +76,7 @@ export default function Styling({
             <Button>Background Color</Button>
             {bgColorPickerVisible && (
               <SketchPicker
-                color={formStyles?.backgroundColor || "#fff"}
+                color={buttonStyle?.backgroundColor || "#fff"}
                 onChange={(color) =>
                   handleColorChange(color, "backgroundColor")
                 }
@@ -96,7 +91,7 @@ export default function Styling({
             <Button>Text Color</Button>
             {colorPickerVisible && (
               <SketchPicker
-                color={formStyles?.color || "#000"}
+                color={buttonStyle?.color || "#000"}
                 onChange={(color) => handleColorChange(color, "color")}
               />
             )}
