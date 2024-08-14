@@ -61,9 +61,9 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
           ? "max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
           : ""
       }  `}
-      style={{
-        backgroundColor: form && form?.style?.backgroundColor,
-      }}
+     
+      style={getFormStyles()}
+
     >
       <p className="text-red-600">{form && form?.style?.backgroundColor} </p>
       <span className="text-md font-semibold">
