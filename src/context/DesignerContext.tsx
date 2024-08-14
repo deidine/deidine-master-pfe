@@ -7,9 +7,6 @@ import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useRef, 
 type DesignerContextType = {
   elements: FormElement[];
   setElements: Dispatch<SetStateAction<FormElement[]>>;
-  
-  formStyle?: FormStyle;
-  setFormStyle: Dispatch<SetStateAction<FormStyle>>;
 
   addElement: (index: number, element: FormElement) => void;
   removeElement: (id: string) => void;
@@ -36,7 +33,6 @@ export const DesignerContext = createContext<DesignerContextType | null>(null);
 
 export default function DesignerContextProvider({ children }: { children: ReactNode }) {
   const [elements, setElements] = useState<FormElement[]>([]);
-  const [formStyle, setFormStyle] = useState<FormStyle >({});
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
   const [codeForLanguage, setCodeForLanguage] = useState<string>("ReactJS");
@@ -148,8 +144,6 @@ export default function DesignerContextProvider({ children }: { children: ReactN
         duplicateElement,
         cutElement,
         pasteElement,
-        formStyle,
-setFormStyle
       }}
     >
       {children}

@@ -7,33 +7,21 @@ import SelectPrev from "./elementTypePreview/SelectPrev";
 import CheckBoxPrev from "./elementTypePreview/CheckBoxPrev";
 import RadioPrev from "./elementTypePreview/RadioPrev";
 import Styling from "../styleForm/styling";
-export default function PreviewformStyles({
-  form,
-}: {
-  form?: Form; 
-}) {
-  const [formStyles, setFormStyles] = useState<FormStyle | undefined>(
-    form?.style
-  );
-  const [elementsStyles, setElementsStyles] = useState<FormStyle | undefined>(
-    form?.elementStyle
-  );
-  const [buttonStyles, setButtonStyles] = useState<FormStyle | undefined>(
-    form?.buttonStyle
-  );
-
+import useStyle from "@/hooks/useStyle";
+export default function PreviewformStyles({form}:{form:Form})  {
+const  { formStyle,elementStyle,setFormStyle,setButtonStyle,setElementStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
 
   const getFormStyles = () => {
     return {
-      paddingLeft: formStyles?.paddingX  ,
-      paddingRight: formStyles?.paddingX  ,
-      paddingTop: formStyles?.paddingY  ,
-      paddingBottom: formStyles?.paddingY ,
-      color: formStyles?.color, 
-      border: formStyles?.border ,
-      borderRadius: formStyles?.borderRadius ,
-      backgroundColor: formStyles?.backgroundColor,
+      paddingLeft: formStyle?.paddingX  ,
+      paddingRight: formStyle?.paddingX  ,
+      paddingTop: formStyle?.paddingY  ,
+      paddingBottom: formStyle?.paddingY ,
+      color: formStyle?.color, 
+      border: formStyle?.border ,
+      borderRadius: formStyle?.borderRadius ,
+      backgroundColor: formStyle?.backgroundColor,
     };
   };
 
@@ -43,17 +31,23 @@ export default function PreviewformStyles({
         <Styling
           currentStyling="Form"
           form={form}
-          handelStylingChanging={setFormStyles}
+          handelStylingChanging={(value:FormStyle|undefined)=>{
+            setFormStyle(value!)
+           }}
         />
         <Styling
           currentStyling="Elements"
           form={form}
-          handelStylingChanging={setElementsStyles}
+          handelStylingChanging={(value:FormStyle|undefined)=>{
+            setElementStyle(value!)
+           }}
         />
         <Styling
           currentStyling="Buttons"
           form={form}
-          handelStylingChanging={setButtonStyles}
+          handelStylingChanging={(value:FormStyle|undefined)=>{
+            setButtonStyle(value!)
+           }}
         />
       </div>
       <Form
@@ -76,7 +70,7 @@ export default function PreviewformStyles({
               "textarea",
               "url",
             ].includes(element.elementType.type) && (
-              <InputPrev styleForm={elementsStyles} element={element} />
+              <InputPrev styleForm={elementStyle} element={element} />
             )}
 
             {["datetime-local", "date"].includes(element.elementType.type) && (
