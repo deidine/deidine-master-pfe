@@ -7,6 +7,7 @@ import { openNotification } from "@/utils/utils";
 import { generateComponentCodeNextJs } from "./langCode/nextJs";
 import { generateComponentCodeReacttJs } from "./langCode/reactJs";
 import { generateComponentCodeFlutter } from "./langCode/flutter";
+import useStyle from "@/hooks/useStyle";
  
 interface FormCodeGeneratorProps { 
   onCopyComplete?: (componentCode: string) => void;
@@ -20,10 +21,36 @@ const FormCodeGenerator = forwardRef(({
   const [componentCode, setComponentCode] = useState("");
   const { elements, submitBtn ,codeForLanguage} = useDesigner(); 
  
+const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
+const getFormStyles :FormStyle =  {
   
+    paddingLeft: formStyle?.paddingX  ,
+    paddingRight: formStyle?.paddingX  ,
+    paddingTop: formStyle?.paddingY  ,
+    paddingBottom: formStyle?.paddingY ,
+    color: formStyle?.color, 
+    border: formStyle?.border ,
+    borderRadius: formStyle?.borderRadius ,
+    backgroundColor: formStyle?.backgroundColor,
+  
+};
+const getInputStyles:FormStyle =  {
+    paddingLeft: elementStyle?.paddingX  || '8px',
+    paddingRight: elementStyle?.paddingX  || '8px',
+    paddingTop: elementStyle?.paddingY  || '8px',
+    paddingBottom: elementStyle?.paddingY || '8px',
+    color: elementStyle?.color, 
+    border: elementStyle?.border ,
+    borderRadius: elementStyle?.borderRadius ,
+    backgroundColor: elementStyle?.backgroundColor,
+  
+};
+
   useEffect(() => {
-    {codeForLanguage === "NextJs" ? setComponentCode(  generateComponentCodeNextJs(elements,submitBtn)) 
-      : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements,submitBtn)): setComponentCode(  generateComponentCodeFlutter(elements,submitBtn))}
+    {codeForLanguage === "NextJs" ? setComponentCode(  generateComponentCodeNextJs(elements,submitBtn,getFormStyles,
+      getInputStyles)) 
+      : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements,submitBtn,getFormStyles,
+        getInputStyles)): setComponentCode(  generateComponentCodeFlutter(elements,submitBtn,))}
    }, [elements,codeForLanguage]);
 
   const downloadCode = () => {
