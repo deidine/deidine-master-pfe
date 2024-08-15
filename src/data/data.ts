@@ -12,7 +12,8 @@ import {
   FiDatabase,
   FiHeadphones,
   FiExternalLink,
-  FiDollarSign,
+  FiBold,
+  FiImage,
 } from "react-icons/fi";
 import { FaReact } from "react-icons/fa6";
 import { SiFlutter } from "react-icons/si";
@@ -47,7 +48,7 @@ const patternOptions: PatternType[] = [
     allowedTypes: ["text"],
     pattern:
       "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$",
-    examplePattern: "https://www.example.com",
+    examplePattern: "https://example.com",
     icon: FiExternalLink,
     bgColor: "#E8DEEE",
     textColor: "text-black",
@@ -103,20 +104,20 @@ const lnaguageGenerator = [
   {
     value: "ReactJs",
     label: "ReactJs",
-    bgColor: "#F0F5FF", // Light lavender
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
     icon: FaReact,
   },  {
     value: "NextJs",
     label: "NextJs",
-    bgColor: "#F0F5FF", // Light lavender
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
     icon: TbBrandNextjs,
   },  {
     value: "Flutter",
     label: "Flutter",
-    bgColor: "#F0F5FF", // Light lavender
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
     icon: SiFlutter,
   },
 ]
@@ -124,72 +125,93 @@ const inputTypeOptions: InputTypeList[] = [
   {
     value: "text",
     label: "Text",
-    bgColor: "#FFF4E6", // Soft peach
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#FFF4E6", 
+    textColor: "text-gray-800", 
     icon: FiType,
   },
   {
     value: "url",
     label: "URL",
-    bgColor: "#E6F7FF", // Light blue
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#E6F7FF", 
+    textColor: "text-gray-800", 
     icon: FiExternalLink,
   },
   {
     value: "file",
     label: "File",
-    bgColor: "#E6FFFA", // Light teal
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#E6FFFA", 
+    textColor: "text-gray-800", 
     icon: FiFile,
   },
   {
     value: "time",
     label: "Time",
-    bgColor: "#FFFBE6", // Light yellow
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#FFFBE6", 
+    textColor: "text-gray-800", 
     icon: FiDatabase,
   },
   {
     value: "date",
     label: "Date",
-    bgColor: "#F0F5FF", // Light lavender
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
     icon: FiDatabase,
   },
   {
     value: "datetime-local",
     label: "Date with time",
-    bgColor: "#F0F5FF", // Light lavender (same as Date)
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
     icon: FiDatabase,
   },
   {
     value: "number",
     label: "Number",
-    bgColor: "#F0FFF4", // Light mint
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F0FFF4", 
+    textColor: "text-gray-800", 
     icon: FiHash,
   },
   {
     value: "email",
     label: "Email",
-    bgColor: "#E6F0FF", // Light blue-gray
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#E6F0FF", 
+    textColor: "text-gray-800", 
     icon: FiMail,
   },
   {
     value: "password",
     label: "Password",
-    bgColor: "#F3E8FF", // Soft purple
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#F3E8FF", 
+    textColor: "text-gray-800", 
     icon: FiLock,
   },
   {
     value: "textarea",
     label: "Textarea",
-    bgColor: "#FFE6E6", // Soft pink
-    textColor: "text-gray-800", // Dark gray
+    bgColor: "#FFE6E6", 
+    textColor: "text-gray-800", 
     icon: FiAlignLeft,
+  },
+  {
+    value: "logo",
+    label: "Logo",
+    bgColor: "#FFF4E6", 
+    textColor: "text-gray-800", 
+    icon: FiImage, 
+  },
+  {
+    value: "heading",
+    label: "heading",
+    bgColor: "#E6F7FF", 
+    textColor: "text-gray-800", 
+    icon: FiBold, 
+  },
+  {
+    value: "banner",
+    label: "Banner",
+    bgColor: "#E6FFFA", 
+    textColor: "text-gray-800", 
+    icon: FiFile, 
   },
 ];
 

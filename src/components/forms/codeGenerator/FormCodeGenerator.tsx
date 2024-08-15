@@ -103,7 +103,7 @@ const getInputStyles:FormStyle =  {
   }));
 
   return (
-    <div className="text-white my-6 rounded-lg mx-auto flex pl-[4.5rem] flex-col justify-center">
+    <div className="text-white w-[80%] my-6 rounded-lg mx-auto flex px-[4.5rem] flex-col justify-center">
      
       <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
