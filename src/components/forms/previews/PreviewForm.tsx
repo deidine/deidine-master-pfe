@@ -8,6 +8,8 @@ import CheckBoxPrev from "./elementTypePreview/CheckBoxPrev";
 import RadioPrev from "./elementTypePreview/RadioPrev";
 import useStyle from "@/hooks/useStyle";
 import HeadingPrev from "./elementTypePreview/HeadingPrev";
+import LogoPrev from "./elementTypePreview/LogoPrev";
+import BannerPrev from "./elementTypePreview/BannerPrev";
 
 export default function PreviewForm({
   isTemplate,
@@ -36,6 +38,8 @@ export default function PreviewForm({
 
   const getFormStyles = () => {
     return isTemlate ? {
+    } : {
+      
       paddingLeft: formStyle?.paddingX,
       paddingRight: formStyle?.paddingX,
       paddingTop: formStyle?.paddingY,
@@ -44,7 +48,7 @@ export default function PreviewForm({
       border: formStyle?.border,
       borderRadius: formStyle?.borderRadius,
       backgroundColor: formStyle?.backgroundColor,
-    } : {}
+    }
   };
 
   useEffect(() => {
@@ -78,34 +82,40 @@ export default function PreviewForm({
             "textarea",
             "url",
           ].includes(element.elementType.type) && (
-            <InputPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
+            <InputPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
           )}
 
           {["datetime-local", "date"].includes(element.elementType.type) && (
-            <DatePrev styleForm={isTemlate ? elementStyle : {}} element={element} />
+            <DatePrev styleForm={isTemlate ? {}: elementStyle} element={element} />
           )}
 
           {element.elementType.type === "time" && (
-            <DatePrev styleForm={isTemlate ? elementStyle : {}} element={element} isTime />
+            <DatePrev styleForm={isTemlate ? {}: elementStyle} element={element} isTime />
           )}
 
           {element.elementType.type === "select" && (
-            <SelectPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
+            <SelectPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
           )}
 
           {element.elementType.type === "select_multiple" && (
-            <SelectPrev styleForm={isTemlate ? elementStyle : {}} element={element} isMultiple />
+            <SelectPrev styleForm={isTemlate ? {}: elementStyle} element={element} isMultiple />
           )}
 
           {element.elementType.type === "checkbox" && (
-            <CheckBoxPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
+            <CheckBoxPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
           )}
 
           {element.elementType.type === "radio" && (
-            <RadioPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
+            <RadioPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
           )}
           {element.elementType.type === "heading" && (
-            <HeadingPrev element={element} styleForm={isTemlate ? elementStyle : {}} />
+            <HeadingPrev element={element} styleForm={isTemlate ? {}: elementStyle} />
+          )}
+             {element.elementType.type === "logo" && (
+            <LogoPrev element={element} styleForm={isTemlate ? {}: elementStyle} />
+          )}
+             {element.elementType.type === "banner" && (
+            <BannerPrev  element={element} styleForm={isTemlate ? {}: elementStyle} />
           )}
         </div>
       ))}
