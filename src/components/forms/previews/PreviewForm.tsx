@@ -35,20 +35,23 @@ export default function PreviewForm({
   const { formStyle, elementStyle, buttonStyle } = useStyle();
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
+  const bannerElement = elements.find(
+    (element) => element.elementType.type === "banner"
+  );
 
   const getFormStyles = () => {
-    return isTemlate ? {
-    } : {
-      
-      paddingLeft: formStyle?.paddingX,
-      paddingRight: formStyle?.paddingX,
-      paddingTop: formStyle?.paddingY,
-      paddingBottom: formStyle?.paddingY,
-      color: formStyle?.color,
-      border: formStyle?.border,
-      borderRadius: formStyle?.borderRadius,
-      backgroundColor: formStyle?.backgroundColor,
-    }
+    return isTemlate
+      ? {}
+      : {
+          paddingLeft: formStyle?.paddingX,
+          paddingRight: formStyle?.paddingX,
+          paddingTop: formStyle?.paddingY,
+          paddingBottom: formStyle?.paddingY,
+          color: formStyle?.color,
+          border: formStyle?.border,
+          borderRadius: formStyle?.borderRadius,
+          backgroundColor: formStyle?.backgroundColor,
+        };
   };
 
   useEffect(() => {
@@ -56,81 +59,116 @@ export default function PreviewForm({
   }, [elementsTemplate]);
 
   return (
-    <Form
-      onFinish={onFinish}
-      layout="vertical"
-      className={`${
-        !isTemplate
-          ? "max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
-          : ""
-      }`}
-      style={getFormStyles()}
-    >
-      <p className="text-red-600">{form && form?.style?.backgroundColor}</p>
-      <span className="text-md font-semibold">
-        {elements.length === 0 && "No elements to Preview"}
-      </span>
-
-      {mapElement.map((element: any, index) => (
-        <div key={index}>
-          {[
-            "text",
-            "number",
-            "email",
-            "password",
-            "file",
-            "textarea",
-            "url",
-          ].includes(element.elementType.type) && (
-            <InputPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
-          )}
-
-          {["datetime-local", "date"].includes(element.elementType.type) && (
-            <DatePrev styleForm={isTemlate ? {}: elementStyle} element={element} />
-          )}
-
-          {element.elementType.type === "time" && (
-            <DatePrev styleForm={isTemlate ? {}: elementStyle} element={element} isTime />
-          )}
-
-          {element.elementType.type === "select" && (
-            <SelectPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
-          )}
-
-          {element.elementType.type === "select_multiple" && (
-            <SelectPrev styleForm={isTemlate ? {}: elementStyle} element={element} isMultiple />
-          )}
-
-          {element.elementType.type === "checkbox" && (
-            <CheckBoxPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
-          )}
-
-          {element.elementType.type === "radio" && (
-            <RadioPrev styleForm={isTemlate ? {}: elementStyle} element={element} />
-          )}
-          {element.elementType.type === "heading" && (
-            <HeadingPrev element={element} styleForm={isTemlate ? {}: elementStyle} />
-          )}
-             {element.elementType.type === "logo" && (
-            <LogoPrev element={element} styleForm={isTemlate ? {}: elementStyle} />
-          )}
-             {element.elementType.type === "banner" && (
-            <BannerPrev  element={element} styleForm={isTemlate ? {}: elementStyle} />
-          )}
+    <>
+      {bannerElement && (
+        <div className="max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 mb-[-10px] h-auto">
+          <BannerPrev
+            element={bannerElement}
+            styleForm={isTemlate ? {} : elementStyle}
+          />
         </div>
-      ))}
+      )}
+      <Form
+        onFinish={onFinish}
+        layout="vertical"
+        className={`${
+          !isTemplate
+            ? "max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 h-auto p-10  "
+            : ""
+        }`}
+        style={getFormStyles()}
+      >
+        <span className="text-md font-semibold">
+          {elements.length === 0 && "No elements to Preview"}
+        </span>
 
-      <div className="flex justify-center pt-6">
-        {showSubmit ? (
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="h-10 font-bold py-2 px-4 w-1/2"
-          >
-            {submitBtn}
-          </Button>
-        ): null }
-      </div>
-    </Form>
+        {mapElement.map((element: any, index) => (
+          <div key={index}>
+            {[
+              "text",
+              "number",
+              "email",
+              "password",
+              "file",
+              "textarea",
+              "url",
+            ].includes(element.elementType.type) && (
+              <InputPrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+              />
+            )}
+
+            {["datetime-local", "date"].includes(element.elementType.type) && (
+              <DatePrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+              />
+            )}
+
+            {element.elementType.type === "time" && (
+              <DatePrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+                isTime
+              />
+            )}
+
+            {element.elementType.type === "select" && (
+              <SelectPrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+              />
+            )}
+
+            {element.elementType.type === "select_multiple" && (
+              <SelectPrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+                isMultiple
+              />
+            )}
+
+            {element.elementType.type === "checkbox" && (
+              <CheckBoxPrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+              />
+            )}
+
+            {element.elementType.type === "radio" && (
+              <RadioPrev
+                styleForm={isTemlate ? {} : elementStyle}
+                element={element}
+              />
+            )}
+            {element.elementType.type === "heading" && (
+              <HeadingPrev
+                element={element}
+                styleForm={isTemlate ? {} : elementStyle}
+              />
+            )}
+            {element.elementType.type === "logo" && (
+              <LogoPrev
+                element={element}
+                styleForm={isTemlate ? {} : elementStyle}
+              />
+            )}
+          </div>
+        ))}
+
+        <div className="flex justify-center pt-6">
+          {showSubmit ? (
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="h-10 font-bold py-2 px-4 w-1/2"
+            >
+              {submitBtn}
+            </Button>
+          ) : null}
+        </div>
+      </Form>
+    </>
   );
 }
