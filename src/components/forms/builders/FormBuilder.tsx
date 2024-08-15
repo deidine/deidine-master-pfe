@@ -1,11 +1,11 @@
 "use client";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
-import { useHotkeys } from "react-hotkeys-hook";
 import SubmitButton from "@/components/ui/SubmitButton";
 import DragDropAria from "./DragDropAria";
 import { useState, useEffect } from "react"; 
 import SidBarOptions from "@/components/sidBarOptions/SidBarOptions";
+import BannerPrev from "../previews/elementTypePreview/BannerPrev";
 
 export default function FormBuilder() {
   const {  elements, selectedElement, setIsSidebarVisible, isSidebarVisible } = useDesigner();
@@ -19,7 +19,13 @@ export default function FormBuilder() {
   }, [selectedElement]);
  
 
+  const bannerElement = elements.find(
+    (element) => element.elementType.type === "banner"
+  );
+
   return (
+<>      {bannerElement && <BannerPrev element={bannerElement} />}
+ 
     <div className="max-w-2xl mt-3 bg-white border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
       <span className="text-md font-semibold">{elements.length === 0 && "No elements added yet"}</span>
       <DragDropAria />
@@ -33,7 +39,7 @@ export default function FormBuilder() {
           <div
             className="absolute top-0 right-0 w-full md:w-1/3 sm:w-[200px] pl-3 overflow-y-scroll scroll-m-0 h-full bg-white shadow-lg z-50 sidebar transition-transform duration-300 transform translate-x-0"
             onClick={(e) => e.stopPropagation()}
-          >
+          > 
             <div className="flex justify-between p-4 text-[20px]  font-bold font-mono border-b">
             {labelCurent}
                <CloseCircleOutlined className="text-red-500 font-bold text-[20px] transition-colors" onClick={() => {
@@ -48,5 +54,5 @@ export default function FormBuilder() {
       )}
       <SubmitButton />
     </div>
-  );
+</>  );
 }

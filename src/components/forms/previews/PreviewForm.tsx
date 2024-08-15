@@ -49,7 +49,8 @@ export default function PreviewForm({
           paddingBottom: formStyle?.paddingY,
           color: formStyle?.color,
           border: formStyle?.border,
-          borderRadius: formStyle?.borderRadius,
+          borderBottomRightRadius: formStyle?.borderRadius,
+          borderBottomLeftRadius: formStyle?.borderRadius,
           backgroundColor: formStyle?.backgroundColor,
         };
   };
@@ -61,19 +62,17 @@ export default function PreviewForm({
   return (
     <>
       {bannerElement && (
-        <div className="max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 mb-[-13px] h-auto">
           <BannerPrev
             element={bannerElement}
             styleForm={isTemlate ? {} : elementStyle}
           />
-        </div>
-      )}
+       )}
       <Form
         onFinish={onFinish}
         layout="vertical"
         className={`${
           !isTemplate
-            ? "max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 h-auto p-10  "
+            ? "max-w-2xl mt-3 bg-white  border shadow  w-1/2 h-auto p-10  "
             : ""
         }`}
         style={getFormStyles()}

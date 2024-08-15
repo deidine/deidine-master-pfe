@@ -11,8 +11,7 @@ export default function FormElement({
   index: number;
   element: SelectElement | InputElement;
   form: FormElement;
-}) {
-  const [inputLabel, setInputLabel] = useState(element.label);
+}) { 
   const {
     removeElement, 
     setIsSidebarVisible,
