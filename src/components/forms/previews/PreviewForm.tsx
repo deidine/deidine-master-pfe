@@ -61,7 +61,7 @@ export default function PreviewForm({
   return (
     <>
       {bannerElement && (
-        <div className="max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 mb-[-10px] h-auto">
+        <div className="max-w-2xl mt-3 bg-white  border shadow rounded-xl w-1/2 mb-[-13px] h-auto">
           <BannerPrev
             element={bannerElement}
             styleForm={isTemlate ? {} : elementStyle}

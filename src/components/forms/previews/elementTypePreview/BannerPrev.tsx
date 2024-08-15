@@ -5,17 +5,14 @@ export default function BannerPrev({
   element: FormElement;
   styleForm?: FormStyle;
 }) {
-  const defaultStyle = {
-    paddingY: "10px",
+  const defaultStyle = { 
     backgroundColor: "#f0f0f0",
     borderRadius: "8px",
   };
 
   return (
     <div
-      style={{
-        paddingTop: styleForm?.paddingY || defaultStyle.paddingY,
-        paddingBottom: styleForm?.paddingY || defaultStyle.paddingY,
+      style={{  
         backgroundColor: styleForm?.backgroundColor || defaultStyle.backgroundColor,
       }}
     >
