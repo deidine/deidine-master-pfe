@@ -42,6 +42,21 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const copiedElement = useRef<FormElement | null>(null);
 
   const addElement = (index: number, element: FormElement) => {
+    // Check if the element to be added is a banner link
+    if (element.elementType.imgBannerLink !== undefined) {
+      // Check if a banner link already exists in the current elements
+      const bannerExists = elements.some((el) => el.elementType.imgBannerLink !== undefined);
+      if (bannerExists) {
+        // Prevent adding a second banner and show a notification
+        openNotification("topRight", "error", "Duplicate Banner Link", "A banner link already exists. You cannot add another one.");
+        return;
+      }else {
+        openNotification("topRight", "error", "Duplicate Banner Link "+bannerExists, "A banner link already exists. You cannot add another one.");
+
+      }
+    }
+  
+    // Proceed with adding the element
     setElements((prev) => {
       undoStack.current.push(prev);
       redoStack.current = [];
@@ -49,7 +64,8 @@ export default function DesignerContextProvider({ children }: { children: ReactN
       newElements.splice(index, 0, element);
       return newElements;
     });
-     };
+  };
+  
 
   const removeElement = (name: string) => {
     setElements((prev) => {

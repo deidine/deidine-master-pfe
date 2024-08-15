@@ -4,7 +4,6 @@ import {   newElement, renderOptions } from "@/utils/utilsFunctions";
 import useDesigner from "@/hooks/useDesigner";
 import { inputTypeOptions, selectTypeOptions } from "@/data/data";
 import PreviewForm from "../previews/PreviewForm";
-test if the banner exit alredy use element in usedeesigner so prevent from give 2
 export default function ModelPopupType({
   isModalVisible,
   setIsModalVisible,
