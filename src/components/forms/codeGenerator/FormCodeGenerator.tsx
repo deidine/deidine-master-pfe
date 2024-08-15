@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import useDesigner from "@/hooks/useDesigner";
-import { Button, message } from "antd";
+import { Button, Input, message, Modal } from "antd";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow as codeStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { openNotification } from "@/utils/utils";
@@ -21,6 +21,7 @@ const FormCodeGenerator = forwardRef(({
   const [componentCode, setComponentCode] = useState("");
   const { elements, submitBtn ,codeForLanguage} = useDesigner(); 
  
+  
 const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
 const getFormStyles :FormStyle =  {
   
@@ -104,10 +105,11 @@ const getInputStyles:FormStyle =  {
 
   return (
     <div className="text-white w-[80%] my-6 rounded-lg mx-auto flex px-[4.5rem] flex-col justify-center">
-     
+      file name 
       <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
       </SyntaxHighlighter>
+
     </div>
   );
 });

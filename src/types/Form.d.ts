@@ -41,10 +41,10 @@ type BaseElement = {
   allowedEtentions?: string,
   startDate?: string,
   endDate?: string,
- 
+ imgLink?:string
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url";
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"|"logo";
 
 type InputOptions = {
   isPasswordConfirm?: boolean;

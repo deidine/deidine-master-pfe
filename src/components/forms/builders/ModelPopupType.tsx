@@ -81,7 +81,7 @@ export default function ModelPopupType({
         <div className="mt-4">
           <p className="text-lg font-bold text-center m-4">Preview for : <span className="text-blue-500">{selectedType}</span></p>
       
-          <PreviewForm isTemplate={true} elementsTemplate={previewElements} showSubmit = {true} />
+          <PreviewForm isTemplate={true} elementsTemplate={previewElements} showSubmit = {false} />
         </div></>
       )}
     </Modal>

@@ -23,12 +23,21 @@ export default function TopButton({
   onDownloadClick: (value: string) => void;
 }) {
   const shareUrl = window.location.href.replace("forms", "published");
-  const {elements,codeForLanguage, setCodeForLanguage , setElements, undo, redo, undoStack, redoStack } = useDesigner();
+  const {
+    elements,
+    codeForLanguage,
+    setCodeForLanguage,
+    setElements,
+    undo,
+    redo,
+    undoStack,
+    redoStack,
+  } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const isFirstRender = useRef(true);
   const [isSaved, setIsSaved] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-const { formStyle,buttonStyle,elementStyle}=useStyle();
+  const { formStyle, buttonStyle, elementStyle } = useStyle();
   const handleSave = async () => {
     setIsLoading(true);
 
@@ -41,9 +50,13 @@ const { formStyle,buttonStyle,elementStyle}=useStyle();
         if (formIndex !== -1) {
           forms[formIndex].content = elements;
         } else {
-          forms.push({ idForm, content: elements, style : formStyle,
+          forms.push({
+            idForm,
+            content: elements,
+            style: formStyle,
             elementStyle: elementStyle,
-            buttonStyle: buttonStyle, });
+            buttonStyle: buttonStyle,
+          });
         }
 
         localStorage.setItem("forms", JSON.stringify(forms));
@@ -137,7 +150,6 @@ const { formStyle,buttonStyle,elementStyle}=useStyle();
   }
   const handleTypeChange = (value: string) => {
     setCodeForLanguage(value);
-    
   };
 
   return (
@@ -209,10 +221,8 @@ const { formStyle,buttonStyle,elementStyle}=useStyle();
           </div>
         )}
 
-        {
-          selectedButton2 === "design" && (
-            <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
- 
+        {selectedButton2 === "design" && (
+          <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
             <Tooltip title="ctrl+s">
               <Button
                 icon={<FaSave />}
@@ -225,8 +235,7 @@ const { formStyle,buttonStyle,elementStyle}=useStyle();
               </Button>
             </Tooltip>
           </Badge>
-          )
-        }
+        )}
         {selectedButton2 === "Export code" && (
           <>
             {" "}
@@ -249,23 +258,22 @@ const { formStyle,buttonStyle,elementStyle}=useStyle();
               >
                 Download
               </Button>
-             <div>
-             <Select
-            className="w-full"
-            value={codeForLanguage}
-            onChange={handleTypeChange}
-            placeholder="Select input type"
-          > 
-             {lnaguageGenerator.map((option) => (
-                  <Select.Option key={option.value} value={option.value}>
-                    <div className="flex gap-2 text-lg items-center">
-                      <option.icon /> {option.label}
-                    </div>
-                  </Select.Option>
-                ))
-           }
-          </Select>
-             </div>
+              <div>
+                <Select
+                  className="w-full"
+                  value={codeForLanguage}
+                  onChange={handleTypeChange}
+                  placeholder="Select input type"
+                >
+                  {lnaguageGenerator.map((option) => (
+                    <Select.Option key={option.value} value={option.value}>
+                      <div className="flex gap-2 text-lg items-center">
+                        <option.icon /> {option.label}
+                      </div>
+                    </Select.Option>
+                  ))}
+                </Select>
+              </div>
             </div>
           </>
         )}

@@ -33,12 +33,9 @@ export default function PreviewForm({
   const { formStyle, elementStyle, buttonStyle } = useStyle();
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
-  const [elementsStyles, setElementsStyles] = useState<FormStyle | undefined>(
-    form?.style
-  );
 
   const getFormStyles = () => {
-    return {
+    return isTemlate ? {
       paddingLeft: formStyle?.paddingX,
       paddingRight: formStyle?.paddingX,
       paddingTop: formStyle?.paddingY,
@@ -47,7 +44,7 @@ export default function PreviewForm({
       border: formStyle?.border,
       borderRadius: formStyle?.borderRadius,
       backgroundColor: formStyle?.backgroundColor,
-    };
+    } : {}
   };
 
   useEffect(() => {
@@ -81,44 +78,40 @@ export default function PreviewForm({
             "textarea",
             "url",
           ].includes(element.elementType.type) && (
-            <InputPrev styleForm={elementStyle} element={element} />
+            <InputPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
           )}
 
           {["datetime-local", "date"].includes(element.elementType.type) && (
-            <DatePrev styleForm={elementStyle} element={element} />
+            <DatePrev styleForm={isTemlate ? elementStyle : {}} element={element} />
           )}
 
           {element.elementType.type === "time" && (
-            <DatePrev styleForm={elementStyle} element={element} isTime />
+            <DatePrev styleForm={isTemlate ? elementStyle : {}} element={element} isTime />
           )}
 
           {element.elementType.type === "select" && (
-            <SelectPrev styleForm={elementStyle} element={element} />
+            <SelectPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
           )}
 
           {element.elementType.type === "select_multiple" && (
-            <SelectPrev
-              styleForm={elementStyle}
-              element={element}
-              isMultiple
-            />
+            <SelectPrev styleForm={isTemlate ? elementStyle : {}} element={element} isMultiple />
           )}
 
           {element.elementType.type === "checkbox" && (
-            <CheckBoxPrev styleForm={elementStyle} element={element} />
+            <CheckBoxPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
           )}
 
           {element.elementType.type === "radio" && (
-            <RadioPrev styleForm={elementStyle} element={element} />
+            <RadioPrev styleForm={isTemlate ? elementStyle : {}} element={element} />
           )}
- {element.elementType.type === "heading" && (
-   <HeadingPrev element={ element} styleForm={elementStyle} />
- )}
+          {element.elementType.type === "heading" && (
+            <HeadingPrev element={element} styleForm={isTemlate ? elementStyle : {}} />
+          )}
         </div>
       ))}
 
       <div className="flex justify-center pt-6">
-        {showSubmit ? null : (
+        {showSubmit ? (
           <Button
             type="primary"
             htmlType="submit"
@@ -126,7 +119,7 @@ export default function PreviewForm({
           >
             {submitBtn}
           </Button>
-        )}
+        ): null }
       </div>
     </Form>
   );
