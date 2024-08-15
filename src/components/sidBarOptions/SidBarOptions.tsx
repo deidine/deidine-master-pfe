@@ -13,6 +13,7 @@ import { DateChoicePeriodInput } from "./DateChoicePeriodInput";
 import { FileAllowedExtensions } from "./FileAllowedExtensions";
 import { LabelValue, LabelValue2 } from "./LabelValue";
 import { SelectOptionSidBarOptions } from "./SelectOptionSidBarOptions";
+import MediaHeadingConfig from "./MediaHeadingConfig";
 
 export default function SidBarOptions({
   element,
@@ -63,94 +64,103 @@ export default function SidBarOptions({
         exit={{ x: -100, opacity: 0 }}
         className="space-y-6"
       >
-        <div>
-          <LabelValue value="Label" />
+      {element!.type == "banner"   || element!.type == "logo"  || element!.type == "heading" ? (
+        <>
+        <MediaHeadingConfig element={element} />
+        </>
+      ): (
+      <div>
           <div>
-            <AutoResizeTextarea
-              inputLabel={inputLabel}
-              handleLabelChange={handleLabelChange}
-              isEditing={true}
-            />
-          </div>
-          <LabelValue value="Placeholder" />
-          <Input
-            placeholder="Placeholder"
-            value={placholder}
-            onChange={handlePlaceholderChange}
-            className="mb-4"
+        <LabelValue value="Label" />
+        <div>
+          <AutoResizeTextarea
+            inputLabel={inputLabel}
+            handleLabelChange={handleLabelChange}
+            isEditing={true}
           />
         </div>
+        <LabelValue value="Placeholder" />
+        <Input
+          placeholder="Placeholder"
+          value={placholder}
+          onChange={handlePlaceholderChange}
+          className="mb-4"
+        />
+      </div>
 
-        <div className="flex gap-2 items-center">
-          <LabelValue value="Type" />
-          <Select
-            className="w-full"
-            value={inputType}
-            onChange={handleTypeChange}
-            placeholder="Select input type"
-          >
-            {element!.type === "select" ||
-            element!.type === "select_multiple" ||
-            element!.type === "radio" ||
-            element!.type === "checkbox"
-              ? selectTypeOptions.map((option) => (
-                  <Select.Option key={option.value} value={option.value}>
-                    <div className="flex gap-2 items-center">
-                      <option.icon /> {option.label}
-                    </div>
-                  </Select.Option>
-                ))
-              : inputTypeOptions.map((option, index) => (
-                  <Select.Option key={index} value={option.value}>
-                    <div className="flex gap-2 items-center">
-                      <option.icon /> {option.label}
-                    </div>
-                  </Select.Option>
-                ))}
-          </Select>
-
-          <div className="flex gap-2 items-center">
-            <RequiredComponent
-              required={element!.required!}
-              toggleRequired={() => {
-                updateElement(element!.name, {
-                  ...element!,
-                  required: !isRequired,
-                });
-
-                setIsRequired(!isRequired);
-              }}
-              isSwitchButton={true}
-            />
-            <LabelValue2 value={isRequired ? "Required" : "Required"} />
-          </div>
-        </div>
-        <div>
+      <div className="flex gap-2 items-center">
+        <LabelValue value="Type" />
+        <Select
+          className="w-full"
+          value={inputType}
+          onChange={handleTypeChange}
+          placeholder="Select input type"
+        >
           {element!.type === "select" ||
           element!.type === "select_multiple" ||
           element!.type === "radio" ||
-          element!.type === "checkbox" ? (
-            <SelectOptionSidBarOptions element={element!} />
-          ) : element!.type === "file" ||
-            element!.type === "date" ||
-            element!.type === "datetime-local" ||
-            element!.type === "time" ? (
-            <> </>
-          ) : (
-            <></>
-            // <PatternSidBarOptions
-            //   allowedPatternOptions={allowedPatternOptions}
-            //   element={element}
-            // />
-          )}
+          element!.type === "checkbox"
+            ? selectTypeOptions.map((option) => (
+                <Select.Option key={option.value} value={option.value}>
+                  <div className="flex gap-2 items-center">
+                    <option.icon /> {option.label}
+                  </div>
+                </Select.Option>
+              ))
+            : inputTypeOptions.map((option, index) => (
+                <Select.Option key={index} value={option.value}>
+                  <div className="flex gap-2 items-center">
+                    <option.icon /> {option.label}
+                  </div>
+                </Select.Option>
+              ))}
+        </Select>
+
+        <div className="flex gap-2 items-center">
+          <RequiredComponent
+            required={element!.required!}
+            toggleRequired={() => {
+              updateElement(element!.name, {
+                ...element!,
+                required: !isRequired,
+              });
+
+              setIsRequired(!isRequired);
+            }}
+            isSwitchButton={true}
+          />
+          <LabelValue2 value={isRequired ? "Required" : "Required"} />
         </div>
-        {element!.type === "date" && (
-          <DateChoicePeriodInput element={element} />
+      </div>
+      <div>
+        {element!.type === "select" ||
+        element!.type === "select_multiple" ||
+        element!.type === "radio" ||
+        element!.type === "checkbox" ? (
+          <SelectOptionSidBarOptions element={element!} />
+        ) : element!.type === "file" ||
+          element!.type === "date" ||
+          element!.type === "datetime-local" ||
+          element!.type === "time" ? (
+          <> </>
+        ) : (
+          <></>
+          // <PatternSidBarOptions
+          //   allowedPatternOptions={allowedPatternOptions}
+          //   element={element}
+          // />
         )}
-        {element!.type == "file" && (
-          <FileAllowedExtensions element={element!} />
-        )}
-      </motion.div>
+      </div>
+      {element!.type === "date" && (
+        <DateChoicePeriodInput element={element} />
+      )}
+      {element!.type == "file" && (
+        <FileAllowedExtensions element={element!} />
+      )}
+      
+      </div>
+      )}
+        </motion.div>
     </AnimatePresence>
   );
 }

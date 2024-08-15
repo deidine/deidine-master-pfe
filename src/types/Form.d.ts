@@ -45,7 +45,7 @@ type BaseElement = {
 imgBannerLink?:string
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"|"logo";
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"|"logo" | "banner"| "heading" ;
 
 type InputOptions = {
   isPasswordConfirm?: boolean;
