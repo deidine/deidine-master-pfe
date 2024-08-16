@@ -7,9 +7,17 @@ import CheckBoxPrev from "@/components/forms/previews/elementTypePreview/CheckBo
 import DatePrev from "@/components/forms/previews/elementTypePreview/DatePrev";
 import InputPrev from "@/components/forms/previews/elementTypePreview/InputPrev";
 import RadioPrev from "@/components/forms/previews/elementTypePreview/RadioPrev";
+import LogoPrev from './elementTypePreview/LogoPrev';
+import HeadingTitlePrev from './elementTypePreview/HeadingPrevTitle';
 export default function PreviewPublished({
     form,onFinish}: {
+      
     form: Form,onFinish: (values: any) => void}) {
+      const logoElement = form.content.find(
+        (element) => element.elementType.type === "logo"  
+      );  const HeadTitleElement = form.content.find(
+        (element) => element.elementType.type === "headingTitle"
+      );
   return (
   <Form
     onFinish={onFinish}
@@ -21,7 +29,18 @@ export default function PreviewPublished({
      style={form.style!}
   >
   <span className="text-md font-semibold"> {form!.content.length==0 && "No elements to Preview"}</span> 
-
+  <div className="flex flex-col justify-between items-center">
+        {logoElement?.elementType.type === "logo"  && (
+          <LogoPrev
+            element={logoElement}
+            styleForm={ form.style!}
+          />
+        )}
+        { HeadTitleElement?.elementType.type === "headingTitle" && (
+          <HeadingTitlePrev   element={HeadTitleElement}
+          styleForm={ form.elementStyle}/>)
+        }
+        </div>
     {form!.content.map((element: any, index) => (
      <div key={index}>
      {[
