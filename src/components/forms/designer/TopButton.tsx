@@ -50,6 +50,7 @@ export default function TopButton({
         if (formIndex !== -1) {
           forms[formIndex].content = elements;
           forms[formIndex].style = formStyle;
+          forms[formIndex].buttonStyle=buttonStyle
           forms[formIndex].elementStyle=elementStyle
         } else {
           forms.push({
