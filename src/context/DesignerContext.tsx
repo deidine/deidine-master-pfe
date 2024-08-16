@@ -1,6 +1,7 @@
 // DesignerContext.tsx
 "use client";
 
+import { lnaguageGenerator } from "@/data/data";
 import { openNotification } from "@/utils/utils";
 import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useRef, useState } from "react";
 
@@ -35,7 +36,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
   const [elements, setElements] = useState<FormElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
   const [submitBtn, setSubmitBtn] = useState<string>("Submit");
-  const [codeForLanguage, setCodeForLanguage] = useState<string>("ReactJS");
+  const [codeForLanguage, setCodeForLanguage] = useState<string>( lnaguageGenerator[0].label);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); 
   const undoStack = useRef<FormElement[][]>([]);
   const redoStack = useRef<FormElement[][]>([]);
