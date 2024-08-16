@@ -1,5 +1,6 @@
 "use client";
 import Designer from "@/components/forms/designer/Designer";
+import DesignSkeleton from "@/components/skeletons/DesignSkeleton";
 import useGeneral from "@/hooks/useGeneral";
 import { useSearchParams } from 'next/navigation' 
 import { useEffect, useState } from "react"; 
@@ -57,7 +58,7 @@ export default function FormDetailPage({
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="w-full h-screen"> <DesignSkeleton/></div>;
   }
 
   if (error) {

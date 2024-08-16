@@ -36,19 +36,7 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
 
   return (
     <div className="flex justify-around   gap-4 w-full relative">
-    <div className="w-[16%]">
-    <div className="overflow-auto fixed left-[175px] w-[16%] h-full mb-40 p-4 bg-white">
-        <StylingForm
-          currentStyling="Form" 
-        />
-        <StylingElements
-          currentStyling="Elements" 
-        />
-        <StylingButton
-          currentStyling="Buttons" 
-        />
-      </div>
-    </div>
+ 
       <Form
         layout="vertical"
         className={`${"max-w-2xl  mt-3 bg-white border shadow rounded-xl w-1/2 h-full p-10 ml-4"}`}

@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import PreviewForm from "../previews/PreviewForm";
-import FormBuilder from "../builders/FormBuilder"; 
+import FormBuilder from "../builders/FormBuilder";
 import InsertElement from "../InsertElement";
-import SideButtons from "./SideButtons"; 
+import SideButtons from "./SideButtons";
 import FormCodeGenerator from "../codeGenerator/FormCodeGenerator";
 import StyleForm from "../styleForm/styleForm";
 import TopButton from "./TopButton";
@@ -15,30 +15,21 @@ export default function Designer({
   form: Form;
   isFromLocalStorage: boolean;
 }) {
-const {setButtonStyle,setElementStyle,setFormStyle}=useStyle();
+  const { setButtonStyle, setElementStyle, setFormStyle } = useStyle();
   const [selectedButton, setSelectedButton] = useState<
-  "preview" | "field" | "design" | "Export code"
->("field");
-const childRef = useRef<any>();
-useEffect(() => {
-  
-setElementStyle(form.elementStyle!);
-setFormStyle(form.style!);
-setButtonStyle(form.buttonStyle!);
-},[])
+    "preview" | "field" | "design" | "Export code"
+  >("field");
+  const childRef = useRef<any>();
+  useEffect(() => {
+    setElementStyle(form.elementStyle!);
+    setFormStyle(form.style!);
+    setButtonStyle(form.buttonStyle!);
+  }, []);
   return (
     <>
       <div className="flex relative  flex-col justify-center gap-2  w-full">
-        <SideButtons
-          selected={function (
-            current: "preview" | "field" | "design" | "Export code"
-          ): void {
-            setSelectedButton(current);
-          }}
-        />
-        <TopButton
-          onCopyClick={(value:string) => {
-         
+             <TopButton
+          onCopyClick={(value: string) => {
             if (childRef.current) {
               childRef.current.copyToClipboard();
             }
@@ -48,7 +39,17 @@ setButtonStyle(form.buttonStyle!);
               childRef.current.downloadCode();
             }
           }}
-        selectedButton2={selectedButton}  form={form} isFromLocalStorage={isFromLocalStorage}/>
+          selectedButton2={selectedButton}
+          form={form}
+          isFromLocalStorage={isFromLocalStorage}
+        />
+   <SideButtons
+          selected={function (
+            current: "preview" | "field" | "design" | "Export code"
+          ): void {
+            setSelectedButton(current);
+          }}
+        />
 
         <div className="mx-auto  w-full flex flex-col items-center pt-[50px]  justify-center">
           {selectedButton === "preview" && <PreviewForm />}
@@ -59,7 +60,7 @@ setButtonStyle(form.buttonStyle!);
               <FormBuilder /> <InsertElement />
             </>
           )}
-          {selectedButton === "design" && <StyleForm  />}
+          {selectedButton === "design" && <StyleForm />}
           {selectedButton === "Export code" && (
             <FormCodeGenerator
               ref={childRef}

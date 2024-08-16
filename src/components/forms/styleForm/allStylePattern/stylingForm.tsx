@@ -27,22 +27,22 @@ export default function Styling({ currentStyling }: { currentStyling: string }) 
   return (
     <div>
       <div
-        className="flex justify-between items-center mt-10"
+        className="flex justify-between items-center border-b-2 cursor-pointer"
         onClick={toggleVisibility}
       >
         {currentStyling} {isVisible ? <UpOutlined /> : <DownOutlined />}
       </div>
 
       {isVisible && (
-        <div className="mt-4">
-           <div
+        <div className="mt-4 space-y-4">
+          <div
             className="relative"
             onMouseEnter={() => setBgColorPickerVisible(true)}
             onMouseLeave={() => setBgColorPickerVisible(false)}
           >
             <Button>Background Color</Button>
             {bgColorPickerVisible && (
-              <div className="absolute z-20">
+              <div className="absolute z-50">
                 <SketchPicker
                   color={formStyle?.backgroundColor || "#fff"}
                   onChange={(color) =>
@@ -60,7 +60,7 @@ export default function Styling({ currentStyling }: { currentStyling: string }) 
           >
             <Button>Text Color</Button>
             {colorPickerVisible && (
-              <div className="absolute z-20">
+              <div className="absolute z-50">
                 <SketchPicker
                   color={formStyle?.color || "#000"}
                   onChange={(color) => handleColorChange(color, "color")}
@@ -68,6 +68,7 @@ export default function Styling({ currentStyling }: { currentStyling: string }) 
               </div>
             )}
           </div>
+
           <div>
             <label>Padding X:</label>
             <Slider
@@ -82,6 +83,7 @@ export default function Styling({ currentStyling }: { currentStyling: string }) 
               onChange={(value) => handleSliderChange(value, "paddingY")}
             />
           </div>
+
           <div>
             <label>Border Width:</label>
             <Slider
@@ -99,8 +101,6 @@ export default function Styling({ currentStyling }: { currentStyling: string }) 
               onChange={(value) => handleSliderChange(value, "borderRadius")}
             />
           </div>
-
-         
         </div>
       )}
     </div>

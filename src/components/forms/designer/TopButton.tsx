@@ -144,13 +144,6 @@ export default function TopButton({
   useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
   useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
 
-  if (!isReady) {
-    return (
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <p className="animate-spin h-12 w-12">____ |___|</p>
-      </div>
-    );
-  }
   const handleTypeChange = (value: string) => {
     setCodeForLanguage(value);
   };

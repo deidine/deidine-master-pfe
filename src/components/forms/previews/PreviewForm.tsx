@@ -77,7 +77,7 @@ export default function PreviewForm({
         style={getFormStyles()}
       >
         {" "}
-        <div className="flex flex-col justify-between items-center">
+{   !isTemlate ?     <div className="flex flex-col justify-between items-center">
         {logoElement?.elementType.type === "logo"  && (
           <LogoPrev
             element={logoElement}
@@ -88,9 +88,9 @@ export default function PreviewForm({
           <HeadingTitlePrev   element={HeadTitleElement}
           styleForm={isTemlate ? {} : elementStyle}/>)
         }
-        </div>
+        </div> : <></>}
         <span className="text-md font-semibold">
-          {elements.length === 0 && "No elements to Preview"}
+          {mapElement.length === 0 && "No elements to Preview"}
         </span>
         {mapElement.map((element: any, index) => (
           <div key={index}>
