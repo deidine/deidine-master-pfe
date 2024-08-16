@@ -53,7 +53,7 @@ export default function DragDropAria() {
     {(provided) => (
       <div ref={provided.innerRef} {...provided.droppableProps}>
         {/* {isEditing+""} */}
-        {elements.map((element, index) => (
+        {elements.filter((element) => element.elementType.type !== "logo" && element.elementType.type !== "headingTitle").map((element, index) => (
           <Draggable
             key={index}
             draggableId={"" + index}

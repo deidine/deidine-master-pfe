@@ -64,7 +64,7 @@ export default function SidBarOptions({
         exit={{ x: -100, opacity: 0 }}
         className="space-y-6"
       >
-      {element!.type == "banner"   || element!.type == "logo"  || element!.type == "heading" ? (
+      {  element!.type == "logo"  || element!.type == "heading"|| element!.type == "headingTitle" ? (
         <>
         <MediaHeadingConfig element={element} />
         </>

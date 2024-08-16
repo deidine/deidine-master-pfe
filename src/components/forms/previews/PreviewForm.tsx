@@ -9,7 +9,7 @@ import RadioPrev from "./elementTypePreview/RadioPrev";
 import useStyle from "@/hooks/useStyle";
 import HeadingPrev from "./elementTypePreview/HeadingPrev";
 import LogoPrev from "./elementTypePreview/LogoPrev";
-import BannerPrev from "./elementTypePreview/BannerPrev";
+import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
 
 export default function PreviewForm({
   isTemplate,
@@ -35,8 +35,10 @@ export default function PreviewForm({
   const { formStyle, elementStyle, buttonStyle } = useStyle();
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
-  const bannerElement = elements.find(
-    (element) => element.elementType.type === "banner"
+  const logoElement = elements.find(
+    (element) => element.elementType.type === "logo"  
+  );  const HeadTitleElement = elements.find(
+    (element) => element.elementType.type === "headingTitle"
   );
 
   const getFormStyles = () => {
@@ -49,8 +51,11 @@ export default function PreviewForm({
           paddingBottom: formStyle?.paddingY,
           color: formStyle?.color,
           border: formStyle?.border,
-          borderBottomRightRadius: formStyle?.borderRadius,
-          borderBottomLeftRadius: formStyle?.borderRadius,
+         
+         
+                borderRadius: formStyle?.borderRadius,
+            
+
           backgroundColor: formStyle?.backgroundColor,
         };
   };
@@ -61,12 +66,6 @@ export default function PreviewForm({
 
   return (
     <>
-      {bannerElement && (
-          <BannerPrev
-            element={bannerElement}
-            styleForm={isTemlate ? {} : elementStyle}
-          />
-       )}
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -77,10 +76,20 @@ export default function PreviewForm({
         }`}
         style={getFormStyles()}
       >
+        {" "}
+        {logoElement?.elementType.type === "logo"  && (
+          <LogoPrev
+            element={logoElement}
+            styleForm={isTemlate ? {} : getFormStyles()}
+          />
+        )}
+        { HeadTitleElement?.elementType.type === "headingTitle" && (
+          <HeadingTitlePrev   element={HeadTitleElement}
+          styleForm={isTemlate ? {} : elementStyle}/>)
+        }
         <span className="text-md font-semibold">
           {elements.length === 0 && "No elements to Preview"}
         </span>
-
         {mapElement.map((element: any, index) => (
           <div key={index}>
             {[
@@ -147,15 +156,8 @@ export default function PreviewForm({
                 styleForm={isTemlate ? {} : elementStyle}
               />
             )}
-            {element.elementType.type === "logo" && (
-              <LogoPrev
-                element={element}
-                styleForm={isTemlate ? {} : elementStyle}
-              />
-            )}
           </div>
         ))}
-
         <div className="flex justify-center pt-6">
           {showSubmit ? (
             <Button

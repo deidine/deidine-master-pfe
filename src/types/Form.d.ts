@@ -43,9 +43,10 @@ type BaseElement = {
   endDate?: string,
  imgLogoLink?:string
 imgBannerLink?:string
+headingTitle?:string
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"|"logo" | "banner"| "heading" ;
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"| "logo" | "heading"|"headingTitle" ;
 
 type InputOptions = {
   isPasswordConfirm?: boolean;

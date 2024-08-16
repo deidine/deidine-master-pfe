@@ -100,6 +100,22 @@ const selectTypeOptions = [
     icon: FiCheckSquare,
   },
 ];
+const logoHeadingTitle = [
+  {
+    value: "logo",
+    label: "Logo",
+    bgColor: "#FFF4E6", 
+    textColor: "text-gray-800", 
+    icon: FiImage, 
+  },
+  {
+    value: "headingTitle",
+    label: "headingTitle",
+    bgColor: "#E6F7FF", 
+    textColor: "text-gray-800", 
+    icon: FiBold, 
+  },
+]
 const lnaguageGenerator = [
   {
     value: "ReactJs",
@@ -205,18 +221,11 @@ const inputTypeOptions: InputTypeList[] = [
     bgColor: "#E6F7FF", 
     textColor: "text-gray-800", 
     icon: FiBold, 
-  },
-  {
-    value: "banner",
-    label: "Banner",
-    bgColor: "#E6FFFA", 
-    textColor: "text-gray-800", 
-    icon: FiFile, 
-  },
+  }, 
 ];
 
 const shortcuts = [
   { shortcut: "CTRL+S", title: "Save diagram", description: " Ctrl + S - Save diagram " },
 ];
 
-export { patternOptions, lnaguageGenerator,selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};
+export { patternOptions, lnaguageGenerator,logoHeadingTitle,selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};

@@ -55,7 +55,10 @@ const newElement = (type: ElementType) => {
          }) ||
          (type === "select_multiple" && {
            options: ["Option 1", "Option 2"],
-         })),
+         })) 
+         || (type=== "headingTitle" && {
+          headingTitle: "Heading Title"})
+ 
      },
      id: idGenerator(),
    };
