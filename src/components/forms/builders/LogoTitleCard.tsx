@@ -22,8 +22,8 @@ export default function LogoTitleCard() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2 justify-around items-center">
-        {logoHeadingTitle.map((option) => {
+      <div className="flex gap-2 justify-around items-center ">
+        {logoHeadingTitle.map((option: any) => {
           const isElementAdded = elements.some(
             (el) => el.elementType.type === option.value
           );
@@ -50,7 +50,9 @@ export default function LogoTitleCard() {
           .map((element, index) => (
             <div
               key={index}
-              className="my-4 border border-gray-50 hover:border-gray-300 hover:shadow-sm p-4 rounded-lg bg-white   hover:cursor-pointer relative group"
+              className="my-4 border  group
+               border-gray-50  hover:border-gray-300 hover:shadow-sm 
+               p-4 rounded-lg bg-white   hover:cursor-pointer relative "
               onClick={() => {
                 setSelectedElement(element);
                 setIsSidebarVisible(!isSidebarVisible);
