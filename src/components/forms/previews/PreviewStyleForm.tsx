@@ -10,9 +10,16 @@ import useStyle from "@/hooks/useStyle";
 import StylingForm from "../styleForm/allStylePattern/stylingForm";
 import StylingElements from "../styleForm/allStylePattern/stylingElements";
 import StylingButton from "../styleForm/allStylePattern/stylingButton";
+import LogoPrev from "./elementTypePreview/LogoPrev";
+import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
 export default function PreviewformStyles( )  {
 const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
+  const logoElement = elements.find(
+    (element) => element.elementType.type === "logo"  
+  );  const HeadTitleElement = elements.find(
+    (element) => element.elementType.type === "headingTitle"
+  );
 
   const getFormStyles = () => {
     return {
@@ -50,10 +57,22 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
         <span className="text-md font-semibold">
           {elements.length === 0 && "No elements to Preview"}
         </span>
-
+        <div className="flex flex-col justify-between items-center">
+        {logoElement?.elementType.type === "logo"  && (
+          <LogoPrev
+            element={logoElement}
+            styleForm={  getFormStyles()}
+          />
+        )}
+        { HeadTitleElement?.elementType.type === "headingTitle" && (
+          <HeadingTitlePrev   element={HeadTitleElement}
+          styleForm={ elementStyle}/>)
+        }
+        </div>
+         
         {elements.map((element: any, index) => (
           <div key={index}>
-            {[
+             {[
               "text",
               "number",
               "email",

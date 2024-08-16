@@ -20,7 +20,7 @@ export default function HeadingTitlePrev({
     };
     
   return (
-    <div>
+    <div >
         {element.elementType?.headingTitle && (
      
      <div

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "antd";
 import { logoHeadingTitle } from "@/data/data";
 import OptionPopUp from "./OptionPopUp";
@@ -9,11 +9,9 @@ export default function LogoTitleCard() {
   const {
     addElement,
     elements,
-    selectedElement,
-    removeElement,
-    setIsSidebarVisible,
-    isSidebarVisible,
     setSelectedElement,
+    setIsSidebarVisible,
+    isSidebarVisible,removeElement
   } = useDesigner();
 
   const handleSelect = (option: any) => {
@@ -31,7 +29,7 @@ export default function LogoTitleCard() {
           );
 
           return (
-            <div key={option.value} className="relative group">
+            <div key={option.value} className="   ">
               {!isElementAdded && (
                 <Button onClick={() => handleSelect(option)}>
                   {option.icon && React.createElement(option.icon)}
@@ -50,33 +48,40 @@ export default function LogoTitleCard() {
               element.elementType.type === "headingTitle"
           )
           .map((element, index) => (
-            <>
-              {" "}
-              <div key={index} className="my-4">
-                {element.elementType.type === "logo" && (
-                  <img
+            <div
+              key={index}
+              className="my-4 border border-gray-50 hover:border-gray-300 hover:shadow-sm p-4 rounded-lg bg-white   hover:cursor-pointer relative group"
+              onClick={() => {
+                setSelectedElement(element);
+                setIsSidebarVisible(!isSidebarVisible);
+              }}
+            >
+              {element.elementType.type === "logo" && (
+                <div className="flex items-center"> 
+                   <p className="text-xl font-bold group">
+                  <span className="pr-4"> Logo Form: </span></p>
+                <img
                     src={element.elementType.imgLogoLink}
                     alt="Logo"
-                    className="h-16 w-auto"
+                    className="h-20 w-20 shadow-sm group rounded-full"
                   />
-                )}
-                {element.elementType.type === "headingTitle" && (
-                  <p className="text-xl font-bold">
-                    {element.elementType.headingTitle}
-                  </p>
-                )}
+                </div>   
+              )}
+              {element.elementType.type === "headingTitle" && (
+                <p className="text-xl font-bold group">
+                 <span className="pr-4"> Form Title: </span>
+                  {element.elementType.headingTitle}
+                </p>
+              )}
+              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <OptionPopUp
+                  form={element}
+                  name={element.elementType.name}
+                  removeElement={(name: string) => removeElement(name)}
+                  toogleSidBar={() => setIsSidebarVisible(!isSidebarVisible)}
+                />
               </div>
-              <OptionPopUp
-                form={element}
-                name={element.elementType.name}
-                removeElement={(name: string) => {
-                  removeElement(name);
-                }}
-                toogleSidBar={() => {
-                  setIsSidebarVisible(!isSidebarVisible);
-                }}
-              />
-            </>
+            </div>
           ))}
       </div>
     </div>
