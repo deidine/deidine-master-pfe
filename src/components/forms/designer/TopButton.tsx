@@ -212,7 +212,7 @@ export default function TopButton({
             </Badge>
           </div>
         )}
-        {selectedButton2 === "preview" && (
+        {selectedButton2 === "preview" && !form.isFromLocalStorage && (
           <div className="flex justify-between space-x-5 px-4 py-4">
             <FormLinkShare shareUrl={shareUrl} />
           </div>

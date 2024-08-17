@@ -165,14 +165,14 @@ export default function Dashboard() {
             {elementsLocalStorage.length > 0 && user && isUserOnline && (
               <Button
                 loading={isLoading}
-                className="btn_header bg-inheritx"
+                className="btn_header bg-inheritx text-white"
                 onClick={() => saveAllToDb()}
               >
                 Sync all form to dtabase
               </Button>
             )}
             <button
-              className="btn_header bg-blue-400"
+              className="btn_header bg-blue-400  text-white"
               onClick={() => setIsModalVisible(true)}
             >
               Create New Form

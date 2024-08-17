@@ -11,7 +11,8 @@ export default function LogoTitleCard() {
     elements,
     setSelectedElement,
     setIsSidebarVisible,
-    isSidebarVisible,removeElement
+    isSidebarVisible,
+    removeElement,
   } = useDesigner();
 
   const handleSelect = (option: any) => {
@@ -42,14 +43,9 @@ export default function LogoTitleCard() {
       </div>
       <div>
         {elements
-          .filter(
-            (element) =>
-              element.elementType.type === "logo" ||
-              element.elementType.type === "headingTitle"
-          )
+          .filter((element) => element.elementType.type === "logo")
           .map((element, index) => (
             <div
-              key={index}
               className="my-4 border  group
                border-gray-50  hover:border-gray-300 hover:shadow-sm 
                p-4 rounded-lg bg-white   hover:cursor-pointer relative "
@@ -58,20 +54,52 @@ export default function LogoTitleCard() {
                 setIsSidebarVisible(!isSidebarVisible);
               }}
             >
-              {element.elementType.type === "logo" && (
-                <div className="flex items-center"> {index}
-                   <p className="text-xl font-bold group">
-                  <span className="pr-4"> Logo Form: </span></p>
-                <img
+              { (
+                <div
+                  className="flex items-center"
+                  key={element.elementType.name}
+                >
+                  <p className="text-xl font-bold group">
+                    <span className="pr-4"> Logo Form: </span>
+                  </p>
+                  <img
                     src={element.elementType.imgLogoLink}
                     alt="Logo"
                     className="h-20 w-20 shadow-sm group rounded-full"
                   />
-                </div>   
+                </div>
               )}
-              {element.elementType.type === "headingTitle" && (
-                <p className="text-xl font-bold group">{index}
-                 <span className="pr-4"> Form Title: </span>
+
+              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <OptionPopUp
+                  form={element}
+                  name={element.elementType.name}
+                  removeElement={(name: string) => removeElement(name)}
+                  toogleSidBar={() => setIsSidebarVisible(!isSidebarVisible)}
+                />
+              </div>
+            </div>
+          ))}
+      </div>
+      <div>
+        {elements
+          .filter((element) => element.elementType.type === "headingTitle")
+          .map((element, index) => (
+            <div
+              className="my-4 border  group
+               border-gray-50  hover:border-gray-300 hover:shadow-sm 
+               p-4 rounded-lg bg-white   hover:cursor-pointer relative "
+              onClick={() => {
+                setSelectedElement(element);
+                setIsSidebarVisible(!isSidebarVisible);
+              }}
+            >
+              {  (
+                <p
+                  className="text-xl font-bold group"
+                  key={element.elementType.name}
+                >
+                  <span className="pr-4"> Form Title: </span>
                   {element.elementType.headingTitle}
                 </p>
               )}

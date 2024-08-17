@@ -1,6 +1,6 @@
 import { Form, Select } from "antd";
 import React from "react";
-import './SelectPrev.css'; // Import the CSS file
+
 
 export default function SelectPrev({
   element,
@@ -40,8 +40,7 @@ export default function SelectPrev({
         >
           <Select
             placeholder={element.elementType.placeholder}
-            style={{height: getInputStyles().height  }}  
-             className="container-dropdown"
+            style={{height: getInputStyles().height  }}   
           >
             {element.elementType.options!.map((option: any, idx: number) => (
               <Select.Option key={idx} value={option}>
