@@ -12,25 +12,29 @@ export default function SelectPrev({
   styleForm?: FormStyle;
 }) {
   const getInputStyles = () => {
-    return {
-      width: "100%",  
-      paddingLeft: styleForm?.paddingX || "8px",
-      paddingRight: styleForm?.paddingX || "8px",
-      color: styleForm?.color,
-      border: styleForm?.border,
-      height: styleForm?.paddingY! < "40px"?"":styleForm?.paddingY || "60px",
-      borderRadius: styleForm?.borderRadius,
+    return {  
+      width: "100%",
+      paddingLeft: styleForm?.paddingX  || '8px',
+      paddingRight: styleForm?.paddingX  || '8px', 
+      color: styleForm?.color, 
+      border: styleForm?.border ,
+      borderRadius: styleForm?.borderRadius ,
       backgroundColor: styleForm?.backgroundColor,
     };
   };
+const getLabelStyles = () => {
 
+  return {
+    
+  }
+}
   return (
     <div>   
       {!isMultiple ? (
         <Form.Item
           label={element.elementType.label}
           name={element.elementType.name}
-          style={{ marginBottom: "10px" }}
+          style={{ marginBottom: "10px",color:"blue" }}
           rules={[
             {
               required: element.elementType.required,
@@ -40,7 +44,7 @@ export default function SelectPrev({
         >
           <Select
             placeholder={element.elementType.placeholder}
-            style={{height: getInputStyles().height  }}   
+            style={ getInputStyles()  }   
           >
             {element.elementType.options!.map((option: any, idx: number) => (
               <Select.Option key={idx} value={option}>
@@ -53,7 +57,7 @@ export default function SelectPrev({
         <Form.Item
           label={element.elementType.label}
           name={element.elementType.name}
-          style={{ marginBottom: "10px" }}
+          style={getInputStyles()}
           rules={[
             {
               required: element.elementType.required,

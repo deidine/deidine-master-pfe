@@ -9,6 +9,7 @@ import InputPrev from "@/components/forms/previews/elementTypePreview/InputPrev"
 import RadioPrev from "@/components/forms/previews/elementTypePreview/RadioPrev";
 import LogoPrev from './elementTypePreview/LogoPrev';
 import HeadingTitlePrev from './elementTypePreview/HeadingPrevTitle';
+import HeadingPrev from './elementTypePreview/HeadingPrev';
 export default function PreviewPublished({
     form,onFinish}: {
       
@@ -75,6 +76,12 @@ export default function PreviewPublished({
      {element.elementType.type === "radio" && (
        <RadioPrev styleForm={form.elementStyle} element={element} />
      )}
+         {element.elementType.type === "heading" && (
+              <HeadingPrev
+                element={element}
+                styleForm={ form.elementStyle}
+              />
+            )}
    </div>
     ))}
     <div className="flex justify-center pt-6">

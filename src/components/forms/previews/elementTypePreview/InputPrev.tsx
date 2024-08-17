@@ -25,9 +25,9 @@ export default function  InputPrev({
   return (
     <div>  
       <Form.Item
-        label={element.elementType.label}
+        style={{ marginBottom: "10px" ,color:"blue"}}
         name={element.elementType.name}
-        style={{ marginBottom: "10px" }}
+        label={element.elementType.label}
         rules={[
           {
             required: element.elementType.required,

@@ -12,6 +12,7 @@ import StylingElements from "../styleForm/allStylePattern/stylingElements";
 import StylingButton from "../styleForm/allStylePattern/stylingButton";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
+import HeadingPrev from "./elementTypePreview/HeadingPrev";
 export default function PreviewformStyles( )  {
 const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
@@ -91,6 +92,12 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
             )}
             {element.elementType.type === "radio" && (
               <RadioPrev styleForm={elementStyle} element={element} />
+            )}
+                {element.elementType.type === "heading" && (
+              <HeadingPrev
+                element={element}
+                styleForm={elementStyle}
+              />
             )}
           </div>
         ))}
