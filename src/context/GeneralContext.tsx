@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "@supabase/supabase-js";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 
 type GeneralContextType = {
   user?: User;
@@ -34,6 +34,14 @@ export default function GeneralContextProvider({
       window.removeEventListener("offline", handleOnlineStatus);
     };
   }, [typeof navigator !== "undefined" ? navigator.onLine : null]);
+  const memoizedUser = useMemo(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+    return user;
+  }, [user]);
 
   const handleOnlineStatus = () => {  
     setIsUserOnline(navigator.onLine);
