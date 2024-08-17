@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react"; 
 
 export default function Hero() {
@@ -16,9 +17,10 @@ export default function Hero() {
 
         <div>
           <ul className="hidden md:flex items-center">
-            <li className="mx-4 md:mx-2 lg:text-lg">Home</li>
-            <li className="mx-4 md:mx-2 lg:text-lg">About</li>
-            <li className="mx-4 md:mx-2 lg:text-lg">Documentation</li>
+            <li className="mx-4 md:mx-2 lg:text-lg"><Link href={"/"} >Home</Link></li>
+            <li className="mx-4 md:mx-2 lg:text-lg"><Link href={"/forms"} >Forms</Link></li>
+            <li className="mx-4 md:mx-2 lg:text-lg"><a href="#about">About</a></li>
+            <li className="mx-4 md:mx-2 lg:text-lg"><a href="#documentation">Documentation</a></li>
             <li className="mx-4">
               <div className="w-7 " onClick={Search} />
             </li>
@@ -26,12 +28,12 @@ export default function Hero() {
         </div>
 
         <div className="hidden md:flex">
-          <button className="lg:px-8 lg:py-2 rounded-md md:mx-2 md:px-2 md:py-1 lg:text-lg md:text-sm">
+         <Link href={"/login"}> <button className="lg:px-8 lg:py-2 rounded-md md:mx-2 md:px-2 md:py-1 lg:text-lg md:text-sm">
             Login
-          </button>
-          <button className="border border-slate-500 lg:px-8 md:px-3 md:py-2 rounded-md mx-2 lg:text-lg md:text-sm bg-indigo-600 text-white hover:bg-sky-100 hover:text-black font-bold">
+          </button></Link>
+          <Link href={"/login"}>     <button className="border border-slate-500 lg:px-8 md:px-3 md:py-2 rounded-md mx-2 lg:text-lg md:text-sm bg-indigo-600 text-white hover:bg-sky-100 hover:text-black font-bold">
             Register
-          </button>
+          </button></Link>
         </div>
 
         <div onClick={handleClick}>

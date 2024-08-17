@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Features() {
   return (
-    <div className='w-full my-8 py-14 px-16'>
+    <section id="about" className='w-full my-8 py-14 px-16'>
         <h1 className='sm:text-4xl text-center text-blue-700 font-bold py-4'>Features</h1>
         <h2 className='text-2xl font-semibold my-3 text-center'>Explore Our Capabilities</h2>
 
@@ -54,6 +54,6 @@ export default function Features() {
             </div>
 
         </div>
-    </div>
+    </section>
   );
 }
