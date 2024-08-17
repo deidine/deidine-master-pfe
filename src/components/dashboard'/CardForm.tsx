@@ -4,7 +4,6 @@ import { HiDocumentDuplicate } from "react-icons/hi";
 import { FaEye } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
 import React, { useEffect, useState, useRef } from "react";
-import { Badge } from "../ui/badge";
 import { Modal, Dropdown, Menu, Button } from "antd";
 import PreviewForm from "../forms/previews/PreviewForm";
 import { useRouter } from "next/navigation";

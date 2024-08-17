@@ -150,7 +150,8 @@ export default function TopButton({
 
   return (
     <div>
-      <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed  flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
+      <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed  
+      flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
         <div className="flex items-center  text-lg pl-[100px] font-semibold">
           <div className="pr-2">
             {form.isFromLocalStorage ? (

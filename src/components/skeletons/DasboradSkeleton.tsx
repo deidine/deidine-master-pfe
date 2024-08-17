@@ -4,77 +4,87 @@ import { Skeleton } from "../ui/skeleton";
 
 export default function DasboradSkeleton() {
   return (
-    <div
-      className="size-full relative h-screen rounded-xl 
-    border border-black/10 bg-white shadow-sm"
-    >
-      <Skeleton
-        className="absolute w-40  
-       border-r-black px-[80px]  h-full border-l-2 top-0 left-0 z-10"
-      >
-        <div className="flex flex-col pt-[120px] items-center  justify-between  ">
-          <Skeleton className="w-20 h-20" />
-          <Separator
-            orientation="vertical"
-            decorative
-            className="h-3.5 border-neutral-100"
-          />
+    <div className="w-full  bg-mainColor  flex flex-col justify-between px-[2.5rem] pt-[1rem] items-start">
+     
+     <div className="flex justify-end items-center w-full">
+   <div className=" bg-white my-auto p-2 rounded-lg ">
 
-          <Skeleton className="w-20 h-20" />
-          <Separator
-            orientation="vertical"
-            decorative
-            className="h-3.5 border-neutral-100"
-          />
+     <Skeleton className="h-10 rounded-lg w-[100px]" />
+   </div>
 
-          <Skeleton className="w-20 h-20" />
-          <Separator
-            orientation="vertical"
-            decorative
-            className="h-3.5 border-neutral-100"
-          />
-
-          <Skeleton className="w-20 h-20" />
-        </div>
-      </Skeleton>{" "}
-      <div>
-        <Skeleton className="h-[80px] w-ful z-20" />
+     </div>
+      <div  className=" ml-[2.5rem] py-[4px] pl-[2px] w-[40%]  bg-white ">
+        <p className="text-[25px] flex flex-row gap-3  text-center items-center">
+        
+          <Skeleton className="h-6 rounded-full w-6 bg-white" />
+          <Skeleton className="h-4 w-[60%] bg-white" />
+        </p>
       </div>
-
-      <div className="w-40 h-40 bg-black">deidein</div>
+          <Separator
+            orientation="vertical"
+            decorative
+            className="h-8 border-neutral-100"
+          />
+      <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
+        <CardFormSkeleton />
+        <CardFormSkeleton />
+        <CardFormSkeleton />
+        <CardFormSkeleton />
+      </div>
     </div>
   );
 }
 
-{
-  /* 
-    <div className="mb-8 flex justify-between p-6">
-<Skeleton className="h-5 w-1/2" />
-<div className="flex w-1/3 gap-1.5">
-  <Skeleton className="size-5 shrink-0" />
-  <Skeleton className="h-5 w-full" />
-</div>
-</div>
-<div className="mt-2 p-6 pt-2">
-<Skeleton className="h-[75px] w-full" />
-<div className="mt-[52px] flex items-center justify-between gap-2">
-  <Skeleton className="h-3.5 w-1/4" />
-  <Separator
-    orientation="vertical"
-    decorative
-    className="h-3.5 border-neutral-100"
-  />
-  <Skeleton className="h-3.5 w-1/4" />
-  <Separator
-    orientation="vertical"
-    decorative
-    className="h-4 border-neutral-100"
-  />
-  <Skeleton className=" h-4 w-1/4" />
-</div>
-<Skeleton className="mt-5 h-4 w-1/2" />
-</div>
-<div className="p-2.5 pt-0">
-<Skeleton className="h-9 w-full rounded-[5px]" />
-</div> */
+function CardFormSkeleton() {
+  return (
+    <div className="rounded-[15px] relative hover:bg-slate-100  bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer">
+      <div className="flex  gap-3 items-center">
+        <Skeleton className="h-6 rounded-full w-6" />
+        <Skeleton className="h-4 w-[30%]" />
+        <Skeleton className="h-4 rounded-full w-[15%]" />
+      <div className="absolute text-white right-0 mb-[18px] mr-[18px]  ">
+
+        <div className="flex gap-[1px] justify-end items-center">
+          <Skeleton className="h-2 rounded-full w-2" />
+          <Skeleton className="h-2 rounded-full w-2" />
+          <Skeleton className="h-2 rounded-full w-2" />
+        </div>
+      </div>
+        <Separator
+          orientation="vertical"
+          decorative
+          className="h-3.5 border-neutral-100"
+        />
+      </div>
+      <Separator
+        orientation="vertical"
+        decorative
+        className="h-3.5 border-neutral-100"
+      />
+      <p>
+        <Skeleton className="w-[60%] h-4" />
+
+        <Separator
+          orientation="vertical"
+          decorative
+          className="h-3.5 border-neutral-100"
+        />
+        <Skeleton className="w-[70%] h-4" />
+        <Separator
+          orientation="vertical"
+          decorative
+          className="h-3.5 border-neutral-100"
+        />
+        <Skeleton className="w-[100%] h-4" />
+      </p>
+      <div className="absolute text-white right-0 mb-[18px] mr-[18px] bottom-0">
+        <Separator
+          orientation="vertical"
+          decorative
+          className="h-3.5 border-neutral-100"
+        />
+        <Skeleton className="w-20  h-7 font-semibold rounded-[20px] shadow-lg p-4" />
+      </div>
+    </div>
+  );
 }

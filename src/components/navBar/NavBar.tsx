@@ -3,7 +3,7 @@ import useGeneral from "@/hooks/useGeneral";
 import { createClientBrowser } from "@/utils/supabase/client";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Divider, Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
 
@@ -11,6 +11,9 @@ export default function NavBar() {
   const { user, setUser, isUserOnline } = useGeneral();
   const [open, setOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/forms");
+
+  // Memoize the user to avoid unnecessary re-renders
+  const memoizedUser = useMemo(() => user, [user]);
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
@@ -76,12 +79,12 @@ export default function NavBar() {
             </div>
           </div>
           <div className="flex flex-grow justify-end items-center mr-4">
-            {user ? (
+            {memoizedUser ? (
               <Popover
                 content={
                   <div>
                     <button className="ml-2 font-semibold hover:bg-[#E8E8E8]">
-                      {user.email}
+                      {memoizedUser.email}
                     </button>
                     <Divider />
                     <button

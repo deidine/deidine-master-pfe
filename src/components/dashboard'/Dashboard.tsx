@@ -6,12 +6,13 @@ import { openNotification, saveToDatabase } from "@/utils/utils";
 import useGeneral from "@/hooks/useGeneral"; 
 import { CiCircleCheck, CiCircleInfo } from "react-icons/ci";
 import ModelForm from "./ModelForm";
-import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
+import DasboradSkeleton from "../skeletons/DasboradSkeleton";
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { isUserOnline, setIsUserOnline, user } = useGeneral();
   const [elements, setElements] = useState<Form[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
  
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const userId = user?.id;
@@ -41,6 +42,8 @@ export default function Dashboard() {
         }
 
         dataForms = data.forms;
+        setLoading(false);
+
       }
 
       const localStorageForms = JSON.parse(
@@ -50,11 +53,15 @@ export default function Dashboard() {
       setElements(dataForms); 
       console.log("deiidne")
       setElementsLocalStorage(localStorageForms);
+      setLoading(false);
+
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       setIsUserOnline(false);
       setElementsLocalStorage(forms);
       console.error("Error fetching forms:", error);
+      setLoading(false);
+
     }
   };
  
@@ -145,6 +152,10 @@ export default function Dashboard() {
     fetchForms();
     setIsLoading(false);
   }
+  if (loading) {
+    return <div className="w-full h-screen"> <DasboradSkeleton/></div>;
+  }
+
   return (
     <>
       <div>

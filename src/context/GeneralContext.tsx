@@ -50,7 +50,7 @@ export default function GeneralContextProvider({
   return (
     <GeneralContext.Provider
       value={{
-        user,
+        user:memoizedUser,
         isUserOnline,
         setIsUserOnline,
         setUser: (value: User | null) => {
