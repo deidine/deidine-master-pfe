@@ -59,7 +59,7 @@ export default function LogoTitleCard() {
               }}
             >
               {element.elementType.type === "logo" && (
-                <div className="flex items-center"> 
+                <div className="flex items-center"> {index}
                    <p className="text-xl font-bold group">
                   <span className="pr-4"> Logo Form: </span></p>
                 <img
@@ -70,7 +70,7 @@ export default function LogoTitleCard() {
                 </div>   
               )}
               {element.elementType.type === "headingTitle" && (
-                <p className="text-xl font-bold group">
+                <p className="text-xl font-bold group">{index}
                  <span className="pr-4"> Form Title: </span>
                   {element.elementType.headingTitle}
                 </p>
