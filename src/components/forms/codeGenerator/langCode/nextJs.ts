@@ -25,6 +25,10 @@ export const generateComponentCodeNextJs = (
       case "file":
         inputElement = `<Input style={${inputStyleString}} type="${input.elementType.type}" placeholder="${input.elementType.placeholder}" />`;
         break;
+        
+        case "url":
+          inputElement = `<Input style={${inputStyleString}} type="text" placeholder="${input.elementType.placeholder}" />`;
+          break;
       case "textarea":
         inputElement = `<Input.TextArea style={${inputStyleString}} placeholder="${input.elementType.placeholder}" />`;
         break;
@@ -94,10 +98,14 @@ export const generateComponentCodeNextJs = (
             required: ${input.elementType.required},
             message: \`${input.elementType.label} is required\`,
           }, 
-          {
-            pattern: new RegExp("${input.elementType.pattern}"),
-            message: \`Please match the requested format for ${input.elementType.label}\`,
-          }  
+                          {
+                   ${input.elementType.type ==="url" ?
+                  ` pattern: new RegExp('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$')`:
+                  ` pattern: new RegExp("${input.elementType.pattern}")`
+                    }    ,
+                      message: \`Please match the requested format for ${input.elementType.label}\`,
+                  }  
+
         ]}
       >
         ${inputElement}

@@ -66,7 +66,7 @@ function SidButtonsSkeleton() {
   return (
     <div
       className="fixed   w-40  border-r-[0.5px]
-   border-r-mainColor px-[80px] bg-white  h-full border-l-2 top-10 left-0 z-10"
+   border-r-mainColor px-[80px] bg-white  h-full border-l-2 top-10 left-0 z-30"
     >
       <div className="flex flex-col pt-[120px] items-center  justify-between  ">
         <div className=" p-1 rounded-lg z-10 ">

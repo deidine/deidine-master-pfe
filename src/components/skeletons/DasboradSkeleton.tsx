@@ -27,8 +27,7 @@ export default function DasboradSkeleton() {
             className="h-8 border-neutral-100"
           />
       <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
-        <CardFormSkeleton />
-        <CardFormSkeleton />
+ 
         <CardFormSkeleton />
         <CardFormSkeleton />
        

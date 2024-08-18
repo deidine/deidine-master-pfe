@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import useGeneral from "@/hooks/useGeneral";
 import { createClientBrowser } from "@/utils/supabase/client";
 import Link from "next/link";
@@ -53,8 +54,8 @@ export default function NavBar() {
         <nav className="flex flex-row mt-0 w-full gap-4">
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
             <Link href="/">
-            <img src={"./logo.jpg"} alt="logo" className="w-[50px] rounded-full  h-[50px] text-[50px]"/>
-           
+            <Image src="/logo.jpg" alt="logo" width={50} height={50} className="rounded-full" />
+
             </Link>
           </div>
           <div className="flex flex-row  shrink-0  justify-between items-center">
