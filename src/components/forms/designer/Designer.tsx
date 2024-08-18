@@ -52,7 +52,7 @@ export default function Designer({
         />
 
         <div className="mx-auto  w-full flex flex-col items-center pt-[50px]  justify-center">
-          {selectedButton === "preview" && <PreviewForm />}
+          {selectedButton === "preview" && <PreviewForm showSubmit={true} />}
 
           {selectedButton === "field" && (
             <>

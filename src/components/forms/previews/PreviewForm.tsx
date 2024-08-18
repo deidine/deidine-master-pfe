@@ -174,15 +174,15 @@ export default function PreviewForm({
         ))}
         <div className="flex justify-center pt-6">
           {showSubmit ? (
-            null
-          ) : <Button
+       <Button
               type="primary"
               htmlType="submit"
             className="h-10 font-bold  w-1/2"
             style={getButtonStyles()}
             >
               {submitBtn}
-            </Button>}
+            </Button>     
+          ) : null}
         </div>
       </Form>
     </>

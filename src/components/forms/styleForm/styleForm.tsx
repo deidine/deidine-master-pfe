@@ -7,7 +7,7 @@ import StylingForm from './allStylePattern/stylingForm';
 
 export default function StyleForm( ) {   
   return (
-    <div className='flex relative justify-center items-center  w-full h-full '>
+    <div className='flex relative justify-center py-20 items-center  w-full h-full '>
       <PreviewStyleForm />
      
      <div className="top-[118px] fixed p-4  flex flex-col justify-start  
