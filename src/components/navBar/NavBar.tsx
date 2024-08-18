@@ -53,7 +53,8 @@ export default function NavBar() {
         <nav className="flex flex-row mt-0 w-full gap-4">
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
             <Link href="/">
-              <FaUserCircle className="text-[50px]" />
+            <img src={"./logo.jpg"} alt="logo" className="w-[50px] rounded-full  h-[50px] text-[50px]"/>
+           
             </Link>
           </div>
           <div className="flex flex-row  shrink-0  justify-between items-center">

@@ -11,8 +11,9 @@ export default function Hero() {
   return (
     <div className="h-[90vh] w-full px-16 py-14 bg-slate-300 rounded-3xl drop-shadow-lg">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl">Form Builder</h1>
+        <div className="flex items-center justify-between gap-2">
+        <img src={"./logo.jpg"} alt="logo" className="w-[50px] rounded-full  h-[50px] text-[50px]"/>
+        <h1 className="text-4xl">Form Builder</h1>
         </div>
 
         <div>
@@ -101,10 +102,7 @@ export default function Hero() {
             Get Started
           </button>
         </div>
-        <div>
-          <img className="w-[100px]" src={"./logo.jpg"} alt="Form Builder Logo" />
-        </div>
-      </div>
+       </div>
     </div>
   );
 }
