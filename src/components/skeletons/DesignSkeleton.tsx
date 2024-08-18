@@ -30,7 +30,7 @@ function AddButtonSkelton() {
 
 function TopButtonSkeleton() {
   return (
-    <div className="bg-white shadow-[inset_0_-1px_0_0_#eaeaea] px-[80px] 
+    <div className="bg-white fixed shadow-[inset_0_-1px_0_0_#eaeaea] px-[80px] 
     flex justify-between
      border-b-1   items-center border-black  
     p-1 h-[80px] w-full z-20">
@@ -53,7 +53,7 @@ function TopButtonSkeleton() {
 
 function MidelSkeleton() {
   return (
-    <div className=" mx-auto bg-white p-4  max-w-2xl  mt-3 border shadow rounded-xl w-1/2  ">
+    <div className=" mx-auto bg-white p-4  max-w-2xl  mt-28 border shadow rounded-xl w-1/2  ">
       <CardEditFormSkeleton />
       <CardEditFormSkeleton />
       <CardEditFormSkeleton />
@@ -65,8 +65,8 @@ function MidelSkeleton() {
 function SidButtonsSkeleton() {
   return (
     <div
-      className="absolute w-40  border-r-[0.5px]
-   border-r-mainColor px-[80px] bg-white  h-full border-l-2 top-0 left-0 z-10"
+      className="fixed   w-40  border-r-[0.5px]
+   border-r-mainColor px-[80px] bg-white  h-full border-l-2 top-10 left-0 z-10"
     >
       <div className="flex flex-col pt-[120px] items-center  justify-between  ">
         <div className=" p-1 rounded-lg z-10 ">

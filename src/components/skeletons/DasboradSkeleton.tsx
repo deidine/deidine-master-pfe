@@ -1,6 +1,7 @@
 import { Separator } from "@radix-ui/react-separator";
 import React from "react";
 import { Skeleton } from "../ui/skeleton";
+import { Divider } from "antd";
 
 export default function DasboradSkeleton() {
   return (
@@ -30,7 +31,35 @@ export default function DasboradSkeleton() {
         <CardFormSkeleton />
         <CardFormSkeleton />
         <CardFormSkeleton />
+       
       </div>
+      <Divider
+            style={{
+              borderColor: "black",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+              width: "100%",
+              height: "1px",
+            }}
+          />
+            <div  className=" ml-[2.5rem] py-[4px] pl-[2px] w-[40%]  bg-white ">
+        <p className="text-[25px] flex flex-row gap-3  text-center items-center">
+        
+          <Skeleton className="h-6 rounded-full w-6 bg-white" />
+          <Skeleton className="h-4 w-[60%] bg-white" />
+        </p>
+      </div>
+          <Separator
+            orientation="vertical"
+            decorative
+            className="h-8 border-neutral-100"
+          />
+      <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
+      <CardFormSkeleton />
+      <CardFormSkeleton />
+      <CardFormSkeleton />
+      <CardFormSkeleton />
+    </div>
     </div>
   );
 }

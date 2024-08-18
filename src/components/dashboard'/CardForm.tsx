@@ -309,16 +309,16 @@ export default function CardForm({
   );
 
   return (
-    <div>
-      <div
-        key={form.id}
-        onClick={async () => {
+    <div   key={form.id}
+       onClick={async () => {
           router.push(
             `/forms/${form.id}?local=${
               form.isFromLocalStorage ? "true" : "false"
             }`
           );
-        }}
+        }}>
+      <div
+      
         className="rounded-[15px] relative hover:bg-slate-100  bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer"
       > 
         <div className="flex flex-row justify-between items-center gap-4">

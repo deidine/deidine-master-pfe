@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {  Button,  Form } from "antd";
-import { useSearchParams } from 'next/navigation' 
 import SelectPrev from "@/components/forms/previews/elementTypePreview/SelectPrev";
 import CheckBoxPrev from "@/components/forms/previews/elementTypePreview/CheckBoxPrev";
 import DatePrev from "@/components/forms/previews/elementTypePreview/DatePrev";
@@ -18,7 +17,21 @@ export default function PreviewPublished({
         (element) => element.elementType.type === "logo"  
       );  const HeadTitleElement = form.content.find(
         (element) => element.elementType.type === "headingTitle"
-      );
+      ); 
+
+      
+  const getButtonStyles = () => {
+    return {
+      paddingLeft: form.buttonStyle?.paddingX  ,
+      paddingRight: form.buttonStyle?.paddingX  ,
+      paddingTop: form.buttonStyle?.paddingY  ,
+      paddingBottom: form.buttonStyle?.paddingY ,
+      color: form.buttonStyle?.color, 
+      border: form.buttonStyle?.border ,
+      borderRadius: form.buttonStyle?.borderRadius ,
+      backgroundColor: form.buttonStyle?.backgroundColor,
+    };
+  };
   return (
   <Form
     onFinish={onFinish}
@@ -89,11 +102,12 @@ export default function PreviewPublished({
         <Button
           type="primary"
           htmlType="submit"
-          className="h-10 font-bold py-2 px-4 w-1/2"
+          
+          className="h-10 font-bold  w-1/2"
+          style={getButtonStyles()}
         >
           submit 
         </Button>
-
     </div>
 
   </Form>

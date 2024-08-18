@@ -60,6 +60,18 @@ export default function PreviewForm({
         };
   };
 
+  const getButtonStyles = () => {
+    return {
+      paddingLeft: buttonStyle?.paddingX  ,
+      paddingRight: buttonStyle?.paddingX  ,
+      paddingTop: buttonStyle?.paddingY  ,
+      paddingBottom: buttonStyle?.paddingY ,
+      color: buttonStyle?.color, 
+      border: buttonStyle?.border ,
+      borderRadius: buttonStyle?.borderRadius ,
+      backgroundColor: buttonStyle?.backgroundColor,
+    };
+  };
   useEffect(() => {
     setElementsTemplatePreviw(elementsTemplate!);
   }, [elementsTemplate]);
@@ -162,14 +174,15 @@ export default function PreviewForm({
         ))}
         <div className="flex justify-center pt-6">
           {showSubmit ? (
-            <Button
+            null
+          ) : <Button
               type="primary"
               htmlType="submit"
-              className="h-10 font-bold py-2 px-4 w-1/2"
+            className="h-10 font-bold  w-1/2"
+            style={getButtonStyles()}
             >
               {submitBtn}
-            </Button>
-          ) : null}
+            </Button>}
         </div>
       </Form>
     </>

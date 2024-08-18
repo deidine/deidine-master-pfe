@@ -7,9 +7,6 @@ import SelectPrev from "./elementTypePreview/SelectPrev";
 import CheckBoxPrev from "./elementTypePreview/CheckBoxPrev";
 import RadioPrev from "./elementTypePreview/RadioPrev"; 
 import useStyle from "@/hooks/useStyle";
-import StylingForm from "../styleForm/allStylePattern/stylingForm";
-import StylingElements from "../styleForm/allStylePattern/stylingElements";
-import StylingButton from "../styleForm/allStylePattern/stylingButton";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
 import HeadingPrev from "./elementTypePreview/HeadingPrev";
@@ -32,6 +29,19 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
       border: formStyle?.border ,
       borderRadius: formStyle?.borderRadius ,
       backgroundColor: formStyle?.backgroundColor,
+    };
+  };
+
+  const getButtonStyles = () => {
+    return {
+      paddingLeft: buttonStyle?.paddingX  ,
+      paddingRight: buttonStyle?.paddingX  ,
+      paddingTop: buttonStyle?.paddingY  ,
+      paddingBottom: buttonStyle?.paddingY ,
+      color: buttonStyle?.color, 
+      border: buttonStyle?.border ,
+      borderRadius: buttonStyle?.borderRadius ,
+      backgroundColor: buttonStyle?.backgroundColor,
     };
   };
 
@@ -106,7 +116,8 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
           <Button
             type="primary"
             htmlType="submit"
-            className="h-10 font-bold py-2 px-4 w-1/2"
+            className="h-10 font-bold  w-1/2"
+            style={getButtonStyles()}
           >
             {submitBtn}
           </Button>

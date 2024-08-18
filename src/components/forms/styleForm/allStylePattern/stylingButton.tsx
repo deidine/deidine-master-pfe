@@ -29,8 +29,8 @@ export default function Styling({
 
   return (
     <div>
-      <div
-        className="flex justify-between items-center cursor-pointer"
+      <div        className="flex justify-between items-center border-b-2 cursor-pointer"
+
         onClick={toggleVisibility}
       >
         {currentStyling} {isVisible ? <UpOutlined /> : <DownOutlined />}

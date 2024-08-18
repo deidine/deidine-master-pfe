@@ -35,12 +35,18 @@ export default function TopButton({
   } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const isFirstRender = useRef(true);
-  const [isSaved, setIsSaved] = useState(true);
+const [isSavedField, setIsSavedField] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const { formStyle, buttonStyle, elementStyle } = useStyle();
-  const handleSave = async () => {
+  const { formStyle, buttonStyle, elementStyle } = useStyle(); 
+const [isSavedDesign, setIsSavedDesign] = useState(true);
+const [isLoadingStyle, setIsLoadingStyle] = useState(false);
+const handleSave = async (isStyle: boolean) => {
+  if(isStyle){
+    setIsLoadingStyle(true);
+  }  else {
+    
     setIsLoading(true);
-
+  }
     if (isFromLocalStorage) {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -49,9 +55,11 @@ export default function TopButton({
 
         if (formIndex !== -1) {
           forms[formIndex].content = elements;
-          forms[formIndex].style = formStyle;
-          forms[formIndex].buttonStyle=buttonStyle
-          forms[formIndex].elementStyle=elementStyle
+          if(isStyle){ 
+            forms[formIndex].style = formStyle;
+            forms[formIndex].buttonStyle=buttonStyle
+            forms[formIndex].elementStyle=elementStyle
+          }
         } else {
           forms.push({
             idForm,
@@ -69,18 +77,22 @@ export default function TopButton({
       }
     } else if (!isFromLocalStorage) {
       try {
+        let body={}
+        if(isStyle){ 
+        body=  {...form, content: elements, 
+          
+            style: formStyle, 
+            elementStyle: elementStyle, buttonStyle: buttonStyle}
+        }else {
+          
+        body=  {...form, content: elements }
+        }
         const response = await fetch("/api/forms/", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            id: form.id,
-            content: elements,
-            style: formStyle,
-            elementStyle: elementStyle,
-            buttonStyle: buttonStyle,
-          }),
+          body: JSON.stringify(body),
         });
 
         if (!response.ok) {
@@ -93,8 +105,13 @@ export default function TopButton({
         console.error("Error:", error);
       }
     }
-    setIsSaved(true);
-    setIsLoading(false);
+    if (isStyle) {
+      setIsSavedDesign(true);
+      setIsLoadingStyle(false);
+    } else {
+      setIsSavedField(true);
+      setIsLoading(false);
+    } 
   };
 
   useEffect(() => {
@@ -109,22 +126,32 @@ export default function TopButton({
       isFirstRender.current = false;
       return;
     }
-    setIsSaved(false);
+    setIsSavedField(false); // For the "field" tab
   }, [elements]);
-
+  
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    setIsSavedDesign(false); // For the "design" tab
+  }, [formStyle, buttonStyle, elementStyle]);
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isSaved) {
-        handleSave();
+      if (!isSavedField) {
+        handleSave(false); // Save fields
+      }
+      if (!isSavedDesign) {
+        handleSave(true); // Save design styles
       }
     }, 60000);
-
+  
     return () => clearInterval(interval);
-  }, [isSaved]);
-
+  }, [isSavedField, isSavedDesign]);
+  
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (!isSaved) {
+      if (!isSavedField || !isSavedDesign) {
         const message =
           "You have unsaved changes. Are you sure you want to leave?";
         event.preventDefault();
@@ -138,11 +165,11 @@ export default function TopButton({
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [isSaved]);
+  }, [isSavedField, isSavedDesign]);
 
   useHotkeys("ctrl+z, meta+z", undo, { preventDefault: true });
   useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
-  useHotkeys("ctrl+s, meta+s", handleSave, { preventDefault: true });
+  useHotkeys("ctrl+s, meta+s", ()=>handleSave(false), { preventDefault: true });
 
   const handleTypeChange = (value: string) => {
     setCodeForLanguage(value);
@@ -197,16 +224,16 @@ export default function TopButton({
               </Button>
             </Tooltip>
 
-            <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
+            <Badge dot={!isSavedField} style={{ width: "15px", height: "15px" }}>
               <Tooltip title="ctrl+s">
                 <Button
                   icon={<FaSave />}
                   loading={isLoading}
                   className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                  onClick={handleSave}
-                  disabled={isSaved}
+                  onClick={()=>handleSave(false)}
+                  disabled={isSavedField}
                 >
-                  Save Changes
+                  Save Field Changes
                 </Button>
               </Tooltip>
             </Badge>
@@ -219,16 +246,16 @@ export default function TopButton({
         )}
 
         {selectedButton2 === "design" && (
-          <Badge dot={!isSaved} style={{ width: "15px", height: "15px" }}>
+          <Badge dot={!isSavedDesign } style={{ width: "15px", height: "15px" }}>
             <Tooltip title="ctrl+s">
               <Button
                 icon={<FaSave />}
-                loading={isLoading}
+                loading={isLoadingStyle}
                 className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                onClick={handleSave}
-                disabled={isSaved}
+                onClick={() => handleSave(true)}
+                disabled={isSavedDesign}
               >
-                Save Changes
+                Save Design Changes
               </Button>
             </Tooltip>
           </Badge>

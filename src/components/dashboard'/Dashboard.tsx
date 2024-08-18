@@ -165,7 +165,7 @@ export default function Dashboard() {
             {elementsLocalStorage.length > 0 && user && isUserOnline && (
               <Button
                 loading={isLoading}
-                className="btn_header bg-inheritx text-white"
+                className="btn_header bg-mainColor text-white"
                 onClick={() => saveAllToDb()}
               >
                 Sync all form to dtabase
