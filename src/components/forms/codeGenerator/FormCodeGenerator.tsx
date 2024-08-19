@@ -37,29 +37,39 @@ const getFormStyles :FormStyle =  {
   
 };
 const getInputStyles:FormStyle =  {
-    paddingLeft: elementStyle?.paddingX  || '8px',
-    paddingRight: elementStyle?.paddingX  || '8px',
-    paddingTop: elementStyle?.paddingY  || '8px',
-    paddingBottom: elementStyle?.paddingY || '8px',
-    color: elementStyle?.color, 
-    border: elementStyle?.border ,
-    borderRadius: elementStyle?.borderRadius ,
-    backgroundColor: elementStyle?.backgroundColor,
-  
+  paddingLeft: elementStyle?.paddingX  || '8px',
+  paddingRight: elementStyle?.paddingX  || '8px',
+  paddingTop: elementStyle?.paddingY  || '8px',
+  paddingBottom: elementStyle?.paddingY || '8px',
+  color: elementStyle?.color, 
+  border: elementStyle?.border ,
+  borderRadius: elementStyle?.borderRadius ,
+  backgroundColor: elementStyle?.backgroundColor,
+
+};const getButtonStyles:FormStyle =  {
+  paddingLeft: elementStyle?.paddingX  || '8px',
+  paddingRight: elementStyle?.paddingX  || '8px',
+  paddingTop: elementStyle?.paddingY  || '8px',
+  paddingBottom: elementStyle?.paddingY || '8px',
+  color: elementStyle?.color, 
+  border: elementStyle?.border ,
+  borderRadius: elementStyle?.borderRadius ,
+  backgroundColor: elementStyle?.backgroundColor,
+
 };
 
   useEffect(() => {
     {codeForLanguage === "NextJs" ? setComponentCode(  generateComponentCodeNextJs(elements,submitBtn,getFormStyles,
       getInputStyles)) 
       : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements,submitBtn,getFormStyles,
-        getInputStyles)): setComponentCode(  generateComponentCodeFlutter(elements,submitBtn,))}
+        getInputStyles)): setComponentCode(  generateComponentCodeFlutter(elements,submitBtn,formStyle,elementStyle,elementStyle))}
    }, [elements,codeForLanguage]);
 
   const downloadCode = () => {
     const element = document.createElement("a");
     const file = new Blob([componentCode], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
-    element.download = "generated_code.tsx";
+    element.download = ""+codeForLanguage==="NextJs" || codeForLanguage==="ReactJs" ?"generated_code.tsx":"generated_code.dart";
     document.body.appendChild(element);
     element.click();
     if (onDownloadComplete) {

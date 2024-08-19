@@ -1,150 +1,93 @@
 export const generateComponentCodeFlutter = (
   elements: FormElement[],
-  submitBtn: string
+  submitBtn: string,
+  getFormStyles?: FormStyle,
+  getInputStyles?: FormStyle,
+  getButtonStyles?: FormStyle
 ) => {
+  const hexToColorFunction = `
+Color hexToColor(String hexCode) {
+  hexCode = hexCode.replaceAll('#', '');
+  hexCode = 'FF\$hexCode';
+  return Color(int.parse(hexCode, radix: 16));
+}
+`;
+
+  const inputDecoration = `
+    contentPadding: EdgeInsets.only(
+      left: ${getInputStyles?.paddingX?.replace("px",".0") || '8.0'},
+      right: ${getInputStyles?.paddingX?.replace("px",".0") || '8.0'},
+      top: ${getInputStyles?.paddingY?.replace("px",".0") || '8.0'},
+      bottom: ${getInputStyles?.paddingY?.replace("px",".0") || '8.0'},
+    ),
+    fillColor: hexToColor('${getInputStyles?.backgroundColor || '#FFFFFF'}'),
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px",".0")  || '4.0'}),
+      borderSide: BorderSide(
+        color: hexToColor('${getInputStyles?.color || '#BDBDBD'}'),
+        width: ${getInputStyles?.paddingY?.replace("px","") || '1.0'},
+      ),
+    ) 
+  `;
+
+  const formPadding = `
+    padding: EdgeInsets.only(
+      left: ${getFormStyles?.paddingX?.replace("px",".0") || '8.0'},
+      right: ${getFormStyles?.paddingX?.replace("px",".0") || '8.0'},
+      top: ${getFormStyles?.paddingY?.replace("px",".0") || '8.0'},
+      bottom: ${getFormStyles?.paddingY?.replace("px",".0") || '8.0'},
+    ) 
+  `;
+
+  const buttonStyles = `
+    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+     EdgeInsets.only(
+      left: ${getButtonStyles?.paddingX?.replace("px",".0") || '8.0'},
+      right: ${getButtonStyles?.paddinX?.replace("px",".0") || '8.0'},
+      top: ${getButtonStyles?.paddingY?.replace("px",".0") || '8.0'},
+      bottom: ${getButtonStyles?.paddingY?.replace("px",".0") || '8.0'},
+    ),),
+    backgroundColor: MaterialStateProperty.all<Color>(
+      hexToColor('${getButtonStyles?.backgroundColor || '#6200EE'}')
+    ),
+     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(${getButtonStyles?.borderRadius?.replace("px",".0")  || '4.0'}),
+)),
+  `;
+
   const componentCode = elements.filter((element) => element.elementType.type !== "logo" &&
   element.elementType.type !== "headingTitle").map((input: any) => {
-      let inputElement = "";
+    let inputElement = "";
 
-      switch (input.elementType.type) {
-        case "password":
-        case "email":
-        case "number":
-          case "url":
-        case "text":
-          inputElement = `TextFormField(
+    switch (input.elementType.type) {
+      case "password":
+      case "email":
+      case "number":
+      case "url":
+      case "text":
+        inputElement = `Padding(
+          ${formPadding},
+          child: TextFormField(
             decoration: InputDecoration(
               labelText: '${input.elementType.label}',
               hintText: '${input.elementType.placeholder}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4), 
-              ),
+              ${inputDecoration},
             ),
-            keyboardType: ${
-              input.elementType.type === "number"
-                ? "TextInputType.number"
-                : "TextInputType.text"
-            },
+            keyboardType: ${input.elementType.type === "number" ? "TextInputType.number" : "TextInputType.text"},
             obscureText: ${input.elementType.type === "password"},
-          )`;
-          break;
+          ),
+        )`;
+        break;
 
-        case "textarea":
-          inputElement = `TextFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              hintText: '${input.elementType.placeholder}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            maxLines: null,
-          )`;
-          break;
+      // Handle other input types (textarea, date, time, etc.)
 
-        case "date":
-          inputElement = `TextFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              DateTime? picked = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
-              );
-            },
-          )`;
-          break;
+      default:
+        break;
+    }
 
-        case "time":
-          inputElement = `TextFormField(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              TimeOfDay? picked = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
-              );
-            },
-          )`;
-          break;
-
-        case "select":
-          inputElement = `DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              labelText: '${input.elementType.label}',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            items: ${input.elementType.options
-              .map(
-                (option: any) => `DropdownMenuItem<String>(
-              value: '${option}',
-              child: Text('${option}'),
-            )`
-              )
-              .join(", ")},
-            onChanged: (value) {},
-          )`;
-          break;
-
-        case "select_multiple":
-          inputElement = `MultiSelectFormField(
-            title: Text('${input.elementType.label}'),
-            dataSource: [${input.elementType.options
-              .map(
-                (option: any) =>
-                  `{'display': '${option}', 'value': '${option}'}`
-              )
-              .join(", ")}],
-            textField: 'display',
-            valueField: 'value',
-            onSaved: (value) {},
-          )`;
-          break;
-
-        case "checkbox":
-          inputElement = input.elementType.options
-            .map(
-              (option: any) => `CheckboxListTile(
-            title: Text('${option}'),
-            value: false,
-            onChanged: (bool? value) {},
-          )`
-            )
-            .join("\n");
-          break;
-
-        case "radio":
-          inputElement = input.elementType.options
-            .map(
-              (option: any) => `RadioListTile<String>(
-            title: Text('${option}'),
-            value: '${option}',
-            groupValue: null,
-            onChanged: (value) {},
-          )`
-            )
-            .join("\n");
-          break;
-
-        default:
-          break;
-      }
-
-      return `
+    return `
       FormField(
         builder: (FormFieldState state) {
           return Column(
@@ -169,38 +112,43 @@ export const generateComponentCodeFlutter = (
           return null;
         },
       ),`;
-    })
-    .join("\n");
+  }).join("\n");
 
   const exportCode = `
 import 'package:flutter/material.dart';
+
+${hexToColorFunction}
 
 class GeneratedForm extends StatelessWidget {
 final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Form(
       key: _formKey,
-      child: Column(
-        children: <Widget>[
-          ${componentCode}
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // Form is valid, process data
-              }
-            },
-            child: Text('${submitBtn}'),
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4), 
+      child: Padding(
+        ${formPadding},
+        child: Column(
+          children: <Widget>[
+            ${componentCode}
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Form is valid, process data
+                }
+              },
+              child: Text('${submitBtn}'),
+              style: ButtonStyle(
+                ${buttonStyles}
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    );
+)));
   }
 }
   `.trim();
