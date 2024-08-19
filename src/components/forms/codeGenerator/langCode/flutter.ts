@@ -35,9 +35,8 @@ errorStyle: TextStyle(
 fillColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
 filled: true,
 border: OutlineInputBorder(
-  borderRadius: BorderRadius.circular(${
-    getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"
-  }),
+  borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"
+    }),
   borderSide: BorderSide(
     color: hexToColor('${getInputStyles?.color || "#BDBDBD"}'),
     width: ${getInputStyles?.paddingY?.replace("px", "") || "1.0"},
@@ -51,7 +50,8 @@ border: OutlineInputBorder(
  controlAffinity: ListTileControlAffinity.leading,
   
  shape:  RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular( ${getInputStyles?.borderRadius?.replace("px", ".0") || "13.0"} ) ,
+  borderRadius: BorderRadius.circular( ${getInputStyles?.borderRadius?.replace("px", ".0") || "13.0"
+    } ) ,
  
 )
 `;
@@ -64,7 +64,7 @@ padding: EdgeInsets.only(
   bottom: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
 )
 `;
-const inputPadding = `
+  const inputPadding = `
 padding: EdgeInsets.only(
   left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
   right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
@@ -72,7 +72,7 @@ padding: EdgeInsets.only(
   bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
 )
 `;
-const buttonPadding = `
+  const buttonPadding = `
   EdgeInsets.only(
   left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
   right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
@@ -82,9 +82,8 @@ const buttonPadding = `
 `;
 
   const checkboxPadding = `
-                padding: EdgeInsets.symmetric(horizontal:${
-                  getInputStyles?.paddingX?.replace("px", ".0") || "26.0"
-                },
+                padding: EdgeInsets.symmetric(horizontal:${getInputStyles?.paddingX?.replace("px", ".0") || "26.0"
+    },
   vertical:${getInputStyles?.paddingY?.replace("px", ".0") || " 7.0"} )
  
 
@@ -103,9 +102,8 @@ const buttonPadding = `
     ),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(${
-          getButtonStyles?.borderRadius?.replace("px", ".0") || "4.0"
-        }),
+        borderRadius: BorderRadius.circular(${getButtonStyles?.borderRadius?.replace("px", ".0") || "4.0"
+    }),
       ),
     ),
   `;
@@ -134,11 +132,10 @@ const buttonPadding = `
                 ${inputDecoration},
                 errorMaxLines: 2
               ),
-              keyboardType: ${
-                input.elementType.type === "number"
-                  ? "TextInputType.number"
-                  : "TextInputType.text"
-              },
+              keyboardType: ${input.elementType.type === "number"
+              ? "TextInputType.number"
+              : "TextInputType.text"
+            },
               obscureText: ${input.elementType.type === "password"},
             ),
           )`;
@@ -160,8 +157,8 @@ const buttonPadding = `
             ),
           )`;
           break;
-          case "time":
-            inputElement = `Padding(
+        case "time":
+          inputElement = `Padding(
                 ${inputPadding},
                 child: TextFormField(
                 controller: _dateController,
@@ -194,10 +191,10 @@ const buttonPadding = `
                                     },
                 ),
             )`;
-            break;
-        
+          break;
+
         case "date":
-            inputElement = `Padding(
+          inputElement = `Padding(
                 ${inputPadding},
                 child: TextFormField(
 
@@ -229,7 +226,7 @@ const buttonPadding = `
                                     },
                 ),
             )`;
-            break;
+          break;
         case "select":
           firstSelectedOption = input.elementType.options[0];
           inputElement = `
@@ -281,8 +278,8 @@ const buttonPadding = `
           inputElement = `Column(
             children: <Widget>[
               ${checkboxLabels
-                .map(
-                  (label: any, index: number) => `
+              .map(
+                (label: any, index: number) => `
                 Padding(
             ${checkboxPadding},
             child: CheckboxListTile(
@@ -295,8 +292,8 @@ const buttonPadding = `
                   },
              ${checkBoxDecoration} )),
               `
-                )
-                .join("\n")}
+              )
+              .join("\n")}
             ],
           )`;
           break;
@@ -322,8 +319,8 @@ const buttonPadding = `
             )
             .join(",\n");
           break;
-          case "file":
-            inputElement = `Padding(
+        case "file":
+          inputElement = `Padding(
                 ${inputPadding},
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +351,9 @@ const buttonPadding = `
                                    ${buttonPadding},
                                 ),
                                 backgroundColor: MaterialStateProperty.all(
-                                    hexToColor('${getInputStyles?.backgroundColor || "#6200EE"}')
+                                    hexToColor('${getInputStyles?.backgroundColor ||
+            "#6200EE"
+            }')
                                 ),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
@@ -375,7 +374,7 @@ const buttonPadding = `
                     ],
                 ),
             )`;
-            break;
+          break;
         default:
           break;
       }
@@ -408,7 +407,7 @@ const buttonPadding = `
     })
     .join("\n");
 
-    const exportCode = `
+  const exportCode = `
     import 'package:flutter/material.dart';
     import 'package:file_picker/file_picker.dart';
     import 'dart:io';
@@ -426,7 +425,9 @@ const buttonPadding = `
     
     class _GeneratedFormState extends State<GeneratedForm> {
         final _formKey = GlobalKey<FormState>();
-        List<bool> _checkboxStates = [${checkboxLabels.map(() => `false`).join(", ")}];
+        List<bool> _checkboxStates = [${checkboxLabels
+      .map(() => `false`)
+      .join(", ")}];
         String _selectedOption = "${firstSelectedOption}";
         String _radioValue = "value";
         String _selectedRadioOption = "${firstSelectedRadioOption}";
@@ -459,7 +460,9 @@ DateTime? _selectedDate;
                                             EdgeInsets.symmetric(vertical: 12, horizontal: 16)
                                         ),
                                         backgroundColor: MaterialStateProperty.all(
-                                            hexToColor('${getButtonStyles?.backgroundColor || "#6200EE"}')
+                                            hexToColor('${getButtonStyles?.backgroundColor ||
+    "#6200EE"
+    }')
                                         ),
                                         shape: MaterialStateProperty.all(
                                             RoundedRectangleBorder(
