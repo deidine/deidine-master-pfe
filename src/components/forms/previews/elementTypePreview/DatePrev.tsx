@@ -40,7 +40,10 @@ export default function DatePrev({
         label={<span style={getLabelStyles()}>{element.elementType.label}</span>}
         labelCol={{ span: 24 }} // Adjust label width, or remove for default
                  name={element.elementType.name}
-          style={{ marginBottom: "10px" }}
+          style={{
+            marginBottom:  '10px',
+            ...getLabelStyles(),
+          }}
           rules={[
             {
               required: element.elementType.required,
