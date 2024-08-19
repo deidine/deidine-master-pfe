@@ -18,40 +18,69 @@ Color hexToColor(String hexCode) {
 `;
 
   const inputDecoration = `
-    contentPadding: EdgeInsets.only(
-      left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-      right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-      top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-      bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-    ),
-    hintStyle: TextStyle(
-      color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
-      fontSize: 16.0,
-    ),
-    errorStyle: TextStyle(
-      color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
-      fontSize: 15.0
-    ),
-    fillColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
-    filled: true,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"}),
-      borderSide: BorderSide(
-        color: hexToColor('${getInputStyles?.color || "#BDBDBD"}'),
-        width: ${getInputStyles?.paddingY?.replace("px", "") || "1.0"},
-      ),
-    )
-  `;
+contentPadding: EdgeInsets.only(
+  left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+),
+hintStyle: TextStyle(
+  color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+  fontSize: 16.0,
+),
+errorStyle: TextStyle(
+  color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+  fontSize: 15.0
+),
+fillColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+filled: true,
+border: OutlineInputBorder(
+  borderRadius: BorderRadius.circular(${
+    getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"
+  }),
+  borderSide: BorderSide(
+    color: hexToColor('${getInputStyles?.color || "#BDBDBD"}'),
+    width: ${getInputStyles?.paddingY?.replace("px", "") || "1.0"},
+  ),
+)
+`;
+  const checkBoxDecoration = `
+ 
+  tileColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+  activeColor: hexToColor('${getInputStyles?.color || "#FFFFFF"}'),
+ controlAffinity: ListTileControlAffinity.leading,
+  
+ shape:  RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular( ${getInputStyles?.borderRadius?.replace("px", ".0") || "13.0"} ) ,
+ 
+)
+`;
 
   const formPadding = `
-    padding: EdgeInsets.only(
-      left: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
-      right: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
-      top: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
-      bottom: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
-    )
-  `;
+padding: EdgeInsets.only(
+  left: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  right: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  top: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  bottom: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
+)
+`;
+  const inputPadding = `
+padding: EdgeInsets.only(
+  left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+)
+`;
 
+  const checkboxPadding = `
+                padding: EdgeInsets.symmetric(horizontal:${
+                  getInputStyles?.paddingX?.replace("px", ".0") || "26.0"
+                },
+  vertical:${getInputStyles?.paddingY?.replace("px", ".0") || " 7.0"} )
+ 
+
+`;
   const buttonStyles = `
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
       EdgeInsets.only(
@@ -66,7 +95,9 @@ Color hexToColor(String hexCode) {
     ),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(${getButtonStyles?.borderRadius?.replace("px", ".0") || "4.0"}),
+        borderRadius: BorderRadius.circular(${
+          getButtonStyles?.borderRadius?.replace("px", ".0") || "4.0"
+        }),
       ),
     ),
   `;
@@ -87,7 +118,7 @@ Color hexToColor(String hexCode) {
         case "url":
         case "text":
           inputElement = `Padding(
-            ${formPadding},
+            ${inputPadding},
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: '${input.elementType.label}',
@@ -107,7 +138,7 @@ Color hexToColor(String hexCode) {
 
         case "textarea":
           inputElement = `Padding(
-            ${formPadding},
+            ${inputPadding},
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: '${input.elementType.label}',
@@ -120,10 +151,10 @@ Color hexToColor(String hexCode) {
               maxLines: null,
             ),
           )`;
-break;
+          break;
         case "date":
           inputElement = `Padding(
-            ${formPadding},
+            ${inputPadding},
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: '${input.elementType.label}',
@@ -145,7 +176,7 @@ break;
 
         case "time":
           inputElement = `Padding(
-            ${formPadding},
+            ${inputPadding},
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: '${input.elementType.label}',
@@ -165,7 +196,10 @@ break;
 
         case "select":
           firstSelectedOption = input.elementType.options[0];
-          inputElement = `DropdownButtonFormField<String>(
+          inputElement = `
+          Padding(
+            ${inputPadding},
+            child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: '${input.elementType.label}',
               hintText: '${input.elementType.placeholder}',
@@ -188,14 +222,17 @@ break;
                 print(_selectedOption);
               });
             },
-          )`;
+            ))`;
           break;
 
         case "select_multiple":
           inputElement = `MultiSelectFormField(
             title: Text('${input.elementType.label}'),
             dataSource: [${input.elementType.options
-              .map((option: any) => `{'display': '${option}', 'value': '${option}'}`)
+              .map(
+                (option: any) =>
+                  `{'display': '${option}', 'value': '${option}'}`
+              )
               .join(", ")}],
             textField: 'display',
             valueField: 'value',
@@ -207,8 +244,12 @@ break;
           checkboxLabels = input.elementType.options;
           inputElement = `Column(
             children: <Widget>[
-              ${checkboxLabels.map((label: any, index: number) => `
-                CheckboxListTile(
+              ${checkboxLabels
+                .map(
+                  (label: any, index: number) => `
+                Padding(
+            ${checkboxPadding},
+            child: CheckboxListTile(
                   title: Text('${label}'),
                   value: _checkboxStates[${index}],
                   onChanged: (bool? value) {
@@ -216,8 +257,10 @@ break;
                       _checkboxStates[${index}] = value ?? false;
                     });
                   },
-                ),
-              `).join("\n")}
+             ${checkBoxDecoration} )),
+              `
+                )
+                .join("\n")}
             ],
           )`;
           break;
@@ -226,7 +269,9 @@ break;
           firstSelectedRadioOption = input.elementType.options[0];
           inputElement = input.elementType.options
             .map(
-              (option: any) => `RadioListTile<String>(
+              (option: any) => `Padding(
+            ${formPadding},
+            child: RadioListTile<String>(
                 title: Text('${option}'),
                 value: '${option}',
                 groupValue: _radioValue,
@@ -237,7 +282,7 @@ break;
                     print(_selectedRadioOption);
                   });
                 },
-              )`
+            ))`
             )
             .join("\n");
           break;
@@ -286,8 +331,12 @@ class GeneratedForm extends StatefulWidget {
 
 class _GeneratedFormState extends State<GeneratedForm> {
   final _formKey = GlobalKey<FormState>();
-  List<bool> _checkboxStates = [${checkboxLabels.map(() => `false`).join(", ")}];
-  List<String> _checkboxLabels = [${checkboxLabels.map((label) => `'${label}'`).join(", ")}];
+  List<bool> _checkboxStates = [${checkboxLabels
+    .map(() => `false`)
+    .join(", ")}];
+  List<String> _checkboxLabels = [${checkboxLabels
+    .map((label) => `'${label}'`)
+    .join(", ")}];
   String _selectedOption = "${firstSelectedOption}";
   String _radioValue = "value";
   String _selectedRadioOption = "${firstSelectedRadioOption}";
