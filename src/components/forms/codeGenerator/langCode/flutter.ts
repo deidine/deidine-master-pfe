@@ -160,48 +160,76 @@ const buttonPadding = `
             ),
           )`;
           break;
+          case "time":
+            inputElement = `Padding(
+                ${inputPadding},
+                child: TextFormField(
+                controller: _dateController,
+                    decoration: InputDecoration(
+                        labelText: '${input.elementType.label}',
+                        hintText: _selectedTime != null ? _selectedTime!.format(context) : '${input.elementType.placeholder}',
+                        ${inputDecoration},
+                        errorMaxLines: 2
+                    ),
+                    onTap: () async {
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        DateTime? picked = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(2000),
+                                            lastDate: DateTime(2100),
+                                        );
+                                        if (picked != null) {
+                                            setState(() {
+                                                _selectedDate = picked;
+                                                _dateController.text = _selectedDate!.toLocal().toString().split(' ')[0];
+                                            });
+                                        }
+                                    },
+                                    validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                            return 'Date is required';
+                                        }
+                                        return null;
+                                    },
+                ),
+            )`;
+            break;
+        
         case "date":
-          inputElement = `Padding(
-            ${inputPadding},
-            child: TextFormField(
-              decoration: InputDecoration(
-                labelText: '${input.elementType.label}',
-                hintText: '${input.elementType.placeholder}',
-                ${inputDecoration},
-                errorMaxLines: 2
-              ),
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              DateTime? picked = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
-              );
-            },
-            ))`;
-          break;
+            inputElement = `Padding(
+                ${inputPadding},
+                child: TextFormField(
 
-        case "time":
-          inputElement = `Padding(
-            ${inputPadding},
-            child: TextFormField(
-              decoration: InputDecoration(
-                labelText: '${input.elementType.label}',
-                hintText: '${input.elementType.placeholder}',
-                ${inputDecoration},
-                errorMaxLines: 2
-              ),
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              TimeOfDay? picked = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
-              );
-            },
-            ))`;
-          break;
-
+                                    controller: _timeController,
+                    decoration: InputDecoration(
+                        labelText: '${input.elementType.label}',
+                        hintText: _selectedDate != null ? _selectedDate!.toLocal().toString().split(' ')[0] : '${input.elementType.placeholder}',
+                        ${inputDecoration},
+                        errorMaxLines: 2
+                    ),
+                    onTap: () async {
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        TimeOfDay? picked = await showTimePicker(
+                                            context: context,
+                                            initialTime: TimeOfDay.now(),
+                                        );
+                                        if (picked != null) {
+                                            setState(() {
+                                                _selectedTime = picked;
+                                                _timeController.text = _selectedTime!.format(context);
+                                            });
+                                        }
+                                    },
+                                    validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                            return 'Time is required';
+                                        }
+                                        return null;
+                                    },
+                ),
+            )`;
+            break;
         case "select":
           firstSelectedOption = input.elementType.options[0];
           inputElement = `
@@ -380,61 +408,74 @@ const buttonPadding = `
     })
     .join("\n");
 
-  const exportCode = `
-import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-${hexToColorFunction}
+    const exportCode = `
+    import 'package:flutter/material.dart';
+    import 'package:file_picker/file_picker.dart';
+    import 'dart:io';
+    
+    Color hexToColor(String hexCode) {
+        hexCode = hexCode.replaceAll('#', '');
+        hexCode = 'FF\$hexCode';
+        return Color(int.parse(hexCode, radix: 16));
+    }
+    
+    class GeneratedForm extends StatefulWidget {
+        @override
+        _GeneratedFormState createState() => _GeneratedFormState();
+    }
+    
+    class _GeneratedFormState extends State<GeneratedForm> {
+        final _formKey = GlobalKey<FormState>();
+        List<bool> _checkboxStates = [${checkboxLabels.map(() => `false`).join(", ")}];
+        String _selectedOption = "${firstSelectedOption}";
+        String _radioValue = "value";
+        String _selectedRadioOption = "${firstSelectedRadioOption}";
+        String? _selectedFileName;
+        String? _selectedImagePath;
+    TimeOfDay? _selectedTime;
+DateTime? _selectedDate;
+    final TextEditingController _dateController = TextEditingController();
+    final TextEditingController _timeController = TextEditingController();
 
-class GeneratedForm extends StatefulWidget {
-  @override
-  _GeneratedFormState createState() => _GeneratedFormState();
-}
-
-class _GeneratedFormState extends State<GeneratedForm> {
-  final _formKey = GlobalKey<FormState>();
-  List<bool> _checkboxStates = [${checkboxLabels
-    .map(() => `false`)
-    .join(", ")}];
-  List<String> _checkboxLabels = [${checkboxLabels
-    .map((label) => `'${label}'`)
-    .join(", ")}];
-  String _selectedOption = "${firstSelectedOption}";
-  String _radioValue = "value";
-  String _selectedRadioOption = "${firstSelectedRadioOption}";
-
-String? _selectedFileName;
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            ${formPadding},
-            child: Column(
-              children: <Widget>[
-                ${componentCode}
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Form is valid, process data
-                    }
-                  },
-                  child: Text('${submitBtn}'),
-                  style: ButtonStyle(
-                    ${buttonStyles}
-                  ),
+        @override
+        Widget build(BuildContext context) {
+            return SingleChildScrollView(
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Form(
+                        key: _formKey,
+                        child: Column(
+                            children: [
+                                ${componentCode}
+                                ElevatedButton(
+                                    onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                            // Process data
+                                        }
+                                    },
+                                    child: Text('${submitBtn}'),
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.symmetric(vertical: 12, horizontal: 16)
+                                        ),
+                                        backgroundColor: MaterialStateProperty.all(
+                                            hexToColor('${getButtonStyles?.backgroundColor || "#6200EE"}')
+                                        ),
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8.0),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-  `.trim();
+            );
+        }
+    }
+    `.trim();
 
   return exportCode;
 };
