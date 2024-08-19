@@ -64,8 +64,16 @@ padding: EdgeInsets.only(
   bottom: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
 )
 `;
-  const inputPadding = `
+const inputPadding = `
 padding: EdgeInsets.only(
+  left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+  top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+)
+`;
+const buttonPadding = `
+  EdgeInsets.only(
   left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
   right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
   top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
@@ -284,9 +292,62 @@ padding: EdgeInsets.only(
                 },
             ))`
             )
-            .join("\n");
+            .join(",\n");
           break;
-
+          case "file":
+            inputElement = `Padding(
+                ${inputPadding},
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        ElevatedButton(
+                            onPressed: () async {
+                                FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                if (result != null) {
+                                    String filePath = result.files.single.path!;
+                                    // Update the state with the selected file name
+                                    setState(() {
+                                        _selectedFileName = result.files.single.name;
+                                    });
+                                } else {
+                                    // User canceled the picker
+                                }
+                            },
+                            child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                    Icon(Icons.attach_file, color: Colors.white),
+                                    SizedBox(width: 8),
+                                    Text('${input.elementType.label}'),
+                                ],
+                            ),
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                   ${buttonPadding},
+                                ),
+                                backgroundColor: MaterialStateProperty.all(
+                                    hexToColor('${getInputStyles?.backgroundColor || "#6200EE"}')
+                                ),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        SizedBox(height: 8),
+                        if (_selectedFileName != null && _selectedFileName!.isNotEmpty)
+                            Text(
+                                'Selected File: $_selectedFileName',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                ),
+                            ),
+                    ],
+                ),
+            )`;
+            break;
         default:
           break;
       }
@@ -321,7 +382,7 @@ padding: EdgeInsets.only(
 
   const exportCode = `
 import 'package:flutter/material.dart';
-
+import 'package:file_picker/file_picker.dart';
 ${hexToColorFunction}
 
 class GeneratedForm extends StatefulWidget {
@@ -341,6 +402,7 @@ class _GeneratedFormState extends State<GeneratedForm> {
   String _radioValue = "value";
   String _selectedRadioOption = "${firstSelectedRadioOption}";
 
+String? _selectedFileName;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
