@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { Button, Form, Input, Modal } from "antd";
+import FormTamplate from "./FormTamplate";
 
 export default function ModelForm({
   isModalVisible,
@@ -49,9 +50,10 @@ export default function ModelForm({
         visible={isModalVisible}
         onOk={handleOkAction}
         onCancel={handleCancelAction}
-        footer={null}
+        footer={
+null        }
       >
-        <Form onFinish={onSubmit} form={createform} layout="vertical">
+        {/* <Form onFinish={onSubmit} form={createform} layout="vertical">
           <Form.Item
             label="Title"
             name="TitleForm"
@@ -71,7 +73,9 @@ export default function ModelForm({
               {isAdd ? "Create" : "Update"}
             </Button>
           </Form.Item>
-        </Form>
+        </Form> */}
+          <FormTamplate/>
+
       </Modal>
     </>
   );
