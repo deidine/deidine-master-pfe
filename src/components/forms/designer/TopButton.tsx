@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import FormLinkShare from "../../publishedForm/FormLinkShare";
 import { CiCircleInfo, CiCircleCheck } from "react-icons/ci";
 import { Badge, Button, Select, Tooltip } from "antd";
@@ -41,7 +40,7 @@ export default function TopButton({
   const [isSavedDesign, setIsSavedDesign] = useState(true);
   const [isLoadingStyle, setIsLoadingStyle] = useState(false);
 
-  const handleSave = async (isStyle: boolean) => {
+  const handleSave = useCallback(async (isStyle: boolean) => {
     if (isStyle) {
       setIsLoadingStyle(true);
     } else {
@@ -114,7 +113,7 @@ export default function TopButton({
       setIsSavedField(true);
       setIsLoading(false);
     }
-  };
+  }, [form, formStyle, buttonStyle, elementStyle, elements, isFromLocalStorage]);
 
   useEffect(() => {
     if (isReady) return;
@@ -241,30 +240,11 @@ export default function TopButton({
             </Badge>
           </div>
         )}
-        {selectedButton2 === "preview" && !form.isFromLocalStorage && (
-          <div className="flex space-x-5 px-4 py-4">
-            <Tooltip title="Export Code">
-              <Button
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                onClick={() => onCopyClick("export")}
-              >
-                Export Code
-              </Button>
-            </Tooltip>
-            <Tooltip title="Download Code">
-              <Button
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                onClick={() => onDownloadClick("download")}
-              >
-                Download Code
-              </Button>
-            </Tooltip>
-          </div>
-        )}
+
         {selectedButton2 === "design" && (
-          <div className="flex space-x-5 px-4 py-4">
-            <Tooltip title="Save Design Changes">
-              <Badge dot={!isSavedDesign} style={{ width: "15px", height: "15px" }}>
+          <div className="flex justify-between space-x-5 px-4 py-4">
+            <Badge dot={!isSavedDesign} style={{ width: "15px", height: "15px" }}>
+              <Tooltip title="ctrl+s">
                 <Button
                   icon={<FaSave />}
                   loading={isLoadingStyle}
@@ -274,18 +254,55 @@ export default function TopButton({
                 >
                   Save Design Changes
                 </Button>
-              </Badge>
-            </Tooltip>
+              </Tooltip>
+            </Badge>
           </div>
         )}
         {selectedButton2 === "Export code" && (
-          <div className="flex space-x-5 px-4 py-4">
+          <div className="flex justify-between space-x-5 px-4 py-4">
             <Select
-              defaultValue="json"
+              defaultValue={codeForLanguage}
               style={{ width: 120 }}
               onChange={handleTypeChange}
               options={lnaguageGenerator}
             />
+            <Button
+              icon={<FaSave />}
+              loading={isLoading}
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => onDownloadClick(codeForLanguage)}
+            >
+              Download Code
+            </Button>
+            <Button
+              icon={<FaSave />}
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => onCopyClick(codeForLanguage)}
+            >
+              Copy Code
+            </Button>
+          </div>
+        )}
+        {selectedButton2 === "preview" && (
+          <div className="flex justify-between space-x-5 px-4 py-4">
+            <Button
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => navigator.clipboard.writeText(shareUrl)}
+            >
+              Share Form
+            </Button>
+            <Button
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => onCopyClick(codeForLanguage)}
+            >
+              Copy Code
+            </Button>
+            <Button
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => onDownloadClick(codeForLanguage)}
+            >
+              Download Code
+            </Button>
           </div>
         )}
       </div>

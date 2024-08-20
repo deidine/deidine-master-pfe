@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-contradicting-classname */
 import { cn } from "@/utils/utils";
 
 function Skeleton({

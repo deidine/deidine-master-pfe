@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, Divider } from "antd";
 import CardForm from "./CardForm";
@@ -54,7 +53,7 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  }, [isUserOnline, userId]);
+  }, [isUserOnline, userId, setIsUserOnline]); // Include setIsUserOnline here
 
   useEffect(() => {
     fetchForms();
