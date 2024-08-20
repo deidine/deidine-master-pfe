@@ -509,45 +509,70 @@ DateTime? _selectedDate;
         ${dateControllers.join("\n")}
         ${timeControllers.join("\n")}
         @override
-        Widget build(BuildContext context) {
-            return SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Form(
-                        key: _formKey,
-                        child: Column(
-                            children: [
-                                ${componentCode}
-                                ElevatedButton(
-                                    onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                            // Process data
-                                        }
-                                    },
-                                    child: Text('${submitBtn}'),
-                                    style: ButtonStyle(
-                                        padding: MaterialStateProperty.all(
-                                            EdgeInsets.symmetric(vertical: 12, horizontal: 16)
-                                        ),
-                                        backgroundColor: MaterialStateProperty.all(
-                                            hexToColor('${getButtonStyles?.backgroundColor ||
-    "#6200EE"
-    }')
-                                        ),
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(8.0),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
+      Widget build(BuildContext context) {
+  return SingleChildScrollView(
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            ${componentCode}
+            SizedBox(height: 20), // Add spacing above the button
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Process data
+                  }
+                },
+                child: Text(
+                  '${submitBtn}',
+                  style: TextStyle(
+                    fontSize: 16, // Adjust font size
+                    fontWeight: FontWeight.bold, // Make text bold
+                    color: Colors.white, // Text color
+                  ),
                 ),
-            );
-        }
-    }
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(vertical: 14, horizontal: 24), // Adjust padding
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    Colors.transparent, // Set background to transparent for gradient
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      side: BorderSide(
+                        color: hexToColor('${getButtonStyles?.borderColor || "#6200EE"}'),
+                        width: 2.0, // Border width
+                      ),
+                    ),
+                  ),
+                  elevation: MaterialStateProperty.all(5), // Add elevation
+                ),
+              ),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    hexToColor('${getButtonStyles?.backgroundColorStart || "#6200EE"}'),
+                    hexToColor('${getButtonStyles?.backgroundColorEnd || "#6200EE"}'),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+}
     `.trim();
 
   return exportCode;
