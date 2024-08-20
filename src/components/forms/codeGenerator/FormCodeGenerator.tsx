@@ -17,6 +17,8 @@ const FormCodeGenerator = forwardRef(({
   onCopyComplete, 
   onDownloadComplete
 }: FormCodeGeneratorProps, ref)  =>  {
+
+FormCodeGenerator.displayName = 'FormCodeGenerator';
   const [componentCode, setComponentCode] = useState("");
   const { elements, submitBtn ,codeForLanguage} = useDesigner(); 
  
@@ -56,24 +58,25 @@ const getInputStyles:FormStyle =  {
 
 };
 
-  useEffect(() => {
-    {codeForLanguage === "NextJs" ? setComponentCode(  generateComponentCodeNextJs(elements,submitBtn,getFormStyles,
-      getInputStyles)) 
-      : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements,submitBtn,getFormStyles,
-        getInputStyles)): setComponentCode(  generateComponentCodeFlutter(elements,submitBtn,formStyle,elementStyle,elementStyle))}
-   }, [elements,codeForLanguage]);
+useEffect(() => {
+  {codeForLanguage === "NextJs" ? setComponentCode(  generateComponentCodeNextJs(elements, submitBtn, getFormStyles,
+    getInputStyles)) 
+  : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements, submitBtn, getFormStyles,
+    getInputStyles)) 
+  : setComponentCode(  generateComponentCodeFlutter(elements, submitBtn, formStyle, elementStyle, elementStyle))}
+}, [elements, codeForLanguage, submitBtn, formStyle, elementStyle, getFormStyles, getInputStyles]);
+const downloadCode = () => {
+  const element = document.createElement("a");
+  const file = new Blob([componentCode], { type: "text/plain" });
+  element.href = URL.createObjectURL(file);
+  element.download = (codeForLanguage === "NextJs" || codeForLanguage === "ReactJs") ? "generated_code.tsx" : "generated_code.dart";
+  document.body.appendChild(element);
+  element.click();
+  if (onDownloadComplete) {
+    onDownloadComplete(componentCode);
+  }
+};
 
-  const downloadCode = () => {
-    const element = document.createElement("a");
-    const file = new Blob([componentCode], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = ""+codeForLanguage==="NextJs" || codeForLanguage==="ReactJs" ?"generated_code.tsx":"generated_code.dart";
-    document.body.appendChild(element);
-    element.click();
-    if (onDownloadComplete) {
-      onDownloadComplete(componentCode);
-    }
-  };
 
   const copyToClipboard = async () => {
     if (navigator.clipboard) {
