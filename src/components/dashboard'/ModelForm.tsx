@@ -74,7 +74,7 @@ null        }
             </Button>
           </Form.Item>
         </Form> */}
-          <FormTamplate/>
+          <FormTamplate />
 
       </Modal>
     </>
