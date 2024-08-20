@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "@supabase/supabase-js";
-import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 type GeneralContextType = {
   user?: User;
@@ -21,14 +21,11 @@ export default function GeneralContextProvider({
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user")!)
       : null;
-  const [user, setUser] = useState<User>(userLocal);
+  const [user, setUser] = useState<User | null>(userLocal);
   
   const [isUserOnline, setIsUserOnline] = useState(
     typeof navigator !== "undefined" ? navigator.onLine : null
   );
-  
-  // Define a variable for the online status
-  const isOnline = typeof navigator !== "undefined" ? navigator.onLine : null;
   
   useEffect(() => {
     const handleOnlineStatus = () => {
@@ -42,26 +39,24 @@ export default function GeneralContextProvider({
       window.removeEventListener("online", handleOnlineStatus);
       window.removeEventListener("offline", handleOnlineStatus);
     };
-  }, [isOnline]); // Use the extracted variable here
+  }, []);
 
-  const memoizedUser = useMemo(() => {
+  useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
     }
-    return user;
   }, [user]);
 
   return (
     <GeneralContext.Provider
       value={{
-        user: memoizedUser,
+        user: user ?? undefined,
+
         isUserOnline,
         setIsUserOnline,
-        setUser: (value: User | null) => {
-          setUser(value!);
-        },
+        setUser,
       }}
     >
       {children}
