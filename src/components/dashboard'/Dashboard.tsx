@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Button, Divider } from "antd";
 import CardForm from "./CardForm";
 import { openNotification, saveToDatabase } from "@/utils/utils";
@@ -17,11 +17,7 @@ export default function Dashboard() {
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const userId = user?.id;
 
-  useEffect(() => {
-    fetchForms();
-  }, [isUserOnline]);
-
-  const fetchForms = async () => {
+  const fetchForms = useCallback(async () => {
     try {
       let dataForms = [];
       if (isUserOnline) {
@@ -58,7 +54,11 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [isUserOnline, userId]);
+
+  useEffect(() => {
+    fetchForms();
+  }, [fetchForms]);
 
   const saveToLocalStorage = (title: string, description: string) => {
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -188,14 +188,14 @@ export default function Dashboard() {
      
           <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">
             {elementsLocalStorage.map((element) => (
-                     <CardForm
-                     reftchForm={(ok: boolean) => ok && fetchForms()}
-                     form={element}
-                     key={element.id}
-                     isEditFormtrriger={(): void => {
-                       fetchForms();
-                     }}
-                   />
+              <CardForm
+                reftchForm={(ok: boolean) => ok && fetchForms()}
+                form={element}
+                key={element.id}
+                isEditFormtrriger={(): void => {
+                  fetchForms();
+                }}
+              />
             ))}
           </div>
           {elements.length > 0 && elementsLocalStorage.length > 0 && (
@@ -221,14 +221,14 @@ export default function Dashboard() {
           )}
           <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">
             {elements.map((element) => (
-                         <CardForm
-                         form={element}
-                         key={element.id}
-                         reftchForm={fetchForms}
-                         isEditFormtrriger={(): void => {
-                           fetchForms();
-                         }}
-                       />
+              <CardForm
+                form={element}
+                key={element.id}
+                reftchForm={fetchForms}
+                isEditFormtrriger={(): void => {
+                  fetchForms();
+                }}
+              />
             ))}
           </div>
           {elementsLocalStorage.length === 0 && (

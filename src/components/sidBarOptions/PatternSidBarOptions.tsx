@@ -1,4 +1,4 @@
-import {  Input, Select } from "antd";
+import { Input, Select } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { LabelValue } from "./LabelValue";
 import { patternOptions } from "@/data/data";
@@ -25,13 +25,14 @@ export const PatternSidBarOptions = ({
         (option) => option.pattern === value
       );
       if (selectedOption && selectedOption.allowedTypes.includes(element.type)) {
-        element.pattern=value
+        element.pattern = value;
         setSelectedPattern(value);
       } else {
         // Optionally, handle the case where the selected pattern is not allowed for the current input type
         console.warn(`Pattern not allowed for input type: ${element.type}`);
       }
     };
+    
     useEffect(() => {
       setAllowedPatternOptionsState(
         patternOptions.filter((option) =>
@@ -39,13 +40,13 @@ export const PatternSidBarOptions = ({
         )
       );
       setSelectedPattern("");
-    }, [allowedPatternOptions]);
+    }, [allowedPatternOptions, element.type]); // Include element.type in the dependency array
   
     return (
       <div className="flex flex-col gap-2">
         <LabelValue value={`${selectedPattern ? "Pattern Example" : "Pattern"}`} />
         {selectedPattern && (
-          <div >
+          <div>
             <div className="text-gray-600">
               {
                 allowedPatternOptionsState.find(
@@ -70,9 +71,6 @@ export const PatternSidBarOptions = ({
             ))}
           </Select>
         </div>
-  
- 
       </div>
     );
-  };
-  
+};

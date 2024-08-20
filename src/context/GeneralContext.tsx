@@ -21,11 +21,20 @@ export default function GeneralContextProvider({
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user")!)
       : null;
-      const [user, setUser] = useState<User>(userLocal);
-
-      
-  const [isUserOnline, setIsUserOnline] = useState( typeof navigator !== "undefined" ? navigator.onLine : null);
+  const [user, setUser] = useState<User>(userLocal);
+  
+  const [isUserOnline, setIsUserOnline] = useState(
+    typeof navigator !== "undefined" ? navigator.onLine : null
+  );
+  
+  // Define a variable for the online status
+  const isOnline = typeof navigator !== "undefined" ? navigator.onLine : null;
+  
   useEffect(() => {
+    const handleOnlineStatus = () => {
+      setIsUserOnline(navigator.onLine);
+    };
+
     window.addEventListener("online", handleOnlineStatus);
     window.addEventListener("offline", handleOnlineStatus);
 
@@ -33,7 +42,8 @@ export default function GeneralContextProvider({
       window.removeEventListener("online", handleOnlineStatus);
       window.removeEventListener("offline", handleOnlineStatus);
     };
-  }, [typeof navigator !== "undefined" ? navigator.onLine : null]);
+  }, [isOnline]); // Use the extracted variable here
+
   const memoizedUser = useMemo(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
@@ -43,14 +53,10 @@ export default function GeneralContextProvider({
     return user;
   }, [user]);
 
-  const handleOnlineStatus = () => {  
-    setIsUserOnline(navigator.onLine);
-  };
-
   return (
     <GeneralContext.Provider
       value={{
-        user:memoizedUser,
+        user: memoizedUser,
         isUserOnline,
         setIsUserOnline,
         setUser: (value: User | null) => {

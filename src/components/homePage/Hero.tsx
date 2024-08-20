@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React, { useState } from "react"; 
+import React, { useState } from "react";
+import Image from "next/image"; // Import Image from next/image
 
 export default function Hero() {
   const [search, setSearch] = useState(false);
@@ -12,29 +13,47 @@ export default function Hero() {
     <div className="h-[90vh] w-full px-16 py-14 bg-slate-300 rounded-3xl drop-shadow-lg">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between gap-2">
-        <img src={"./logo.jpg"} alt="logo" className="w-[50px] rounded-full  h-[50px] text-[50px]"/>
-        <h1 className="text-4xl">Form Builder</h1>
+          <Image
+            src="/logo.jpg" // Use the Image component from next/image
+            alt="logo"
+            width={50} // Set the width according to your design
+            height={50} // Set the height according to your design
+            className="rounded-full" // Use only necessary classes
+          />
+          <h1 className="text-4xl">Form Builder</h1>
         </div>
 
         <div>
           <ul className="hidden md:flex items-center">
-            <li className="mx-4 md:mx-2 lg:text-lg"><Link href={"/"} >Home</Link></li>
-            <li className="mx-4 md:mx-2 lg:text-lg"><Link href={"/forms"} >Forms</Link></li>
-            <li className="mx-4 md:mx-2 lg:text-lg"><a href="#about">About</a></li>
-            <li className="mx-4 md:mx-2 lg:text-lg"><a href="#documentation">Documentation</a></li>
+            <li className="mx-4 md:mx-2 lg:text-lg">
+              <Link href="/">Home</Link>
+            </li>
+            <li className="mx-4 md:mx-2 lg:text-lg">
+              <Link href="/forms">Forms</Link>
+            </li>
+            <li className="mx-4 md:mx-2 lg:text-lg">
+              <a href="#about">About</a>
+            </li>
+            <li className="mx-4 md:mx-2 lg:text-lg">
+              <a href="#documentation">Documentation</a>
+            </li>
             <li className="mx-4">
-              <div className="w-7 " onClick={Search} />
+              <div className="w-7" onClick={Search} />
             </li>
           </ul>
         </div>
 
         <div className="hidden md:flex">
-         <Link href={"/login"}> <button className="lg:px-8 lg:py-2 rounded-md md:mx-2 md:px-2 md:py-1 lg:text-lg md:text-sm">
-            Login
-          </button></Link>
-          <Link href={"/login"}>     <button className="border border-slate-500 lg:px-8 md:px-3 md:py-2 rounded-md mx-2 lg:text-lg md:text-sm bg-indigo-600 text-white hover:bg-sky-100 hover:text-black font-bold">
-            Register
-          </button></Link>
+          <Link href="/login">
+            <button className="lg:px-8 lg:py-2 rounded-md md:mx-2 md:px-2 md:py-1 lg:text-lg md:text-sm">
+              Login
+            </button>
+          </Link>
+          <Link href="/login">
+            <button className="border border-slate-500 lg:px-8 md:px-3 md:py-2 rounded-md mx-2 lg:text-lg md:text-sm bg-indigo-600 text-white hover:bg-sky-100 hover:text-black font-bold">
+              Register
+            </button>
+          </Link>
         </div>
 
         <div onClick={handleClick}>
@@ -53,8 +72,8 @@ export default function Hero() {
             : "absolute w-[80%] mx-auto md:hidden items-center my-5 bg-slate-50 px-8 rounded-xl"
         }
       >
-        <li className="mx-4 py-4 ">
-          <div className="w-7 " onClick={Search} />
+        <li className="mx-4 py-4">
+          <div className="w-7" onClick={Search} />
         </li>
 
         <li className="mx-4 py-3 border-b-2 border-slate-200">Home</li>
@@ -102,7 +121,7 @@ export default function Hero() {
             Get Started
           </button>
         </div>
-       </div>
+      </div>
     </div>
   );
 }

@@ -2,8 +2,9 @@
 import Designer from "@/components/forms/designer/Designer";
 import DesignSkeleton from "@/components/skeletons/DesignSkeleton";
 import useGeneral from "@/hooks/useGeneral";
-import { useSearchParams } from 'next/navigation' 
-import { useEffect, useState } from "react"; 
+import { useSearchParams } from 'next/navigation'; 
+import { useEffect, useState, useCallback } from "react"; 
+
 export default function FormDetailPage({
   params,
 }: {
@@ -11,20 +12,15 @@ export default function FormDetailPage({
     id: string;
   };
 }) {
-  const searchParams = useSearchParams()
- const {user  } = useGeneral();
-  const localStorageParam = searchParams.get('local')
- 
+  const searchParams = useSearchParams();
+  const { user } = useGeneral();
+  const localStorageParam = searchParams.get('local');
   const { id } = params;
-  const [form, setForm] = useState<Form >( );
+  const [form, setForm] = useState<Form | null>(null); // Initialize with null
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
- 
-  useEffect(() => {
-    fetchForm();
-  }, [id]);
 
-  const fetchForm = async () => { 
+  const fetchForm = useCallback(async () => { 
     if (localStorageParam === 'true') {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -55,7 +51,11 @@ export default function FormDetailPage({
         setLoading(false);
       }
     }
-  };
+  }, [id, localStorageParam]);
+
+  useEffect(() => {
+    fetchForm();
+  }, [fetchForm]);
 
   if (loading) {
     return <div className="w-full h-screen"> <DesignSkeleton/></div>;
@@ -64,11 +64,13 @@ export default function FormDetailPage({
   if (error) {
     return <div>{error}</div>;
   }
-if(!user && localStorageParam !== 'true') {
-  if (typeof window !== "undefined") {
-    window.location.href = "/login"; 
+
+  if (!user && localStorageParam !== 'true') {
+    if (typeof window !== "undefined") {
+      window.location.href = "/login"; 
+    }
   }
-}
+
   if (!form) {
     return <div>Form not found</div>;
   }

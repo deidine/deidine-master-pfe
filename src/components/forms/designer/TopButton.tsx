@@ -35,18 +35,18 @@ export default function TopButton({
   } = useDesigner();
   const [isReady, setIsReady] = useState(false);
   const isFirstRender = useRef(true);
-const [isSavedField, setIsSavedField] = useState(true);
+  const [isSavedField, setIsSavedField] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const { formStyle, buttonStyle, elementStyle } = useStyle(); 
-const [isSavedDesign, setIsSavedDesign] = useState(true);
-const [isLoadingStyle, setIsLoadingStyle] = useState(false);
-const handleSave = async (isStyle: boolean) => {
-  if(isStyle){
-    setIsLoadingStyle(true);
-  }  else {
-    
-    setIsLoading(true);
-  }
+  const { formStyle, buttonStyle, elementStyle } = useStyle();
+  const [isSavedDesign, setIsSavedDesign] = useState(true);
+  const [isLoadingStyle, setIsLoadingStyle] = useState(false);
+
+  const handleSave = async (isStyle: boolean) => {
+    if (isStyle) {
+      setIsLoadingStyle(true);
+    } else {
+      setIsLoading(true);
+    }
     if (isFromLocalStorage) {
       try {
         const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -55,10 +55,10 @@ const handleSave = async (isStyle: boolean) => {
 
         if (formIndex !== -1) {
           forms[formIndex].content = elements;
-          if(isStyle){ 
+          if (isStyle) {
             forms[formIndex].style = formStyle;
-            forms[formIndex].buttonStyle=buttonStyle
-            forms[formIndex].elementStyle=elementStyle
+            forms[formIndex].buttonStyle = buttonStyle;
+            forms[formIndex].elementStyle = elementStyle;
           }
         } else {
           forms.push({
@@ -77,15 +77,17 @@ const handleSave = async (isStyle: boolean) => {
       }
     } else if (!isFromLocalStorage) {
       try {
-        let body={}
-        if(isStyle){ 
-        body=  {...form, content: elements, 
-          
-            style: formStyle, 
-            elementStyle: elementStyle, buttonStyle: buttonStyle}
-        }else {
-          
-        body=  {...form, content: elements }
+        let body = {};
+        if (isStyle) {
+          body = {
+            ...form,
+            content: elements,
+            style: formStyle,
+            elementStyle: elementStyle,
+            buttonStyle: buttonStyle,
+          };
+        } else {
+          body = { ...form, content: elements };
         }
         const response = await fetch("/api/forms/", {
           method: "PUT",
@@ -111,7 +113,7 @@ const handleSave = async (isStyle: boolean) => {
     } else {
       setIsSavedField(true);
       setIsLoading(false);
-    } 
+    }
   };
 
   useEffect(() => {
@@ -128,7 +130,7 @@ const handleSave = async (isStyle: boolean) => {
     }
     setIsSavedField(false); // For the "field" tab
   }, [elements]);
-  
+
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -136,6 +138,7 @@ const handleSave = async (isStyle: boolean) => {
     }
     setIsSavedDesign(false); // For the "design" tab
   }, [formStyle, buttonStyle, elementStyle]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isSavedField) {
@@ -145,10 +148,10 @@ const handleSave = async (isStyle: boolean) => {
         handleSave(true); // Save design styles
       }
     }, 60000);
-  
+
     return () => clearInterval(interval);
-  }, [isSavedField, isSavedDesign]);
-  
+  }, [isSavedField, isSavedDesign, handleSave]);
+
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       if (!isSavedField || !isSavedDesign) {
@@ -169,7 +172,7 @@ const handleSave = async (isStyle: boolean) => {
 
   useHotkeys("ctrl+z, meta+z", undo, { preventDefault: true });
   useHotkeys("ctrl+y, meta+y", redo, { preventDefault: true });
-  useHotkeys("ctrl+s, meta+s", ()=>handleSave(false), { preventDefault: true });
+  useHotkeys("ctrl+s, meta+s", () => handleSave(false), { preventDefault: true });
 
   const handleTypeChange = (value: string) => {
     setCodeForLanguage(value);
@@ -177,9 +180,8 @@ const handleSave = async (isStyle: boolean) => {
 
   return (
     <div>
-      <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed  
-      flex justify-between px-[80px]  h-[60px] border-b-1   items-center border-black w-full  ">
-        <div className="flex items-center  text-lg pl-[100px] font-semibold">
+      <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed flex justify-between px-[80px] h-[60px] border-b-1 items-center border-black w-full">
+        <div className="flex items-center text-lg pl-[100px] font-semibold">
           <div className="pr-2">
             {form.isFromLocalStorage ? (
               <CiCircleInfo className="text-red-500" />
@@ -207,7 +209,7 @@ const handleSave = async (isStyle: boolean) => {
           <div className="flex justify-between space-x-5 px-4 py-4">
             <Tooltip title="ctrl+z">
               <Button
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
                 onClick={undo}
                 disabled={undoStack.length === 0}
               >
@@ -216,7 +218,7 @@ const handleSave = async (isStyle: boolean) => {
             </Tooltip>
             <Tooltip title="ctrl+y">
               <Button
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
                 onClick={redo}
                 disabled={redoStack.length === 0}
               >
@@ -229,8 +231,8 @@ const handleSave = async (isStyle: boolean) => {
                 <Button
                   icon={<FaSave />}
                   loading={isLoading}
-                  className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                  onClick={()=>handleSave(false)}
+                  className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                  onClick={() => handleSave(false)}
                   disabled={isSavedField}
                 >
                   Save Field Changes
@@ -240,66 +242,51 @@ const handleSave = async (isStyle: boolean) => {
           </div>
         )}
         {selectedButton2 === "preview" && !form.isFromLocalStorage && (
-          <div className="flex justify-between space-x-5 px-4 py-4">
-            <FormLinkShare shareUrl={shareUrl} />
-          </div>
-        )}
-
-        {selectedButton2 === "design" && (
-          <Badge dot={!isSavedDesign } style={{ width: "15px", height: "15px" }}>
-            <Tooltip title="ctrl+s">
+          <div className="flex space-x-5 px-4 py-4">
+            <Tooltip title="Export Code">
               <Button
-                icon={<FaSave />}
-                loading={isLoadingStyle}
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                onClick={() => handleSave(true)}
-                disabled={isSavedDesign}
+                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                onClick={() => onCopyClick("export")}
               >
-                Save Design Changes
+                Export Code
               </Button>
             </Tooltip>
-          </Badge>
+            <Tooltip title="Download Code">
+              <Button
+                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                onClick={() => onDownloadClick("download")}
+              >
+                Download Code
+              </Button>
+            </Tooltip>
+          </div>
+        )}
+        {selectedButton2 === "design" && (
+          <div className="flex space-x-5 px-4 py-4">
+            <Tooltip title="Save Design Changes">
+              <Badge dot={!isSavedDesign} style={{ width: "15px", height: "15px" }}>
+                <Button
+                  icon={<FaSave />}
+                  loading={isLoadingStyle}
+                  className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+                  onClick={() => handleSave(true)}
+                  disabled={isSavedDesign}
+                >
+                  Save Design Changes
+                </Button>
+              </Badge>
+            </Tooltip>
+          </div>
         )}
         {selectedButton2 === "Export code" && (
-          <>
-            {" "}
-            <div className="flex justify-between space-x-5 px-4 py-4">
-              <Button
-                key="copy"
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                onClick={() => {
-                  onCopyClick("copy");
-                }}
-              >
-                Copy
-              </Button>
-              <Button
-                className="border-[0.5px] bg-zinc-100 border-[#b3b3b4]   text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-                key="download"
-                onClick={() => {
-                  onDownloadClick("download");
-                }}
-              >
-                Download
-              </Button>
-              <div>
-                <Select
-                  className="w-full"
-                  value={codeForLanguage}
-                  onChange={handleTypeChange}
-                  placeholder="Select input type"
-                >
-                  {lnaguageGenerator.map((option) => (
-                    <Select.Option key={option.value} value={option.value}>
-                      <div className="flex gap-2 text-lg items-center">
-                        <option.icon /> {option.label}
-                      </div>
-                    </Select.Option>
-                  ))}
-                </Select>
-              </div>
-            </div>
-          </>
+          <div className="flex space-x-5 px-4 py-4">
+            <Select
+              defaultValue="json"
+              style={{ width: 120 }}
+              onChange={handleTypeChange}
+              options={lnaguageGenerator}
+            />
+          </div>
         )}
       </div>
     </div>

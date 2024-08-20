@@ -7,9 +7,7 @@ import { openNotification } from "@/utils/utils";
 import { generateComponentCodeNextJs } from "./langCode/nextJs";
 import { generateComponentCodeReacttJs } from "./langCode/reactJs";
 import { generateComponentCodeFlutter } from "./langCode/flutter";
-import useStyle from "@/hooks/useStyle";
- 
-import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
+import useStyle from "@/hooks/useStyle"; 
 interface FormCodeGeneratorProps { 
   onCopyComplete?: (componentCode: string) => void;
   onDownloadComplete?: ( componentCode: string) => void;
