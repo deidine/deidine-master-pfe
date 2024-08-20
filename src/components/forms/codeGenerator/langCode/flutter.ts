@@ -5,15 +5,15 @@ export const generateComponentCodeFlutter = (
   getInputStyles?: FormStyle,
   getButtonStyles?: FormStyle
 ) => {
-  let firstSelectedOption:string[] =[];
-  let firstSelectedRadioOption :string[] =[];
-  let firstSelectedChecboxOption  :string[] =[];
+  let firstSelectedOption: string[] = [];
+  let firstSelectedRadioOption: string[] = [];
+  let firstSelectedChecboxOption: string[] = [];
   let checkboxLabels: string[] = [];
   let selectCount = 0;
   let radioCount = 0;
   let checkboxCount = 0;
-  let dateCount=0;
-  let timeCount=0;
+  let dateCount = 0;
+  let timeCount = 0;
   let dateControllers: string[] = [];
   let timeControllers: string[] = [];
   let dateState: string[] = [];
@@ -169,15 +169,15 @@ padding: EdgeInsets.only(
             ),
           )`;
           break;
-  
-          case "date":
-            const dateControllerVar = `_dateController${dateCount}`;
-            const dateStateVar = `_selectedDate${dateCount}`;
-            dateControllers.push(
-              `final TextEditingController ${dateControllerVar} = TextEditingController();`
-            );
-            dateState.push(`DateTime? ${dateStateVar};`);
-            inputElement = `Padding(
+
+        case "date":
+          const dateControllerVar = `_dateController${dateCount}`;
+          const dateStateVar = `_selectedDate${dateCount}`;
+          dateControllers.push(
+            `final TextEditingController ${dateControllerVar} = TextEditingController();`
+          );
+          dateState.push(`DateTime? ${dateStateVar};`);
+          inputElement = `Padding(
               ${inputPadding},
               child: TextFormField(
                 controller: ${dateControllerVar},
@@ -210,17 +210,17 @@ padding: EdgeInsets.only(
                 },
               ),
             )`;
-            dateCount++;
-            break;
-            
-          case "time":
-            const timeControllerVar = `_timeController${timeCount}`;
-            const timeStateVar = `_selectedTime${timeCount}`;
-            timeControllers.push(
-              `final TextEditingController ${timeControllerVar} = TextEditingController();`
-            );
-            timeState.push(`TimeOfDay? ${timeStateVar};`);
-            inputElement = `Padding(
+          dateCount++;
+          break;
+
+        case "time":
+          const timeControllerVar = `_timeController${timeCount}`;
+          const timeStateVar = `_selectedTime${timeCount}`;
+          timeControllers.push(
+            `final TextEditingController ${timeControllerVar} = TextEditingController();`
+          );
+          timeState.push(`TimeOfDay? ${timeStateVar};`);
+          inputElement = `Padding(
               ${inputPadding},
               child: TextFormField(
                 controller: ${timeControllerVar},
@@ -251,15 +251,15 @@ padding: EdgeInsets.only(
                 },
               ),
             )`;
-            timeCount++;
-            break;
+          timeCount++;
+          break;
 
-          case "select":
-            selectCount++;
-            const selectVar = `_selectedOption${selectCount}`;
-            selectState  = `String ${selectVar} = "${input.elementType.options[0]}";`;
-           firstSelectedOption.push(selectState);  
-            inputElement = `
+        case "select":
+          selectCount++;
+          const selectVar = `_selectedOption${selectCount}`;
+          selectState = `String ${selectVar} = "${input.elementType.options[0]}";`;
+          firstSelectedOption.push(selectState);
+          inputElement = `
             Padding(
               padding: EdgeInsets.all(8.0),
               child: DropdownButtonFormField<String>(
@@ -271,8 +271,8 @@ padding: EdgeInsets.only(
                 ),
                 value: ${selectVar},
                 items: <String>[${input.elementType.options
-                  .map((option: any) => `'${option}'`)
-                  .join(", ")}]
+              .map((option: any) => `'${option}'`)
+              .join(", ")}]
                   .map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -286,8 +286,8 @@ padding: EdgeInsets.only(
                 },
               ),
             )`;
-            break;
-  
+          break;
+
         case "select_multiple":
           inputElement = `MultiSelectFormField(
             title: Text('${input.elementType.label}'),
@@ -334,12 +334,12 @@ padding: EdgeInsets.only(
 
         case "radio":
           radioCount++;
-          const radioVar =  `_radioValue${radioCount}`;
+          const radioVar = `_radioValue${radioCount}`;
           radioState = `String ${radioVar} = "";`;
-          firstSelectedRadioOption.push(radioState); 
+          firstSelectedRadioOption.push(radioState);
           inputElement = input.elementType.options
-          .map(
-            (option: string) => `Padding(
+            .map(
+              (option: string) => `Padding(
               padding: EdgeInsets.all(8.0),
               child: RadioListTile<String>(
                 title: Text('${option}'),
@@ -352,7 +352,7 @@ padding: EdgeInsets.only(
                 },
               ),
             )`
-          )
+            )
             .join(",\n");
           break;
         case "file":

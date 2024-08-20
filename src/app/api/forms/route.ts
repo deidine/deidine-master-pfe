@@ -45,7 +45,7 @@ export async function  POST(req:NextRequest ) {
     if (error) {
       throw error;
     }
-console.log(forms)
+// console.log(forms)
     return NextResponse.json({ forms });
   } catch (error) {
     console.error("Error fetching forms:", error);
@@ -54,25 +54,6 @@ console.log(forms)
 }
  
 
-export async function DELETE(req: NextRequest) {
-  try {
-  const supabase = createClient();
-    
-    const { id  } = await req.json(); 
-    const { error  } = await supabase
-      .from('form')
-      .delete()
-      .eq('id', id) ;
-
-    if (error) {
-      throw error;
-    }
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Error deleting forms:", error);
-    return NextResponse.json({ error: 'Internal Server Error'  }, { status: 500 });
-  }
-}
 
 
 export async function PUT(req: NextRequest) {
