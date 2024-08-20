@@ -36,13 +36,13 @@ export default function PreviewFormsTamplates({
     };
   };
   return (
-    <Form
+   <div>
+     <Form
       onFinish={onFinish}
       layout="vertical" // Set the layout to vertical
       className={
         "mt-3 flex flex-col  justify-center mx-auto bg-white border shadow rounded-xl w-1/2 h-auto p-10 "
-      }
-      style={form.style!}
+      } 
     >
       <span className="text-md font-semibold">
         {" "}
@@ -117,5 +117,6 @@ export default function PreviewFormsTamplates({
         </Button>
       </div>
     </Form>
+   </div>
   );
 }
