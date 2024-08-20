@@ -70,14 +70,14 @@ export default function NavBar() {
               </Link>
             </div>
             <div className="font-semibold text-black mt-[1rem] mx-[1rem]">
-              <Link href="/dashboard">
+              {/* <Link href="/dashboard">
                 <div onClick={() => setActiveLink("/dashboard")}>
                   Dashboard
                   {activeLink === "/dashboard" && (
                     <span className="block h-1 mt-1 bg-blue-500"></span>
                   )}
                 </div>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="flex flex-grow justify-end items-center mr-4">

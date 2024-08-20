@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Divider  } from "antd";
+import { Button, Divider } from "antd";
 import CardForm from "./CardForm";
 import { openNotification, saveToDatabase } from "@/utils/utils";
-import useGeneral from "@/hooks/useGeneral"; 
+import useGeneral from "@/hooks/useGeneral";
 import { CiCircleCheck, CiCircleInfo } from "react-icons/ci";
 import ModelForm from "./ModelForm";
 import DasboradSkeleton from "../skeletons/DasboradSkeleton";
+
 export default function Dashboard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { isUserOnline, setIsUserOnline, user } = useGeneral();
   const [elements, setElements] = useState<Form[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
- 
   const [elementsLocalStorage, setElementsLocalStorage] = useState<Form[]>([]);
   const userId = user?.id;
 
@@ -42,29 +42,23 @@ export default function Dashboard() {
         }
 
         dataForms = data.forms;
-        setLoading(false);
-
       }
 
       const localStorageForms = JSON.parse(
         localStorage.getItem("forms") || "[]"
       );
       const combinedForms = [...dataForms, ...localStorageForms];
-      setElements(dataForms); 
-      console.log("deiidne")
+      setElements(dataForms);
       setElementsLocalStorage(localStorageForms);
-      setLoading(false);
-
     } catch (error) {
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
       setIsUserOnline(false);
       setElementsLocalStorage(forms);
       console.error("Error fetching forms:", error);
+    } finally {
       setLoading(false);
-
     }
   };
- 
 
   const saveToLocalStorage = (title: string, description: string) => {
     const forms = JSON.parse(localStorage.getItem("forms") || "[]");
@@ -72,8 +66,9 @@ export default function Dashboard() {
       id: Date.now(),
       title: title,
       content: [],
-      style : {},
-      buttonStyle: {},elementStyle: {},
+      style: {},
+      buttonStyle: {},
+      elementStyle: {},
       isFromLocalStorage: true,
       description: description,
     });
@@ -84,8 +79,9 @@ export default function Dashboard() {
       "Data inserted",
       "Data inserted successfully in local storage"
     );
-    setIsModalVisible(false); 
+    setIsModalVisible(false);
   };
+
   const handleSave = async (title: string, description: string) => {
     if (!isUserOnline) {
       saveToLocalStorage(title, description);
@@ -103,7 +99,9 @@ export default function Dashboard() {
         body: JSON.stringify({
           title: title,
           content: [],
-          style :{}, buttonStyle: {},elementStyle: {},
+          style: {},
+          buttonStyle: {},
+          elementStyle: {},
           description: description,
           user_id: userId,
         }),
@@ -114,8 +112,7 @@ export default function Dashboard() {
       }
 
       const data = await response.json();
-      console.log("Data inserted:", data);
-      setIsModalVisible(false); 
+      setIsModalVisible(false);
       openNotification(
         "topRight",
         "success",
@@ -139,8 +136,7 @@ export default function Dashboard() {
           form.description,
           user.id
         ));
-      const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-      const updatedForms = forms.filter((form: Form) => form.id !== form.id);
+      const updatedForms = forms.filter((f: Form) => f.id !== form.id);
       localStorage.setItem("forms", JSON.stringify(updatedForms));
     }
     openNotification(
@@ -152,49 +148,54 @@ export default function Dashboard() {
     fetchForms();
     setIsLoading(false);
   }
+
   if (loading) {
-    return <div className="w-full h-screen"> <DasboradSkeleton/></div>;
+    return (
+      <div className="w-full h-screen">
+        <DasboradSkeleton />
+      </div>
+    );
   }
 
   return (
     <>
       <div>
-         
-        <div className="w-full  bg-mainColor  flex justify-end px-[2.5rem] pt-[1rem] items-end">
+        <div className="w-full bg-mainColor flex justify-end px-[2.5rem] pt-[1rem] items-end">
           <div className="flex gap-4">
             {elementsLocalStorage.length > 0 && user && isUserOnline && (
               <Button
                 loading={isLoading}
                 className="bg-[#B5B5B5] h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white"
-                onClick={() => saveAllToDb()}
+                onClick={saveAllToDb}
               >
-                Sync all form to dtabase
+                Sync all forms to database
               </Button>
             )}
             <button
-              className="btn_header bg-blue-400  text-white"
+              className="btn_header bg-blue-400 text-white"
               onClick={() => setIsModalVisible(true)}
             >
               Create New Form
             </button>
           </div>
         </div>
-        <div className="flex  flex-col justify-between gap-4 rounded-lg border-2  p-4">
+        <div className="flex flex-col justify-between gap-4 rounded-lg border-2 p-4">
           {elementsLocalStorage.length > 0 && (
-            <p className="text-[25px]  px-[2.5rem] flex flex-row gap-3  text-center items-center   mb-4">
+            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
               <CiCircleInfo className="text-red-500" /> Forms from Local Storage
             </p>
-          )}{" "}
-          <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
+          )}
+     
+          <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">
             {elementsLocalStorage.map((element) => (
-              <CardForm
-                reftchForm={(ok: boolean) => ok && fetchForms()}
-                form={element}
-                key={element.id}
-                                isEditFormtrriger={(  ): void => {
-                                  fetchForms()
-                                }}
-                  />
+                     <CardForm
+                     reftchForm={(ok: boolean) => ok && fetchForms()}
+                     form={element}
+                     key={element.id}
+                     isEditFormtrriger={(): void => {
+                       fetchForms();
+                     }}
+                   />
             ))}
           </div>
           {elements.length > 0 && elementsLocalStorage.length > 0 && (
@@ -209,47 +210,46 @@ export default function Dashboard() {
             />
           )}
           {elements.length > 0 && (
-            <>
-              <p className="text-[25px]  px-[2.5rem]  flex flex-row gap-3  text-center items-center  mb-4">
-                {" "}
-                <CiCircleCheck className="text-green-500" /> Forms from Database
-              </p>
-            </>
-          )}{" "}
-          <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
+            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
+              <CiCircleCheck className="text-green-500" /> Forms from Database
+            </p>
+          )}
+          {elements.length === 0 && (
+            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
+              <CiCircleCheck className="text-green-500" /> No forms in database
+            </p>
+          )}
+          <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">
             {elements.map((element) => (
-              <CardForm
-                form={element}
-                key={element.id}
-                reftchForm={fetchForms}
-                isEditFormtrriger={(  ): void => {
-                  fetchForms()
-                }}  
-              />
+                         <CardForm
+                         form={element}
+                         key={element.id}
+                         reftchForm={fetchForms}
+                         isEditFormtrriger={(): void => {
+                           fetchForms();
+                         }}
+                       />
             ))}
           </div>
+          {elementsLocalStorage.length === 0 && (
+            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
+              <CiCircleInfo className="text-red-500" /> No forms in local storage
+            </p>
+          )}
         </div>
       </div>
-      
+
       <ModelForm
         isAdd={true}
         isModalVisible={isModalVisible}
-        handleOk={function (): void {
-    setIsModalVisible(false);
-          
-        }}
-        handleCancel={function (): void {
-          setIsModalVisible(false);
-        }}
-        onFinish={async function (values: any): Promise<void> {
+        handleOk={() => setIsModalVisible(false)}
+        handleCancel={() => setIsModalVisible(false)}
+        onFinish={async (values: any) => {
           await handleSave(values.TitleForm, values.description);
           fetchForms();
         }}
-        setIsModalVisible={function (isModalVisible: boolean): void {
-          setIsModalVisible(isModalVisible);
-        }}
+        setIsModalVisible={setIsModalVisible}
       />
- 
     </>
   );
 }
