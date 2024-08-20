@@ -216,7 +216,7 @@ export default function Dashboard() {
               <CiCircleCheck className="text-green-500" /> Forms from Database
             </p>
           )}
-          {elements.length === 0 && (
+          {elements.length === 0 && user && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
               <CiCircleCheck className="text-green-500" /> No forms in database
             </p>

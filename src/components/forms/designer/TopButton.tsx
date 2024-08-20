@@ -260,12 +260,28 @@ export default function TopButton({
         )}
         {selectedButton2 === "Export code" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
-            <Select
+            {/* <Select
               defaultValue={codeForLanguage}
               style={{ width: 120 }}
               onChange={handleTypeChange}
               options={lnaguageGenerator}
-            />
+            /> */}
+                          <div>
+                <Select
+                  className="w-full"
+                  value={codeForLanguage}
+                  onChange={handleTypeChange}
+                  placeholder="Select input type"
+                >
+                  {lnaguageGenerator.map((option) => (
+                    <Select.Option key={option.value} value={option.value}>
+                      <div className="flex gap-2 text-lg items-center">
+                        <option.icon /> {option.label}
+                      </div>
+                    </Select.Option>
+                  ))}
+                </Select>
+              </div>
             <Button
               icon={<FaSave />}
               loading={isLoading}
@@ -309,3 +325,4 @@ export default function TopButton({
     </div>
   );
 }
+

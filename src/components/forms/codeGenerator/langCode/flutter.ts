@@ -135,11 +135,16 @@ padding: EdgeInsets.only(
         case "number":
         case "url":
         case "text":
-          inputElement = `Padding(
+          inputElement = `
+            Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+          Padding(
             ${inputPadding},
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: '${input.elementType.label}',
+               
                 hintText: '${input.elementType.placeholder}',
                 ${inputDecoration},
                 errorMaxLines: 2
@@ -150,15 +155,21 @@ padding: EdgeInsets.only(
             },
               obscureText: ${input.elementType.type === "password"},
             ),
+          ) ],
           )`;
           break;
 
         case "textarea":
-          inputElement = `Padding(
+          inputElement = `
+             Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+          Padding(
             ${inputPadding},
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: '${input.elementType.label}',
+              
                 hintText: '${input.elementType.placeholder}',
                 ${inputDecoration},
                 errorMaxLines: 2
@@ -167,6 +178,7 @@ padding: EdgeInsets.only(
             
               maxLines: null,
             ),
+          ) ],
           )`;
           break;
 
@@ -177,12 +189,16 @@ padding: EdgeInsets.only(
             `final TextEditingController ${dateControllerVar} = TextEditingController();`
           );
           dateState.push(`DateTime? ${dateStateVar};`);
-          inputElement = `Padding(
+          inputElement = `   Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+         Padding(
               ${inputPadding},
               child: TextFormField(
                 controller: ${dateControllerVar},
                 decoration: InputDecoration(
-                  labelText: '${input.elementType.label}',
+                 
                   hintText: ${dateStateVar} != null ? ${dateStateVar}!.toLocal().toString().split(' ')[0] : '${input.elementType.placeholder}',
                   ${inputDecoration},
                   errorMaxLines: 2,
@@ -209,7 +225,8 @@ padding: EdgeInsets.only(
                   return null;
                 },
               ),
-            )`;
+            ) ],
+          )`;
           dateCount++;
           break;
 
@@ -220,7 +237,11 @@ padding: EdgeInsets.only(
             `final TextEditingController ${timeControllerVar} = TextEditingController();`
           );
           timeState.push(`TimeOfDay? ${timeStateVar};`);
-          inputElement = `Padding(
+          inputElement = `  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+        Padding(
               ${inputPadding},
               child: TextFormField(
                 controller: ${timeControllerVar},
@@ -250,7 +271,8 @@ padding: EdgeInsets.only(
                   return null;
                 },
               ),
-            )`;
+            )],
+          )`;
           timeCount++;
           break;
 
@@ -260,12 +282,15 @@ padding: EdgeInsets.only(
           selectState = `String ${selectVar} = "${input.elementType.options[0]}";`;
           firstSelectedOption.push(selectState);
           inputElement = `
-            Padding(
+             Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+         Padding(
               padding: EdgeInsets.all(8.0),
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: '${input.elementType.label}',
-                  hintText: '${input.elementType.placeholder}',
+                   hintText: '${input.elementType.placeholder}',
                   ${inputDecoration},
                   errorMaxLines: 2
                 ),
@@ -285,7 +310,8 @@ padding: EdgeInsets.only(
                   });
                 },
               ),
-            )`;
+            )],
+          )`;
           break;
 
         case "select_multiple":
@@ -309,7 +335,12 @@ padding: EdgeInsets.only(
           checkboxState = `List<bool> ${checkboxVar} = List.filled(${input.elementType.options.length}, false);`;
           firstSelectedChecboxOption.push(checkboxState);
           checkboxLabels = input.elementType.options;
-          inputElement = `Column(
+          inputElement = `
+           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+             Column(
             children: <Widget>[
               ${checkboxLabels
               .map(
@@ -329,89 +360,92 @@ padding: EdgeInsets.only(
               )
               .join("\n")}
             ],
+          )],
           )`;
           break;
-
-        case "radio":
-          radioCount++;
-          const radioVar = `_radioValue${radioCount}`;
-          radioState = `String ${radioVar} = "";`;
-          firstSelectedRadioOption.push(radioState);
-          inputElement = input.elementType.options
-            .map(
-              (option: string) => `Padding(
-              padding: EdgeInsets.all(8.0),
-              child: RadioListTile<String>(
-                title: Text('${option}'),
-                value: '${option}',
-                groupValue: ${radioVar},
-                onChanged: (value) {
-                  setState(() {
-                    ${radioVar} = value!;
-                  });
-                },
-              ),
-            )`
-            )
-            .join(",\n");
-          break;
-        case "file":
-          inputElement = `Padding(
-                ${inputPadding},
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        ElevatedButton(
+          case "radio":
+            radioCount++;
+            const radioVar = `_radioValue${radioCount}`;
+            radioState = `String ${radioVar} = "";`;
+            firstSelectedRadioOption.push(radioState);
+            inputElement = `
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                  Column(
+                    children: <Widget>[
+                      ${input.elementType.options.map((option: string) => `
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: RadioListTile<String>(
+                            title: Text('${option}'),
+                            value: '${option}',
+                            groupValue: ${radioVar},
+                            onChanged: (value) {
+                              setState(() {
+                                ${radioVar} = value!;
+                              });
+                            },
+                          ),
+                        )
+                      `).join(",\n")}
+                    ],
+                  ),
+                ],
+              )`;
+            break;
+            case "file":
+              inputElement = `
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                    Padding(
+                      ${inputPadding},
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ElevatedButton(
                             onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                    String filePath = result.files.single.path!;
-                                    // Update the state with the selected file name
-                                    setState(() {
-                                        _selectedFileName = result.files.single.name;
-                                    });
-                                } else {
-                                    // User canceled the picker
-                                }
+                              FilePickerResult? result = await FilePicker.platform.pickFiles();
+                              if (result != null) {
+                                String filePath = result.files.single.path!;
+                                setState(() {
+                                  _selectedFileName = result.files.single.name;
+                                });
+                              } else {
+                                // User canceled the picker
+                              }
                             },
                             child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                    Icon(Icons.attach_file, color: Colors.white),
-                                    SizedBox(width: 8),
-                                    Text('${input.elementType.label}'),
-                                ],
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.attach_file, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text('${input.elementType.label}'),
+                              ],
                             ),
                             style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                   ${buttonPadding},
-                                ),
-                                backgroundColor: MaterialStateProperty.all(
-                                    hexToColor('${getInputStyles?.backgroundColor ||
-            "#6200EE"
-            }')
-                                ),
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                ),
+                              padding: MaterialStateProperty.all(${buttonPadding}),
+                              backgroundColor: MaterialStateProperty.all(hexToColor('${getInputStyles?.backgroundColor || "#6200EE"}')),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
                             ),
-                        ),
-                        SizedBox(height: 8),
-                        if (_selectedFileName != null && _selectedFileName!.isNotEmpty)
+                          ),
+                          SizedBox(height: 8),
+                          if (_selectedFileName != null && _selectedFileName!.isNotEmpty)
                             Text(
-                                'Selected File: $_selectedFileName',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                ),
+                              'Selected File: $_selectedFileName',
+                              style: TextStyle(color: Colors.black, fontSize: 14),
                             ),
-                    ],
-                ),
-            )`;
-          break;
-        default:
+                        ],
+                      ),
+                    ),
+                  ],
+                )`;
+              break;
+        
+            default:
           break;
       }
 
