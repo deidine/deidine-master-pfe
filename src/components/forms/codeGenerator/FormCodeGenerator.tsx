@@ -116,11 +116,10 @@ const downloadCode = () => {
   }));
 
   return (
-    <div className="text-white w-[80%] my-6 rounded-lg mx-auto flex px-[4.5rem] flex-col justify-center">
-      <SyntaxHighlighter language="typescript" showLineNumbers  style={codeStyle}>
+     <div className="text-white w-[80%] my-6 rounded-lg mx-auto flex px-[4.5rem] flex-col justify-center">
+      <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
       </SyntaxHighlighter>
-
     </div>
   );
 });

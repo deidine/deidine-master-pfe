@@ -27,30 +27,30 @@ Color hexToColor(String hexCode) {
 `;
 
   const inputDecoration = `
-contentPadding: EdgeInsets.only(
-  left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-  bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-),
-hintStyle: TextStyle(
-  color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
-  fontSize: 16.0,
-),
-errorStyle: TextStyle(
-  color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
-  fontSize: 15.0
-),
-fillColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
-filled: true,
-border: OutlineInputBorder(
-  borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"
-    }),
-  borderSide: BorderSide(
-    color: hexToColor('${getInputStyles?.color || "#BDBDBD"}'),
-    width: ${getInputStyles?.paddingY?.replace("px", "") || "1.0"},
-  ),
-)
+    contentPadding: EdgeInsets.only(
+      left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+      right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+      top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+      bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+    ),
+    hintStyle: TextStyle(
+      color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+      fontSize: 16.0,
+    ),
+    errorStyle: TextStyle(
+      color: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+      fontSize: 15.0
+    ),
+    fillColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"
+        }),
+      borderSide: BorderSide(
+        color: hexToColor('${getInputStyles?.color || "#BDBDBD"}'),
+        width: ${getInputStyles?.paddingY?.replace("px", "") || "1.0"},
+      ),
+    )
 `;
   const checkBoxDecoration = `
  
@@ -58,7 +58,7 @@ border: OutlineInputBorder(
   activeColor: hexToColor('${getInputStyles?.color || "#FFFFFF"}'),
  controlAffinity: ListTileControlAffinity.leading,
   
- shape:  RoundedRectangleBorder(
+  shape:  RoundedRectangleBorder(
   borderRadius: BorderRadius.circular( ${getInputStyles?.borderRadius?.replace("px", ".0") || "13.0"
     } ) ,
  
@@ -66,7 +66,7 @@ border: OutlineInputBorder(
 `;
 
   const formPadding = `
-padding: EdgeInsets.only(
+  padding: EdgeInsets.only(
   left: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
   right: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
   top: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
@@ -74,7 +74,7 @@ padding: EdgeInsets.only(
 )
 `;
   const inputPadding = `
-padding: EdgeInsets.only(
+  padding: EdgeInsets.only(
   left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
   right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
   top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
@@ -241,7 +241,7 @@ padding: EdgeInsets.only(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-        Padding(
+              Padding(
               ${inputPadding},
               child: TextFormField(
                 controller: ${timeControllerVar},
@@ -494,23 +494,23 @@ padding: EdgeInsets.only(
     }
     
     class _GeneratedFormState extends State<GeneratedForm> {
-        final _formKey = GlobalKey<FormState>();
-        
-         ${firstSelectedOption.map((value) => ` ${value} `).join("\n  ")} 
- 
-        ${firstSelectedChecboxOption.map((value) => ` ${value} `).join("\n  ")}
-        ${firstSelectedRadioOption.map((value) => ` ${value} `).join("\n  ")} 
-        String? _selectedFileName;
-        String? _selectedImagePath;
+    final _formKey = GlobalKey<FormState>();
+    
+    ${firstSelectedOption.map((value) => ` ${value} `).join("\n  ")} 
+
+    ${firstSelectedChecboxOption.map((value) => ` ${value} `).join("\n  ")}
+    ${firstSelectedRadioOption.map((value) => ` ${value} `).join("\n  ")} 
+    String? _selectedFileName;
+    String? _selectedImagePath;
     TimeOfDay? _selectedTime;
-DateTime? _selectedDate;
-      ${dateState.join("\n")}
-        ${timeState.join("\n")}
-        ${dateControllers.join("\n")}
-        ${timeControllers.join("\n")}
-        @override
-      Widget build(BuildContext context) {
-  return SingleChildScrollView(
+    DateTime? _selectedDate;
+    ${dateState.join("\n")}
+      ${timeState.join("\n")}
+      ${dateControllers.join("\n")}
+      ${timeControllers.join("\n")}
+    @override
+    Widget build(BuildContext context) {
+    return SingleChildScrollView(
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Form(
