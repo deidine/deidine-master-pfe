@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://deidine-master.vercel.app/sitemap.xml
