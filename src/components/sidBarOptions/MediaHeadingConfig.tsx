@@ -53,12 +53,12 @@ export default function MediaHeadingConfig({
         </>
       )}
 
-      {element!.type === "heading" && (
+      {element!.type === "paragraph" && (
         <>
           <Divider />
           <LabelValue value="Heading Title" />
           <Input
-            placeholder="Enter heading title"
+            placeholder="Enter paragraph title"
             value={headingText}
             onChange={handleHeadingTextChange}
             className="mb-4"

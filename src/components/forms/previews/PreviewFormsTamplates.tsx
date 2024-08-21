@@ -101,7 +101,7 @@ export default function PreviewFormsTamplates({
           {element.elementType.type === "radio" && (
             <RadioPrev styleForm={form.elementStyle} element={element} />
           )}
-          {element.elementType.type === "heading" && (
+          {element.elementType.type === "paragraph" && (
             <HeadingPrev element={element} styleForm={form.elementStyle} />
           )}
         </div>

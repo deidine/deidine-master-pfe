@@ -103,7 +103,7 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
             {element.elementType.type === "radio" && (
               <RadioPrev styleForm={elementStyle} element={element} />
             )}
-                {element.elementType.type === "heading" && (
+                {element.elementType.type === "paragraph" && (
               <HeadingPrev
                 element={element}
                 styleForm={elementStyle}

@@ -266,6 +266,21 @@ export default function TopButton({
               onChange={handleTypeChange}
               options={lnaguageGenerator}
             /> */}
+            <Button
+              icon={<FaSave />}
+              loading={isLoading}
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => onDownloadClick(codeForLanguage)}
+            >
+              Download Code
+            </Button>
+            <Button
+              icon={<FaSave />}
+              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              onClick={() => onCopyClick(codeForLanguage)}
+            >
+              Copy Code
+            </Button>
                           <div>
                 <Select
                   className="w-full"
@@ -282,21 +297,6 @@ export default function TopButton({
                   ))}
                 </Select>
               </div>
-            <Button
-              icon={<FaSave />}
-              loading={isLoading}
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-              onClick={() => onDownloadClick(codeForLanguage)}
-            >
-              Download Code
-            </Button>
-            <Button
-              icon={<FaSave />}
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-              onClick={() => onCopyClick(codeForLanguage)}
-            >
-              Copy Code
-            </Button>
           </div>
         )}
         {selectedButton2 === "preview" && (

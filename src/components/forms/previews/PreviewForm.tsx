@@ -164,7 +164,7 @@ export default function PreviewForm({
                 element={element}
               />
             )}
-            {element.elementType.type === "heading" && (
+            {element.elementType.type === "paragraph" && (
               <HeadingPrev
                 element={element}
                 styleForm={isTemlate ? {} : elementStyle}

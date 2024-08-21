@@ -216,8 +216,8 @@ const inputTypeOptions: InputTypeList[] = [
     icon: FiImage, 
   },
   {
-    value: "heading",
-    label: "heading",
+    value: "paragraph",
+    label: "paragraph",
     bgColor: "#E6F7FF", 
     textColor: "text-gray-800", 
     icon: FiBold, 
