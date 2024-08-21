@@ -30,65 +30,162 @@
                 }
             }
         ],
-        "description": "Description", 
-        "style": {},
-        "elementStyle": {},
-        "buttonStyle": {}
+        "description": "Description",
+        "style": {
+            "paddingX": "38px",
+            "borderRadius": "20px",
+            "backgroundColor": "#7ed321"
+        },
+        "elementStyle": {
+            "color": "#9013fe",
+            "paddingX": "25px",
+            "borderRadius": "11px",
+            "backgroundColor": "#ffffff"
+        },
+        "buttonStyle": {
+            "color": "#417505",
+            "borderRadius": "17px",
+            "backgroundColor": "#ffffff"
+        }
+    }
+    ,
+    {
+        "id": 2,
+        "title": "deidine",
+        "content": [
+            {
+                "id": "1704",
+                "elementType": {
+                    "name": "yp67cf8nl",
+                    "type": "text",
+                    "label": "username",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": true,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "4060",
+                "elementType": {
+                    "name": "ey8ahyi3mg",
+                    "type": "number",
+                    "label": "Telephone",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": false,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "120",
+                "elementType": {
+                    "name": "d4oijszaugm",
+                    "type": "email",
+                    "label": "email",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": false,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "1573",
+                "elementType": {
+                    "name": "6t4b46en9ap",
+                    "type": "file",
+                    "label": "Profile",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": false,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "6981",
+                "elementType": {
+                    "name": "cophv7e6jz",
+                    "type": "password",
+                    "label": "password",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": true,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "1940",
+                "elementType": {
+                    "name": "c4t583zn1p5",
+                    "type": "password",
+                    "label": "Confirm Password",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": false,
+                    "placeholder": "Placeholder"
+                }
+            }
+        ],
+        "description": "Description",
+        
+        "style": {
+            "paddingX": "38px",
+            "borderRadius": "20px",
+            "backgroundColor": "#7ed321"
+        },
+        "elementStyle": {
+            "paddingX": "25px",
+            "borderRadius": "11px",
+            "backgroundColor": "#d4cd76"
+        },
+        "buttonStyle": {
+            "color": "#417505",
+            "borderRadius": "17px",
+            "backgroundColor": "#ffffff"
+        }
     },
     {
-        id:2,
-        title: "deidine",
-        content: [
+        "id": 3,
+        "title": "deidine",
+        "content": [
             {
-                id: "3008",
-                elementType: {
-                name: "jny9w0csxz",
-                    "type": "logo",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "9398",
-                elementType: {
-                name: "7z7vfn3t6tm",
-                    "type": "headingTitle",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder",
-                    "headingTitle": "Heading Title"
-                }
-            },
-            {
-                id: "126",
-                elementType: {
-                name: "s79ngjkun1e",
-                    "type": "select",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "options": [
-                        "Option 1",
-                        "Option 2"
-                    ],
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "2075",
-                elementType: {
-                name: "lplvdey2gr9",
+                "id": "7352",
+                "elementType": {
+                    "name": "66b3m2lr50b",
                     "type": "text",
-                    "label": "Label",
+                    "label": "nom",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": true,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "9811",
+                "elementType": {
+                    "name": "tfjeop54lpe",
+                    "type": "email",
+                    "label": "email",
+                    "style": "h-10 rounded-lg border ",
+                    "value": "",
+                    "pattern": "",
+                    "required": true,
+                    "placeholder": "Placeholder"
+                }
+            },
+            {
+                "id": "5704",
+                "elementType": {
+                    "name": "ij9vtbrfgld",
+                    "type": "number",
+                    "label": "Telephone",
                     "style": "h-10 rounded-lg border ",
                     "value": "",
                     "pattern": "",
@@ -97,33 +194,19 @@
                 }
             },
             {
-                id: "6470",
-                elementType: {
-                name: "lizg1lv6n8i",
-                    "type": "radio",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "options": [
-                        "Option 1",
-                        "Option 2"
-                    ],
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "521",
-                elementType: {
-                name: "tu8hmpqnd58",
+                "id": "19",
+                "elementType": {
+                    "name": "dwgc3rlamcq",
                     "type": "select",
-                    "label": "Label",
+                    "label": "Raison de Contact",
                     "style": "h-10 rounded-lg border ",
                     "value": "",
                     "options": [
-                        "Option 1",
-                        "Option 2"
+                        "Questions Générales",
+                        "Développement Web",
+                        "Développement Mobile",
+                        "Consulting",
+                        "Développement de Logiciels"
                     ],
                     "pattern": "",
                     "required": false,
@@ -131,73 +214,13 @@
                 }
             },
             {
-                id: "5659",
-                elementType: {
-                name: "3457rxe5kf7",
-                    "type": "date",
-                    "label": "Label",
+                "id": "1045",
+                "elementType": {
+                    "name": "zq47tgp2zp",
+                    "type": "textarea",
+                    "label": "Message",
                     "style": "h-10 rounded-lg border ",
                     "value": "",
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "4826",
-                elementType: {
-                name: "b8gff9s2oi5",
-                    "type": "date",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "3632",
-                elementType: {
-                name: "scgbqp46bmj",
-                    "type": "radio",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "options": [
-                        "Option 1",
-                        "Option 2"
-                    ],
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "9276",
-                elementType: {
-                name: "o8k5jufs6vl",
-                    "type": "file",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "pattern": "",
-                    "required": false,
-                    "placeholder": "Placeholder"
-                }
-            },
-            {
-                id: "9358",
-                elementType: {
-                name: "0in0zjk2sfck",
-                    "type": "radio",
-                    "label": "Label",
-                    "style": "h-10 rounded-lg border ",
-                    "value": "",
-                    "options": [
-                        "Option 1",
-                        "Option 2"
-                    ],
                     "pattern": "",
                     "required": false,
                     "placeholder": "Placeholder"
@@ -205,8 +228,22 @@
             }
         ],
         "description": "Description", 
-        "style": {},
-        "elementStyle": {},
-        "buttonStyle": {}
+        "style": {
+            "paddingX": "36px",
+            "borderRadius": "20px",
+            "backgroundColor": "#ffffff"
+        },
+        "elementStyle": {
+            "color": "#000000",
+            "paddingX": "0px",
+            "paddingY": "8px",
+            "borderRadius": "11px",
+            "backgroundColor": "#ffffff"
+        },
+        "buttonStyle": {
+            "color": "#ffffff",
+            "borderRadius": "17px",
+            "backgroundColor": "#417505"
+        }
     }
  ]

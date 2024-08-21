@@ -5,6 +5,7 @@ import NavBar from "@/components/navBar/NavBar";
 import DesignerContextProvider from "@/context/DesignerContext";
 import GeneralContextProvider from "@/context/GeneralContext";
 import StyleContextProvider from "@/context/StyleContex";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             </StyleContextProvider>
           </GeneralContextProvider>
         </DesignerContextProvider>
+        <GoogleAnalytics gaId="G-1N59NG1HZD" />
       </body>
     </html>
   );

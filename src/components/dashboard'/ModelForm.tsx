@@ -53,7 +53,7 @@ export default function ModelForm({
         footer={
 null        }
       >
-        {/* <Form onFinish={onSubmit} form={createform} layout="vertical">
+        <Form onFinish={onSubmit} form={createform} layout="vertical">
           <Form.Item
             label="Title"
             name="TitleForm"
@@ -73,8 +73,8 @@ null        }
               {isAdd ? "Create" : "Update"}
             </Button>
           </Form.Item>
-        </Form> */}
-          <FormTamplate />
+        </Form>
+          {/* <FormTamplate /> */}
 
       </Modal>
     </>

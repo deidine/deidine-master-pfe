@@ -301,24 +301,8 @@ export default function TopButton({
         )}
         {selectedButton2 === "preview" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
-            <Button
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-              onClick={() => navigator.clipboard.writeText(shareUrl)}
-            >
-              Share Form
-            </Button>
-            <Button
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-              onClick={() => onCopyClick(codeForLanguage)}
-            >
-              Copy Code
-            </Button>
-            <Button
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
-              onClick={() => onDownloadClick(codeForLanguage)}
-            >
-              Download Code
-            </Button>
+             
+            <FormLinkShare shareUrl={shareUrl} />
           </div>
         )}
       </div>
