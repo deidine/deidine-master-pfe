@@ -64,7 +64,7 @@ export default function NavBar() {
                 <div onClick={() => setActiveLink("/forms")}>
                   Forms
                   {activeLink === "/forms" && (
-                    <span className="block h-1 mt-1 bg-blue-500"></span>
+                    <span className="block h-1 mt-1 bg-buttonColor "></span>
                   )}
                 </div>
               </Link>
