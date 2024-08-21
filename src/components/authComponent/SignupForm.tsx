@@ -25,12 +25,12 @@ const SignupForm = () => {
     return alert("/login?message=Check email to continue sign in process");
   };
   return (
-    <div className="selection:bg-indigo-500 selection:text-white">
+    <div className="selection:bg-buttonColor  selection:text-hoverButtonColor">
       <div className="flex justify-center items-center">
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-indigo-600">
+              <h1 className="text-5xl font-bold text-buttonColor ">
                 Create account
               </h1>
 
@@ -100,7 +100,7 @@ const SignupForm = () => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="mt-20 w-full uppercase rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+                    className="mt-20 w-full uppercase rounded-full bg-buttonColor hover:bg-hoverButtonColor text-white font-semibold"
                   >
                     Sign up
                   </Button>

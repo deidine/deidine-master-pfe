@@ -74,12 +74,12 @@ const SigninForm = () => {
     );
   }
   return (
-    <div className="selection:bg-indigo-500 selection:text-white">
+    <div className="selection:bg-buttonColor selection:text-white">
       <div className="flex justify-center items-center">
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-indigo-600">
+              <h1 className="text-5xl font-bold text-buttonColor">
                 Welcome back!
               </h1>
 
@@ -132,7 +132,7 @@ const SigninForm = () => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="mt-20 w-full uppercase rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+                    className="mt-20 w-full uppercase rounded-full bg-buttonColor hover:bg-hoverButtonColor text-white font-semibold"
                     loading={isLoading}
                   >
                     Sign in
@@ -141,7 +141,7 @@ const SigninForm = () => {
               </Form>
               <a
                 href="#"
-                className="mt-4 block text-sm text-center font-medium text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="mt-4 block text-sm text-center font-medium text-buttonColor hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 Forgot your password?
               </a>
