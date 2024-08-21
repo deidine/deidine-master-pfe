@@ -33,7 +33,7 @@ export default function RootLayout({
           </GeneralContextProvider>
         </DesignerContextProvider>
       </body>
-        <GoogleAnalytics gaId="G-1N59NG1HZD" />
+        <GoogleAnalytics  gaId="G-1N59NG1HZD" />
     </html>
   );
 }

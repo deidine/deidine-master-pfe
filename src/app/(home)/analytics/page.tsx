@@ -16,7 +16,7 @@ export default function Page() {
   return <>
   <button className='bg-green-500 rounded-lg border-2 text-red-200 w-[10%] h-6' onClick={() =>{
     sendGAEvent({
-      event: 'button clicked',value:"deidine"})
+      event: 'button_click',value:"deidine"})
   }}>
      click
   </button> 
