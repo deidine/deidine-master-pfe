@@ -8,7 +8,7 @@ import InputPrev from "@/components/forms/previews/elementTypePreview/InputPrev"
 import RadioPrev from "@/components/forms/previews/elementTypePreview/RadioPrev";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
-import HeadingPrev from "./elementTypePreview/HeadingPrev";
+import HeadingPrev from "./elementTypePreview/ParagraphPrev";
 export default function PreviewFormsTamplates({
   form,
   onFinish,
@@ -102,7 +102,8 @@ export default function PreviewFormsTamplates({
             <RadioPrev styleForm={form.elementStyle} element={element} />
           )}
           {element.elementType.type === "paragraph" && (
-            <HeadingPrev element={element} styleForm={form.elementStyle} />
+            <HeadingPrev   element={element}
+            styleParagraph={form.paragraphStyle}/>
           )}
         </div>
       ))}

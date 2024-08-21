@@ -4,6 +4,7 @@ import PreviewStyleForm from '../previews/PreviewStyleForm';
 import StylingButton from './allStylePattern/stylingButton';
 import StylingElements from './allStylePattern/stylingElements';
 import StylingForm from './allStylePattern/stylingForm';
+import StylingParagraph from './allStylePattern/stylingParagraph';
 
 export default function StyleForm( ) {   
   return (
@@ -15,6 +16,7 @@ export default function StyleForm( ) {
          <div className='rounded-lg border-2 mb-4 p-4'> <StylingForm currentStyling="Form" /></div>
          <div className='rounded-lg border-2 mb-4 p-4'> <StylingElements currentStyling="Elements" /></div>
          <div className='rounded-lg border-2 mb-4 p-4'> <StylingButton currentStyling="Buttons" /></div>
+         <div className='rounded-lg border-2 mb-4 p-4'> <StylingParagraph currentStyling="Paragraph" /></div>
         </div>
     </div>
   );

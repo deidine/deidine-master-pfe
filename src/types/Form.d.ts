@@ -7,6 +7,7 @@ type Form= {
   style?:FormStyle;
   elementStyle?:FormStyle;
   buttonStyle?:FormStyle;
+  paragraphStyle?:FormStyle;
   styleForm?:FormStyle;
   styleElement?:FormStyle;
   create_at?: Date;

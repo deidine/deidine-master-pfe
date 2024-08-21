@@ -16,17 +16,18 @@ export default function Designer({
   form: Form;
   isFromLocalStorage: boolean;
 }) {
-  const { setButtonStyle, setElementStyle, setFormStyle } = useStyle();
+  const { setButtonStyle, setElementStyle, setFormStyle,setParagraphStyle } = useStyle();
   const [selectedButton, setSelectedButton] = useState<
     "preview" | "field" | "design" | "Export code"
   >("field");
   const childRef = useRef<any>();
-
+// it set the design fro the element and stlye it 
   useEffect(() => {
     setElementStyle(form.elementStyle!);
     setFormStyle(form.style!);
     setButtonStyle(form.buttonStyle!);
-  }, [form.elementStyle, form.style, form.buttonStyle, setButtonStyle, setElementStyle, setFormStyle]);
+    setParagraphStyle(form.paragraphStyle!);
+  }, []);
 
   return (
     <>

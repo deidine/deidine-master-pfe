@@ -36,7 +36,7 @@ export default function TopButton({
   const isFirstRender = useRef(true);
   const [isSavedField, setIsSavedField] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const { formStyle, buttonStyle, elementStyle } = useStyle();
+  const { formStyle, buttonStyle, elementStyle,paragraphStyle } = useStyle();
   const [isSavedDesign, setIsSavedDesign] = useState(true);
   const [isLoadingStyle, setIsLoadingStyle] = useState(false);
 
@@ -58,6 +58,7 @@ export default function TopButton({
             forms[formIndex].style = formStyle;
             forms[formIndex].buttonStyle = buttonStyle;
             forms[formIndex].elementStyle = elementStyle;
+            forms[formIndex].paragraphStyle = paragraphStyle;
           }
         } else {
           forms.push({
@@ -66,6 +67,7 @@ export default function TopButton({
             style: formStyle,
             elementStyle: elementStyle,
             buttonStyle: buttonStyle,
+            paragraphStyle: paragraphStyle,
           });
         }
 
@@ -84,6 +86,7 @@ export default function TopButton({
             style: formStyle,
             elementStyle: elementStyle,
             buttonStyle: buttonStyle,
+            paragraphStyle: paragraphStyle,
           };
         } else {
           body = { ...form, content: elements };
@@ -136,7 +139,7 @@ export default function TopButton({
       return;
     }
     setIsSavedDesign(false); // For the "design" tab
-  }, [formStyle, buttonStyle, elementStyle]);
+  }, [formStyle, buttonStyle, elementStyle,paragraphStyle]);
 
   useEffect(() => {
     const interval = setInterval(() => {

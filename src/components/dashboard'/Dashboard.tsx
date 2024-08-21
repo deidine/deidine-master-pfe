@@ -71,6 +71,7 @@ export default function Dashboard() {
       style: {},
       buttonStyle: {},
       elementStyle: {},
+      paragraphStyle: {},
       isFromLocalStorage: true,
       description: description,
     });
@@ -104,6 +105,7 @@ export default function Dashboard() {
           style: {},
           buttonStyle: {},
           elementStyle: {},
+          paragraphStyle: {},
           description: description,
           user_id: userId,
         }),

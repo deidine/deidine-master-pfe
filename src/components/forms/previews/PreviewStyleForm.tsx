@@ -9,9 +9,9 @@ import RadioPrev from "./elementTypePreview/RadioPrev";
 import useStyle from "@/hooks/useStyle";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
-import HeadingPrev from "./elementTypePreview/HeadingPrev";
+import HeadingPrev from "./elementTypePreview/ParagraphPrev";
 export default function PreviewformStyles( )  {
-const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
+const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
   const logoElement = elements.find(
     (element) => element.elementType.type === "logo"  
@@ -105,8 +105,8 @@ const  { formStyle,elementStyle,buttonStyle}=useStyle();
             )}
                 {element.elementType.type === "paragraph" && (
               <HeadingPrev
-                element={element}
-                styleForm={elementStyle}
+                             element={element}
+                 styleParagraph={paragraphStyle}
               />
             )}
           </div>

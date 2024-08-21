@@ -8,7 +8,7 @@ import InputPrev from "@/components/forms/previews/elementTypePreview/InputPrev"
 import RadioPrev from "@/components/forms/previews/elementTypePreview/RadioPrev";
 import LogoPrev from './elementTypePreview/LogoPrev';
 import HeadingTitlePrev from './elementTypePreview/HeadingPrevTitle';
-import HeadingPrev from './elementTypePreview/HeadingPrev';
+import HeadingPrev from './elementTypePreview/ParagraphPrev';
 export default function PreviewPublished({
     form,onFinish}: {
       
@@ -92,7 +92,7 @@ export default function PreviewPublished({
          {element.elementType.type === "paragraph" && (
               <HeadingPrev
                 element={element}
-                styleForm={ form.elementStyle}
+                styleParagraph={ form.paragraphStyle}
               />
             )}
    </div>

@@ -7,7 +7,7 @@ import SelectPrev from "./elementTypePreview/SelectPrev";
 import CheckBoxPrev from "./elementTypePreview/CheckBoxPrev";
 import RadioPrev from "./elementTypePreview/RadioPrev";
 import useStyle from "@/hooks/useStyle";
-import HeadingPrev from "./elementTypePreview/HeadingPrev";
+import HeadingPrev from "./elementTypePreview/ParagraphPrev";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
 
@@ -32,7 +32,7 @@ export default function PreviewForm({
   const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<
     Form[] | FormElement[]
   >(elementsTemplate!);
-  const { formStyle, elementStyle, buttonStyle } = useStyle();
+  const { formStyle, elementStyle, buttonStyle ,paragraphStyle} = useStyle();
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
   const logoElement = elements.find(
@@ -72,6 +72,7 @@ export default function PreviewForm({
       backgroundColor: buttonStyle?.backgroundColor,
     };
   };
+ 
   useEffect(() => {
     setElementsTemplatePreviw(elementsTemplate!);
   }, [elementsTemplate]);
@@ -167,7 +168,7 @@ export default function PreviewForm({
             {element.elementType.type === "paragraph" && (
               <HeadingPrev
                 element={element}
-                styleForm={isTemlate ? {} : elementStyle}
+                 styleParagraph={isTemlate ? {} : paragraphStyle}
               />
             )}
           </div>
