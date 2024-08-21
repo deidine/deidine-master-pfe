@@ -176,7 +176,7 @@ export default function Dashboard() {
               </Button>
             )}
             <button
-              className="btn_header bg-blue-400 text-white"
+              className=" btn_header text-white  hover:bg-hoverButtonColor bg-buttonColor font-[18px]  "
               onClick={() => setIsModalVisible(true)}
             >
               Create New Form

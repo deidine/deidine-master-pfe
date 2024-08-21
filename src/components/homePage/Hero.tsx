@@ -50,7 +50,7 @@ export default function Hero() {
             </button>
           </Link>
           <Link href="/login">
-            <button className="border border-slate-500 lg:px-8 md:px-3 md:py-2 rounded-md mx-2 lg:text-lg md:text-sm bg-indigo-600 text-white hover:bg-sky-100 hover:text-black font-bold">
+            <button className="border border-slate-500 lg:px-8 md:px-3 md:py-2 rounded-md mx-2 lg:text-lg md:text-sm bg-mainColor text-white hover:bg-sky-100 hover:text-black font-bold">
               Register
             </button>
           </Link>
@@ -85,7 +85,7 @@ export default function Hero() {
             <button className="md:hidden w-full rounded-lg py-3 my-3 border-2 border-indigo-600 text-xl font-bold">
               Login
             </button>
-            <button className="md:hidden w-full rounded-lg py-3 my-2 bg-indigo-600 text-white text-xl font-bold hover:bg-sky-100 hover:text-black">
+            <button className="md:hidden w-full rounded-lg py-3 my-2 bg-mainColor text-white text-xl font-bold hover:bg-sky-100 hover:text-black">
               Register
             </button>
           </div>
@@ -117,7 +117,7 @@ export default function Hero() {
           <p className="text-2xl font-medium py-3">
             Simplify the way you design forms with our intuitive drag-and-drop interface.
           </p>
-          <button className="bg-indigo-600 text-white rounded-lg py-3 my-2 px-3 font-bold hover:bg-sky-100 hover:text-black">
+          <button className="bg-mainColor text-white rounded-lg py-3 my-2 px-3 font-bold hover:bg-sky-100 hover:text-black">
             Get Started
           </button>
         </div>

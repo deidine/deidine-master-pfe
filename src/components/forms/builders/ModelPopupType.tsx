@@ -80,13 +80,15 @@ export default function ModelPopupType({
         </div>
         <p>other types</p>
         {otherTypes.map((option) => (
-                <Button
+           <div>
+                 <Button
                 key={option.value}
                 onClick={() => setSelectedType(option.value as ElementType)}
               >
                 {option.icon && React.createElement(option.icon)}
                 {option.label}
               </Button> 
+           </div>
         ))}
         <p>Types with options</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">

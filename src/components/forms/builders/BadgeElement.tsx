@@ -16,13 +16,13 @@ export default function BadgeElement({
   onClick?: MouseEventHandler;
   element: SelectElement | InputElement;
 }) {
-  const elementTypeOptions: InputTypeList[] = [
+  const combinedList: InputTypeList[] = [
     ...selectTypeOptions,
     ...inputTypeOptions,
     ...otherTypes,
     ...dateInputs,
   ];
-  const elementType: InputTypeList[] = elementTypeOptions.filter(
+  const elementType: InputTypeList[] = combinedList.filter(
     (option) => option.value === element.type
   );
   const elementPattern = patternOptions.find(
@@ -32,7 +32,7 @@ export default function BadgeElement({
     <div className="flex flex-col    w-full font-bold text-lg h-auto overflow-hidden">
       <div className="flex flex-col justify-start items-start pb-4">
         {element.label}
-        <span className="text-sm text-gray-500">{element.placeholder}</span>
+        <span className="text-sm text-gray-500">{element.type === "paragraph" ?"":element.placeholder }</span>
       </div>
       <div className="flex flex-col w-full items-start space-y-2">
         <div

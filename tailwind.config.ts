@@ -16,7 +16,8 @@ const config: Config = {
         title:  "#0070f3",
         mainColor: "#E8E8E8",
         mainTextColor: "#E8E8E8",
-        
+        buttonColor: "#1677FF",
+        hoverButtonColor: "#8ab5f0",
       },
       keyframes: {
         'slide-background-x': {

@@ -26,7 +26,7 @@ export default function SideButtons({
           <div
             className={`btn_sid ${
               selectedButton === "field"
-                ? "bg-[#36b3fa] text-white"
+                ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
@@ -40,7 +40,7 @@ export default function SideButtons({
           <div
             className={`btn_sid ${
               selectedButton === "preview"
-                ? "bg-[#36b3fa] text-white"
+                ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
@@ -54,7 +54,7 @@ export default function SideButtons({
           <div
             className={`btn_sid ${
               selectedButton === "design"
-                ? "bg-[#36b3fa] text-white"
+                ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
@@ -68,7 +68,7 @@ export default function SideButtons({
           <div
             className={`btn_sid ${
               selectedButton === "Export code"
-                ? "bg-[#36b3fa] text-white"
+                ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
