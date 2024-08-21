@@ -146,41 +146,6 @@ const inputTypeOptions: InputTypeList[] = [
     icon: FiType,
   },
   {
-    value: "url",
-    label: "URL",
-    bgColor: "#E6F7FF", 
-    textColor: "text-gray-800", 
-    icon: FiExternalLink,
-  },
-  {
-    value: "file",
-    label: "File",
-    bgColor: "#E6FFFA", 
-    textColor: "text-gray-800", 
-    icon: FiFile,
-  },
-  {
-    value: "time",
-    label: "Time",
-    bgColor: "#FFFBE6", 
-    textColor: "text-gray-800", 
-    icon: FiDatabase,
-  },
-  {
-    value: "date",
-    label: "Date",
-    bgColor: "#F0F5FF", 
-    textColor: "text-gray-800", 
-    icon: FiDatabase,
-  },
-  {
-    value: "datetime-local",
-    label: "Date with time",
-    bgColor: "#F0F5FF", 
-    textColor: "text-gray-800", 
-    icon: FiDatabase,
-  },
-  {
     value: "number",
     label: "Number",
     bgColor: "#F0FFF4", 
@@ -209,12 +174,44 @@ const inputTypeOptions: InputTypeList[] = [
     icon: FiAlignLeft,
   },
   {
-    value: "logo",
-    label: "Logo",
-    bgColor: "#FFF4E6", 
+    value: "url",
+    label: "URL",
+    bgColor: "#E6F7FF", 
     textColor: "text-gray-800", 
-    icon: FiImage, 
+    icon: FiExternalLink,
+  },  {
+    value: "file",
+    label: "File",
+    bgColor: "#E6FFFA", 
+    textColor: "text-gray-800", 
+    icon: FiFile,
   },
+];
+const dateInputs : InputTypeList[] = [
+    {
+    value: "time",
+    label: "Time",
+    bgColor: "#FFFBE6", 
+    textColor: "text-gray-800", 
+    icon: FiDatabase,
+  },
+  {
+    value: "date",
+    label: "Date",
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
+    icon: FiDatabase,
+  },
+  {
+    value: "datetime-local",
+    label: "Date with time",
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
+    icon: FiDatabase,
+  },
+]
+const otherTypes : InputTypeList[] = [
+
   {
     value: "paragraph",
     label: "paragraph",
@@ -222,10 +219,10 @@ const inputTypeOptions: InputTypeList[] = [
     textColor: "text-gray-800", 
     icon: FiBold, 
   }, 
-];
-
+]
 const shortcuts = [
   { shortcut: "CTRL+S", title: "Save diagram", description: " Ctrl + S - Save diagram " },
 ];
 
-export { patternOptions, lnaguageGenerator,logoHeadingTitle,selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};
+export { patternOptions, dateInputs,
+  otherTypes,lnaguageGenerator,logoHeadingTitle,selectTypeOptions, dateliment,inputTypeOptions, shortcuts ,filetypealow};

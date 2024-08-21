@@ -63,5 +63,6 @@ const newElement = (type: ElementType) => {
      id: idGenerator(),
    };
    return renderElement;
+   
  }
 export { idGenerator,nameGenerator, renderOptions,newElement}

@@ -35,23 +35,7 @@ export default function StylingParagraph({ currentStyling }: { currentStyling: s
 
       {isVisible && (
         <div className="mt-4 space-y-4">
-          <div
-            className="relative"
-            onMouseEnter={() => setBgColorPickerVisible(true)}
-            onMouseLeave={() => setBgColorPickerVisible(false)}
-          >
-            <Button>Background Color</Button>
-            {bgColorPickerVisible && (
-              <div className="absolute z-50">
-                <SketchPicker
-                  color={paragraphStyle?.backgroundColor || "#fff"}
-                  onChange={(color) =>
-                    handleColorChange(color, "backgroundColor")
-                  }
-                />
-              </div>
-            )}
-          </div>
+  
 
           <div
             className="relative"
@@ -83,20 +67,12 @@ export default function StylingParagraph({ currentStyling }: { currentStyling: s
               onChange={(value) => handleSliderChange(value, "paddingY")}
             />
           </div>
+ 
 
           <div>
-            <label>Border Width:</label>
+            <label>Font Size:</label>
             <Slider
-              max={10}
-              value={parseInt(paragraphStyle?.borderWidth || "0", 10)}
-              onChange={(value) => handleSliderChange(value, "borderWidth")}
-            />
-          </div>
-
-          <div>
-            <label>Border Radius:</label>
-            <Slider
-              max={50}
+              max={200}
               value={parseInt(paragraphStyle?.borderRadius || "0", 10)}
               onChange={(value) => handleSliderChange(value, "borderRadius")}
             />

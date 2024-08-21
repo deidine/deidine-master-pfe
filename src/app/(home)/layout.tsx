@@ -5,8 +5,7 @@ import NavBar from "@/components/navBar/NavBar";
 import DesignerContextProvider from "@/context/DesignerContext";
 import GeneralContextProvider from "@/context/GeneralContext";
 import StyleContextProvider from "@/context/StyleContex";
-import { GoogleAnalytics } from '@next/third-parties/google'
-import { NextSeo } from 'next-seo';
+import { GoogleAnalytics } from '@next/third-parties/google' 
 const inter = Inter({ subsets: ["latin"] });
  
 export default function RootLayout({
@@ -17,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-mainColor`}>
-       
+   
           <DesignerContextProvider>
           <GeneralContextProvider>
             <StyleContextProvider>
@@ -29,6 +28,7 @@ export default function RootLayout({
           </GeneralContextProvider>
         </DesignerContextProvider>
       </body>
+      
         <GoogleAnalytics  gaId="G-1N59NG1HZD" />
     </html>
   );

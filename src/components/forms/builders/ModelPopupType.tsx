@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Divider } from "antd";
 import { newElement, renderOptions } from "@/utils/utilsFunctions";
 import useDesigner from "@/hooks/useDesigner";
-import { inputTypeOptions, selectTypeOptions } from "@/data/data";
+import { dateInputs, otherTypes, inputTypeOptions, selectTypeOptions } from "@/data/data";
 import PreviewForm from "../previews/PreviewForm";
 
 export default function ModelPopupType({
@@ -14,7 +14,9 @@ export default function ModelPopupType({
 }) {
   const { elements, addElement } = useDesigner();
   const [selectedType, setSelectedType] = useState<ElementType>();
-  const [previewElements, setPreviewElements] = useState<Form[] | FormElement[]>([]);
+  const [previewElements, setPreviewElements] = useState<
+    Form[] | FormElement[]
+  >([]);
 
   const handleOk = (type: ElementType) => {
     const newElementInstance = newElement(type);
@@ -52,7 +54,7 @@ export default function ModelPopupType({
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {inputTypeOptions
-            .filter((option) => option.value !== "logo")
+           
             .map((option) => (
               <Button
                 key={option.value}
@@ -63,6 +65,29 @@ export default function ModelPopupType({
               </Button>
             ))}
         </div>
+        <p>date and time</p>
+        <div className="grid grid-cols-3 w-full items-center gap-2">
+
+        {dateInputs.map((option) => (
+           <Button
+           key={option.value}
+           onClick={() => setSelectedType(option.value as ElementType)}
+         >
+           {option.icon && React.createElement(option.icon)}
+           {option.label}
+         </Button>
+        ))}
+        </div>
+        <p>other types</p>
+        {otherTypes.map((option) => (
+                <Button
+                key={option.value}
+                onClick={() => setSelectedType(option.value as ElementType)}
+              >
+                {option.icon && React.createElement(option.icon)}
+                {option.label}
+              </Button> 
+        ))}
         <p>Types with options</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {selectTypeOptions.map((option) => (
@@ -81,10 +106,15 @@ export default function ModelPopupType({
           <Divider className="my-8 w-full h-0 border-2" />
           <div className="mt-4">
             <p className="text-lg font-bold text-center m-4">
-              Preview for : <span className="text-blue-500">{selectedType}</span>
+              Preview for :{" "}
+              <span className="text-blue-500">{selectedType}</span>
             </p>
 
-            <PreviewForm isTemplate={true} elementsTemplate={previewElements} showSubmit={false} />
+            <PreviewForm
+              isTemplate={true}
+              elementsTemplate={previewElements}
+              showSubmit={false}
+            />
           </div>
         </>
       )}
