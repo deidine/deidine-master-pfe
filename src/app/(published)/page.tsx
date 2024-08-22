@@ -3,10 +3,11 @@
 import { CiSaveDown1 } from "react-icons/ci";
 import FeatureCard from "@/components/homePage/featureCard";
 import Hero from "@/components/homePage/Hero";
+import AnimatedForm from "@/components/homePage/animatedForm";
 
 export default function Home() {
   return (
-    <div className="p-10">
+    <div className="p-10"> 
       <div className="flex flex-row justify-between items-center gap-4">
         <Hero />
     
