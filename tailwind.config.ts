@@ -8,16 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: { 
-        title: ["var(--font-roboto)", "serif"], 
+      fontFamily: {  
+        
+      title: ["Rubik", "sans-serif"],
+      text: ["DM Sans", " sans-serif"],
       },
       colors: {
     
-        title:  "#0070f3",
         mainColor: "#E8E8E8",
         mainTextColor: "#E8E8E8",
-        buttonColor: "#1677FF",
-        hoverButtonColor: "#8ab5f0",
+        title:  "#6564FE", 
+        secondaryColor: "#EEEDFF", 
+        buttonColor: "#6564FE",
+        hoverButtonColor: "#A6A6EC",
       },
       keyframes: {
         'slide-background-x': {

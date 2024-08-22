@@ -45,7 +45,11 @@ export async function  POST(req:NextRequest ) {
     if (error) {
       throw error;
     }
-// console.log(forms)
+console.log(await supabaseclient
+      .from('form')
+      .select('*')
+      .eq('user_id', user_id) 
+      .order("created_at", { ascending: false }))
     return NextResponse.json({ forms });
   } catch (error) {
     console.error("Error fetching forms:", error);

@@ -335,12 +335,12 @@ export default function CardForm({
               {form.title}{" "}  </p>
               {form.content.length > 0 ? (
                 <AntBadge
-                  style={{ backgroundColor: "#36b3fa" }}
+                  style={{ backgroundColor: "#6564FE" }}
                   count={form.content.length+" Element(s)"}
                   ></AntBadge>
                 ) : (
                   <AntBadge
-                  style={{ backgroundColor: "#A6b3fa" }}
+                  style={{ backgroundColor: "#6E6DC7" }}
                   count={"0 Element"}
                   ></AntBadge>
                 )}
@@ -421,7 +421,7 @@ export default function CardForm({
         onCancel={handlePreviewCancel}
         footer={null}
       >
-        <PreviewForm isTemplate={true} elementsTemplate={elementsPreview} />
+        <PreviewForm isTemplate={true} elementsTemplate={elementsPreview}  showSubmit={true}/>
       </Modal>
     </div>
   );

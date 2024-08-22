@@ -192,17 +192,17 @@ export default function TopButton({
             )}
           </div>
           {form.title}
-          <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-[#36b3fa] inline-flex"></div>
+          <div className="w-[10px] h-[10px] rounded-full mx-[9px] bg-title inline-flex"></div>
           <div className="pr-4">{selectedButton2}</div>
 
           {elements.length > 0 ? (
             <Badge
-              style={{ backgroundColor: "#36b3fa" }}
+              style={{ backgroundColor: "#6564FE" }}
               count={elements.length + " Element(s)"}
             ></Badge>
           ) : (
             <Badge
-              style={{ backgroundColor: "#A6b3fa" }}
+              style={{ backgroundColor: "#6E6DC7" }}
               count={"0 Element"}
             ></Badge>
           )}

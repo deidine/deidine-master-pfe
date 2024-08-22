@@ -97,13 +97,11 @@ const SignupForm = () => {
                 </Form.Item>
 
                 <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    className="mt-20 w-full uppercase rounded-full bg-buttonColor hover:bg-hoverButtonColor text-white font-semibold"
-                  >
-                    Sign up
-                  </Button>
+                <button className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold mt-20 w-full uppercase text-white  text-center py-[0.8rem] mr-[1.5rem] rounded-lg">
+                  Sign up
+         </button>
+              
+                 
                 </Form.Item>
               </Form>
             </div>

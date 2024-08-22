@@ -54,8 +54,13 @@ export default function NavBar() {
         <nav className="flex flex-row mt-0 w-full gap-4">
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
             <Link href="/">
-            <Image src="/logo.jpg" alt="logo" width={50} height={50} className="rounded-full" />
-
+              <Image
+                src="/logo.jpg"
+                alt="logo"
+                width={50}
+                height={50}
+                className="rounded-full"
+              />
             </Link>
           </div>
           <div className="flex flex-row  shrink-0  justify-between items-center">
@@ -69,7 +74,7 @@ export default function NavBar() {
                 </div>
               </Link>
             </div>
-            <div className="font-semibold text-black mt-[1rem] mx-[1rem]">
+            <div className="font-semibold text-black  mt-[1rem] mx-[1rem]">
               {/* <Link href="/dashboard">
                 <div onClick={() => setActiveLink("/dashboard")}>
                   Dashboard
@@ -94,7 +99,7 @@ export default function NavBar() {
                       onClick={handleSignOut}
                     >
                       <span>
-                        <FiLogOut className="ml-2" />
+                        <FiLogOut className="ml-2 " />
                       </span>{" "}
                       <span>Sign Out</span>
                     </button>
@@ -110,18 +115,22 @@ export default function NavBar() {
                       isUserOnline ? "bg-green-500" : "bg-red-500"
                     }`}
                   ></div>
-                  <FaUserCircle className="text-[50px]" />
+                  <FaUserCircle className="text-[50px]  text-buttonColor " />
                 </div>
               </Popover>
             ) : (
-              <div className="bg-black font-semibold text-white px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg">
-                <Link href="/login">Login</Link>
-              </div>
+              <Link href="/login">
+                {" "}
+                <div className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold text-white px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg">
+                  Login
+                </div>
+              </Link>
             )}
           </div>
         </nav>
       </header>
-      <div className="mt-[60px]" /> {/* Add margin to offset the fixed navbar */}
+      <div className="mt-[60px]" />{" "}
+      {/* Add margin to offset the fixed navbar */}
     </>
   );
 }
