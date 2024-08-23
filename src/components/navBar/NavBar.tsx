@@ -73,7 +73,7 @@ export default function NavBar() {
                     ${
                       activeLink === "/forms"
                         ? "bg-buttonColor text-white border border-buttonColor"
-                        : "bg-white text-buttonColor border border-gray-300"
+                        : "bg-white text-buttonColor hover:text-white border border-gray-300"
                     } 
                      cursor-pointer
                      hover:bg-hoverButtonColor font-semibold
@@ -123,8 +123,8 @@ export default function NavBar() {
                   className={`
                     ${
                       activeLink === "/forms"
-                        ? "bg-buttonColor text-white border border-buttonColor"
-                        : "bg-white text-buttonColor border border-gray-300"
+                        ? "bg-buttonColor text-white hover:text-white border border-buttonColor"
+                        : "bg-white text-buttonColor hover:text-white border border-gray-300"
                     } 
                      cursor-pointer
                      hover:bg-hoverButtonColor font-semibold

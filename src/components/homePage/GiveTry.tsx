@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function GiveTry() {
   return (
-    <section id="about" className="px-[4.5rem] w-full flex gap-[70px] my-8 py-14 ">
+    <section id="about" className="px-[4.5rem] w-full flex gap-[70px] my-8 py-1 pb-10">
   
       <Link href="/login" className="bg-buttonColor flex flex-col cursor-pointer  gap-4 p-[25px] w-[30%] rounded-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:z-10">
         <div className="flex flex-col text-white gap-2 justify-center items-center">

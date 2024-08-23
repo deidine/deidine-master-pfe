@@ -20,7 +20,7 @@ const config: Config = {
         title:  "#6564FE", 
         secondaryColor: "#EEEDFF", 
         buttonColor: "#6564FE",
-        hoverButtonColor: "#A6A6EC",
+        hoverButtonColor: "#7574FF",
       },
       keyframes: {
         'slide-background-x': {

@@ -18,11 +18,10 @@ export default function Hero() {
         <span className="text-buttonColor font-bold">Quick Form</span>  vous permet de créer et gérer des formulaires de manière efficace grâce à une interface intuitive et des fonctionnalités de glisser-déposer. Que vous travailliez en local ou dans une base de données, <span className="text-buttonColor font-bold">Quick Form</span>  facilite la conception, l'édition, et l'exportation de formulaires en quelques clics seulement.
        
     </p>  
-     <button className="text-black mt-10 bg-transparent border-[1px] rounded-full p-2 px-4 border-gray-200  hover:bg-white hover:text-blue-800 transition ease-in-out"> <Link href="/login" className=" bg-transparent ">S'enregistrer</Link></button> 
-      </div>
+       </div>
 
       <div className="absolute hidden lg:block right-10 w-[300px] sm:w-[400px] md:w-[450px] lg:w-[500px] lg:h-[500px]">
-        <Image src="/logo.png" alt="Quick Form Logo" width={500} height={500} />
+        <Image src="/logo.png" alt="Quick Form Logo" width={300} height={500} />
       </div>
     </div>
   );
