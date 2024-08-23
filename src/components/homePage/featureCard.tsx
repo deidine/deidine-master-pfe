@@ -11,7 +11,7 @@ export default function FeatureCard({
   return (
     <div
       className="flex transform    flex-col  w-[400px] py-[20px] px-[25px] justify-between items-center gap-4 border-[1px] 
-    shadow-sm border-gray-500 rounded-[16px] "
+    shadow-sm border-gray-200 rounded-[16px] "
     >
       <div className="flex flex-row justify-start text-buttonColor w-full items-center  gap-4">
         <span className=" text-2xl font-bold">{icon}</span>{" "}

@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Quick Form",
   description: "Build and design custom forms easily",
+  metadataBase: new URL("https://deidine-master.vercel.app/"),
   openGraph: {
     title: "Quick Form",
     description: "Create and design custom forms effortlessly with Quick Form.",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Quick Form",
     images: [
       {
-        url: "https://deidine-master.vercel.app/images/og-image.jpg",
+        url: "./assets/og.png",
         width: 1200,
         height: 630,
         alt: "Quick Form Open Graph Image",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   },
   
   icons: {
-    icon: "/favicon.ico", // Ensure you have this in your public folder
+    icon: "/favicon.ico",  
   },
   keywords: ["form builder","quick form", "custom forms", "design forms", "web forms"],
 };

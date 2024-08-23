@@ -73,23 +73,25 @@ const SigninForm = () => {
       <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
     );
   }
+
   return (
-    <div className="selection:bg-buttonColor selection:text-white">
+    <div className="selection:bg-buttonColor  selection:text-hoverButtonColor">
       <div className="flex justify-center items-center">
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-buttonColor">
-                Bienvenue!
+              <h1 className="text-5xl font-bold text-buttonColor ">
+                Connectez-vous
               </h1>
 
               <Form
                 form={form}
-                name="signin"
+                name="Connextion"
                 onFinish={onFinish}
                 layout="vertical"
                 className="mt-12"
               >
+          
                 <Form.Item
                   label="Email address"
                   name="email"
@@ -105,7 +107,7 @@ const SigninForm = () => {
                   ]}
                 >
                   <Input
-                    id="signin-email"
+                    id="email"
                     placeholder="john@doe.com"
                     className="peer"
                   />
@@ -122,7 +124,7 @@ const SigninForm = () => {
                   ]}
                 >
                   <Input.Password
-                    id="signin-password"
+                    id="password"
                     placeholder="Password"
                     className="peer"
                   />
@@ -130,19 +132,12 @@ const SigninForm = () => {
 
                 <Form.Item>
                 <button className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold mt-20 w-full uppercase text-white  text-center py-[0.8rem] mr-[1.5rem] rounded-lg">
-               
-              Connexion 
+                 Connexion
          </button>
               
-               
+                 
                 </Form.Item>
               </Form>
-              <a
-                href="#"
-                className="mt-4 block text-sm text-center font-medium text-buttonColor hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                Vous avez oublié votre mot de passe ?
-              </a>
             </div>
           </div>
         </div>

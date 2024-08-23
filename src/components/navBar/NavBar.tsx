@@ -50,10 +50,10 @@ export default function NavBar() {
 
   return (
     <>
-      <header className="bg-white mt-0 pt-0 fixed top-0 w-full border-gray-300 shadow-sm z-40 border-b-2">
+      <header className="bg-white mt-0 pt-0 fixed top-0 w-full border-gray-200  z-40 border-b-[1px]">
         <nav className="flex flex-row mt-0 w-full gap-4">
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
-            <Link href="/">
+            <Link className="flex justify-center items-center gap-2" href="/">
               <Image
                 src="/logo.png"
                 alt="logo"
@@ -61,6 +61,7 @@ export default function NavBar() {
                 height={50}
                 className="rounded-full"
               /> 
+              <span className="text-buttonColor font-bold text-lg sm:text-xl lg:text-2xl pb-4">Quick Form</span>
             </Link>
           </div>
 
@@ -98,7 +99,7 @@ export default function NavBar() {
                         <span>
                           <FiLogOut className="ml-2" />
                         </span>
-                        <span>Sign Out</span>
+                        <span>Se deconnecter</span>
                       </button>
                     </div>
                   }

@@ -98,7 +98,7 @@ const SignupForm = () => {
 
                 <Form.Item>
                 <button className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold mt-20 w-full uppercase text-white  text-center py-[0.8rem] mr-[1.5rem] rounded-lg">
-                  Sign up
+                 Register
          </button>
               
                  

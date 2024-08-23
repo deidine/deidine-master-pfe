@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] flex flex-col lg:flex-row justify-between items-start lg:pb-10">
+    <div className="px-[4.5rem] relative h-[400px] sm:h-[500px] lg:h-[600px] flex flex-col lg:flex-row justify-between items-start lg:pb-10">
       <div className="lg:w-1/2 w-full px-4 sm:px-6 md:px-8 lg:px-0">
         <p className="text-buttonColor font-bold text-lg sm:text-xl lg:text-2xl pb-4">
           Quick Form
@@ -18,7 +18,7 @@ export default function Hero() {
         <span className="text-buttonColor font-bold">Quick Form</span>  vous permet de créer et gérer des formulaires de manière efficace grâce à une interface intuitive et des fonctionnalités de glisser-déposer. Que vous travailliez en local ou dans une base de données, <span className="text-buttonColor font-bold">Quick Form</span>  facilite la conception, l'édition, et l'exportation de formulaires en quelques clics seulement.
        
     </p>  
-     <button className="text-black mt-10 bg-transparent border-black rounded-full p-2 px-4 border hover:bg-white hover:text-blue-800 transition ease-in-out"> <Link href="/login" className=" bg-transparent ">S'enregistrer</Link></button> 
+     <button className="text-black mt-10 bg-transparent border-[1px] rounded-full p-2 px-4 border-gray-200  hover:bg-white hover:text-blue-800 transition ease-in-out"> <Link href="/login" className=" bg-transparent ">S'enregistrer</Link></button> 
       </div>
 
       <div className="absolute hidden lg:block right-10 w-[300px] sm:w-[400px] md:w-[450px] lg:w-[500px] lg:h-[500px]">

@@ -26,7 +26,8 @@ export default function SideButtons({
     
     
       <div
-        className="fixed z-30 pt-[180px] top-0 border-r-2 bg-white p-4 h-full w-auto flex flex-col items-center justify-start"
+        className="fixed z-30 pt-[180px] top-0 border-r-[1px] border-gray-200
+         bg-white p-4 h-full w-auto flex flex-col items-center justify-start"
       >
         <div className="flex flex-col gap-2">
           <div

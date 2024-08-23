@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function UnderLine({title}: { title: string }) {
   return (
-    <div className="font-semibold w-1/2  text-black mt-[1rem] mx-[1rem]">
+    <div className="px-[4.5rem] font-semibold w-1/2  text-black mt-[1rem] mx-[1rem]">
       
     <div className="py-10">
     <span className="font-bold text-lg">
