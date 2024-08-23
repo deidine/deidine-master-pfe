@@ -240,7 +240,7 @@ export default function TopButton({
                   onClick={() => handleSave(false)}
                   disabled={isSavedField}
                 >
-                  Enreg les modifications du champ
+                Sauvegarder les champs
                 </Button>
               </Tooltip>
             </Badge>
@@ -258,7 +258,7 @@ export default function TopButton({
                   onClick={() => handleSave(true)}
                   disabled={isSavedDesign}
                 >
-                  Enreg les Styles Modifier
+                  Sauvegarder les Styles 
                 </Button>
               </Tooltip>
             </Badge>

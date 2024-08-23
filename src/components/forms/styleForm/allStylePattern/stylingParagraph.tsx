@@ -27,7 +27,7 @@ export default function StylingParagraph({ currentStyling }: { currentStyling: s
   return (
     <div>
       <div
-        className="flex justify-between items-center border-b-2 cursor-pointer"
+        className="flex justify-between items-center cursor-pointer"
         onClick={toggleVisibility}
       >
         {currentStyling} {isVisible ? <UpOutlined /> : <DownOutlined />}

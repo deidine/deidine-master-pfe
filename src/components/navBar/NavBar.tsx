@@ -142,7 +142,7 @@ export default function NavBar() {
                     ${
                       activeLink === "/login"
                         ? "bg-buttonColor text-white border border-buttonColor"
-                        : "bg-white text-buttonColor border border-gray-300"
+                        : "bg-white text-buttonColor border hover:text-white  border-gray-300"
                     } 
                      cursor-pointer
                      hover:bg-hoverButtonColor font-semibold

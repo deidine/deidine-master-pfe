@@ -15,7 +15,7 @@ const config: Config = {
       },
       colors: {
     
-        mainColor: "#E8E8E8",
+        mainColor: "#F5F5F5",
         mainTextColor: "#E8E8E8",
         title:  "#6564FE", 
         secondaryColor: "#EEEDFF", 

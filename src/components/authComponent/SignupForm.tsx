@@ -1,5 +1,6 @@
  "use client";
 import React from "react";
+import { openNotification } from "@/utils/utils";
 import { Form, Input, Button } from "antd";  
 import { createClientBrowser } from "@/utils/supabase/client";
 const SignupForm = () => {
@@ -19,10 +20,22 @@ const SignupForm = () => {
     });
 
     if (error) {
-      return alert("/signup?message=Could not authenticate user");
+      openNotification(
+        "topRight",
+        "error",
+        "signup Failed",
+        "Could not retrieve user data"
+      );
+    return;
     }
 
-    return alert("/login?message=Check email to continue sign in process");
+    openNotification(
+      "topRight",
+      "success",
+      "signup Successful",
+      "You have successfully signup in We try to save your data to our database automatically."
+    );
+    
   };
   return (
     <div className="selection:bg-buttonColor  selection:text-hoverButtonColor">
@@ -31,7 +44,7 @@ const SignupForm = () => {
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
               <h1 className="text-5xl font-bold text-buttonColor ">
-                Create account
+              Créer un compte
               </h1>
 
               <Form
@@ -42,33 +55,33 @@ const SignupForm = () => {
                 className="mt-12"
               >
                 <Form.Item
-                  label="Name"
+                  label="Nom"
                   name="name"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your name!",
+                      message: "Veuillez entrer votre nom !",
                     },
                   ]}
                 >
                   <Input
                     id="name"
-                    placeholder="Name"
+                    placeholder="nom"
                     className="peer"
                   />
                 </Form.Item>
 
                 <Form.Item
-                  label="Email address"
+                  label="Adresse email"
                   name="email"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your email address!",
+                      message: "Veuillez saisir votre adresse email !",
                     },
                     {
                       type: "email",
-                      message: "The input is not valid email!",
+                      message: "L\'entrée n\'est pas un email valide !",
                     },
                   ]}
                 >
@@ -80,12 +93,12 @@ const SignupForm = () => {
                 </Form.Item>
 
                 <Form.Item
-                  label="Password"
+                  label="Mot de passe"
                   name="password"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password!",
+                      message: "Veuillez saisir votre mot de passe !",
                     },
                   ]}
                 >

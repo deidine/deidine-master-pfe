@@ -9,7 +9,7 @@ const LeftOverlayContent = ({ isAnimated, setIsAnimated }: { isAnimated: boolean
       <h5 className="text-lg md:text-xl text-white">Connectez-vous avec votre adresse e-mail et votre mot de passe</h5>
       <div className="mt-8 md:mt-16">
         <button 
-          className="text-white bg-transparent border-white rounded-full p-2 px-4 border hover:bg-white hover:text-blue-800 transition ease-in-out"
+          className="text-white bg-transparent border-white rounded-full p-2 px-4 border hover:bg-white hover:text-buttonColor transition ease-in-out"
           onClick={() => setIsAnimated(!isAnimated)}
         >
           Connexion

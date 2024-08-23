@@ -93,16 +93,16 @@ const SigninForm = () => {
               >
           
                 <Form.Item
-                  label="Email address"
+                  label="Adresse email"
                   name="email"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your email address!",
+                      message: "Veuillez saisir votre adresse email !",
                     },
                     {
                       type: "email",
-                      message: "The input is not valid email!",
+                      message: "L\'entrée n\'est pas un email valide !",
                     },
                   ]}
                 >
@@ -114,12 +114,12 @@ const SigninForm = () => {
                 </Form.Item>
 
                 <Form.Item
-                  label="Password"
+                  label="Mot de passe"
                   name="password"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password!",
+                      message: "Veuillez saisir votre mot de passe !",
                     },
                   ]}
                 >
