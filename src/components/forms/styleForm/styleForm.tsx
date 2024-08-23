@@ -11,7 +11,7 @@ export default function StyleForm( ) {
     <div className='flex relative justify-center py-20 items-center  w-full h-full '>
       <PreviewStyleForm />
      
-     <div className="top-[118px] fixed p-4  flex flex-col justify-start  
+     <div className="top-[118px] pt-[100px] fixed p-4  flex flex-col justify-start  
      right-0 w-[20%] h-[calc(100vh-118px)] overflow-auto bg-white">
          <div className='rounded-lg border-2 mb-4 p-4'> <StylingForm currentStyling="Form" /></div>
          <div className='rounded-lg border-2 mb-4 p-4'> <StylingElements currentStyling="Elements" /></div>

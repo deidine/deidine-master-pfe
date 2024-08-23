@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico", // Ensure you have this in your public folder
   },
-  keywords: ["form builder", "custom forms", "design forms", "web forms"],
+  keywords: ["form builder","quick form", "custom forms", "design forms", "web forms"],
 };
 
 export default function RootLayout({
@@ -50,7 +50,7 @@ export default function RootLayout({
             <GeneralContextProvider>
               <StyleContextProvider>
                 <NavBar />
-                <div className="flex w-full flex-col flex-grow mx-auto">
+                <div className="flex w-full pt-4 flex-col flex-grow mx-auto">
                   {children}
                 </div>
               </StyleContextProvider>

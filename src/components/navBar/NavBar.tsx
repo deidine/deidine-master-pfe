@@ -60,77 +60,103 @@ export default function NavBar() {
                 width={50}
                 height={50}
                 className="rounded-full"
-              />
+              /> 
             </Link>
           </div>
-          <div className="flex flex-row  shrink-0  justify-between items-center">
-            <div className="font-semibold text-black mt-[1rem] mx-[1rem]">
-              <Link href="/forms">
-                <div onClick={() => setActiveLink("/forms")}>
-                  Formulaires
-                  {activeLink === "/forms" && (
-                    <span className="block h-1 mt-1 bg-buttonColor "></span>
-                  )}
-                </div>
-              </Link>
-            </div>
-            <div className="font-semibold text-black  mt-[1rem] mx-[1rem]">
-              {/* <Link href="/dashboard">
-                <div onClick={() => setActiveLink("/dashboard")}>
-                  Dashboard
-                  {activeLink === "/dashboard" && (
-                    <span className="block h-1 mt-1 bg-blue-500"></span>
-                  )}
-                </div>
-              </Link> */}
-            </div>
-          </div>
+
           <div className="flex flex-grow justify-end items-center mr-4">
             {memoizedUser ? (
-              <Popover
-                content={
-                  <div>
-                    <button className=" font-semibold hover:bg-hoverButtonColor hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700">
-                      {memoizedUser.email}
-                    </button>
-                    <Divider />
-                    <button
-                      className="flex flex-row font-semibold hover:bg-hoverButtonColor hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
-                      onClick={handleSignOut}
-                    >
-                      <span>
-                        <FiLogOut className="ml-2 " />
-                      </span>{" "}
-                      <span>Sign Out</span>
-                    </button>
+              <>
+                <div
+                  className={`
+                    ${
+                      activeLink === "/forms"
+                        ? "bg-buttonColor text-white border border-buttonColor"
+                        : "bg-white text-buttonColor border border-gray-300"
+                    } 
+                     cursor-pointer
+                     hover:bg-hoverButtonColor font-semibold
+                    px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg`}
+                >
+                  <Link href="/forms">
+                    <div onClick={() => setActiveLink("/forms")}>
+                      Formulaires
+                    </div>
+                  </Link>
+                </div>
+                <Popover
+                  content={
+                    <div>
+                      <button className="font-semibold hover:bg-hoverButtonColor hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700">
+                        {memoizedUser.email}
+                      </button>
+                      <Divider />
+                      <button
+                        className="flex flex-row font-semibold hover:bg-hoverButtonColor hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700"
+                        onClick={handleSignOut}
+                      >
+                        <span>
+                          <FiLogOut className="ml-2" />
+                        </span>
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  }
+                  trigger="click"
+                  open={open}
+                  onOpenChange={handleOpenChange}
+                >
+                  <div className="flex relative flex-col items-center gap-2 cursor-pointer">
+                    <div
+                      className={`w-2 h-2 absolute top-0 right-0 rounded-full ${
+                        isUserOnline ? "bg-green-500" : "bg-red-500"
+                      }`}
+                    ></div>
+                    <FaUserCircle className="text-[50px] text-buttonColor" />
                   </div>
-                }
-                trigger="click"
-                open={open}
-                onOpenChange={handleOpenChange}
-              >
-                <div className="flex relative flex-col items-center gap-2 cursor-pointer">
-                  <div
-                    className={`w-2 h-2 absolute top-0 right-0 rounded-full ${
-                      isUserOnline ? "bg-green-500" : "bg-red-500"
-                    }`}
-                  ></div>
-                  <FaUserCircle className="text-[50px]  text-buttonColor " />
-                </div>
-              </Popover>
+                </Popover>
+              </>
             ) : (
-              <Link href="/login">
-                {" "}
-                <div className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold text-white px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg">
-                  Login
+              <>
+                <div
+                  className={`
+                    ${
+                      activeLink === "/forms"
+                        ? "bg-buttonColor text-white border border-buttonColor"
+                        : "bg-white text-buttonColor border border-gray-300"
+                    } 
+                     cursor-pointer
+                     hover:bg-hoverButtonColor font-semibold
+                    px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg`}
+                >
+                  <Link href="/forms">
+                    <div onClick={() => setActiveLink("/forms")}>
+                      Formulaires
+                    </div>
+                  </Link>
                 </div>
-              </Link>
+                <Link href="/login">
+                  <div
+                    className={`
+                    ${
+                      activeLink === "/login"
+                        ? "bg-buttonColor text-white border border-buttonColor"
+                        : "bg-white text-buttonColor border border-gray-300"
+                    } 
+                     cursor-pointer
+                     hover:bg-hoverButtonColor font-semibold
+                    px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg`}
+                 
+                    onClick={() => setActiveLink("/login")}>
+                    Login
+                  </div>
+                </Link>
+              </>
             )}
           </div>
         </nav>
       </header>
-      <div className="mt-[60px]" />{" "}
-      {/* Add margin to offset the fixed navbar */}
+      <div className="mt-[60px]" />
     </>
   );
 }
