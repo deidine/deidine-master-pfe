@@ -18,8 +18,8 @@ export default function Footer() {
             </p>
             <p className="text-black text-md">
               Au cours de mon stage chez <span className="text-lg font-bold">Vector Mind  </span> , 
-              j'ai contribué à des projets de création logicielle et de développement. <span className="text-lg font-bold">Vector Mind </span>est une entreprise spécialisée dans
-               le développement de solutions innovantes, sécurisées et centrées sur l'utilisateur. Son objectif est de révolutionner le domaine des technologies de l'information en proposant des solutions évolutives qui répondent à vos besoins.
+              j ai contribué à des projets de création logicielle et de développement. <span className="text-lg font-bold">Vector Mind </span>est une entreprise spécialisée dans
+               le développement de solutions innovantes, sécurisées et centrées sur l utilisateur. Son objectif est de révolutionner le domaine des technologies de l information en proposant des solutions évolutives qui répondent à vos besoins.
             </p>
             <Link href="https://vector-mind.com/" target="_blank">
               <span className="bg-buttonColor flex gap-3 text-white rounded-xl justify-end items-center w-[70%] sm:w-[30%] md:w-[25%] z-10 border-buttonColor border p-2 transition-all duration-300">
