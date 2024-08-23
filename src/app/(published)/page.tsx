@@ -15,32 +15,55 @@ export default function Home() {
         <Hero />
     
       </div> 
-        <UnderLine title="Main Features"/>
-       
-        <div className="p-2 flex flex-wrap gap-9">
-          <FeatureCard
-            icon={<CiSaveDown1 />}
-            title={"deiidne"}
-            description={
-              "we provide nice edit for input elemtn evry one con build wuiwly orm"
-            }
-          />
-          <FeatureCard
-            icon={<CiSaveDown1 />}
-            title={"deiidne"}
-            description={
-              "we provide nice edit for input elemtn evry one con build wuiwly orm"
-            }
-          />
-          <FeatureCard
-            icon={<CiSaveDown1 />}
-            title={"deiidne"}
-            description={
-              "we provide nice edit for input elemtn evry one con build wuiwly orm"
-            }
-          />
-        </div> 
-        <UnderLine title="Give it a try yourSelf"/>
+      <UnderLine title="Fonctionnalités Principales"/>
+
+<div className="p-2 flex flex-wrap gap-9">
+  <FeatureCard
+    icon={<CiSaveDown1 />}
+    title={"Édition Intuitive"}
+    description={
+      "Profitez d'une interface conviviale pour modifier facilement les éléments de votre formulaire. Tout le monde peut rapidement créer un formulaire sans effort."
+    }
+  />
+  <FeatureCard
+    icon={<CiSaveDown1 />}
+    title={"Glisser-Déposer"}
+    description={
+      "Concevez vos formulaires en utilisant une fonctionnalité de glisser-déposer fluide. Ajoutez ou réorganisez les champs selon vos besoins en toute simplicité."
+    }
+  />
+  <FeatureCard
+    icon={<CiSaveDown1 />}
+    title={"Support de Multiples Types de Champs"}
+    description={
+      "Intégrez une variété de champs dans vos formulaires, y compris du texte, des emails, des nombres, des dates, des heures, des sélections multiples, des boutons radio, des cases à cocher, et des téléchargements de fichiers."
+    }
+  />
+  <FeatureCard
+    icon={<CiSaveDown1 />}
+    title={"Sauvegarde et Récupération Intelligente"}
+    description={
+      "Vos formulaires sont automatiquement sauvegardés en local et dans la base de données, vous permettant de les récupérer, modifier et gérer à tout moment."
+    }
+  />
+  <FeatureCard
+    icon={<CiSaveDown1 />}
+    title={"Personnalisation Complète du Formulaire"}
+    description={
+      "Personnalisez chaque aspect de votre formulaire, des couleurs aux polices, en passant par les styles, afin de l'adapter parfaitement à vos besoins spécifiques."
+    }
+  />
+ 
+  <FeatureCard
+    icon={<CiSaveDown1 />}
+    title={"Exportation Multi-Format"}
+    description={
+      "Exportez facilement le code de vos formulaires en formats compatibles avec React et Flutter, vous permettant de les intégrer rapidement dans vos projets sans effort supplémentaire."
+    }
+  />
+</div>
+
+        <UnderLine title="Essayez-le vous-même"/>
 
       <GiveTry/>
     </div>

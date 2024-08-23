@@ -10,30 +10,24 @@ import AntdConfigProvider from "@/components/AntdConfigProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Form Builder",
+  title: "Quick Form",
   description: "Build and design custom forms easily",
   openGraph: {
-    title: "Form Builder",
-    description: "Create and design custom forms effortlessly with Form Builder.",
+    title: "Quick Form",
+    description: "Create and design custom forms effortlessly with Quick Form.",
     url: "https://deidine-master.vercel.app/",
-    siteName: "Form Builder",
+    siteName: "Quick Form",
     images: [
       {
         url: "https://deidine-master.vercel.app/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Form Builder Open Graph Image",
+        alt: "Quick Form Open Graph Image",
       },
     ],
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    site: "@yourTwitterHandle",
-    title: "Form Builder",
-    description: "Create and design custom forms effortlessly.",
-    images: ["https://deidine-master.vercel.app/images/twitter-image.jpg"],
-  },
+  
   icons: {
     icon: "/favicon.ico", // Ensure you have this in your public folder
   },

@@ -55,7 +55,7 @@ export default function NavBar() {
           <div className="pl-[0.8rem] py-[0.4rem] pr-[0.9rem]">
             <Link href="/">
               <Image
-                src="/logo.jpg"
+                src="/logo.png"
                 alt="logo"
                 width={50}
                 height={50}

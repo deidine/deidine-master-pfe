@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import Image from "next/image"; // Import Image from next/image
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -11,20 +11,18 @@ export default function Hero() {
         </p>
 
         <p className="text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl w-full lg:w-[90%] py-4">
-          The easiest way to create forms people love to fill out
+          Simplifiez la création de formulaires pour les développeurs
         </p>
 
         <p className="w-full sm:w-[80%] md:w-[70%] lg:w-[85%] text-xs sm:text-sm md:text-base lg:text-lg">
-          Create online forms in the simplest and quickest way possible.
-          RapidForms offers the easiest and quickest way to create forms just
-          the way you want them, so you can focus on what matters most. Layout
-          alt 03 Ready-to-use templates Simplify your workflow and save time
-          with pre-designed forms that are easy to use and customize.
-        </p>
+        <span className="text-buttonColor font-bold">Quick Form</span>  vous permet de créer et gérer des formulaires de manière efficace grâce à une interface intuitive et des fonctionnalités de glisser-déposer. Que vous travailliez en local ou dans une base de données, <span className="text-buttonColor font-bold">Quick Form</span>  facilite la conception, l'édition, et l'exportation de formulaires en quelques clics seulement.
+       
+    </p>  
+     <button className="text-black mt-10 bg-transparent border-black rounded-full p-2 px-4 border hover:bg-white hover:text-blue-800 transition ease-in-out"> <Link href="/login" className=" bg-transparent ">S'enregistrer</Link></button> 
       </div>
 
       <div className="absolute hidden lg:block right-10 w-[300px] sm:w-[400px] md:w-[450px] lg:w-[500px] lg:h-[500px]">
-        <Image src="/logo.jpg" alt="image" width={500} height={500} />
+        <Image src="/logo.png" alt="Quick Form Logo" width={500} height={500} />
       </div>
     </div>
   );
