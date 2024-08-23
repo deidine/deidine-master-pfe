@@ -15,7 +15,7 @@ export default function GiveTry() {
         </div>
         <div className="flex flex-col text-white gap-2 justify-center items-center">
           <p className="text-md font-title text-center">
-            Enregistrez vos formulaires dans notre base de données en ligne. Partagez vos formulaires facilement et accédez-y à tout moment. La création d'un compte est requise.
+            Enregistrez vos formulaires dans notre base de données en ligne. Partagez vos formulaires facilement et accédez-y à tout moment. La création d un compte est requise.
           </p>
         </div>
       </Link>   
