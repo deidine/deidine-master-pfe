@@ -14,10 +14,11 @@ export default function Footer() {
         <div className="flex justify-center   w-full rounded-lg">
           <div className="flex flex-col w-[60%] gap-4">
             <p className="text-black font-semibold text-lg">
-              Ce projet a été réalisé dans le cadre de mon stage chez <span className="text-buttonColor font-bold">Vector Mind </span>
+              Ce projet a été réalisé dans le cadre de mon stage chez <span className="text-lg font-bold">Vector Mind </span>
             </p>
             <p className="text-black text-md">
-              Au cours de mon stage chez <span className="text-buttonColor font-bold">Vector Mind, </span> j'ai contribué à des projets de création logicielle et de développement. <span className="text-buttonColor font-bold">Vector Mind </span>est une entreprise spécialisée dans
+              Au cours de mon stage chez <span className="text-lg font-bold">Vector Mind  </span> , 
+              j'ai contribué à des projets de création logicielle et de développement. <span className="text-lg font-bold">Vector Mind </span>est une entreprise spécialisée dans
                le développement de solutions innovantes, sécurisées et centrées sur l'utilisateur. Son objectif est de révolutionner le domaine des technologies de l'information en proposant des solutions évolutives qui répondent à vos besoins.
             </p>
             <Link href="https://vector-mind.com/" target="_blank">

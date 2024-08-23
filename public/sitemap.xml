@@ -9,5 +9,15 @@
     <priority>1</priority>
     <lastmod>2024-08-23</lastmod>
   </url>
+  <url>
+    <loc>https://deidine-master.vercel.app/forms</loc>
+    <priority>2</priority>
+    <lastmod>2024-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://deidine-master.vercel.app/login</loc>
+    <priority>3</priority>
+    <lastmod>2024-08-23</lastmod>
+  </url>
  
 </urlset>
