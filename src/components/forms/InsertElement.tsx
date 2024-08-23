@@ -17,7 +17,7 @@ export default function InsertElement() {
           onClick={showModal}
         >
           <CgAdd  className="w-10  h-10   text-white" />
-          Add Element
+          Ajouter un élément
         </button></div>
      
  

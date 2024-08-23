@@ -123,8 +123,8 @@ export default function CardForm({
     openNotification(
       "topRight",
       "success",
-      "Form duplicated successfully",
-      "Form duplicated successfully in Local Storage"
+      "Formulaire dupliqué avec succès",
+      "Formulaire dupliqué avec succès dans le stockage local"
     );
   };
 
@@ -166,7 +166,7 @@ export default function CardForm({
       openNotification(
         "topRight",
         "success",
-        "Form duplicated successfully",
+        "Formulaire dupliqué avec succès",
         saveResponse!
       );
     }
@@ -195,8 +195,8 @@ export default function CardForm({
     openNotification(
       "topRight",
       "success",
-      "Data updated",
-      "Data updated successfully in local storage"
+      "Les données ont été mises à jour",
+      "Les données ont été mises à jour avec succès dans le stockage local"
     );
     setIsModalVisible(false);
     isEditFormtrriger();
@@ -231,8 +231,8 @@ export default function CardForm({
       openNotification(
         "topRight",
         "success",
-        "Data inserted",
-        "Data inserted successfully in database"
+        "Données insérées ",
+        "Données insérées avec succès dans la base de données"
       );
       isEditFormtrriger();
     } catch (error) {
@@ -253,7 +253,7 @@ export default function CardForm({
           }}
           className="flex flex-row gap-3 justify-between text-center items-center "
         >
-          <TbEdit /> Edit
+          <TbEdit /> Éditer
         </button>
       </Menu.Item>
       <Menu.Item key="delete">
@@ -286,7 +286,7 @@ export default function CardForm({
             reftchForm(true);
           }}
         >
-          <MdDeleteSweep /> Delete
+          <MdDeleteSweep /> Supprimer
         </button>
       </Menu.Item>
       <Menu.Item key="duplicate">
@@ -294,7 +294,7 @@ export default function CardForm({
           className="flex flex-row gap-3 justify-between text-center items-center "
           onClick={handleDuplicateClick}
         >
-          <HiDocumentDuplicate /> Duplicate
+          <HiDocumentDuplicate /> Dupliquer
         </button>
       </Menu.Item>
       <Menu.Item key="preview">
@@ -302,7 +302,7 @@ export default function CardForm({
           className="flex flex-row gap-3 justify-between text-center items-center "
           onClick={handlePreviewClick}
         >
-          <FaEye /> Preview
+          <FaEye /> Aperçu
         </button>
       </Menu.Item>
     </Menu>
@@ -397,7 +397,7 @@ export default function CardForm({
               }}
               loading={isLoading}
             >
-              Sync to database
+              Synchronisation avec la base de données
             </Button>
           )}
         </div>

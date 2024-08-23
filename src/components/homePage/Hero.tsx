@@ -10,7 +10,7 @@ export default function Hero() {
           Quick Form
         </p>
 
-        <p className="text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl w-full lg:w-[60%] py-4">
+        <p className="text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl w-full lg:w-[90%] py-4">
           The easiest way to create forms people love to fill out
         </p>
 

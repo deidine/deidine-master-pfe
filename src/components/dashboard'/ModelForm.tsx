@@ -55,7 +55,7 @@ null        }
       >
         <Form onFinish={onSubmit} form={createform} layout="vertical">
           <Form.Item
-            label="Title"
+            label="Titre"
             name="TitleForm"
             rules={[{ required: true }]}
           >
@@ -70,7 +70,7 @@ null        }
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" block>
-              {isAdd ? "Create" : "Update"}
+              {isAdd ? "Créer" : "Modifier"}
             </Button>
           </Form.Item>
         </Form>

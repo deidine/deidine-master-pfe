@@ -57,7 +57,7 @@ const newElement = (type: ElementType) => {
            options: ["Option 1", "Option 2"],
          })) 
          || (type=== "headingTitle" && {
-          headingTitle: "Heading Title"})
+          headingTitle: "Titre de l'en-tête"})
  
      },
      id: idGenerator(),

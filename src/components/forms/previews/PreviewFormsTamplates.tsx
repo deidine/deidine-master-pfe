@@ -46,7 +46,7 @@ export default function PreviewFormsTamplates({
     >
       <span className="text-md font-semibold">
         {" "}
-        {form!.content.length == 0 && "No elements to Preview"}
+        {form!.content.length == 0 && "Aucun élément n’a encore été ajouté"}
       </span>
       <div className="flex flex-col justify-between items-center">
         {logoElement?.elementType.type === "logo" && (

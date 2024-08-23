@@ -82,7 +82,7 @@ const downloadCode = () => {
     if (navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(componentCode);
-    openNotification("topRight",'success', 'Copyed', "Copied to clipboard!");
+    openNotification("topRight",'success', 'Copyed', "copie dans clipboard!");
 
         if (onCopyComplete) {
           onCopyComplete(componentCode);

@@ -55,7 +55,7 @@ export default function ModelPopupType({
         </Button>,
       ]}
     >
-      <p>Select the input type</p>
+      <p>Sélectionnez le type d’entrée</p>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {inputTypeOptions.map((option) => (
@@ -80,7 +80,7 @@ export default function ModelPopupType({
             </Button>
           ))}
         </div>
-        <p>Other Types</p>
+        <p>Autres types</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {otherTypes.map((option) => (
             <div key={option.value}>
@@ -93,7 +93,7 @@ export default function ModelPopupType({
             </div>
           ))}
         </div>
-        <p>Types with Options</p>
+        <p>Types avec options</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {selectTypeOptions.map((option) => (
             <Button

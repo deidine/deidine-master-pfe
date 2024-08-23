@@ -18,8 +18,11 @@ export default function Designer({
 }) {
   const { setButtonStyle, setElementStyle, setFormStyle,setParagraphStyle } = useStyle();
   const [selectedButton, setSelectedButton] = useState<
-    "preview" | "field" | "design" | "Export code"
-  >("field");
+    "Champ"|
+  "Aperçu"|
+  "Concevoir"|
+  "Code"
+  >("Champ");
   const childRef = useRef<any>();
 // it set the design fro the element and stlye it 
   useEffect(() => {
@@ -48,20 +51,23 @@ export default function Designer({
           isFromLocalStorage={isFromLocalStorage}
         />
         <SideButtons
-          selected={(current: "preview" | "field" | "design" | "Export code") => {
+          selected={(current: "Champ"|
+  "Aperçu"|
+  "Concevoir"|
+  "Code") => {
             setSelectedButton(current);
           }}
         />
         <div className="mx-auto w-full flex flex-col items-center pt-[50px] justify-center">
-          {selectedButton === "preview" && <PreviewForm showSubmit={true} />}
-          {selectedButton === "field" && (
+          {selectedButton === "Aperçu" && <PreviewForm showSubmit={true} />}
+          {selectedButton === "Champ" && (
             <>
               <FormBuilder />
               <InsertElement />
             </>
           )}
-          {selectedButton === "design" && <StyleForm />}
-          {selectedButton === "Export code" && (
+          {selectedButton === "Concevoir" && <StyleForm />}
+          {selectedButton === "Code" && (
             <FormCodeGenerator
               ref={childRef}
               onCopyComplete={(componentCode: string) => {}}

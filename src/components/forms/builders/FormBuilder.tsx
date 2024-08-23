@@ -32,7 +32,7 @@ export default function FormBuilder() {
    <LogoTitleCard   />
       </div>
         <span className="text-md font-semibold">
-          {elements.length === 0 && "No elements added yet"}
+          {elements.length === 0 && "Aucun élément n'a encore été ajouté"}
         </span>
         <DragDropAria />
         {isSidebarVisible && (

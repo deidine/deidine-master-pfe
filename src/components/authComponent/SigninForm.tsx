@@ -80,7 +80,7 @@ const SigninForm = () => {
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
               <h1 className="text-5xl font-bold text-buttonColor">
-                Welcome back!
+                Bienvenue!
               </h1>
 
               <Form
@@ -131,7 +131,7 @@ const SigninForm = () => {
                 <Form.Item>
                 <button className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold mt-20 w-full uppercase text-white  text-center py-[0.8rem] mr-[1.5rem] rounded-lg">
                
-               Sign in 
+              Connexion 
          </button>
               
                
@@ -141,7 +141,7 @@ const SigninForm = () => {
                 href="#"
                 className="mt-4 block text-sm text-center font-medium text-buttonColor hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                Forgot your password?
+                Vous avez oublié votre mot de passe ?
               </a>
             </div>
           </div>

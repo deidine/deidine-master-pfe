@@ -60,7 +60,7 @@ export default function DesignerContextProvider({ children }: { children: ReactN
       redoStack.current = [];
       return prev.filter((element) => element.elementType.name !== name);
     });
-    openNotification("topRight",'success', 'Element Deleted', `Element ${elements.filter((el) => el.elementType.name === name)[0].elementType.label} has been deleted successfully`);
+    openNotification("topRight",'success', 'Élément supprimé', `Élément ${elements.filter((el) => el.elementType.name === name)[0].elementType.label} supprimé avec succès`);
   };
 
   const updateElement = (name: string, element: SelectElement | InputElement) => {

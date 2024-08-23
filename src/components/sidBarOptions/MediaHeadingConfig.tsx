@@ -56,7 +56,7 @@ export default function MediaHeadingConfig({
       {element!.type === "paragraph" && (
         <>
           <Divider />
-          <LabelValue value="Heading Title" />
+          <LabelValue value="Titre Paragraph " />
           <Input
             placeholder="Enter paragraph title"
             value={headingText}
@@ -69,9 +69,9 @@ export default function MediaHeadingConfig({
       {element!.type === "headingTitle" && (
         <>
           <Divider />
-          <LabelValue value="Heading Title" />
+          <LabelValue value="Titre de l'en-tête" />
           <Input
-            placeholder="Enter Form title"
+            placeholder="Enter Titre du formulaire"
             value={headingTextTitle}
             onChange={handleHeadingTextTitleChange}
             className="mb-4"

@@ -54,7 +54,7 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
         style={getFormStyles()}
       >
         <span className="text-md font-semibold">
-          {elements.length === 0 && "No elements to Preview"}
+          {elements.length === 0 && "Aucun élément n’a encore été ajouté"}
         </span>
         <div className="flex flex-col justify-between items-center">
         {logoElement?.elementType.type === "logo"  && (

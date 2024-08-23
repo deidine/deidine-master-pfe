@@ -79,8 +79,8 @@ export default function Dashboard() {
     openNotification(
       "topRight",
       "success",
-      "Data inserted",
-      "Data inserted successfully in local storage"
+      "Données insérées",
+      "Données insérées avec succès dans le stockage local"
     );
     setIsModalVisible(false);
   };
@@ -120,8 +120,8 @@ export default function Dashboard() {
       openNotification(
         "topRight",
         "success",
-        "Data inserted",
-        "Data inserted successfully in database"
+        "Données insérées ",
+        "Données insérées avec succès dans le base de données"
       );
     } catch (error) {
       saveToLocalStorage(title, description);
@@ -146,8 +146,8 @@ export default function Dashboard() {
     openNotification(
       "topRight",
       "success",
-      "Data inserted:",
-      "Data inserted successfully in database"
+      "Données insérées:",
+      "Données insérées avec succès dans le base de données"
     );
     fetchForms();
     setIsLoading(false);
@@ -179,14 +179,14 @@ export default function Dashboard() {
               className=" btn_header text-white  hover:bg-hoverButtonColor bg-buttonColor font-[18px]  "
               onClick={() => setIsModalVisible(true)}
             >
-              Create New Form
+              Créer un nouveau formulaire
             </button>
           </div>
         </div>
         <div className="flex flex-col justify-between gap-4 rounded-lg border-2 p-4">
           {elementsLocalStorage.length > 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleInfo className="text-red-500 font-title  " /> Forms from Local Storage
+              <CiCircleInfo className="text-red-500 font-title  " />  Vos formulaire dans Local Storage
             </p>
           )}
      
@@ -215,12 +215,12 @@ export default function Dashboard() {
           )}
           {elements.length > 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleCheck className="text-green-500  font-title " /> Forms from Database
+              <CiCircleCheck className="text-green-500  font-title " />Vos Formulaires dans la base de données
             </p>
           )}
           {elements.length === 0 && user && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleCheck className="text-green-500  font-title " /> No forms in database
+              <CiCircleCheck className="text-green-500  font-title " /> Aucun formulaire dans la base de données
             </p>
           )}
           <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">
@@ -237,7 +237,7 @@ export default function Dashboard() {
           </div>
           {elementsLocalStorage.length === 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleInfo className="text-red-500  font-title " /> No forms in local storage
+              <CiCircleInfo className="text-red-500  font-title " /> Aucun formulaire dans in local storage
             </p>
           )}
         </div>

@@ -58,7 +58,7 @@ export default function LogoTitleCard() {
             >
               <div className="flex items-center">
                 <p className="text-xl font-bold group">
-                  <span className="pr-4"> Logo Form: </span>
+                  <span className="pr-4"> logo du Formulaire: </span>
                 </p>
                 <Image
                   src={element.elementType.imgLogoLink!}
@@ -95,7 +95,7 @@ export default function LogoTitleCard() {
               }}
             >
               <p className="text-xl font-bold group">
-                <span className="pr-4"> Form Title: </span>
+                <span className="pr-4"> Titre du formulaire: </span>
                 {element.elementType.headingTitle}
               </p>
               <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">

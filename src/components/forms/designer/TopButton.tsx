@@ -17,7 +17,10 @@ export default function TopButton({
 }: {
   form: Form;
   isFromLocalStorage: boolean;
-  selectedButton2: "preview" | "field" | "design" | "Export code";
+  selectedButton2: "Champ"|
+  "Aperçu"|
+  "Concevoir"|
+  "Code";
   onCopyClick: (value: string) => void;
   onDownloadClick: (value: string) => void;
 }) {
@@ -207,7 +210,7 @@ export default function TopButton({
             ></Badge>
           )}
         </div>
-        {selectedButton2 === "field" && (
+        {selectedButton2 === "Champ" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
             <Tooltip title="ctrl+z">
               <Button
@@ -237,14 +240,14 @@ export default function TopButton({
                   onClick={() => handleSave(false)}
                   disabled={isSavedField}
                 >
-                  Save Field Changes
+                  Enreg les modifications du champ
                 </Button>
               </Tooltip>
             </Badge>
           </div>
         )}
 
-        {selectedButton2 === "design" && (
+        {selectedButton2 === "Concevoir" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
             <Badge dot={!isSavedDesign} style={{ width: "15px", height: "15px" }}>
               <Tooltip title="ctrl+s">
@@ -255,13 +258,13 @@ export default function TopButton({
                   onClick={() => handleSave(true)}
                   disabled={isSavedDesign}
                 >
-                  Save Design Changes
+                  Enreg les Styles Modifier
                 </Button>
               </Tooltip>
             </Badge>
           </div>
         )}
-        {selectedButton2 === "Export code" && (
+        {selectedButton2 === "Code" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
             {/* <Select
               defaultValue={codeForLanguage}
@@ -275,14 +278,14 @@ export default function TopButton({
               className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
               onClick={() => onDownloadClick(codeForLanguage)}
             >
-              Download Code
+              Télécharger le code
             </Button>
             <Button
               icon={<FaSave />}
               className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
               onClick={() => onCopyClick(codeForLanguage)}
             >
-              Copy Code
+              Copier le code
             </Button>
                           <div>
                 <Select
@@ -302,7 +305,7 @@ export default function TopButton({
               </div>
           </div>
         )}
-        {selectedButton2 === "preview" && (
+        {selectedButton2 === "Aperçu" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
              
             <FormLinkShare shareUrl={shareUrl} />

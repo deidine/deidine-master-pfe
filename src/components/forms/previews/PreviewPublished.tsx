@@ -42,7 +42,7 @@ export default function PreviewPublished({
      }
      style={form.style!}
   >
-  <span className="text-md font-semibold"> {form!.content.length==0 && "No elements to Preview"}</span> 
+  <span className="text-md font-semibold"> {form!.content.length==0 && "Aucun élément n’a encore été ajouté"}</span> 
   <div className="flex flex-col justify-between items-center">
         {logoElement?.elementType.type === "logo"  && (
           <LogoPrev

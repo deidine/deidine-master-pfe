@@ -9,11 +9,17 @@ import StylingForm from "../styleForm/allStylePattern/stylingForm";
 export default function SideButtons({
   selected,
 }: {
-  selected: (current: "preview" | "field" | "design" | "Export code") => void;
+  selected: (current: "Champ"|
+  "Aperçu"|
+  "Concevoir"|
+  "Code") => void;
 }) {
   const [selectedButton, setSelectedButton] = useState<
-    "preview" | "field" | "design" | "Export code"
-  >("field");
+    "Champ"|
+  "Aperçu"|
+  "Concevoir"|
+  "Code"
+  >("Champ");
 
   return (
     <div className="  ">
@@ -25,59 +31,59 @@ export default function SideButtons({
         <div className="flex flex-col gap-2">
           <div
             className={`btn_sid ${
-              selectedButton === "field"
+              selectedButton === "Champ"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("field");
-              selected("field");
+              setSelectedButton("Champ");
+              selected("Champ");
             }}
           >
             <FiEdit />
-            Field
+            Champ
           </div>
           <div
             className={`btn_sid ${
-              selectedButton === "preview"
+              selectedButton === "Aperçu"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("preview");
-              selected("preview");
+              setSelectedButton("Aperçu");
+              selected("Aperçu");
             }}
           >
             <MdOutlinePreview />
-            Preview
+            Aperçu
           </div>
           <div
             className={`btn_sid ${
-              selectedButton === "design"
+              selectedButton === "Concevoir"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("design");
-              selected("design");
+              setSelectedButton("Concevoir");
+              selected("Concevoir");
             }}
           >
             <MdOutlineDesignServices />
-            Design
+            Concevoir
           </div>
           <div
             className={`btn_sid ${
-              selectedButton === "Export code"
+              selectedButton === "Code"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("Export code");
-              selected("Export code");
+              setSelectedButton("Code");
+              selected("Code");
             }}
           >
             <MdOutlineCode />
-            Export code
+            Code  
           </div>
         </div>
       </div>
