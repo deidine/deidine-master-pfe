@@ -19,7 +19,7 @@ export default function FeatureCard({
           {title}
         </div>
       </div>
-      <div className="font-title w-full h-full text-md text-wrap flex items-center justify-start">{description}</div>
+      <div className="font-title w-full h-full text-md text-wrap flex items-center  text-justify  justify-start">{description}</div>
     </div>
   );
 }

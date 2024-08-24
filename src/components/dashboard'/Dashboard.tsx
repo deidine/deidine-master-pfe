@@ -172,7 +172,7 @@ export default function Dashboard() {
                 className="bg-[#B5B5B5] h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white"
                 onClick={saveAllToDb}
               >
-                Sync all forms to database
+                Sync. DB complète
               </Button>
             )}
             <button
@@ -183,7 +183,7 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col justify-between gap-4 rounded-lg border-2 p-4">
+        <div className="flex flex-col justify-between gap-4 rounded-lg   p-4">
           {elementsLocalStorage.length > 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
               <CiCircleInfo className="text-red-500 font-title  " />  Vos formulaire dans Local Storage
@@ -204,8 +204,8 @@ export default function Dashboard() {
           </div>
           {elements.length > 0 && elementsLocalStorage.length > 0 && (
             <Divider
-              style={{
-                borderColor: "black",
+            className="border-gray-300"
+              style={{ 
                 marginTop: "1rem",
                 marginBottom: "1rem",
                 width: "100%",
