@@ -84,8 +84,8 @@ export default function PreviewForm({
         layout="vertical"
         className={`${
           !isTemplate
-            ? "max-w-2xl mt-3 bg-white  border shadow  w-1/2 h-auto p-10  "
-            : ""
+            ? "max-w-2xl mt-3 bg-white mb-8  border shadow  w-1/2 h-auto p-10  "
+            : " mb-8"
         }`}
         style={getFormStyles()}
       >

@@ -1,13 +1,18 @@
 import { Button, Slider } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SketchPicker } from "react-color";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import useStyle from "@/hooks/useStyle";
-export default function Styling({
-  currentStyling,
-}: {
-  currentStyling: string;
-}) {
+export default function Styling(
+  { currentStyling,currentSelected ,trriger}: {
+    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph";
+   currentStyling: string;
+   trriger:(value:"Form"|
+   "Elements"|
+   "Buttons"|
+   "Paragraph")=>void;
+  }
+) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
   const { buttonStyle, setButtonStyle } = useStyle();
@@ -22,20 +27,31 @@ export default function Styling({
     const updatedStyles = { ...buttonStyle, [type]: color.hex };
     setButtonStyle(updatedStyles);
   };
+  useEffect(() => {
+    // Ensure that the visibility is updated based on the currentSelected value
+    if (currentSelected === "Buttons") {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, [currentSelected]);
 
   const toggleVisibility = () => {
-    setIsVisible(!isVisible);
+     trriger("Buttons"); 
+     setIsVisible(!isVisible) 
   };
 
   return (
     <div>
-      <div        className="flex justify-between items-center cursor-pointer"
-
+      <div   
+           className={`flex justify-between items-center ${
+            isVisible &&  currentSelected === "Buttons" ? "text-buttonColor" : ""
+          } cursor-pointer`}
         onClick={toggleVisibility}
       >
-        {currentStyling} {isVisible ? <UpOutlined /> : <DownOutlined />}
+        {currentStyling} {isVisible && currentSelected=="Buttons" ? <UpOutlined /> : <DownOutlined />}
       </div>
-      {isVisible && (
+      {isVisible && currentSelected=="Buttons" && (
         <div className="mt-4">
         
         <div

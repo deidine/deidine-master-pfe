@@ -5,9 +5,9 @@ import { FaArrowRight } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <section className="bg-secondaryColor pb-[1.5rem] pt-[5rem] px-[4.5rem]" id="footer">
+    <section className="bg-secondaryColor h-[25%] pb-[1.5rem] pt-[5rem] px-[4.5rem]" id="footer">
       <div className="flex flex-col lg:flex-row justify-between p-10">
-        <div className="w-[20%] flex flex-col justify-center items-center gap-4">
+        <div className="w-[20%] flex flex-col justify-start items-center gap-4">
           <Image src="/logo-vm2.svg" alt="Vector Mind Logo" width={200} height={100} />
         </div>
 
@@ -21,13 +21,15 @@ export default function Footer() {
               j{"'"} ai contribué à des projets de création logicielle et de développement. <span className="text-lg font-bold">Vector Mind </span>est une entreprise spécialisée dans
                le développement de solutions innovantes, sécurisées et centrées sur l{"'"} utilisateur. Son objectif est de révolutionner le domaine des technologies de l information en proposant des solutions évolutives qui répondent à vos besoins.
             </p>
-            <Link className="bg-buttonColor text-white rounded-xl   
+         <div className="flex w-full justify-end ">
+         <Link className="bg-buttonColor text-white rounded-xl   
                 z-10 border-buttonColor border flex justify-between gap-3 items-center w-[30%]
                 p-2 transition-all duration-300" href="https://vector-mind.com/" target="_blank">
               <span >
               Visiter le site 
               </span><FaArrowRight /> 
             </Link>
+          </div>
           </div>
         </div>
       </div>

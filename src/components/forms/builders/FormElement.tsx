@@ -28,7 +28,9 @@ export default function FormElement({
       onClick={() => {
         setIsSidebarVisible(!isSidebarVisible);
       }}
-      className={`  flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm group`}
+      className={`  flex flex-col relative
+        
+        justify-between w-full p-4 mb-2 border-[1px] border-gray-200 rounded-xl shadow-sm group`}
     >
       <div className="flex flex-col space-y-3  relative flex-1">
         <BadgeElement element={element} />

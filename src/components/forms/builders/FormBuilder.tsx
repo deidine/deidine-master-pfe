@@ -25,7 +25,7 @@ export default function FormBuilder() {
  
 
   return (
-    <div className="w-full h-full  flex flex-col justify-center  items-center">
+    <div className="w-full h-full  flex flex-col justify-center  items-center pb-8">
       {" "}
       <div className="max-w-2xl mt-3 bg-white border shadow rounded-xl w-1/2 h-auto p-10 ml-4">
       <div className="  flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm ">
