@@ -17,7 +17,7 @@ export default function LogoPrev({
             borderTopLeftRadius: styleForm?.borderRadius,
           }}
         >
-          <img
+          <Image
             src={element.elementType?.imgLogoLink}
             alt="Logo"
             width={160} // Adjust width as needed
