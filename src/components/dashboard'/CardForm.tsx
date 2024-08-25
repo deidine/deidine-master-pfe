@@ -415,7 +415,7 @@ export default function CardForm({
         initialValues={{ TitleForm: form.title, description: form.description }} // Pre-fill with current form data
       />
       <Modal
-        title="Preview Form"
+        title="Aperçu Formulaire"
         visible={isModalPreviewVisible}
         onOk={handlePreviewOk}
         onCancel={handlePreviewCancel}

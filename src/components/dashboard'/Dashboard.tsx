@@ -186,7 +186,7 @@ export default function Dashboard() {
         <div className="flex flex-col justify-between gap-4 rounded-lg   p-4">
           {elementsLocalStorage.length > 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleInfo className="text-red-500 font-title  " />  Vos formulaire dans Local Storage
+              <CiCircleInfo className="text-red-500 font-title  " />  Vos formulaire dans  Stockage Local
             </p>
           )}
      
@@ -237,7 +237,7 @@ export default function Dashboard() {
           </div>
           {elementsLocalStorage.length === 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleInfo className="text-red-500  font-title " /> Aucun formulaire dans in local storage
+              <CiCircleInfo className="text-red-500  font-title " /> Aucun formulaire dans Stockage Local
             </p>
           )}
         </div>

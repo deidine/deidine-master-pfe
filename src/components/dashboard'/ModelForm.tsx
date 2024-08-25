@@ -46,7 +46,7 @@ export default function ModelForm({
   return (
     <>
       <Modal
-        title={isAdd ? "Create New Form" : "Edit Form"}
+        title={isAdd ? "Créer un nouveau formulaire" : "Modifier formulaire"}
         visible={isModalVisible}
         onOk={handleOkAction}
         onCancel={handleCancelAction}
