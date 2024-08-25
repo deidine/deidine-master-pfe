@@ -1,4 +1,4 @@
-import { LuClipboardEdit } from "react-icons/lu";
+import { LuClipboardEdit,LuShare } from "react-icons/lu";
 import { TbFileTypeHtml } from "react-icons/tb";
 import { IoSave } from "react-icons/io5";
 import { BiCustomize } from "react-icons/bi";
@@ -14,7 +14,13 @@ export default function Features( ) {
         "Profitez d'une interface conviviale pour modifier facilement les éléments de votre formulaire. Tout le monde peut rapidement créer un formulaire sans effort."
       }
     />
-
+         <FeatureCard
+        icon={<LuShare />}
+        title={"Partager le Formulaire"}
+        description={
+          "Partagez facilement vos formulaires avec d'autres utilisateurs ou équipes. Grâce à nos options de partage intégrées, vous pouvez envoyer un lien direct ou générer un code QR, facilitant ainsi la collaboration et la collecte de données."
+        }
+      />
     <FeatureCard
       icon={<TbFileTypeHtml />}
       title={"Support de Multiples Types de Champs"}

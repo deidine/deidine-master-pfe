@@ -68,6 +68,7 @@ export default function NavBar() {
           <div className="flex flex-grow justify-end items-center mr-4">
             {memoizedUser ? (
               <>
+                    <Link href="/forms">
                 <div
                   className={`
                     ${
@@ -79,12 +80,11 @@ export default function NavBar() {
                      hover:bg-hoverButtonColor font-semibold
                     px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg`}
                 >
-                  <Link href="/forms">
                     <div onClick={() => setActiveLink("/forms")}>
                       Formulaires
                     </div>
-                  </Link>
                 </div>
+                  </Link>
                 <Popover
                   content={
                     <div>
@@ -119,6 +119,7 @@ export default function NavBar() {
               </>
             ) : (
               <>
+                    <Link href="/forms">
                 <div
                   className={`
                     ${
@@ -130,12 +131,11 @@ export default function NavBar() {
                      hover:bg-hoverButtonColor font-semibold
                     px-[2rem] py-[0.8rem] mr-[1.5rem] rounded-lg`}
                 >
-                  <Link href="/forms">
                     <div onClick={() => setActiveLink("/forms")}>
                       Formulaires
                     </div>
-                  </Link>
                 </div>
+                  </Link>
                 <Link href="/login">
                   <div
                     className={`
