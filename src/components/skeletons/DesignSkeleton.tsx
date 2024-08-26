@@ -18,8 +18,8 @@ export default function DesignSkeleton() {
 function AddButtonSkelton() {
   return (
     <div
-      className="w-full fixed bottom-0 flex  
-  justify-end pr-[100px] pb-[50px] items-center right-0 shadow-lg   h-auto z-10 "
+      className="w-full fixed bottom-0 flex   px-6 
+  justify-end   pb-[50px] items-center right-0 shadow-lg   h-auto z-10 "
     >
       <div className="bg-white p-1 btn_header ">
         <Skeleton className="w-40 h-14 btn_header text-white flex items-center justify-around font-[14px] text-2xl gap-4 " />{" "}
@@ -30,23 +30,22 @@ function AddButtonSkelton() {
 
 function TopButtonSkeleton() {
   return (
-    <div className="bg-white fixed shadow-[inset_0_-1px_0_0_#eaeaea] px-[80px] 
+    <div
+      className="bg-white fixed shadow-[inset_0_-1px_0_0_#eaeaea]  
     flex justify-between
      border-b-1   items-center border-black  
-    p-1 h-[80px] w-full z-20">
-     
-     <div className="flex  gap-3 justify-end w-[30%] items-center">
+   h-[80px] w-full z-20"
+    >
+      <div className="flex  gap-3 justify-end w-[30%] items-center">
         <Skeleton className="h-6 rounded-full w-6" />
         <Skeleton className="h-4 w-[30%]" />
         <Skeleton className="h-4 rounded-full w-[15%]" />
-     </div>
-<div className="flex justify-center items-center gap-2 w-[30%]">
-  
-<Skeleton className="h-10 rounded-full w-10" />
-     <Skeleton className="h-10 rounded-full w-10" />
-     <Skeleton className="w-[30%] h-10 rounded-lg" />
-
-</div>
+      </div>
+      <div className="flex  justify-center items-center gap-2 w-[30%]">
+        <Skeleton className="h-10 rounded-full w-10" />
+        <Skeleton className="h-10 rounded-full w-10" />
+        <Skeleton className="w-[30%] h-10 rounded-lg" />
+      </div>
     </div>
   );
 }

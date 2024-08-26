@@ -11,7 +11,9 @@ export default function InsertElement() {
       };
       return (
  <>
-           <div className="w-full fixed bottom-0 flex  justify-end pr-[100px] pb-[50px] items-center right-0 shadow-lg   h-auto z-10 ">
+           <div className="w-full fixed bottom-0 flex px-6 
+             justify-end pb-[50px] items-center right-0 shadow-lg 
+             h-auto z-10 ">
         <button
           className="h-auto fixed btn_header text-white flex items-center justify-around  hover:bg-hoverButtonColor bg-buttonColor font-[14px] text-2xl gap-4 "
           onClick={showModal}

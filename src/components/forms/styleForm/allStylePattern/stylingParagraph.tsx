@@ -6,16 +6,15 @@ import useStyle from "@/hooks/useStyle";
 
 export default function StylingParagraph(
   { currentStyling,currentSelected ,trriger}: {
-    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph";
+    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle";
    currentStyling: string;
    trriger:(value:"Form"|
    "Elements"|
    "Buttons"|
-   "Paragraph")=>void;
+   "Paragraph" | "LogoTitle")=>void;
   }
 ) {
-  const [colorPickerVisible, setColorPickerVisible] = useState(false);
-  const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
+  const [colorPickerVisible, setColorPickerVisible] = useState(false); 
   const { paragraphStyle,setParagraphStyle } = useStyle();
   const [isVisible, setIsVisible] = useState(false);
   const handleSliderChange = (value: number, type: keyof FormStyle) => {
@@ -42,12 +41,13 @@ export default function StylingParagraph(
   };
 
   return (
-    <div>
+    <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
+    
+    onClick={toggleVisibility}
+  >
       <div
 
-className={`flex justify-between items-center ${
-  isVisible && currentSelected === "Paragraph" ? "text-buttonColor" : ""
-} cursor-pointer`}onClick={toggleVisibility}
+className={`flex justify-between items-center cursor-pointer`} onClick={toggleVisibility}
       >
         {currentStyling} {isVisible && currentSelected=="Paragraph" ? <UpOutlined /> : <DownOutlined />}
       </div>
@@ -58,9 +58,9 @@ className={`flex justify-between items-center ${
 
           <div
             className="relative"
-            onMouseEnter={() => setColorPickerVisible(true)}
-            onMouseLeave={() => setColorPickerVisible(false)}
-          >
+            onClick={() => setColorPickerVisible(!colorPickerVisible)}
+            
+  >
             <Button>Text Color</Button>
             {colorPickerVisible && (
               <div className="absolute z-50">

@@ -10,8 +10,7 @@ export default function MediaHeadingConfig({
 }) {
   const { updateElement } = useDesigner();
   const [logoUrl, setLogoUrl] = useState(element!.imgLogoLink || "");
-  const [bannerUrl, setBannerUrl] = useState(element!.imgBannerLink || "");
-  const [headingText, setHeadingText] = useState(element!.label || "");
+   const [headingText, setHeadingText] = useState(element!.label || "");
   const [headingTextTitle, setHeadingTextTitle] = useState(
     element!.headingTitle || ""
   );
@@ -21,14 +20,7 @@ export default function MediaHeadingConfig({
     updateElement(element!.name, { ...element!, imgLogoLink: e.target.value });
   };
 
-  const handleBannerUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBannerUrl(e.target.value);
-    updateElement(element!.name, {
-      ...element!,
-      imgBannerLink: e.target.value,
-    });
-  };
-
+   
   const handleHeadingTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHeadingText(e.target.value);
     updateElement(element!.name, { ...element!, label: e.target.value });

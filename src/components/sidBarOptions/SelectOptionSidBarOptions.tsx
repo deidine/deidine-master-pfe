@@ -62,13 +62,13 @@ export const SelectOptionSidBarOptions = ({
           ))}
           <div className="w-full mb-1">
             <Input
-              placeholder="New option"
+              placeholder="Nouvelle option"
               value={newOption}
               onChange={(e) => setNewOption(e.target.value)}
               style={{ marginBottom: "8px" }}
             />
             <Button className="w-full mb-1" onClick={addNewOption}>
-              Add Option
+              Ajouter un option
             </Button>
           </div>
         </div>

@@ -2,8 +2,8 @@
 import Image from "next/image";
 import useGeneral from "@/hooks/useGeneral";
 import { createClientBrowser } from "@/utils/supabase/client";
-import Link from "next/link";
-import { FaUserCircle } from "react-icons/fa";
+import Link from "next/link"; 
+import { BiUser } from "react-icons/bi";
 import React, { useEffect, useMemo, useState } from "react";
 import { Divider, Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
@@ -109,11 +109,11 @@ export default function NavBar() {
                 >
                   <div className="flex relative flex-col items-center gap-2 cursor-pointer">
                     <div
-                      className={`w-2 h-2 absolute top-0 right-0 rounded-full ${
+                      className={`w-2 h-2 absolute bottom-2 right-0 rounded-full p-1 ${
                         isUserOnline ? "bg-green-500" : "bg-red-500"
                       }`}
                     ></div>
-                    <FaUserCircle className="text-[50px] text-buttonColor" />
+                    <BiUser className="text-[50px] border-[1px] border-gray-300 rounded-full p-2 text-buttonColor" />
                   </div>
                 </Popover>
               </>

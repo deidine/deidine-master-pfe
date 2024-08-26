@@ -5,12 +5,12 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import useStyle from "@/hooks/useStyle";
 export default function Styling(
   { currentStyling,currentSelected ,trriger}: {
-    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph";
+    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle";
    currentStyling: string;
    trriger:(value:"Form"|
    "Elements"|
    "Buttons"|
-   "Paragraph")=>void;
+   "Paragraph" | "LogoTitle")=>void;
   }
 ) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
@@ -42,12 +42,12 @@ export default function Styling(
   };
 
   return (
-    <div>
+    <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
+    
+    onClick={toggleVisibility}
+  >
       <div   
-           className={`flex justify-between items-center ${
-            isVisible &&  currentSelected === "Buttons" ? "text-buttonColor" : ""
-          } cursor-pointer`}
-        onClick={toggleVisibility}
+           className={`flex justify-between items-center  cursor-pointer`} 
       >
         {currentStyling} {isVisible && currentSelected=="Buttons" ? <UpOutlined /> : <DownOutlined />}
       </div>
@@ -56,9 +56,7 @@ export default function Styling(
         
         <div
             className="relative" // Add relative positioning to parent div
-            onMouseEnter={() => setBgColorPickerVisible(true)}
-            onMouseLeave={() => setBgColorPickerVisible(false)}
-          >
+                      onClick={() => setBgColorPickerVisible(!bgColorPickerVisible)}  >
             {" "}
             {/* Add absolute positioning to picker */}
             <Button>Background Color</Button>
@@ -77,9 +75,7 @@ export default function Styling(
 
           <div
             className="relative" // Add relative positioning to parent div
-            onMouseEnter={() => setColorPickerVisible(true)}
-            onMouseLeave={() => setColorPickerVisible(false)}
-          >
+                      onClick={() => setColorPickerVisible(!colorPickerVisible)} >
             {" "}
             {/* Add absolute positioning to picker */}
             <Button>Text Color</Button>

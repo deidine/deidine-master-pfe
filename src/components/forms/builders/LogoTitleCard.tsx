@@ -29,32 +29,12 @@ export default function LogoTitleCard() {
     (el) => el.elementType.type === logoHeadingTitle[1].value
   );
 
+  const showSpan = !isElementAdded0 && !isElementAdded1;
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-around items-center gap-4">
-        <Button
-          disabled={isElementAdded0}
-          onClick={() => handleSelect(logoHeadingTitle[0])}
-        >
-          {logoHeadingTitle[0].icon &&
-            React.createElement(logoHeadingTitle[0].icon)}
-          {logoHeadingTitle[0].label}
-        </Button>
-
-        <span className="border-[1px] border-gray-500 h-[40px] w-[2px]" />
-
-        <Button
-          disabled={isElementAdded1}
-          onClick={() => handleSelect(logoHeadingTitle[1])}
-        >
-          {logoHeadingTitle[1].icon &&
-            React.createElement(logoHeadingTitle[1].icon)}
-          {logoHeadingTitle[1].label}
-        </Button>
-      </div>
-
-      <div className="flex justify-between items-start gap-4 mt-4">
-        <div className="flex-1">
+      <div className="flex justify-center items-center gap-4 mt-4">
+        <div className="flex-1 flex flex-col ">
           {elements
             .filter((element) => element.elementType.type === "logo")
             .map((element) => (
@@ -84,11 +64,24 @@ export default function LogoTitleCard() {
                 </div>
               </div>
             ))}
+          <Button
+            hidden={isElementAdded0}
+            className="mx-auto"
+            onClick={() => handleSelect(logoHeadingTitle[0])}
+          >
+            {logoHeadingTitle[0].icon &&
+              React.createElement(logoHeadingTitle[0].icon)}
+            {logoHeadingTitle[0].label}
+          </Button>
         </div>
 
-        <span className="border-[1px] border-gray-500 h-full w-[2px]" />
+        <span
+          className={`border-[1px] border-gray-500 pt-4 ${
+            showSpan ? "h-[40px]" : "h-[150px]"
+          } w-[1px]`}
+        />
 
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col ">
           {elements
             .filter((element) => element.elementType.type === "headingTitle")
             .map((element) => (
@@ -114,6 +107,15 @@ export default function LogoTitleCard() {
                 </div>
               </div>
             ))}
+          <Button
+            hidden={isElementAdded1}
+            className="mx-auto"
+            onClick={() => handleSelect(logoHeadingTitle[1])}
+          >
+            {logoHeadingTitle[1].icon &&
+              React.createElement(logoHeadingTitle[1].icon)}
+            {logoHeadingTitle[1].label}
+          </Button>
         </div>
       </div>
     </div>

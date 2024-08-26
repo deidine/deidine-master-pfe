@@ -43,7 +43,7 @@ type BaseElement = {
   startDate?: string,
   endDate?: string,
  imgLogoLink?:string
-imgBannerLink?:string
+ headingLogFlex?:string
 headingTitle?:string
 };
  

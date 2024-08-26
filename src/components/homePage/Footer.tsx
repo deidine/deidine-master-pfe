@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaArrowRight } from "react-icons/fa6";
-
+import { IoIosArrowForward } from "react-icons/io";
 export default function Footer() {
   return (
     <section className="bg-secondaryColor h-[25%] pb-[1.5rem] pt-[5rem] px-[4.5rem]" id="footer">
@@ -11,7 +10,7 @@ export default function Footer() {
           <Image src="/logo-vm2.svg" alt="Vector Mind Logo" width={200} height={100} />
         </div>
 
-        <div className="flex justify-center w-full rounded-lg">
+        <div className="flex justify-center text-justify w-full rounded-lg">
           <div className="flex flex-col w-[60%] gap-4">
             <p className="text-black font-semibold text-lg">
               Ce projet a été réalisé sous l{"'"}encadrement de 
@@ -29,14 +28,14 @@ export default function Footer() {
             </p>
             <div className="flex w-full justify-end">
               <Link 
-                className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor text-white rounded-lg 
-                z-10 border-buttonColor border flex justify-between gap-3 items-center w-[30%] 
+                className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor text-white   
+                z-10 border-buttonColor border flex justify-between gap-3 items-center rounded-full  px-3
                 p-2 transition-all duration-300" 
                 href="https://vector-mind.com/" 
                 target="_blank"
               >
                 <span>Vector Mind</span>
-                <FaArrowRight /> 
+                <IoIosArrowForward className="font-bold"/> 
               </Link>
             </div>
           </div>

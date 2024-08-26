@@ -6,7 +6,7 @@ export default function GiveTry() {
   return (
     <section id="about" className="px-[4.5rem] w-full flex gap-[70px] my-8 py-1 pb-10">
   
-      <Link href="/login" className="bg-buttonColor hover:bg-hoverButtonColor flex flex-col cursor-pointer  gap-4 p-[25px] w-[30%] rounded-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:z-10">
+      <Link href="/login" className="bg-buttonColor hover:bg-hoverButtonColor text-justify flex flex-col cursor-pointer  gap-4 p-[25px] w-[30%] rounded-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:z-10">
         <div className="flex flex-col text-white gap-2 justify-center items-center">
           <span className="text-[60px] bg-white p-4 rounded-full">
             <FaCloudArrowUp className="text-buttonColor" />
@@ -21,7 +21,7 @@ export default function GiveTry() {
       </Link>   
      
 
-      <Link href="/forms" className="bg-buttonColor hover:bg-hoverButtonColor flex flex-col  cursor-pointer gap-4 p-[25px] w-[30%] rounded-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:z-10">
+      <Link href="/forms" className="bg-buttonColor hover:bg-hoverButtonColor text-justify flex flex-col  cursor-pointer gap-4 p-[25px] w-[30%] rounded-lg transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:z-10">
         <div className="flex flex-col text-white gap-2 justify-center items-center">
           <span className="text-[60px] bg-white p-4 rounded-full">
             <FaLocationDot className="text-buttonColor" />

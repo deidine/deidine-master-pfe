@@ -185,7 +185,10 @@ export default function TopButton({
 
   return (
     <div>
-      <div className="bg-white z-10 shadow-[inset_0_-1px_0_0_#eaeaea] fixed flex justify-between px-[80px] h-[60px] border-b-1 items-center border-black w-full">
+      <div className="bg-white z-10 
+      shadow-[inset_0_-1px_0_0_#eaeaea] fixed 
+      flex justify-between pl-[80px] pr-4 h-[60px] border-b-1 
+      items-center border-black w-full">
         <div className="flex items-center text-lg pl-[100px] font-semibold">
           <div className="pr-2">
             {form.isFromLocalStorage ? (
@@ -211,7 +214,7 @@ export default function TopButton({
           )}
         </div>
         {selectedButton2 === "Champ" && (
-          <div className="flex justify-between space-x-5 px-4 py-4">
+          <div className="flex justify-end items-center ml-4 space-x-5 w-full   py-4">
             <Tooltip title="ctrl+z">
               <Button
                 className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
@@ -266,12 +269,7 @@ export default function TopButton({
         )}
         {selectedButton2 === "Code" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
-            {/* <Select
-              defaultValue={codeForLanguage}
-              style={{ width: 120 }}
-              onChange={handleTypeChange}
-              options={lnaguageGenerator}
-            /> */}
+
             <Button
               icon={<FaSave />}
               loading={isLoading}
@@ -282,7 +280,8 @@ export default function TopButton({
             </Button>
             <Button
               icon={<FaSave />}
-              className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
+              className="border-[0.5px] bg-zinc-100
+               border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"
               onClick={() => onCopyClick(codeForLanguage)}
             >
               Copier le code

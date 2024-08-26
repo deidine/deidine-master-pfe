@@ -9,9 +9,9 @@ export default function Styling({
   currentSelected,
   trriger,
 }: {
-  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph";
+  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle";
   currentStyling: string;
-  trriger: (value: "Form" | "Elements" | "Buttons" | "Paragraph") => void;
+  trriger: (value: "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle") => void;
 }) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
@@ -42,12 +42,12 @@ export default function Styling({
      };
 
   return (
-    <div>
-      <div
-        className={`flex justify-between items-center ${
-          isVisible &&  currentSelected === "Form" ? "text-buttonColor" : ""
-        } cursor-pointer`}
-        onClick={toggleVisibility}
+    <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
+    
+      onClick={toggleVisibility}
+    >
+      <span
+        className={`flex justify-between items-center  cursor-pointer`}
       >
         {currentStyling}{" "}
         {isVisible && currentSelected === "Form" ? (
@@ -55,14 +55,13 @@ export default function Styling({
         ) : (
           <DownOutlined />
         )}
-      </div>
+      </span>
 
       {isVisible && currentSelected === "Form" && (
         <div className="mt-4 space-y-4">
           <div
             className="relative"
-            onMouseEnter={() => setBgColorPickerVisible(true)}
-            onMouseLeave={() => setBgColorPickerVisible(false)}
+            onClick={() => setBgColorPickerVisible(!bgColorPickerVisible)}
           >
             <Button>Background Color</Button>
             {bgColorPickerVisible && (
@@ -79,8 +78,8 @@ export default function Styling({
 
           <div
             className="relative"
-            onMouseEnter={() => setColorPickerVisible(true)}
-            onMouseLeave={() => setColorPickerVisible(false)}
+            onClick={() => setColorPickerVisible(!colorPickerVisible)}
+      
           >
             <Button>Text Color</Button>
             {colorPickerVisible && (

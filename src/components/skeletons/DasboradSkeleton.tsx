@@ -6,7 +6,7 @@ import { Divider } from "antd";
 export default function DasboradSkeleton() {
   return (
     <div className="w-full  bg-mainColor  flex flex-col justify-between px-[2.5rem] pt-[1rem] items-start">
-      <div className="flex justify-end items-center w-full">
+      <div className="flex   fixed bottom-0  p-3 z-20 right-0 gap-4 justify-end items-center w-full">
         <div className=" bg-white my-auto p-2 rounded-lg ">
           <Skeleton className="h-10 rounded-lg w-[100px]" />
         </div>
@@ -24,6 +24,8 @@ export default function DasboradSkeleton() {
         className="h-8 border-neutral-100"
       />
       <div className="flex  px-[2.5rem]  flex-wrap  gap-[2rem]">
+        <CardFormSkeleton />
+        <CardFormSkeleton />
         <CardFormSkeleton />
         <CardFormSkeleton />
         <CardFormSkeleton />

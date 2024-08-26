@@ -26,6 +26,6 @@ export default function Page() {
 <button className='bg-green-500 rounded-lg border-2 text-red-200 w-[10%] h-6' onClick={handleSubmit}>
 submit
 </button>
-<GoogleAnalytics gaId="G-1N59NG1HZD" />
+<GoogleAnalytics gaId="G-PZMLGX1KH7" />
    </>
 }

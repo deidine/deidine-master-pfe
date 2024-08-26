@@ -324,7 +324,7 @@ export default function CardForm({
         <div className="flex flex-row justify-between items-center gap-4">
           <div className="text-3xl flex flex-row justify-between items-center gap-4">
             {form.isFromLocalStorage ? (
-              <CiCircleInfo className="text-red-500" />
+              <CiCircleCheck className="text-yellow-500" />
             ) : (
               <CiCircleCheck className="text-green-500" />
             )}{" "}

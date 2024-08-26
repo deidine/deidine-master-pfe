@@ -32,12 +32,13 @@ export default function PreviewForm({
   const [elementsTemplatePreviw, setElementsTemplatePreviw] = useState<
     Form[] | FormElement[]
   >(elementsTemplate!);
-  const { formStyle, elementStyle, buttonStyle ,paragraphStyle} = useStyle();
+  const { formStyle, elementStyle, buttonStyle, paragraphStyle } = useStyle();
   const { elements, submitBtn } = useDesigner();
   const mapElement = isTemlate ? elementsTemplatePreviw : elements;
   const logoElement = elements.find(
-    (element) => element.elementType.type === "logo"  
-  );  const HeadTitleElement = elements.find(
+    (element) => element.elementType.type === "logo"
+  );
+  const HeadTitleElement = elements.find(
     (element) => element.elementType.type === "headingTitle"
   );
 
@@ -51,10 +52,8 @@ export default function PreviewForm({
           paddingBottom: formStyle?.paddingY,
           color: formStyle?.color,
           border: formStyle?.border,
-         
-         
-                borderRadius: formStyle?.borderRadius,
-            
+
+          borderRadius: formStyle?.borderRadius,
 
           backgroundColor: formStyle?.backgroundColor,
         };
@@ -62,17 +61,17 @@ export default function PreviewForm({
 
   const getButtonStyles = () => {
     return {
-      paddingLeft: buttonStyle?.paddingX  ,
-      paddingRight: buttonStyle?.paddingX  ,
-      paddingTop: buttonStyle?.paddingY  ,
-      paddingBottom: buttonStyle?.paddingY ,
-      color: buttonStyle?.color, 
-      border: buttonStyle?.border ,
-      borderRadius: buttonStyle?.borderRadius ,
+      paddingLeft: buttonStyle?.paddingX,
+      paddingRight: buttonStyle?.paddingX,
+      paddingTop: buttonStyle?.paddingY,
+      paddingBottom: buttonStyle?.paddingY,
+      color: buttonStyle?.color,
+      border: buttonStyle?.border,
+      borderRadius: buttonStyle?.borderRadius,
       backgroundColor: buttonStyle?.backgroundColor,
     };
   };
- 
+
   useEffect(() => {
     setElementsTemplatePreviw(elementsTemplate!);
   }, [elementsTemplate]);
@@ -89,19 +88,25 @@ export default function PreviewForm({
         }`}
         style={getFormStyles()}
       >
-        {" "}
-{   !isTemlate ?     <div className="flex flex-col justify-between items-center">
-        {logoElement?.elementType.type === "logo"  && (
-          <LogoPrev
-            element={logoElement}
-            styleForm={isTemlate ? {} : getFormStyles()}
-          />
+        {" "} 
+        {!isTemlate ? (
+          <div className={`flex flex-${logoElement?.elementType.headingLogFlex!} justify-between items-center`}>
+            {logoElement?.elementType.type === "logo" && (
+              <LogoPrev
+                element={logoElement}
+                styleForm={isTemlate ? {} : getFormStyles()}
+              />
+            )}
+            {HeadTitleElement?.elementType.type === "headingTitle" && (
+              <HeadingTitlePrev
+                element={HeadTitleElement}
+                styleForm={isTemlate ? {} : elementStyle}
+              />
+            )}
+          </div>
+        ) : (
+          <></>
         )}
-        { HeadTitleElement?.elementType.type === "headingTitle" && (
-          <HeadingTitlePrev   element={HeadTitleElement}
-          styleForm={isTemlate ? {} : elementStyle}/>)
-        }
-        </div> : <></>}
         <span className="text-md font-semibold">
           {mapElement.length === 0 && "Aucun élément n’a encore été ajouté"}
         </span>
@@ -168,21 +173,21 @@ export default function PreviewForm({
             {element.elementType.type === "paragraph" && (
               <HeadingPrev
                 element={element}
-                 styleParagraph={isTemlate ? {} : paragraphStyle}
+                styleParagraph={isTemlate ? {} : paragraphStyle}
               />
             )}
           </div>
         ))}
         <div className="flex justify-center pt-6">
           {showSubmit ? (
-       <Button
+            <Button
               type="primary"
               htmlType="submit"
-            className="h-10 font-bold  w-1/2"
-            style={getButtonStyles()}
+              className="h-10 font-bold  w-1/2"
+              style={getButtonStyles()}
             >
               {submitBtn}
-            </Button>     
+            </Button>
           ) : null}
         </div>
       </Form>

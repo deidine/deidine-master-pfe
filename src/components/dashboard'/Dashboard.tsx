@@ -165,7 +165,7 @@ export default function Dashboard() {
     <>
       <div>
         <div className="w-full bg-mainColor flex justify-end px-[2.5rem] pt-[1rem] items-end">
-          <div className="flex gap-4">
+          <div className="flex fixed bottom-0  p-3 z-20 right-0 gap-4">
             {elementsLocalStorage.length > 0 && user && isUserOnline && (
               <Button
                 loading={isLoading}
@@ -186,7 +186,7 @@ export default function Dashboard() {
         <div className="flex flex-col justify-between gap-4 rounded-lg   p-4">
           {elementsLocalStorage.length > 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleInfo className="text-red-500 font-title  " />  Vos formulaire dans  Stockage Local
+              <CiCircleCheck className="text-yellow-500 text-xl  font-title  " />  Vos formulaire dans  Stockage Local
             </p>
           )}
      
@@ -202,9 +202,9 @@ export default function Dashboard() {
               />
             ))}
           </div>
-          {elements.length > 0 && elementsLocalStorage.length > 0 && (
+     <div className=" px-[2.5rem]"> {elements.length > 0 && elementsLocalStorage.length > 0 && (
             <Divider
-            className="border-gray-300"
+            className="border-gray-300 px-[2.5rem]"
               style={{ 
                 marginTop: "1rem",
                 marginBottom: "1rem",
@@ -212,7 +212,7 @@ export default function Dashboard() {
                 height: "1px",
               }}
             />
-          )}
+          )}</div>
           {elements.length > 0 && (
             <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
               <CiCircleCheck className="text-green-500  font-title " />Vos Formulaires dans la base de données
@@ -235,11 +235,7 @@ export default function Dashboard() {
               />
             ))}
           </div>
-          {elementsLocalStorage.length === 0 && (
-            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleInfo className="text-red-500  font-title " /> Aucun formulaire dans Stockage Local
-            </p>
-          )}
+        
         </div>
       </div>
 
