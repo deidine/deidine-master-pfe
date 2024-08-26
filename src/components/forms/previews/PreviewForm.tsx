@@ -88,9 +88,12 @@ export default function PreviewForm({
         }`}
         style={getFormStyles()}
       >
-        {" "} 
+        {" "}
         {!isTemlate ? (
-          <div className={`flex flex-${logoElement?.elementType.headingLogFlex!} justify-between items-center`}>
+          <div
+            className={`flex flex-${logoElement?.elementType
+              .headingLogFlex!} justify-between items-center pb-2`}
+          >
             {logoElement?.elementType.type === "logo" && (
               <LogoPrev
                 element={logoElement}

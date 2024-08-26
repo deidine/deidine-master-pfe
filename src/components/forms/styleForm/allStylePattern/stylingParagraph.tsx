@@ -42,8 +42,7 @@ export default function StylingParagraph(
 
   return (
     <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
-    
-    onClick={toggleVisibility}
+     
   >
       <div
 

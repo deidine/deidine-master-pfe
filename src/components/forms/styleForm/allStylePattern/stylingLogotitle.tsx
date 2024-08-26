@@ -3,7 +3,6 @@ import { Radio } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
 
-
 export default function StylingLogotitle({
   currentStyling,
   currentSelected,
@@ -15,54 +14,58 @@ export default function StylingLogotitle({
     value: "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle"
   ) => void;
 }) {
-  const [layout, setLayout] = useState<"row" | "col">("row");
-const {elements, setElements}=useDesigner()
+  const { elements, setElements } = useDesigner();
+  const [layout, setLayout] = useState<"row" | "col">(() => {
+    const logoElement = elements.find((el) => el.elementType.type === "logo");
+    const layoutValue = logoElement?.elementType.headingLogFlex;
+    return layoutValue === "row" || layoutValue === "col" ? layoutValue : "row";
+  });
+
   const handleLayoutChange = (e: any) => {
-    setLayout(e.target.value);
-    setElements(elements.map((el) => (el.elementType.type === "logo" ? { ...el,
-       elementType: { ...el.elementType, headingLogFlex: e.target.value } } : el)))
-  };  
+    const newValue: "row" | "col" = e.target.value;
+    setLayout(newValue);
+    setElements(
+      elements.map((el) =>
+        el.elementType.type === "logo"
+          ? {
+              ...el,
+              elementType: {
+                ...el.elementType,
+                headingLogFlex: newValue,
+              },
+            }
+          : el
+      )
+    );
+  };
+
   const [isVisible, setIsVisible] = useState(false);
- 
-   
+
   useEffect(() => {
-    // Ensure that the visibility is updated based on the currentSelected value
-    if (currentSelected === "LogoTitle") {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
+    setIsVisible(currentSelected === "LogoTitle");
   }, [currentSelected]);
 
   const toggleVisibility = () => {
-    trriger("LogoTitle")  
-    setIsVisible(!isVisible)  
+    trriger("LogoTitle");
+    setIsVisible(!isVisible);
   };
 
   return (
-    <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
-    
-    onClick={toggleVisibility}
-  >
-        <div
-        className={`flex justify-between items-center cursor-pointer`} 
+    <div
+      className="rounded-lg hover:bg-hoverButtonColor cursor-pointer hover:text-white mb-4 p-4"
       >
+      <div className="flex justify-between items-center cursor-pointer"
+      onClick={toggleVisibility}>
         {currentStyling}{" "}
-        {isVisible && currentSelected === "LogoTitle" ? (
-          <UpOutlined />
-        ) : (
-          <DownOutlined />
-        )}
+        {isVisible ? <UpOutlined /> : <DownOutlined />}
       </div>
 
-      {isVisible && currentSelected === "LogoTitle" && (
-        
+      {isVisible && (
         <Radio.Group onChange={handleLayoutChange} value={layout}>
-        <Radio value="row">Row</Radio>
-        <Radio value="col">Column</Radio>
-      </Radio.Group>
-       
-  )}
+          <Radio value="row">Row</Radio>
+          <Radio value="col">Column</Radio>
+        </Radio.Group>
+      )}
     </div>
   );
 }

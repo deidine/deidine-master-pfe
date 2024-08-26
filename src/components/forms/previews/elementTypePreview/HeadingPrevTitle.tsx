@@ -26,7 +26,7 @@ export default function HeadingTitlePrev({
      <div
        style={ getInputStyles() }
      >
-       <span className="text-2xl   font-bold">
+       <span className="text-2xl text-justify  font-bold">
          {element.elementType?.headingTitle}
        </span>
      </div>

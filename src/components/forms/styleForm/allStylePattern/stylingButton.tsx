@@ -44,10 +44,10 @@ export default function Styling(
   return (
     <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
     
-    onClick={toggleVisibility}
-  >
+    >
       <div   
            className={`flex justify-between items-center  cursor-pointer`} 
+           onClick={toggleVisibility}
       >
         {currentStyling} {isVisible && currentSelected=="Buttons" ? <UpOutlined /> : <DownOutlined />}
       </div>

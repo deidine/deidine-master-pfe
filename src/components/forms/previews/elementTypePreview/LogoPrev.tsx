@@ -22,7 +22,7 @@ export default function LogoPrev({
             alt="Logo"
             width={160} // Adjust width as needed
             height={160} // Adjust height as needed
-            className="mt-4 mx-auto rounded-full"
+            className="mt-4 mx-auto  "
           />
         </div>
       )}
