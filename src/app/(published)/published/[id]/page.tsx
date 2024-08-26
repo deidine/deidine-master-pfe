@@ -1,5 +1,6 @@
 "use client";
 import PreviewPublished from "@/components/forms/previews/PreviewPublished";
+import FormSkeleton from "@/components/skeletons/FormSkeleton";
 import React, { useState, useEffect, useCallback } from "react";
 
 export default function PublishFormPage({
@@ -60,7 +61,7 @@ export default function PublishFormPage({
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Optional: Add a loading state if needed
+    return <div><FormSkeleton/></div>; // Optional: Add a loading state if needed
   }
 
   if (!form) {

@@ -58,7 +58,10 @@ const newElement = (type: ElementType) => {
          })) 
          || (type=== "headingTitle" && {
           headingTitle: "Titre de l'en-tête"})
- 
+ ||
+ (type === "logo" && {
+  imgLogoLink: "https://www.pngkey.com/png/detail/233-2332677_ega-png.png",
+ })
      },
      id: idGenerator(),
    };
