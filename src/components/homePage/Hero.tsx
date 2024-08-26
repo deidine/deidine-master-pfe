@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="lg:w-1/2 w-full px-4 sm:px-6 md:px-8 lg:px-0">
          
         <p className="text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl w-full lg:w-[90%] py-4">
-          Simplifiez la création de formulaires pour les développeurs.
+          Simplifiez la création de formulaires .
         </p>
 
         <p className="w-full text-justify pt-[20px] sm:w-[80%] md:w-[70%] lg:w-[85%] text-xs sm:text-sm md:text-base lg:text-lg">

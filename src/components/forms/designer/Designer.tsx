@@ -34,7 +34,7 @@ export default function Designer({
 
   return (
     <>
-      <div className="flex relative flex-col justify-center gap-2 w-full">
+      <div className="flex relative  font-title flex-col justify-center gap-2 w-full">
         <TopButton
           onCopyClick={(value: string) => {
             if (childRef.current) {
