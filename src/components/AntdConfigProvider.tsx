@@ -13,7 +13,7 @@ const AntdConfigProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           colorPrimary: "#6564FE", // Tailwind title color
        
           colorPrimaryHover: "#A6A6EC", // Tailwind hoverButtonColor
-          fontFamily: "DM Sans, sans-serif", // Tailwind text font
+          fontFamily: "Rubik, sans-serif", // Tailwind text font
           // You can add more tokens as needed
         },
       }}

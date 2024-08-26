@@ -319,7 +319,7 @@ export default function CardForm({
             }`
           );
         }}
-        className="rounded-[15px] relative hover:bg-slate-100  bg-white border-2 p-4 w-[400px] h-[200px] cursor-pointer"
+        className="rounded-[15px] relative hover:bg-slate-100  bg-white border-[1px] border-gray-200 p-4 w-[400px] h-[200px] cursor-pointer"
       > 
         <div className="flex flex-row justify-between items-center gap-4">
           <div className="text-3xl flex flex-row justify-between items-center gap-4">
@@ -335,7 +335,7 @@ export default function CardForm({
               {form.title}{" "}  </p>
               {form.content.length > 0 ? (
                 <AntBadge
-                  style={{ backgroundColor: "#6564FE" }}
+                  style={{ backgroundColor: "#6564FE", borderRadius: "5px" }}
                   count={form.content.length+" Element(s)"}
                   ></AntBadge>
                 ) : (

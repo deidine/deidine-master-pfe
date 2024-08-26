@@ -26,12 +26,12 @@ export default function SideButtons({
     
     
       <div
-        className="fixed z-30 pt-[140px] top-0 border-r-[1px] border-gray-200
+        className="fixed z-30 pt-[80px] top-0 border-r-[1px] border-gray-200
          bg-white p-4 h-full w-auto flex flex-col items-center justify-start"
       >
         <div className="flex flex-col gap-2">
           <div
-            className={`btn_sid ${
+            className={`btn_sid flex flex-row gap-3 justify-between items-center ${
               selectedButton === "Champ"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
@@ -45,7 +45,7 @@ export default function SideButtons({
             Champ
           </div>
           <div
-            className={`btn_sid ${
+            className={`btn_sid flex flex-row gap-3 justify-between items-center ${
               selectedButton === "Aperçu"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
@@ -59,7 +59,7 @@ export default function SideButtons({
             Aperçu
           </div>
           <div
-            className={`btn_sid ${
+            className={`btn_sid flex flex-row gap-3 justify-between items-center ${
               selectedButton === "Concevoir"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
@@ -73,7 +73,7 @@ export default function SideButtons({
             Concevoir
           </div>
           <div
-            className={`btn_sid ${
+            className={`btn_sid flex flex-row gap-3 justify-between items-center ${
               selectedButton === "Code"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
