@@ -185,9 +185,11 @@ export default function Dashboard() {
         </div>
         <div className="flex flex-col justify-between gap-4 rounded-lg   p-4">
           {elementsLocalStorage.length > 0 && (
-            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleCheck className="text-yellow-500 text-xl  font-title  " />  Vos formulaire dans  Stockage Local
-            </p>
+            <p className="px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
+              <CiCircleCheck className="text-yellow-500 text-xl text-[35px]  font-title  " /> 
+<p className="text-[25px] font-title">
+Vos formulaire dans  Stockage Local
+</p>            </p>
           )}
      
           <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">
@@ -214,13 +216,18 @@ export default function Dashboard() {
             />
           )}</div>
           {elements.length > 0 && (
-            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleCheck className="text-green-500  font-title " />Vos Formulaires dans la base de données
+            <p className="px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
+              <CiCircleCheck className="text-[35px] text-green-500  font-title " />
+<p className="text-[25px] font-title">
+              Vos Formulaires dans la base de données</p>
             </p>
           )}
           {elements.length === 0 && user && (
-            <p className="text-[25px] px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
-              <CiCircleCheck className="text-green-500  font-title " /> Aucun formulaire dans la base de données
+            <p className="px-[2.5rem] flex flex-row gap-3 text-center items-center mb-4">
+              <CiCircleCheck className="text-green-500 text-[35px]  font-title " /> 
+<p className="text-[25px] font-title">
+              Aucun formulaire dans la base de données
+              </p>
             </p>
           )}
           <div className="flex px-[2.5rem] flex-wrap gap-[2rem]">

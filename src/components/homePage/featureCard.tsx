@@ -6,7 +6,7 @@ import { PiExportBold } from "react-icons/pi";
 import React from "react";
 export default function Features( ) {
   return (
-    <div className="px-[4.5rem] p-2 flex flex-wrap gap-9">
+    <div className="px-[4.5rem]  flex flex-wrap gap-9">
     <FeatureCard
       icon={<LuClipboardEdit />}
       title={"Édition Intuitive"}
@@ -72,7 +72,7 @@ function FeatureCard({
     >
       <div className="flex flex-row justify-start text-buttonColor w-full items-center  gap-4">
         <span className=" text-2xl font-bold">{icon}</span>{" "}
-        <div className="  font-semibold  text-md text-buttonColor uppercase">
+        <div className="  font-bold  text-md text-buttonColor uppercase">
           {title}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import FormLinkShare from "../../publishedForm/FormLinkShare";
-import { CiCircleInfo, CiCircleCheck } from "react-icons/ci";
+import {  CiCircleCheck } from "react-icons/ci";
 import { Badge, Button, Select, Tooltip } from "antd";
 import { FaSave, FaUndo, FaRedo } from "react-icons/fa";
 import useDesigner from "@/hooks/useDesigner";
@@ -192,7 +192,7 @@ export default function TopButton({
         <div className="flex items-center text-lg pl-[100px] font-semibold">
           <div className="pr-2">
             {form.isFromLocalStorage ? (
-              <CiCircleInfo className="text-red-500" />
+              <CiCircleCheck className="text-yellow-500" />
             ) : (
               <CiCircleCheck className="text-green-500" />
             )}

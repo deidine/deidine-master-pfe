@@ -12,8 +12,69 @@ export default function Hero() {
         </p>
 
         <p className="w-full text-justify pt-[20px] sm:w-[80%] md:w-[70%] lg:w-[85%] text-xs sm:text-sm md:text-base lg:text-lg">
-          <span className="text-buttonColor font-bold">Quick Form</span> vous offre une interface intuitive pour créer, personnaliser, et gérer vos formulaires facilement. Gagnez du temps avec nos outils performants, que vous soyez un développeur débutant ou expérimenté. Conception, édition, et exportation de formulaires se font en quelques clics seulement.
+          <span className="text-buttonColor font-bold">Quick Form</span> vous offre une
+          
+           interface intuitive pour créer, personnaliser, et gérer vos formulaires facilement. 
+           Gagnez du temps avec nos outils performants, que vous soyez un développeur débutant ou expérimenté.
+            Conception, édition, et exportation de formulaires se font en quelques clics seulement.
+ 
         </p>  
+        <p className="pt-[25px] w-full text-justify 
+        sm:w-[80%] md:w-[70%] lg:w-[85%] text-xs sm:text-sm md:text-base lg:text-lg">
+            vector mind
+            vector mind
+            vector mind
+            vec    vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector 
+          
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind   vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind   vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind   vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+            vector mind
+
+        </p>
       </div>
 
       <div className="absolute hidden lg:block right-10 w-[300px] sm:w-[400px] md:w-[450px] lg:w-[500px] lg:h-[500px]">
