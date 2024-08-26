@@ -42,18 +42,18 @@ const SigninForm = () => {
         "You have successfully logged in We try to save your data to our database automatically."
       );
       const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-      for (const form of forms) {
-        await saveToDatabase( 
-          form.title,
-          form.content,
-          form.description, 
+      // for (const form of forms) {
+      //   await saveToDatabase( 
+      //     form.title,
+      //     form.content,
+      //     form.description, 
         
-          user.id
-        );
-        const forms = JSON.parse(localStorage.getItem("forms") || "[]");
-        const updatedForms = forms.filter((form: Form) => form.id !== form.id);
-        localStorage.setItem("forms", JSON.stringify(updatedForms));
-      }
+      //     user.id
+      //   );
+      //   const forms = JSON.parse(localStorage.getItem("forms") || "[]");
+      //   const updatedForms = forms.filter((form: Form) => form.id !== form.id);
+      //   localStorage.setItem("forms", JSON.stringify(updatedForms));
+      // }
   
       if (typeof window !== "undefined") {
         window.location.href = "/forms";
