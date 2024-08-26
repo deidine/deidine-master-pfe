@@ -4,6 +4,15 @@ export const generateComponentCodeReacttJs = (
   getFormStyles?: FormStyle,
   getInputStyles?: FormStyle
 ) => {
+  const logoElement = elements.find(
+    (element) => element.elementType.type === "logo"
+  );
+  const HeadTitleElement = elements.find(
+    (element) => element.elementType.type === "headingTitle"
+  );
+
+  const logoStyleString = JSON.stringify(logoElement?.elementType.style);
+  const HeadTitleStyleString = JSON.stringify(HeadTitleElement?.elementType.style);
   const componentCode = elements
     .filter(
       (element) =>
@@ -15,7 +24,6 @@ export const generateComponentCodeReacttJs = (
 
       const inputStyleString = JSON.stringify(getInputStyles);
       const formStyleString = JSON.stringify(getFormStyles);
-
       switch (input.elementType.type) {
         case "text":
         case "number":
@@ -45,11 +53,11 @@ export const generateComponentCodeReacttJs = (
               ${input.elementType.type === "select_multiple" ? 'mode="multiple"' : ""}
             >
               ${input.elementType.options
-                ?.map(
-                  (option, idx) =>
-                    `<Select.Option key={${idx}} value="${option}">${option}</Select.Option>`
-                )
-                .join("\n")}
+              ?.map(
+                (option, idx) =>
+                  `<Select.Option key={${idx}} value="${option}">${option}</Select.Option>`
+              )
+              .join("\n")}
             </Select>`;
           break;
         case "checkbox":
@@ -57,11 +65,11 @@ export const generateComponentCodeReacttJs = (
             <Checkbox.Group style={${inputStyleString}}>
               <div className="flex flex-col space-y-2">
                 ${input.elementType.options
-                  ?.map(
-                    (option, idx) =>
-                      `<Checkbox key={${idx}} value="${option}">${option}</Checkbox>`
-                  )
-                  .join("\n")}
+              ?.map(
+                (option, idx) =>
+                  `<Checkbox key={${idx}} value="${option}">${option}</Checkbox>`
+              )
+              .join("\n")}
               </div>
             </Checkbox.Group>`;
           break;
@@ -69,13 +77,14 @@ export const generateComponentCodeReacttJs = (
           inputElement = `
             <Radio.Group style={${inputStyleString}}>
               ${input.elementType.options
-                ?.map(
-                  (option, idx) =>
-                    `<div key={${idx}} className="flex items-center"><Radio value="${option}">${option}</Radio></div>`
-                )
-                .join("\n")}
+              ?.map(
+                (option, idx) =>
+                  `<div key={${idx}} className="flex items-center"><Radio value="${option}">${option}</Radio></div>`
+              )
+              .join("\n")}
             </Radio.Group>`;
           break;
+
         default:
           break;
       }
@@ -93,25 +102,28 @@ export const generateComponentCodeReacttJs = (
           : "";
 
       return `
-        <Form.Item
-          label="${input.elementType.label}"
-          name="${input.elementType.name}"
-          style={${formStyleString}}
-          rules={[
-            {
-              required: ${input.elementType.required},
-              message: \`${input.elementType.label} is required\`,
-            },
-            ${patternRule}
-          ]}
-        >
-          ${inputElement}
-        </Form.Item>`;
+         <Form.Item
+            label="${input.elementType.label}"
+            name="${input.elementType.name}"
+            style={${formStyleString}}
+            rules={[
+              {
+                required: ${input.elementType.required},
+                message: \`${input.elementType.label} is required\`,
+              },
+              ${patternRule}
+            ]}
+          >
+       
+            ${inputElement}
+          </Form.Item>`;
     })
     .join("\n");
 
-  const exportCode = `
-import React from 'react';
+  const exportCode = ` 
+  import React from 'react';
+import Image from 'next/image';
+
 import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
 
 const GeneratedForm = () => {
@@ -144,6 +156,38 @@ const GeneratedForm = () => {
       layout="vertical"
       className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
     >
+           <div
+              className="flex flex-${logoElement?.elementType.headingLogFlex} justify-between items-center pb-2"
+            >
+              ${logoElement?.elementType.type === "logo" ? `
+               
+                <div 
+                
+       style={  ${JSON.stringify(getFormStyles)} }
+        >
+          <Image
+            src="${logoElement.elementType?.imgLogoLink}"
+            alt="Logo"
+            width={160}  
+            height={160}  
+            className="mt-4 mx-auto  "
+          />
+        </div>
+               
+              ` : ''}
+              ${HeadTitleElement?.elementType.type === "headingTitle" ? `
+               
+                 <div
+       style={  ${JSON.stringify(getFormStyles)} }
+                 
+     >
+       <span className="text-2xl text-justify  font-bold">
+         ${HeadTitleElement.elementType?.headingTitle}
+       </span>
+     </div>
+                 
+              ` : ''}
+            </div>
       ${componentCode}
       <Form.Item>
         <Button type="primary" htmlType="submit">
