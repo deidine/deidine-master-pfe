@@ -5,12 +5,12 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import useStyle from "@/hooks/useStyle";
 export default function Styling(
   { currentStyling,currentSelected ,trriger}: {
-    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle";
+    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" ;
    currentStyling: string;
    trriger:(value:"Form"|
    "Elements"|
    "Buttons"|
-   "Paragraph" | "LogoTitle")=>void;
+   "Paragraph" )=>void;
   }
 ) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);

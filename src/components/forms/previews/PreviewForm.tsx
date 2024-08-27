@@ -10,6 +10,7 @@ import useStyle from "@/hooks/useStyle";
 import HeadingPrev from "./elementTypePreview/ParagraphPrev";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
+import { Separator } from "@/components/ui/separator";
 
 export default function PreviewForm({
   isTemplate,
@@ -178,6 +179,16 @@ export default function PreviewForm({
                 element={element}
                 styleParagraph={isTemlate ? {} : paragraphStyle}
               />
+            )}
+                        {element.elementType.type === "divider" && (
+              <><Separator
+                orientation="vertical"
+                decorative
+                style={{ height: element.elementType.heightDivider + "px" }}
+                className={` border-neutral-100   bg-red-500 `}
+              />
+            
+              </>
             )}
           </div>
         ))}

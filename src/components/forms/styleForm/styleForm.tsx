@@ -4,16 +4,15 @@ import PreviewStyleForm from "../previews/PreviewStyleForm";
 import StylingButton from "./allStylePattern/stylingButton";
 import StylingElements from "./allStylePattern/stylingElements";
 import StylingForm from "./allStylePattern/stylingForm";
-import StylingParagraph from "./allStylePattern/stylingParagraph";
-import StylingLogotitle from "./allStylePattern/stylingLogotitle";
+import StylingParagraph from "./allStylePattern/stylingParagraph"; 
 
 export default function StyleForm() {
   const [currentSelected, setCurrentSelected] = useState<
-    "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle"
+    "Form" | "Elements" | "Buttons" | "Paragraph" 
   >();
 
   const handelClcik = (
-    value: "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle"
+    value: "Form" | "Elements" | "Buttons" | "Paragraph" 
   ) => {
     setCurrentSelected(value);
   };
@@ -49,13 +48,7 @@ export default function StyleForm() {
             currentSelected={currentSelected}
             trriger={handelClcik}
             currentStyling="Paragraph"
-          />      </div>     <div className="border-b-[1px]  border-gray-200  pt-[12px]">
-          {" "}
-          <StylingLogotitle
-            currentSelected={currentSelected}
-            trriger={handelClcik}
-            currentStyling="LogoTitle"
-          />      </div>
+          />      </div>    
       </div>
     </div>
   );

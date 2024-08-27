@@ -45,9 +45,10 @@ type BaseElement = {
  imgLogoLink?:string
  headingLogFlex?:string
 headingTitle?:string
+heightDivider?:number
 };
  
-type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"| "logo" | "paragraph"|"headingTitle" ;
+type ElementType= "select"|"radio"|"checkbox"|"select_multiple" | "text" |"datetime-local"| "textarea" | "password"|"email"| "number"|"date"|"time"|"file"|"url"| "logo" | "paragraph"|"headingTitle"|"divider" ;
 
 type InputOptions = {
   isPasswordConfirm?: boolean;

@@ -10,6 +10,7 @@ import useStyle from "@/hooks/useStyle";
 import LogoPrev from "./elementTypePreview/LogoPrev";
 import HeadingTitlePrev from "./elementTypePreview/HeadingPrevTitle";
 import HeadingPrev from "./elementTypePreview/ParagraphPrev";
+import { Separator } from "@/components/ui/separator";
 export default function PreviewformStyles( )  {
 const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle(); 
   const { elements, submitBtn } = useDesigner();
@@ -110,6 +111,14 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
                  styleParagraph={paragraphStyle}
               />
             )}
+               {element.elementType.type === "divider" && (
+              <Separator
+              orientation="vertical"
+              decorative
+              className={` border-neutral-100   `}
+              style={{height: element.elementType.heightDivider+"px"}}
+              />
+            )} 
           </div>
         ))}
 

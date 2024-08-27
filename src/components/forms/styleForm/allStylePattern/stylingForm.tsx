@@ -9,9 +9,9 @@ export default function Styling({
   currentSelected,
   trriger,
 }: {
-  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle";
+  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph";
   currentStyling: string;
-  trriger: (value: "Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle") => void;
+  trriger: (value: "Form" | "Elements" | "Buttons" | "Paragraph") => void;
 }) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);

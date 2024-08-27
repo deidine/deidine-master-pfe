@@ -14,6 +14,7 @@ import {
   FiExternalLink,
   FiBold,
   FiImage,
+  FiDivideCircle,
 } from "react-icons/fi";
 import { FaReact } from "react-icons/fa6";
 import { SiFlutter, SiHtml5 } from "react-icons/si";
@@ -225,6 +226,13 @@ const otherTypes : InputTypeList[] = [
     bgColor: "#E6F7FF", 
     textColor: "text-gray-800", 
     icon: FiBold, 
+  }, 
+  {
+    value: "divider",
+    label: "divider",
+    bgColor: "#E6F7FF", 
+    textColor: "text-gray-800", 
+    icon: FiDivideCircle, 
   }, 
 ]
 const shortcuts = [

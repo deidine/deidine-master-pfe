@@ -6,12 +6,12 @@ import useStyle from "@/hooks/useStyle";
 
 export default function StylingParagraph(
   { currentStyling,currentSelected ,trriger}: {
-    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" | "LogoTitle";
+    currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" ;
    currentStyling: string;
    trriger:(value:"Form"|
    "Elements"|
    "Buttons"|
-   "Paragraph" | "LogoTitle")=>void;
+   "Paragraph" )=>void;
   }
 ) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false); 

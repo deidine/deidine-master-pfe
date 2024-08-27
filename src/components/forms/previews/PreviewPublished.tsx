@@ -9,6 +9,7 @@ import RadioPrev from "@/components/forms/previews/elementTypePreview/RadioPrev"
 import LogoPrev from './elementTypePreview/LogoPrev';
 import HeadingTitlePrev from './elementTypePreview/HeadingPrevTitle';
 import HeadingPrev from './elementTypePreview/ParagraphPrev';
+import { Separator } from '@/components/ui/separator';
 export default function PreviewPublished({
     form,onFinish}: {
       
@@ -77,7 +78,14 @@ export default function PreviewPublished({
      {element.elementType.type === "time" && (
        <DatePrev styleForm={form.elementStyle} element={element} isTime={true} />
      )}
-
+ {element.elementType.type === "divider" && (
+              <Separator
+              orientation="vertical"
+              decorative
+              className={`h-10 border-neutral-100   `}
+              style={{height: element.elementType.heightDivider}}
+              />
+            )}
      {element.elementType.type === "select" && (
        <SelectPrev styleForm={form.elementStyle} element={element} />
      )}
