@@ -46,7 +46,7 @@ export default function FormBuilder() {
               className="absolute top-0 right-0 w-full md:w-1/3 sm:w-[200px] pl-3 overflow-y-scroll scroll-m-0 h-full bg-white shadow-lg z-50 sidebar transition-transform duration-300 transform translate-x-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between p-4 text-[20px]  font-bold font-mono border-b">
+              <div className="flex justify-between uppercase p-4 text-[20px]  font-bold font-mono border-b">
                 {labelCurent}
                 <CloseCircleOutlined
                   className="text-red-500 font-bold text-[20px] transition-colors"

@@ -55,7 +55,7 @@ export default function BadgeElement({
       <div className="flex flex-col justify-start items-start pb-4">
         {element.label}
         <span className="text-sm text-gray-500">
-          {element.type === "paragraph" ? "" : element.placeholder}
+          {element.type === "paragraph" || element.type === "divider"  ? "" : element.placeholder}
         </span>
       </div>
       <div className="flex flex-col w-full items-start space-y-2">

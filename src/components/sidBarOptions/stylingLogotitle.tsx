@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Radio, Slider } from "antd";
 import useDesigner from "@/hooks/useDesigner";
 import { LabelValue } from "./LabelValue";
+
 export default function StylingLogotitle({
   element,
 }: {
@@ -41,42 +42,40 @@ export default function StylingLogotitle({
       )
     );
   };
+
   const handleJustifyChange = (e: any) => {
     const newValue = e.target.value;
     updateElement(element.name, { ...element, headingLogJustify: newValue });
-
     setJustifyValue(newValue);
   };
+
   return (
-    <div className="rounded-lg ursor-pointer   mb-4 p-4">
-      <LabelValue value="Choisir la direction  du Logo avec Titre" />
+    <div className="rounded-lg cursor-pointer mb-4 p-4">
+      <LabelValue value="Choisir la direction du Logo avec Titre" />
 
       <div className="rounded-lg cursor-pointer mb-4 p-4">
         <Radio.Group onChange={handleLayoutChange} value={layout}>
           <div className="flex flex-col gap-3 pt-2">
             <div>
-              {" "}
               <Radio value="row">Ligne</Radio>
             </div>
             <Radio value="col">Colonne</Radio>
           </div>
         </Radio.Group>
       </div>
+
       <LabelValue value="Choisir la hauteur du Gap" />
       <div className="rounded-lg cursor-pointer mb-4 p-4">
         <Slider max={200} value={gapValue} onChange={handleSliderChange} />
       </div>
 
-      <LabelValue value="Choisir l'emplacement Logo / Titre" />
+      <LabelValue value="Choisir l'emplacement du Logo / Titre" />
       <div className="rounded-lg cursor-pointer mb-4 p-4">
         <Radio.Group onChange={handleJustifyChange} value={justifyValue}>
           <div className="flex flex-col gap-3 pt-2">
-            <div>
-              {" "}
-              <Radio value="center">milieu</Radio>
-            </div>
-            <Radio value="start">debut</Radio>
-            <Radio value="end">fin</Radio>
+            <Radio value="start">Début</Radio>
+            <Radio value="center">Milieu</Radio>
+            <Radio value="end">Fin</Radio>
           </div>
         </Radio.Group>
       </div>
