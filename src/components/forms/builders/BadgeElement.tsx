@@ -6,33 +6,57 @@ import {
   selectTypeOptions,
   dateInputs,
   otherTypes,
+  logoHeadingTitle,
 } from "@/data/data";
 import { Badge as AntBadge } from "antd";
 
 export default function BadgeElement({
-  element,  index,
+  element,
+  index,
   onClick,
 }: {
-  onClick?: MouseEventHandler;  index: number;
+  onClick?: MouseEventHandler;
+  index: number;
   element: SelectElement | InputElement;
 }) {
   const combinedList: InputTypeList[] = [
     ...selectTypeOptions,
     ...inputTypeOptions,
     ...otherTypes,
-    ...dateInputs,
+    ...dateInputs, ...logoHeadingTitle
   ];
-  const elementType: InputTypeList[] = combinedList.filter(
-    (option) => option.value === element.type
-  );
-  const elementPattern = patternOptions.find(
-    (option) => option.pattern === element.pattern
-  );
+ 
+  const filtredElemnt=element.type !== "logo" && element.type !== "headingTitle" ? element : null;
+
+  // Filter out empty or incomplete elements and specific unwanted types
+  const elementFilter = combinedList.filter(
+      (el) =>
+        el.value === element.type &&
+        el.value != "logo" &&
+        el.value != "headingTitle" &&
+        el.bgColor &&
+        el.textColor && 
+        el.icon 
+    )
+    .map((el) => {
+      return {
+        bgColor: el.bgColor,
+        textColor: el.textColor,
+        icon: el.icon,
+        value: el.value,
+      };
+    });
+
   return (
-    <div key={index} className="flex flex-col    w-full font-bold text-lg h-auto overflow-hidden">
+    <div
+      key={index}
+      className="flex flex-col w-full font-bold text-lg h-auto overflow-hidden"
+    > 
       <div className="flex flex-col justify-start items-start pb-4">
         {element.label}
-        <span className="text-sm text-gray-500">{element.type === "paragraph" ?"":element.placeholder }</span>
+        <span className="text-sm text-gray-500">
+          {element.type === "paragraph" ? "" : element.placeholder}
+        </span>
       </div>
       <div className="flex flex-col w-full items-start space-y-2">
         <div
@@ -41,50 +65,36 @@ export default function BadgeElement({
         >
           <div className="flex gap-2 flex-wrap"></div>
           <div className="flex flex-wrap gap-2">
-            {elementPattern && (
-              <div className="flex flex-wrap gap-2">
+            {elementFilter.length > 0 && (
+              <AntBadge
+                style={{
+                  backgroundColor: elementFilter[0].bgColor,
+                  color: "black",
+                }}
+                count={
+                  element.options && element.options?.length !== 0
+                    ? element.options.length
+                    : 0
+                }
+              >
                 <Badge
-                  className="border hover:outline-none  flex items-center gap-2"
+                  className="shadow-lg z-10 rounded-lg hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
                   style={{
-                    backgroundColor: elementPattern?.bgColor,
-                    color: elementPattern?.textColor,
+                    backgroundColor: elementFilter[0].bgColor,
+                    color: elementFilter[0].textColor,
                   }}
                 >
-                  {elementPattern?.icon &&
-                    React.createElement(elementPattern?.icon)}
-                  {elementPattern?.value}
+                  {elementFilter[0].icon &&
+                    React.createElement(elementFilter[0].icon)}
+                  {element.type}
                 </Badge>
-              </div>
+              </AntBadge>
             )}
-
-            <AntBadge
-              style={{
-                backgroundColor: elementType[0].bgColor,
-                color: "black",
-              }}
-              count={
-                element.options && element.options?.length !== 0
-                  ? element.options && element.options.length
-                  : 0
-              }
-            >
-              <Badge
-                className=" shadow-lg z-10 rounded-lg hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
-                style={{
-                  backgroundColor: elementType[0].bgColor,
-                  color: elementType[0].textColor,
-                }}
-              >
-                {elementType[0].icon &&
-                  React.createElement(elementType[0].icon)}
-                {element.type}
-              </Badge>
-            </AntBadge>
             <div className="pl-4">
               {element.required && (
                 <Badge
                   variant={"destructive"}
-                  className=" shadow-lg  z-10 rounded-lg   border-red-400 text-red-400 hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
+                  className="shadow-lg z-10 rounded-lg border-red-400 text-red-400 hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
                 >
                   Required
                 </Badge>

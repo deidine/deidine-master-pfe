@@ -20,9 +20,9 @@ export default function FormElement({
 
   const editButtonRef = useRef<HTMLDivElement>(null);
 
- 
+ const filtredElemnt=element.type === "logo" || element.type === "headingTitle" ? element : null;
   return (
-    <div
+ <> { filtredElemnt ? null :<div
       key={index}
       ref={editButtonRef}
       onClick={() => {
@@ -46,6 +46,6 @@ export default function FormElement({
           }}
         />
       </div>
-    </div>
+    </div>}</> 
   );
 }

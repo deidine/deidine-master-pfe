@@ -142,6 +142,7 @@ const lnaguageGenerator = [
     textColor: "text-gray-800", 
     icon: SiHtml5,
   },
+  
 ]
 const inputTypeOptions: InputTypeList[] = [
   {
