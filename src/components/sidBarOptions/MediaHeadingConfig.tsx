@@ -44,7 +44,7 @@ export default function MediaHeadingConfig({
             className="mb-4"
           />
           
-       <StylingLogotitle  
+       <StylingLogotitle  element={element!}
           />  
         </>
       )}

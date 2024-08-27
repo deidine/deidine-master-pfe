@@ -92,10 +92,12 @@ export default function PreviewForm({
         {" "}
         {!isTemlate ? (
           <div
+          style={{ gap: logoElement?.elementType
+            .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify! }}
             className={`flex flex-${logoElement?.elementType
-              .headingLogFlex!}  justify-start pb-2`}
+              .headingLogFlex!}   pb-2`}
           >
-            {logoElement?.elementType.type === "logo" && (
+        {logoElement?.elementType.type === "logo" && (
               <LogoPrev
                 element={logoElement}
                 styleForm={isTemlate ? {} : getFormStyles()}

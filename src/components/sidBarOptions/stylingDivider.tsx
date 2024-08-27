@@ -4,7 +4,7 @@ import useDesigner from "@/hooks/useDesigner";
 import { LabelValue } from "./LabelValue";
 
 export default function StylingDivider({element}:{element: SelectElement | InputElement;}) {
-  const { elements, updateElement } = useDesigner();
+  const { updateElement } = useDesigner();
   const [dividerHeight, setDividerHeight] = useState<number>(  element.heightDivider || 0 );
 
   const handleSliderChange = (value: number) => {

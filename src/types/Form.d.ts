@@ -44,6 +44,8 @@ type BaseElement = {
   endDate?: string,
  imgLogoLink?:string
  headingLogFlex?:string
+ headingLogGap?:number
+ headingLogJustify?:string
 headingTitle?:string
 heightDivider?:number
 };

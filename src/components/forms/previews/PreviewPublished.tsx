@@ -44,8 +44,12 @@ export default function PreviewPublished({
      style={form.style!}
   >
   <span className="text-md font-semibold"> {form!.content.length==0 && "Aucun élément n’a encore été ajouté"}</span> 
-  <div  className={`flex flex-${logoElement?.elementType
-              .headingLogFlex!}   items-center pb-2`}>
+  <div
+          style={{ gap: logoElement?.elementType
+            .headingLogGap+"px"}}
+            className={`flex flex-${logoElement?.elementType
+              .headingLogFlex!}  justify-start pb-2`}
+          >
         {logoElement?.elementType.type === "logo"  && (
           <LogoPrev
             element={logoElement}
