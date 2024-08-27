@@ -31,17 +31,17 @@ function AddButtonSkelton() {
 function TopButtonSkeleton() {
   return (
     <div
-      className="bg-white fixed shadow-[inset_0_-1px_0_0_#eaeaea]  
-    flex justify-between
-     border-b-1   items-center border-black  
-   h-[80px] w-full z-20"
+      className="bg-white z-30 font-title
+      shadow-[inset_0_-1px_0_0_#eaeaea] fixed 
+      flex justify-between  h-[60px] border-b-1 
+      items-center border-black w-full"
     >
-      <div className="flex  gap-3 justify-end w-[30%] items-center">
+      <div className="flex pl-[15px]  gap-3 justify-start w-[30%] items-center">
         <Skeleton className="h-6 rounded-full w-6" />
         <Skeleton className="h-4 w-[30%]" />
         <Skeleton className="h-4 rounded-full w-[15%]" />
       </div>
-      <div className="flex  justify-center items-center gap-2 w-[30%]">
+      <div className="flex  justify-end pr-[25px]  items-center gap-2 w-[30%]">
         <Skeleton className="h-10 rounded-full w-10" />
         <Skeleton className="h-10 rounded-full w-10" />
         <Skeleton className="w-[30%] h-10 rounded-lg" />
@@ -65,7 +65,7 @@ function SidButtonsSkeleton() {
   return (
     <div
       className="fixed   w-40  border-r-[0.5px]
-   border-r-mainColor px-[80px] bg-white  h-full border-l-2 top-10 left-0 z-30"
+   border-r-mainColor px-[80px] bg-white  h-full border-l-2 top-10 left-0 z-10"
     >
       <div className="flex flex-col pt-[120px] items-center  justify-between  ">
         <div className=" p-1 rounded-lg z-10 ">
