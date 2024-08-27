@@ -28,7 +28,7 @@ export  function DateChoicePeriodInput({ element }: { element: any }) {
   
     return (
       <div>
-          <LabelValue value="Minimum Date" />
+          <LabelValue value="Date minimale" />
    
             <DatePicker
               placeholder="Select min date"
@@ -40,7 +40,7 @@ export  function DateChoicePeriodInput({ element }: { element: any }) {
                 handleDateChange(date, dateString, "start")
               }
             />
-          <LabelValue value="Maximum Date" />
+          <LabelValue value="Date maximale" />
          
             <DatePicker
               placeholder="Select max date"

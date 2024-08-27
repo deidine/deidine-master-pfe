@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Radio } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import useDesigner from "@/hooks/useDesigner";
-
+import './radioTitle.css'
 export default function StylingLogotitle({
   currentStyling,
   currentSelected,
@@ -51,19 +51,20 @@ export default function StylingLogotitle({
   };
 
   return (
-    <div
-      className="rounded-lg hover:bg-hoverButtonColor cursor-pointer hover:text-white mb-4 p-4"
+    <div className="rounded-lg hover:bg-hoverButtonColor/90 cursor-pointer hover:text-white mb-4 p-4">
+      <div
+        className="flex justify-between items-center cursor-pointer"
+        onClick={toggleVisibility}
       >
-      <div className="flex justify-between items-center cursor-pointer"
-      onClick={toggleVisibility}>
-        {currentStyling}{" "}
-        {isVisible ? <UpOutlined /> : <DownOutlined />}
+        {currentStyling} {isVisible ? <UpOutlined /> : <DownOutlined />}
       </div>
 
       {isVisible && (
         <Radio.Group onChange={handleLayoutChange} value={layout}>
-          <Radio value="row">Row</Radio>
-          <Radio value="col">Column</Radio>
+          <div className="flex flex-col gap-3 pt-2">
+          <div> <Radio value="row">Row</Radio></div> 
+            <Radio value="col">Column</Radio>
+          </div>
         </Radio.Group>
       )}
     </div>

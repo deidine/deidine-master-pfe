@@ -30,7 +30,7 @@ export function FileAllowedExtensions({
   
     return (
       <div>
-          <LabelValue value="File extensions" />
+          <LabelValue value="Extensions de fichiers " />
 
         <Select
           mode="multiple"

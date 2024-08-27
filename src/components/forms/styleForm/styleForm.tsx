@@ -23,35 +23,39 @@ export default function StyleForm() {
       <PreviewStyleForm />
 
       <div
-        className="top-[118px] pt-[100px] fixed p-4  flex flex-col justify-start  
+        className="top-[118px] pt-[100px] fixed px-4  flex flex-col justify-start  
      right-0 w-[20%] h-[calc(100vh-118px)] overflow-auto bg-white"
       > 
+     
+     
+          <div className="border-b-[1px]  border-gray-200 pt-[12px]">
           <StylingForm
             currentSelected={currentSelected}
             trriger={handelClcik}
             currentStyling="Form"
           /> 
+                </div>     <div className="border-b-[1px]  border-gray-200  pt-[12px]">
           <StylingElements
             currentSelected={currentSelected}
             trriger={handelClcik}
             currentStyling="Elements"
-          />
+          />      </div>     <div className="border-b-[1px]  border-gray-200  pt-[12px]">
           <StylingButton
             currentSelected={currentSelected}
             trriger={handelClcik}
             currentStyling="Buttons"
-          />
+          />      </div>     <div className="border-b-[1px]  border-gray-200  pt-[12px]">
           <StylingParagraph
             currentSelected={currentSelected}
             trriger={handelClcik}
             currentStyling="Paragraph"
-          />
+          />      </div>     <div className="border-b-[1px]  border-gray-200  pt-[12px]">
           {" "}
           <StylingLogotitle
             currentSelected={currentSelected}
             trriger={handelClcik}
             currentStyling="LogoTitle"
-          />
+          />      </div>
       </div>
     </div>
   );

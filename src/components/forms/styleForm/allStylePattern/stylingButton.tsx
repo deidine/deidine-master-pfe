@@ -42,7 +42,7 @@ export default function Styling(
   };
 
   return (
-    <div className="rounded-lg  hover:bg-hoverButtonColor cursor-pointer hover:text-white   mb-4 p-4"
+    <div className="rounded-lg   hover:bg-hoverButtonColor/90  cursor-pointer hover:text-white   mb-4 p-4"
     
     >
       <div   
@@ -52,8 +52,8 @@ export default function Styling(
         {currentStyling} {isVisible && currentSelected=="Buttons" ? <UpOutlined /> : <DownOutlined />}
       </div>
       {isVisible && currentSelected=="Buttons" && (
-        <div className="mt-4">
-        
+               <div className="mt-4 space-y-4">
+
         <div
             className="relative" // Add relative positioning to parent div
                       onClick={() => setBgColorPickerVisible(!bgColorPickerVisible)}  >

@@ -76,7 +76,7 @@ export default function LogoTitleCard() {
         </div>
 
         <span
-          className={`border-[1px] border-gray-500 pt-4 ${
+          className={`border-[1px] border-gray-300 pt-4 ${
             showSpan ? "h-[40px]" : "h-[150px]"
           } w-[1px]`}
         />

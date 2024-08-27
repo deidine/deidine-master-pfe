@@ -10,84 +10,84 @@ import {
 export default function SideButtons({
   selected,
 }: {
-  selected: (current: "Champ" | "Aperçu" | "Concevoir" | "Code") => void;
+  selected: (current: "Modifier" | "Visionner" | "Stylisation" | "Générateur") => void;
 }) {
   const [selectedButton, setSelectedButton] = useState<
-    "Champ" | "Aperçu" | "Concevoir" | "Code"
-  >("Champ");
+    "Modifier" | "Visionner" | "Stylisation" | "Générateur"
+  >("Modifier");
 
   return (
     <div className="  ">
       <div
-        className="fixed z-30 pt-[140px] top-0 border-r-[1px] border-gray-200
+        className="fixed z-10 pt-[150px] top-0 border-r-[1px] border-gray-200
          bg-white p-4 h-full w-auto flex flex-col items-center justify-start"
       >
         <div className="flex flex-col gap-2">
           <div
             className={`btn_sid flex flex-row gap-3 justify-between items-center ${
-              selectedButton === "Champ"
+              selectedButton === "Modifier"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("Champ");
-              selected("Champ");
+              setSelectedButton("Modifier");
+              selected("Modifier");
             }}
           >
             <div className="flex flex-row gap-3 justify-between items-center">
               <FiEdit className="text-3xl size-5" />
-              Champ{" "}
+              Modifier{" "}
             </div>
           </div>
           <div
             className={`btn_sid flex flex-row gap-3 justify-between items-center ${
-              selectedButton === "Aperçu"
+              selectedButton === "Visionner"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("Aperçu");
-              selected("Aperçu");
+              setSelectedButton("Visionner");
+              selected("Visionner");
             }}
           >
             <div className="flex flex-row gap-3 justify-between items-center">
               {" "}
               <MdOutlinePreview className="text-3xl size-5" />
-              Aperçu{" "}
+              Visionner{" "}
             </div>
           </div>
           <div
             className={`btn_sid flex flex-row gap-3 justify-between items-center ${
-              selectedButton === "Concevoir"
+              selectedButton === "Stylisation"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("Concevoir");
-              selected("Concevoir");
+              setSelectedButton("Stylisation");
+              selected("Stylisation");
             }}
           >
             <div className="flex flex-row gap-3 justify-between items-center">
               {" "}
               <MdOutlineDesignServices className="text-3xl size-5" />
-              Concevoir{" "}
+              Stylisation{" "}
             </div>
           </div>
           <div
             className={`btn_sid flex flex-row gap-3 justify-between items-center ${
-              selectedButton === "Code"
+              selectedButton === "Générateur"
                 ? "bg-buttonColor text-white"
                 : "bg-white"
             }`}
             onClick={() => {
-              setSelectedButton("Code");
-              selected("Code");
+              setSelectedButton("Générateur");
+              selected("Générateur");
             }}
           >
             <div className="flex flex-row gap-3 justify-between items-center">
               {" "}
               <MdOutlineCode className="text-3xl size-5" />
-              Code{" "}
+              Générateur{" "}
             </div>
           </div>
         </div>

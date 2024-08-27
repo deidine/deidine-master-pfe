@@ -243,7 +243,7 @@ export default function CardForm({
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="edit">
+      <Menu.Item key="Modifier">
         <button
           onClick={async (e) => {
             e.stopPropagation();
@@ -302,7 +302,7 @@ export default function CardForm({
           className="flex flex-row gap-3 justify-between text-center items-center "
           onClick={handlePreviewClick}
         >
-          <FaEye /> Aperçu
+          <FaEye /> Visionner
         </button>
       </Menu.Item>
     </Menu>
@@ -415,7 +415,7 @@ export default function CardForm({
         initialValues={{ TitleForm: form.title, description: form.description }} // Pre-fill with current form data
       />
       <Modal
-        title="Aperçu Formulaire"
+        title="Visionner Formulaire"
         visible={isModalPreviewVisible}
         onOk={handlePreviewOk}
         onCancel={handlePreviewCancel}

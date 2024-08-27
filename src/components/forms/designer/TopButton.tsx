@@ -17,10 +17,10 @@ export default function TopButton({
 }: {
   form: Form;
   isFromLocalStorage: boolean;
-  selectedButton2: "Champ"|
-  "Aperçu"|
-  "Concevoir"|
-  "Code";
+  selectedButton2: "Modifier"|
+  "Visionner"|
+  "Stylisation"|
+  "Générateur";
   onCopyClick: (value: string) => void;
   onDownloadClick: (value: string) => void;
 }) {
@@ -185,7 +185,7 @@ export default function TopButton({
 
   return (
     <div>
-      <div className="bg-white z-10 font-title
+      <div className="bg-white z-30 font-title
       shadow-[inset_0_-1px_0_0_#eaeaea] fixed 
       flex justify-between pl-[80px] pr-4 h-[60px] border-b-1 
       items-center border-black w-full">
@@ -213,7 +213,7 @@ export default function TopButton({
             ></Badge>
           )}
         </div>
-        {selectedButton2 === "Champ" && (
+        {selectedButton2 === "Modifier" && (
           <div className="    flex justify-between space-x-5 px-4 py-4">
             <Tooltip title="ctrl+z">
               <Button
@@ -250,7 +250,7 @@ export default function TopButton({
           </div>
         )}
 
-        {selectedButton2 === "Concevoir" && (
+        {selectedButton2 === "Stylisation" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
             <Badge dot={!isSavedDesign} style={{ width: "15px", height: "15px" }}>
               <Tooltip title="ctrl+s">
@@ -267,7 +267,7 @@ export default function TopButton({
             </Badge>
           </div>
         )}
-        {selectedButton2 === "Code" && (
+        {selectedButton2 === "Générateur" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
 
             <Button
@@ -304,7 +304,7 @@ export default function TopButton({
               </div>
           </div>
         )}
-        {selectedButton2 === "Aperçu" && (
+        {selectedButton2 === "Visionner" && (
           <div className="flex justify-between space-x-5 px-4 py-4">
              
             <FormLinkShare shareUrl={shareUrl} />
