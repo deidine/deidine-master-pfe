@@ -8,7 +8,7 @@ export default function LogoPrev({
   styleForm?: FormStyle;
 }) {
   return (
-    <div className="w-[50%] flex flex-col justify-center items-center">
+    <div  >
       {element.elementType?.imgLogoLink && (
         <div
           style={{
@@ -17,12 +17,11 @@ export default function LogoPrev({
             borderTopLeftRadius: styleForm?.borderRadius,
           }}
         >
-          <Image
+          <img
+          
             src={element.elementType?.imgLogoLink}
             alt="Logo"
-            width={160} // Adjust width as needed
-            height={160} // Adjust height as needed
-            className="mt-4 mx-auto  "
+             className="h-[2.5rem]  "
           />
         </div>
       )}

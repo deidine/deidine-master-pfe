@@ -397,7 +397,7 @@ export default function CardForm({
               }}
               loading={isLoading}
             >
-              Sync. avec DB 
+              Sync. avec BD 
             </Button>
           )}
         </div>

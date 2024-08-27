@@ -92,7 +92,7 @@ export default function PreviewForm({
         {!isTemlate ? (
           <div
             className={`flex flex-${logoElement?.elementType
-              .headingLogFlex!}  items-center pb-2`}
+              .headingLogFlex!}  justify-start pb-2`}
           >
             {logoElement?.elementType.type === "logo" && (
               <LogoPrev

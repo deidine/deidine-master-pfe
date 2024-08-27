@@ -35,7 +35,7 @@ export default function CheckBoxPrev({
                     <Form.Item
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
-              label={<span style={getLabelStyles()}>{element.elementType.label}</span>}
+              label={<span  >{element.elementType.label}</span>}
               labelCol={{ span: 24 }} // Adjust label width, or remove for default
              
               valuePropName="checked"

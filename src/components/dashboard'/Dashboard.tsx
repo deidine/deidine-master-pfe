@@ -172,7 +172,7 @@ export default function Dashboard() {
                 className="bg-[#B5B5B5] h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white"
                 onClick={saveAllToDb}
               >
-                Sync. DB complète
+                Sync. BD complète
               </Button>
             )}
             <button

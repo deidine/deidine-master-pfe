@@ -39,10 +39,10 @@ export default function InputPrev({
       <Form.Item
         style={{
           marginBottom:  '10px',
-          ...getLabelStyles(),
+          // ...getLabelStyles(),
         }}
         name={element.elementType.name}
-        label={<span style={getLabelStyles()}>{element.elementType.label}</span>}
+        label={<span >{element.elementType.label}</span>}
         labelCol={{ span: 24 }} // Adjust label width, or remove for default
         labelAlign="left" // Adjust alignment: 'left' | 'right'
         rules={[

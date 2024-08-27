@@ -19,7 +19,7 @@ export default function ParagraphPrev({
     };
   return (
     <div>
-        <p style={{ ...getInputStyles()}} className='  font-bold '>
+        <p style={{ ...getInputStyles()}} className='  '>
             {element.elementType.label}
         </p>
     </div>
