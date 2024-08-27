@@ -131,7 +131,8 @@ const SigninForm = () => {
                 </Form.Item>
 
                 <Form.Item>
-                <button className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold mt-20 w-full uppercase text-white  text-center py-[0.8rem] mr-[1.5rem] rounded-lg">
+                <button className="bg-buttonColor cursor-pointer hover:bg-hoverButtonColor font-semibold
+                 mt-10  font-title h-10 w-full uppercase text-white  text-center py-[0.5rem] mr-[1.5rem] rounded-lg">
                  Connexion
          </button>
               

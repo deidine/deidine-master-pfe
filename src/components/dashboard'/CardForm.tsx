@@ -330,12 +330,12 @@ export default function CardForm({
             )}{" "}
             <div className="flex justify-between gap-3 items-center">
 
-            <p className="text-lg pr-4">
+            <p className="text-lg  font-title font-bold uppercase pr-4">
               {" "}
               {form.title}{" "}  </p>
               {form.content.length > 0 ? (
                 <AntBadge
-                  style={{ backgroundColor: "#6564FE", borderRadius: "5px" }}
+                  style={{ backgroundColor: "#6564FE" }}
                   count={form.content.length+" Element(s)"}
                   ></AntBadge>
                 ) : (
@@ -364,7 +364,7 @@ export default function CardForm({
 
         <p
           ref={descriptionRef}
-          className={`text-md mt-4 ${
+          className={`text-md font-title text-gray-600 mt-4 ${
             !showFullDescription ? "line-clamp-3" : ""
           }`}
         >

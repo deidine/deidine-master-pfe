@@ -192,9 +192,9 @@ export default function TopButton({
         <div className="flex items-center text-lg pl-[100px] font-semibold">
           <div className="pr-2">
             {form.isFromLocalStorage ? (
-              <CiCircleCheck className="text-yellow-500" />
+              <CiCircleCheck className="text-yellow-500 text-3xl" />
             ) : (
-              <CiCircleCheck className="text-green-500" />
+              <CiCircleCheck className="text-green-500 text-3xl" />
             )}
           </div>
           {form.title}
@@ -214,7 +214,7 @@ export default function TopButton({
           )}
         </div>
         {selectedButton2 === "Champ" && (
-          <div className="flex justify-end items-center ml-4 space-x-5 w-full  p-2 py-4">
+          <div className="    flex justify-between space-x-5 px-4 py-4">
             <Tooltip title="ctrl+z">
               <Button
                 className="border-[0.5px] bg-zinc-100 border-[#b3b3b4] text-[13px] font-semibold hover:bg-[#d7d7d8] rounded-[12px] p-2"

@@ -116,8 +116,8 @@ const downloadCode = () => {
   }));
 
   return (
-     <div className="text-white w-[80%] my-6 rounded-lg mx-auto flex px-6 flex-col justify-center">
-      <SyntaxHighlighter language="typescript" showLineNumbers style={codeStyle}>
+     <div className="text-white w-[80%] my-10 rounded-lg mx-auto flex px-[6.5rem] flex-col justify-center">
+      <SyntaxHighlighter  customStyle={{ width: "auto" , }} language="typescript" showLineNumbers style={codeStyle}>
         {componentCode}
       </SyntaxHighlighter>
     </div>

@@ -29,7 +29,7 @@ type FormElement = {
 };
   
 type BaseElement = {
-  
+  rowInputs?: number;
   type:ElementType;
   name: string;
   label: string;
