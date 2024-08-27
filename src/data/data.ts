@@ -16,7 +16,7 @@ import {
   FiImage,
 } from "react-icons/fi";
 import { FaReact } from "react-icons/fa6";
-import { SiFlutter } from "react-icons/si";
+import { SiFlutter, SiHtml5 } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 const patternOptions: PatternType[] = [
   {
@@ -135,6 +135,12 @@ const lnaguageGenerator = [
     bgColor: "#F0F5FF", 
     textColor: "text-gray-800", 
     icon: SiFlutter,
+  }, {
+    value: "Html5",
+    label: "Html5",
+    bgColor: "#F0F5FF", 
+    textColor: "text-gray-800", 
+    icon: SiHtml5,
   },
 ]
 const inputTypeOptions: InputTypeList[] = [

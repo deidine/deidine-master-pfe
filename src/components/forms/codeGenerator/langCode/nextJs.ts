@@ -10,6 +10,7 @@ export const generateComponentCodeNextJs = (
     const HeadTitleElement = elements.find(
       (element) => element.elementType.type === "headingTitle"
     );
+    const formStyleString = JSON.stringify(getFormStyles);
   
     const logoStyleString = JSON.stringify(logoElement?.elementType.style);
     const HeadTitleStyleString = JSON.stringify(HeadTitleElement?.elementType.style);
@@ -23,7 +24,6 @@ export const generateComponentCodeNextJs = (
         let inputElement = "";
   
         const inputStyleString = JSON.stringify(getInputStyles);
-        const formStyleString = JSON.stringify(getFormStyles);
         switch (input.elementType.type) {
           case "text":
           case "number":
@@ -105,7 +105,7 @@ export const generateComponentCodeNextJs = (
            <Form.Item
               label="${input.elementType.label}"
               name="${input.elementType.name}"
-              style={${formStyleString}}
+             
               rules={[
                 {
                   required: ${input.elementType.required},
@@ -156,9 +156,10 @@ export const generateComponentCodeNextJs = (
         onFinish={onFinish}
         layout="vertical"
         className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+     style={${formStyleString}}
       >
              <div
-                className="flex flex-${logoElement?.elementType.headingLogFlex} justify-between items-center pb-2"
+                className="flex flex-${logoElement?.elementType.headingLogFlex}  items-center pb-2"
               >
                 ${logoElement?.elementType.type === "logo" ? `
                  

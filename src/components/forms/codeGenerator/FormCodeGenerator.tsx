@@ -8,6 +8,7 @@ import { generateComponentCodeNextJs } from "./langCode/nextJs";
 import { generateComponentCodeReacttJs } from "./langCode/reactJs";
 import { generateComponentCodeFlutter } from "./langCode/flutter";
 import useStyle from "@/hooks/useStyle"; 
+import { generateComponentCodeHTML } from "./langCode/html";
 interface FormCodeGeneratorProps { 
   onCopyComplete?: (componentCode: string) => void;
   onDownloadComplete?: ( componentCode: string) => void;
@@ -63,13 +64,16 @@ useEffect(() => {
     getInputStyles)) 
   : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements, submitBtn, getFormStyles,
     getInputStyles)) 
+    : codeForLanguage === "Html5" ? setComponentCode(  generateComponentCodeHTML(
+      elements, submitBtn, getFormStyles,
+    getInputStyles))
   : setComponentCode(  generateComponentCodeFlutter(elements, submitBtn, formStyle, elementStyle, elementStyle))}
 }, [elements, codeForLanguage, submitBtn, formStyle, elementStyle, getFormStyles, getInputStyles]);
 const downloadCode = () => {
   const element = document.createElement("a");
   const file = new Blob([componentCode], { type: "text/plain" });
   element.href = URL.createObjectURL(file);
-  element.download = (codeForLanguage === "NextJs" || codeForLanguage === "ReactJs") ? "generated_code.tsx" : "generated_code.dart";
+  element.download = (codeForLanguage === "NextJs" || codeForLanguage === "ReactJs") ? "generated_code.tsx" : codeForLanguage=="Html5" ? "generated_code.html" : "generated_code.dart";
   document.body.appendChild(element);
   element.click();
   if (onDownloadComplete) {

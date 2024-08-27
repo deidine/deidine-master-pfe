@@ -8,7 +8,7 @@ export default function LogoPrev({
   styleForm?: FormStyle;
 }) {
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div className="w-[50%] flex flex-col justify-center items-center">
       {element.elementType?.imgLogoLink && (
         <div
           style={{
