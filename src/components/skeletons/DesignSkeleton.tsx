@@ -19,7 +19,7 @@ function AddButtonSkelton() {
   return (
     <div
       className="w-full fixed bottom-0 flex   px-6 
-  justify-end   pb-[50px] items-center right-0 shadow-lg   h-auto z-10 "
+  justify-end   pb-[50px] items-center right-0    h-auto z-10 "
     >
       <div className="bg-white p-1 btn_header ">
         <Skeleton className="w-40 h-14 btn_header text-white flex items-center justify-around font-[14px] text-2xl gap-4 " />{" "}
@@ -53,10 +53,10 @@ function TopButtonSkeleton() {
 function MidelSkeleton() {
   return (
     <div className=" mx-auto bg-white p-4  max-w-2xl  mt-28 border shadow rounded-xl w-1/2  ">
-      <CardEditFormSkeleton />
-      <CardEditFormSkeleton />
-      <CardEditFormSkeleton />
-      <CardEditFormSkeleton />
+      <CardEditFormSkeleton   w="w-16"/>
+      <CardEditFormSkeleton show={true} w="w-40"/>
+      <CardEditFormSkeleton  w="w-60" />
+      <CardEditFormSkeleton  w="w-20" show={true}/>
     </div>
   );
 }
@@ -97,12 +97,41 @@ function SidButtonsSkeleton() {
   );
 }
 
-function CardEditFormSkeleton() {
+function CardEditFormSkeleton({show,w}: {show?: boolean;w?:string}) {
   return (
-    <Skeleton className=" flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm group">
-      <div className=" flex flex-col space-y-3 p-4  relative flex-1 ">
-        <div className="h-10 w-full " />
+    <div className=" flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm group">
+      <div className="flex flex-col justify-start items-start pb-4">
+      <Separator
+            orientation="vertical"
+            decorative
+            className="h-3.5 border-neutral-100"
+          />
+        <Skeleton className={`text-sm text-gray-500 h-4 ${w}`}/>
+        <Separator
+            orientation="vertical"
+            decorative
+            className="h-8 border-neutral-100"
+          />
+        <div className="flex flex-wrap gap-2">
+          <Skeleton
+            className="
+      w-14
+      z-10 rounded-lg  h-8 border-2  "
+          />
+          <Separator
+            orientation="vertical"
+            decorative
+            className="h-3.5 border-neutral-100"
+          />
+         {show && <div
+            className=" z-10 rounded-lg border-red-400 text-red-400  
+      w-14
+      h-8 text-[13px] font-semibold border-2 flex items-center justify-center"
+           > 
+           <Skeleton className="text-sm text-gray-500 h-3.5 w-10" />
+          </div>}
+        </div>
       </div>
-    </Skeleton>
+    </div>
   );
 }
