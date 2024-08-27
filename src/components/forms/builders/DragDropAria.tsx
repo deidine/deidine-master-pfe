@@ -53,7 +53,8 @@ export default function DragDropAria() {
     {(provided) => (
       <div ref={provided.innerRef} {...provided.droppableProps}>
         {/* {isEditing+""} */}
-        {elements.filter((element) => element.elementType.type !== "logo" && element.elementType.type !== "headingTitle").map((element, index) => (
+        {elements.filter((element) => element.elementType.type !== "logo" 
+        && element.elementType.type !== "headingTitle").map((element, index) => (
           <Draggable
             key={index}
             draggableId={"" + index}
@@ -74,8 +75,8 @@ export default function DragDropAria() {
                     onClick={() => setSelectedElement(element)}
                   >
                     <FormElement
-                    form={element}
                       index={index}
+                    form={element}
                       element={element.elementType}
                     />
                   </div> 

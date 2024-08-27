@@ -10,10 +10,10 @@ import {
 import { Badge as AntBadge } from "antd";
 
 export default function BadgeElement({
-  element,
+  element,  index,
   onClick,
 }: {
-  onClick?: MouseEventHandler;
+  onClick?: MouseEventHandler;  index: number;
   element: SelectElement | InputElement;
 }) {
   const combinedList: InputTypeList[] = [
@@ -29,7 +29,7 @@ export default function BadgeElement({
     (option) => option.pattern === element.pattern
   );
   return (
-    <div className="flex flex-col    w-full font-bold text-lg h-auto overflow-hidden">
+    <div key={index} className="flex flex-col    w-full font-bold text-lg h-auto overflow-hidden">
       <div className="flex flex-col justify-start items-start pb-4">
         {element.label}
         <span className="text-sm text-gray-500">{element.type === "paragraph" ?"":element.placeholder }</span>

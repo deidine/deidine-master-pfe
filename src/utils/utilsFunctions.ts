@@ -45,7 +45,6 @@ const newElement = (type: ElementType) => {
        value: "",
        required: false,
        pattern: "",
-       style: `h-10 rounded-lg border `,
        ...((type === "select" && {
          options: ["Option 1", "Option 2"],
        }) ||

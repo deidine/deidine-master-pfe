@@ -187,9 +187,9 @@ export default function TopButton({
     <div>
       <div className="bg-white z-30 font-title
       shadow-[inset_0_-1px_0_0_#eaeaea] fixed 
-      flex justify-between pl-[80px] pr-4 h-[60px] border-b-1 
+      flex justify-between  h-[60px] border-b-1 
       items-center border-black w-full">
-        <div className="flex items-center text-lg pl-[100px] font-semibold">
+        <div className="flex items-center text-lg pl-[15px] font-semibold">
           <div className="pr-2">
             {form.isFromLocalStorage ? (
               <CiCircleCheck className="text-yellow-500 text-3xl" />

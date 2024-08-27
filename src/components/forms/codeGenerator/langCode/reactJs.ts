@@ -2,7 +2,8 @@ export const generateComponentCodeReacttJs = (
   elements: FormElement[],
   submitBtn: string,
   getFormStyles?: FormStyle,
-  getInputStyles?: FormStyle
+  getInputStyles?: FormStyle,
+  getButtonStyles?: FormStyle,
 ) => {
   const logoElement = elements.find(
     (element) => element.elementType.type === "logo"

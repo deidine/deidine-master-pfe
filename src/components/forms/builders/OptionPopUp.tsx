@@ -9,9 +9,9 @@ import useDesigner from "@/hooks/useDesigner";
 
 export default function OptionPopUp({
   name,
-  form,  
+  form,    index,
   toogleSidBar,removeElement
-}: {
+}: {  index: number;
   toogleSidBar: () => void; 
   name: string;
   form: FormElement; 
@@ -19,7 +19,7 @@ export default function OptionPopUp({
 }) { 
   const {  setSelectedElement } = useDesigner();
   return (
-    <div className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100"
+    <div key={index} className="absolute right-4 flex space-x-2 opacity-0 group-hover:opacity-100"
     onClick={(e) => {
       e.stopPropagation(); 
      }}>
