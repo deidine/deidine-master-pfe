@@ -72,7 +72,7 @@ export default function NavBar() {
                 <div
                   className={`
                     ${
-                      activeLink === "/forms"
+                        activeLink === "/forms"
                         ? "bg-buttonColor text-white border border-buttonColor"
                         : "bg-white text-buttonColor hover:text-white border border-gray-300"
                     } 
