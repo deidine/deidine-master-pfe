@@ -69,7 +69,8 @@ export default function NavBar() {
               <span className="text-buttonColor font-bold text-lg sm:text-xl lg:text-2xl pb-4">Quick Form</span>
             </Link>
           </div>
-          {languages.map((l) => (
+          {/* languae internalisation */}
+          {/* {languages.map((l) => (
         <button
           key={l.code}
           onClick={() => i18n.changeLanguage(l.code)}
@@ -81,7 +82,7 @@ export default function NavBar() {
           </div>
           <div className="text-start">{l.name} </div>
         </button>
-      ))}
+      ))} */}
           <div className="flex flex-grow justify-end items-center mr-4">
             {memoizedUser ? (
               <>
