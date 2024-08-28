@@ -14,24 +14,15 @@ export default function SelectPrev({
   const getInputStyles = () => {
     return {  
       width: "100%",
-      paddingLeft: styleForm?.paddingX  || '8px',
-      paddingRight: styleForm?.paddingX  || '8px', 
+      // paddingLeft: styleForm?.paddingX  || '8px',
+      // paddingRight: styleForm?.paddingX  || '8px', 
       color: styleForm?.color, 
       border: styleForm?.border ,
       borderRadius: styleForm?.borderRadius ,
       backgroundColor: styleForm?.backgroundColor,
     };
   };
-  const getLabelStyles = () => {
-    return {
-      paddingLeft: styleForm?.paddingX || '8px',
-      paddingRight: styleForm?.paddingX || '8px', 
-      color: styleForm?.color,
-      border: styleForm?.border, 
-            fontWeight: styleForm?.labelFontWeight || 'normal',
-      fontSize:  '14px', 
-    };
-  };
+ 
 
   return (
     <div>   

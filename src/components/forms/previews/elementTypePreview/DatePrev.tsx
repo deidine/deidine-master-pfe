@@ -42,7 +42,7 @@ export default function DatePrev({
                  name={element.elementType.name}
           style={{
             marginBottom:  '10px',
-            ...getLabelStyles(),
+           
           }}
           rules={[
             {

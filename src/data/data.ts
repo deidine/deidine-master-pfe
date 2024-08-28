@@ -13,9 +13,9 @@ import {
   FiHeadphones,
   FiExternalLink,
   FiBold,
-  FiImage,
-  FiDivideCircle,
+  FiImage, 
 } from "react-icons/fi";
+import { RiPageSeparator } from "react-icons/ri";
 import { FaReact } from "react-icons/fa6";
 import { SiFlutter, SiHtml5 } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
@@ -232,7 +232,7 @@ const otherTypes : InputTypeList[] = [
     label: "divider",
     bgColor: "#E6F7FF", 
     textColor: "text-gray-800", 
-    icon: FiDivideCircle, 
+    icon: RiPageSeparator , 
   }, 
 ]
 const shortcuts = [

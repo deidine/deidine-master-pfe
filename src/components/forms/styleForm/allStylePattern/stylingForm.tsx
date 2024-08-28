@@ -9,15 +9,18 @@ export default function Styling({
   currentSelected,
   trriger,
 }: {
-  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph" |"Logo";
+  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph" | "Logo";
   currentStyling: string;
-  trriger: (value: "Form" | "Elements" | "Buttons" | "Paragraph" |"Logo") => void;
+  trriger: (
+    value: "Form" | "Elements" | "Buttons" | "Paragraph" | "Logo"
+  ) => void;
 }) {
   const [colorPickerVisible, setColorPickerVisible] = useState(false);
   const [bgColorPickerVisible, setBgColorPickerVisible] = useState(false);
   const { formStyle, setFormStyle } = useStyle();
   const [isVisible, setIsVisible] = useState(false);
 
+ 
   const handleSliderChange = (value: number, type: keyof FormStyle) => {
     const updatedStyles = { ...formStyle, [type]: `${value}px` };
     setFormStyle(updatedStyles);
@@ -27,9 +30,9 @@ export default function Styling({
     const updatedStyles = { ...formStyle, [type]: color.hex };
     setFormStyle(updatedStyles);
   };
+
   useEffect(() => {
-    // Ensure that the visibility is updated based on the currentSelected value
-    if (currentSelected === "Form") {
+    if (currentSelected ===  "Form") {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -37,25 +40,20 @@ export default function Styling({
   }, [currentSelected]);
 
   const toggleVisibility = () => {
-    trriger("Form");
-       setIsVisible(!isVisible);
-     };
+    trriger( "Form");
+    setIsVisible(!isVisible);
+  };
 
   return (
-    <div className="rounded-lg  hover:bg-hoverButtonColor/90 cursor-pointer hover:text-white   mb-4 p-4"
-    
+    <div
+      className={`rounded-lg transition-all duration-300 hover:bg-gray-100 cursor-pointer mb-4 p-4 ${
+        isVisible ? "shadow-lg bg-gray-50" : ""
+      }`}
     >
-      <span
-        className={`flex justify-between items-center  cursor-pointer`}
-        onClick={toggleVisibility}
-      >
+      <div className="flex justify-between items-center" onClick={toggleVisibility}>
         {currentStyling}{" "}
-        {isVisible && currentSelected === "Form" ? (
-          <UpOutlined />
-        ) : (
-          <DownOutlined />
-        )}
-      </span>
+        {isVisible && currentSelected === "Form" ? <UpOutlined /> : <DownOutlined />}
+      </div>
 
       {isVisible && currentSelected === "Form" && (
         <div className="mt-4 space-y-4">
@@ -65,12 +63,10 @@ export default function Styling({
           >
             <Button>Background Color</Button>
             {bgColorPickerVisible && (
-              <div className="absolute z-50">
+              <div className="absolute z-10">
                 <SketchPicker
                   color={formStyle?.backgroundColor || "#fff"}
-                  onChange={(color) =>
-                    handleColorChange(color, "backgroundColor")
-                  }
+                  onChange={(color) => handleColorChange(color, "backgroundColor")}
                 />
               </div>
             )}
@@ -79,11 +75,10 @@ export default function Styling({
           <div
             className="relative"
             onClick={() => setColorPickerVisible(!colorPickerVisible)}
-      
           >
             <Button>Text Color</Button>
             {colorPickerVisible && (
-              <div className="absolute z-50">
+              <div className="absolute z-10">
                 <SketchPicker
                   color={formStyle?.color || "#000"}
                   onChange={(color) => handleColorChange(color, "color")}
@@ -93,13 +88,16 @@ export default function Styling({
           </div>
 
           <div>
-            <label>Padding X:</label>
+            <label className="font-semibold">Padding X:</label>
             <Slider
               max={200}
               value={parseInt(formStyle?.paddingX || "0", 10)}
               onChange={(value) => handleSliderChange(value, "paddingX")}
             />
-            <label>Padding Y:</label>
+          </div>
+
+          <div>
+            <label className="font-semibold">Padding Y:</label>
             <Slider
               max={200}
               value={parseInt(formStyle?.paddingY || "0", 10)}
@@ -108,7 +106,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label>Border Width:</label>
+            <label className="font-semibold">Border Width:</label>
             <Slider
               max={10}
               value={parseInt(formStyle?.borderWidth || "0", 10)}
@@ -117,7 +115,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label>Border Radius:</label>
+            <label className="font-semibold">Border Radius:</label>
             <Slider
               max={50}
               value={parseInt(formStyle?.borderRadius || "0", 10)}

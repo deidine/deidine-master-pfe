@@ -5,15 +5,18 @@ import { LabelValue } from "@/components/sidBarOptions/LabelValue";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
 export default function StylingLogotitle({
-  element,currentStyling,currentSelected ,trriger
+  element,
+  currentStyling,
+  currentSelected,
+  trriger,
 }: {
   element: FormElement;
-  currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" |"Logo" ;
+  currentSelected?: "Form" | "Elements" | "Buttons" | "Paragraph" | "Logo";
   currentStyling: string;
-  trriger:(value:"Form"|
-  "Elements"|
-  "Buttons"|
-  "Paragraph" | "Logo")=>void;}) {
+  trriger: (
+    value: "Form" | "Elements" | "Buttons" | "Paragraph" | "Logo"
+  ) => void;
+}) {
   const { elements, setElements } = useDesigner();
   const [layout, setLayout] = useState<"row" | "col">(() => {
     const logoElement = elements.find((el) => el.elementType.type === "logo");
@@ -63,9 +66,9 @@ export default function StylingLogotitle({
     });
     setJustifyValue(newValue);
   };
+
   useEffect(() => {
-    // Ensure that the visibility is updated based on the currentSelected value
-    if (currentSelected ===  "Logo") {
+    if (currentSelected === "Logo") {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -73,49 +76,51 @@ export default function StylingLogotitle({
   }, [currentSelected]);
 
   const toggleVisibility = () => {
-    trriger( "Logo")  
-    setIsVisible(!isVisible)  
+    trriger("Logo");
+    setIsVisible(!isVisible);
   };
 
   return (
-    <>
+    <div
+      className={`rounded-lg transition-all duration-300 hover:bg-gray-100 cursor-pointer mb-4 p-4 ${
+        isVisible ? "shadow-lg bg-gray-50" : ""
+      }`}
+    >
       <div
-
-className={`flex justify-between items-center cursor-pointer`} onClick={toggleVisibility}
+        className="flex justify-between items-center"
+        onClick={toggleVisibility}
       >
-        {currentStyling} {isVisible && currentSelected== "Logo" ? <UpOutlined /> : <DownOutlined />}
+        {currentStyling}{" "}
+        {isVisible && currentSelected == "Logo" ? (
+          <UpOutlined />
+        ) : (
+          <DownOutlined />
+        )}
       </div>
-      {isVisible && currentSelected=="Logo" && ( <div className="rounded-lg cursor-pointer mb-4 p-4">
-      
-      <LabelValue value="Choisir la direction du Logo avec Titre" />
 
-      <div className="rounded-lg cursor-pointer mb-4 p-4">
-        <Radio.Group onChange={handleLayoutChange} value={layout}>
-          <div className="flex flex-col gap-3 pt-2">
-            <div>
+      {isVisible && currentSelected == "Logo" && (
+        <div className="mt-4 space-y-4">
+          <label className="font-semibold">Direction du Logo avec Titre:</label>
+          <Radio.Group onChange={handleLayoutChange} value={layout}>
+            <div className="flex flex-col gap-3 pt-2">
               <Radio value="row">Ligne</Radio>
+              <Radio value="col">Colonne</Radio>
             </div>
-            <Radio value="col">Colonne</Radio>
-          </div>
-        </Radio.Group>
-      </div>
+          </Radio.Group>
 
-      <LabelValue value="Choisir la hauteur du Gap" />
-      <div className="rounded-lg cursor-pointer mb-4 p-4">
-        <Slider max={200} value={gapValue} onChange={handleSliderChange} />
-      </div>
+          <label className="font-semibold">Hauteur du Gap:</label>
+          <Slider max={200} value={gapValue} onChange={handleSliderChange} />
 
-      <LabelValue value="Choisir l'emplacement du Logo / Titre" />
-      <div className="rounded-lg cursor-pointer mb-4 p-4">
-        <Radio.Group onChange={handleJustifyChange} value={justifyValue}>
-          <div className="flex flex-col gap-3 pt-2">
-            <Radio value="start">Début</Radio>
-            <Radio value="center">Milieu</Radio>
-            <Radio value="end">Fin</Radio>
-          </div>
-        </Radio.Group>
-      </div>
-    </div>)}
-    </>
+          <label className="font-semibold">Emplacement du Logo / Titre:</label>
+          <Radio.Group onChange={handleJustifyChange} value={justifyValue}>
+            <div className="flex flex-col gap-3 pt-2">
+              <Radio value="start">Début</Radio>
+              <Radio value="center">Milieu</Radio>
+              <Radio value="end">Fin</Radio>
+            </div>
+          </Radio.Group>
+        </div>
+      )}
+    </div>
   );
 }
