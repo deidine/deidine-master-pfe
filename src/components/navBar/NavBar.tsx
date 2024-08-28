@@ -9,7 +9,7 @@ import { Divider, Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 
-import { languages } from "../../i18n/i18n";
+import { languages } from "../../app/i18n/i18n";
 
 export default function NavBar() {
   const { user, setUser, isUserOnline } = useGeneral();
