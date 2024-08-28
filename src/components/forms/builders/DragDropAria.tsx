@@ -42,7 +42,7 @@ export default function DragDropAria() {
         }
       };
 
-       
+        
   return (
     <DragDropContext
     onDragUpdate={handleOnDragUpdate}
