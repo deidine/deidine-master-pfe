@@ -58,11 +58,11 @@ export default function StyleForm() {
             currentStyling="Paragraph"
           />{" "}
         </div>
-        <div className="border-b-[1px]  border-gray-200  pt-[12px]">
+      { logoElement && <div className="border-b-[1px]  border-gray-200  pt-[12px]">
           <StylingLogotitle  currentSelected={currentSelected}
             trriger={handelClcik}
-            currentStyling=  "Logo" element={logoElement!} />{" "}
-        </div>
+            currentStyling=  "Logo" element={logoElement} />{" "}
+        </div>}
       </div>
     </div>
   );

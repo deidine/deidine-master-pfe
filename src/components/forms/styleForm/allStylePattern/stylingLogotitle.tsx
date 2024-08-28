@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Radio, Slider } from "antd";
-import useDesigner from "@/hooks/useDesigner";
-import { LabelValue } from "@/components/sidBarOptions/LabelValue";
+import useDesigner from "@/hooks/useDesigner"; 
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
 export default function StylingLogotitle({
