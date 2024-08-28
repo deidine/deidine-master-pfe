@@ -1,8 +1,11 @@
 export const generateComponentCodeNextJs = (
   elements: FormElement[],
   submitBtn: string,
-  getFormStyles?: FormStyle,
-  getInputStyles?: FormStyle
+  getFormStyles?: FormStyle, 
+  getInputStyles?: FormStyle,
+  
+  getButtonStyles?: FormStyle,
+  paragraphStyles?: FormStyle,
 ) => {
   const logoElement = elements.find(
     (element) => element.elementType.type === "logo"
@@ -28,6 +31,7 @@ export const generateComponentCodeNextJs = (
     )
     .map((input) => {
       let inputElement = "";
+      const dateTimeStyleString = JSON.stringify({...getInputStyles,width:"100%"}); 
 
       const inputStyleString = JSON.stringify(getInputStyles);
       switch (input.elementType.type) {
@@ -44,12 +48,12 @@ export const generateComponentCodeNextJs = (
         case "textarea":
           inputElement = `<Input.TextArea style={${inputStyleString}} placeholder="${input.elementType.placeholder}" />`;
           break;
-        case "date":
-          inputElement = `<DatePicker style={${inputStyleString}} placeholder="${input.elementType.placeholder}" format="YYYY-MM-DD" />`;
-          break;
-        case "time":
-          inputElement = `<TimePicker style={${inputStyleString}} placeholder="${input.elementType.placeholder}" format="HH:mm:ss" showHour showMinute />`;
-          break;
+          case "date":
+            inputElement = `<DatePicker style={${dateTimeStyleString}} placeholder="${input.elementType.placeholder}" format="YYYY-MM-DD" />`;
+            break;
+          case "time":
+            inputElement = `<TimePicker style={${dateTimeStyleString}} placeholder="${input.elementType.placeholder}" format="HH:mm:ss" showHour showMinute />`;
+            break;
         case "select":
         case "select_multiple":
           inputElement = `
@@ -95,7 +99,11 @@ export const generateComponentCodeNextJs = (
                   .join("\n")}
               </Radio.Group>`;
           break;
-
+          break;
+          case "paragraph":
+              inputElement = ` <p style={${JSON.stringify(paragraphStyles)}}   >
+            ${input.elementType.label}
+          </p>`
         default:
           break;
       }
@@ -204,7 +212,7 @@ export const generateComponentCodeNextJs = (
             </div>
             ${componentCode}
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button     className="h-10 font-bold  w-1/2" style={${JSON.stringify(getButtonStyles)}}  type="primary" htmlType="submit">
             ${submitBtn}
           </Button>
         </Form.Item>

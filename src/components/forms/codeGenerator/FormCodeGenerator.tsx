@@ -24,7 +24,7 @@ FormCodeGenerator.displayName = 'FormCodeGenerator';
   const { elements, submitBtn ,codeForLanguage} = useDesigner(); 
  
   
-const  { formStyle,elementStyle,buttonStyle}=useStyle(); 
+const  { formStyle,elementStyle,buttonStyle, paragraphStyle}=useStyle(); 
 const getFormStyles :FormStyle =  {
   
     paddingLeft: formStyle?.paddingX  ,
@@ -47,23 +47,32 @@ const getInputStyles:FormStyle =  {
   borderRadius: elementStyle?.borderRadius ,
   backgroundColor: elementStyle?.backgroundColor,
 
-};const getButtonStyles:FormStyle =  {
-  paddingLeft: elementStyle?.paddingX  || '8px',
-  paddingRight: elementStyle?.paddingX  || '8px',
-  paddingTop: elementStyle?.paddingY  || '8px',
-  paddingBottom: elementStyle?.paddingY || '8px',
-  color: elementStyle?.color, 
-  border: elementStyle?.border ,
-  borderRadius: elementStyle?.borderRadius ,
-  backgroundColor: elementStyle?.backgroundColor,
+};
+const paragraphStyles:FormStyle =  {
+  paddingLeft: paragraphStyle?.paddingX  || '8px',
+  paddingRight: paragraphStyle?.paddingX  || '8px',
+  paddingTop: paragraphStyle?.paddingY  || '8px',
+  paddingBottom: paragraphStyle?.paddingY || '8px',
+  color: paragraphStyle?.color,  
+  fontSize : paragraphStyle?.borderRadius|| '20px' , 
+}
+const getButtonStyles:FormStyle =  {
+  paddingLeft: buttonStyle?.paddingX  || '8px',
+  paddingRight: buttonStyle?.paddingX  || '8px',
+  paddingTop: buttonStyle?.paddingY  || '8px',
+  paddingBottom: buttonStyle?.paddingY || '8px',
+  color: buttonStyle?.color, 
+  border: buttonStyle?.border ,
+  borderRadius: buttonStyle?.borderRadius ,
+  backgroundColor: buttonStyle?.backgroundColor,
 
 };
 
 useEffect(() => {
   {codeForLanguage === "NextJs" ? setComponentCode(  generateComponentCodeNextJs(elements, submitBtn, getFormStyles,
-    getInputStyles)) 
+    getInputStyles, getButtonStyles,paragraphStyles)) 
   : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements, submitBtn, getFormStyles,
-    getInputStyles)) 
+  getInputStyles, getButtonStyles,paragraphStyles)) 
     : codeForLanguage === "Html5" ? setComponentCode(  generateComponentCodeHTML(
       elements, submitBtn, getFormStyles,
     getInputStyles))

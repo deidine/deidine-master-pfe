@@ -4,6 +4,7 @@ export const generateComponentCodeReacttJs = (
   getFormStyles?: FormStyle,
   getInputStyles?: FormStyle,
   getButtonStyles?: FormStyle,
+  paragraphStyles?: FormStyle,
 ) => {
   const logoElement = elements.find(
     (element) => element.elementType.type === "logo"
@@ -29,6 +30,7 @@ const logoStyleString = JSON.stringify({
       let inputElement = "";
 
       const inputStyleString = JSON.stringify(getInputStyles); 
+      const dateTimeStyleString = JSON.stringify({...getInputStyles,width:"100%"}); 
       switch (input.elementType.type) {
         case "text":
         case "number":
@@ -44,10 +46,10 @@ const logoStyleString = JSON.stringify({
           inputElement = `<Input.TextArea style={${inputStyleString}} placeholder="${input.elementType.placeholder}" />`;
           break;
         case "date":
-          inputElement = `<DatePicker style={${inputStyleString}} placeholder="${input.elementType.placeholder}" format="YYYY-MM-DD" />`;
+          inputElement = `<DatePicker style={${dateTimeStyleString}} placeholder="${input.elementType.placeholder}" format="YYYY-MM-DD" />`;
           break;
         case "time":
-          inputElement = `<TimePicker style={${inputStyleString}} placeholder="${input.elementType.placeholder}" format="HH:mm:ss" showHour showMinute />`;
+          inputElement = `<TimePicker style={${dateTimeStyleString}} placeholder="${input.elementType.placeholder}" format="HH:mm:ss" showHour showMinute />`;
           break;
         case "select":
         case "select_multiple":
@@ -89,7 +91,10 @@ const logoStyleString = JSON.stringify({
               .join("\n")}
             </Radio.Group>`;
           break;
-
+case "paragraph":
+    inputElement = ` <p style={${JSON.stringify(paragraphStyles)}}   >
+  ${input.elementType.label}
+</p>`
         default:
           break;
       }
@@ -196,7 +201,8 @@ const GeneratedForm = () => {
             </div>
       ${componentCode}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button
+            className="h-10 font-bold  w-1/2" style={${JSON.stringify(getButtonStyles)}} type="primary" htmlType="submit">
           ${submitBtn}
         </Button>
       </Form.Item>
