@@ -85,7 +85,7 @@ export default function PreviewPublished({
               <Separator
               orientation="vertical"
               decorative
-              className={`h-10 border-neutral-100   `}
+              className={`h-10   `}
               style={{height: element.elementType.heightDivider}}
               />
             )}

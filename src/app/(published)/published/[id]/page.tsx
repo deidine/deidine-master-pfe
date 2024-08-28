@@ -49,9 +49,9 @@ export default function PublishFormPage({
       });
 
       if (!response.ok) {
-      }        throw new Error('Failed to submit form');
+       throw new Error('Failed to submit form');
 
-
+  }     
       const data = await response.json();
       console.log('Form data submitted:', data);
       setSubmitted(true);

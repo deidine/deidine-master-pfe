@@ -119,7 +119,7 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
               <Separator
               orientation="vertical"
               decorative
-              className={` border-neutral-100   `}
+              className={`   `}
               style={{height: element.elementType.heightDivider+"px"}}
               />
             )} 

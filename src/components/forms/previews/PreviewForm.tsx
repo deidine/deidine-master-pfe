@@ -187,7 +187,7 @@ export default function PreviewForm({
                 orientation="vertical"
                 decorative
                 style={{ height: element.elementType.heightDivider + "px" }}
-                className={` border-neutral-100   bg-red-500 `}
+                className={` `}
               />
             
               </>
