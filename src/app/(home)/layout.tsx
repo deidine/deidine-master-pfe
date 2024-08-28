@@ -6,6 +6,7 @@ import DesignerContextProvider from "@/context/DesignerContext";
 import GeneralContextProvider from "@/context/GeneralContext";
 import StyleContextProvider from "@/context/StyleContex"; 
 import AntdConfigProvider from "@/components/AntdConfigProvider";
+import LocalProvider from "../LocalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,14 +47,18 @@ export default function RootLayout({
         {/* Additional metadata or links can go here */}
       </head>
       <body className={`${inter.className} bg-mainColor`}>
+       
         <AntdConfigProvider>
           <DesignerContextProvider>
             <GeneralContextProvider>
               <StyleContextProvider>
+       <LocalProvider>
+              
                 <NavBar />
                 <div className="flex w-full pt-4 flex-col flex-grow mx-auto">
                   {children}
                 </div>
+                </LocalProvider>
               </StyleContextProvider>
             </GeneralContextProvider>
           </DesignerContextProvider>

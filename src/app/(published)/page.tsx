@@ -10,18 +10,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const { t } = useTranslation();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      setIsClient(true);
-    }
-  }, []);
-
-  if (!isClient) {
-    return null; // or a loading spinner, skeleton UI, etc.
-  }
-
+ 
   return (
     <div>
       <div className="p-10">
