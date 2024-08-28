@@ -10,11 +10,11 @@ import useDesigner from "@/hooks/useDesigner";
 
 export default function StyleForm() {
   const [currentSelected, setCurrentSelected] = useState<
-    "Form" | "Elements" | "Buttons" | "Paragraph" |"Logo"  
+    "Form" | "Elements" | "Buttons" | "Paragraph" | "Logo"
   >();
 
   const handelClcik = (
-    value: "Form" | "Elements" | "Buttons" | "Paragraph" |"Logo"  
+    value: "Form" | "Elements" | "Buttons" | "Paragraph" | "Logo"
   ) => {
     setCurrentSelected(value);
   };
@@ -24,46 +24,49 @@ export default function StyleForm() {
   );
   return (
     <div className="flex relative justify-center py-20 items-center  w-full h-full ">
-      <PreviewStyleForm />
-
-      <div
-        className="top-[40px] pt-[100px] fixed px-4  flex flex-col justify-start  
-     right-0 w-[20%] h-[calc(100vh-40px)] overflow-auto bg-white"
-      >
-        <div className="border-b-[1px]  border-gray-200 pt-[12px]">
-          <StylingForm
-            currentSelected={currentSelected}
-            trriger={handelClcik}
-            currentStyling="Form"
-          />
-        </div>{" "}
-        <div className="border-b-[1px]  border-gray-200  pt-[12px]">
-          <StylingElements
-            currentSelected={currentSelected}
-            trriger={handelClcik}
-            currentStyling="Elements"
-          />{" "}
-        </div>{" "}
-        <div className="border-b-[1px]  border-gray-200  pt-[12px]">
-          <StylingButton
-            currentSelected={currentSelected}
-            trriger={handelClcik}
-            currentStyling="Buttons"
-          />{" "}
-        </div>{" "}
-        <div className="border-b-[1px]  border-gray-200  pt-[12px]">
-          <StylingParagraph
-            currentSelected={currentSelected}
-            trriger={handelClcik}
-            currentStyling="Paragraph"
-          />{" "}
-        </div>
-      { logoElement && <div className="border-b-[1px]  border-gray-200  pt-[12px]">
-          <StylingLogotitle  currentSelected={currentSelected}
-            trriger={handelClcik}
-            currentStyling=  "Logo" element={logoElement} />{" "}
-        </div>}
-      </div>
+     <PreviewStyleForm /> 
+        <div
+          className="top-[40px] pt-[100px] fixed px-4  flex flex-col justify-start  right-0 w-[20%] h-[calc(100vh-40px)] overflow-auto bg-white"
+        >
+          <div className="border-b-[1px]  border-gray-200 pt-[12px]">
+            <StylingForm
+              currentSelected={currentSelected}
+              trriger={handelClcik}
+              currentStyling="Form"
+            />
+          </div>{" "}
+          <div className="border-b-[1px]  border-gray-200  pt-[12px]">
+            <StylingElements
+              currentSelected={currentSelected}
+              trriger={handelClcik}
+              currentStyling="Elements"
+            />{" "}
+          </div>{" "}
+          <div className="border-b-[1px]  border-gray-200  pt-[12px]">
+            <StylingButton
+              currentSelected={currentSelected}
+              trriger={handelClcik}
+              currentStyling="Buttons"
+            />{" "}
+          </div>{" "}
+          <div className="border-b-[1px]  border-gray-200  pt-[12px]">
+            <StylingParagraph
+              currentSelected={currentSelected}
+              trriger={handelClcik}
+              currentStyling="Paragraph"
+            />{" "}
+          </div>
+          {logoElement && (
+            <div className="border-b-[1px]  border-gray-200  pt-[12px]">
+              <StylingLogotitle
+                currentSelected={currentSelected}
+                trriger={handelClcik}
+                currentStyling="Logo"
+                element={logoElement}
+              />{" "}
+            </div>
+          )} 
+      </div>  
     </div>
   );
 }

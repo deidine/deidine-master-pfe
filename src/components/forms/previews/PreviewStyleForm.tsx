@@ -47,11 +47,10 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
   };
 
   return (
-    <div className="flex justify-around   gap-4 w-full relative">
- 
+   
       <Form
         layout="vertical"
-        className={`${"max-w-2xl  mt-3 bg-white border shadow rounded-xl w-1/2 h-full p-10 ml-4"}`}
+        className={`${"max-w-2xl mx-auto justify-between  mt-3 bg-white border shadow rounded-xl w-1/2 h-full p-10 "}`}
         style={getFormStyles()}
       >
         <span className="text-md font-semibold">
@@ -136,7 +135,6 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
             {submitBtn}
           </Button>
         </div>
-      </Form>
-    </div>
+      </Form> 
   );
 }
