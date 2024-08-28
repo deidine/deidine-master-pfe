@@ -56,7 +56,7 @@ export default function LogoTitleCard() {
 
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <OptionPopUp
-                    form={element}
+                    form={element} 
                     name={element.elementType.name}
                     removeElement={(name: string) => removeElement(name)}
                     toogleSidBar={() => setIsSidebarVisible(!isSidebarVisible)}

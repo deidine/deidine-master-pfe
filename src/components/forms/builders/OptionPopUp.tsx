@@ -11,7 +11,7 @@ export default function OptionPopUp({
   name,
   form,    index,
   toogleSidBar,removeElement
-}: {  index: number;
+}: {  index?: number;
   toogleSidBar: () => void; 
   name: string;
   form: FormElement; 
