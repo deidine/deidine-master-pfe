@@ -48,21 +48,21 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-mainColor`}>
        
+       <LocalProvider>
         <AntdConfigProvider>
           <DesignerContextProvider>
             <GeneralContextProvider>
               <StyleContextProvider>
-       <LocalProvider>
               
                 <NavBar />
                 <div className="flex w-full pt-4 flex-col flex-grow mx-auto">
                   {children}
                 </div>
-                </LocalProvider>
               </StyleContextProvider>
             </GeneralContextProvider>
           </DesignerContextProvider>
         </AntdConfigProvider>
+                </LocalProvider>
       </body>
     </html>
   );
