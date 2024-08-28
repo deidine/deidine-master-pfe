@@ -82,7 +82,7 @@ export default function NavBar() {
           </div>
           <div className="text-start">{l.name} </div>
         </button>
-      ))} */}
+      ))} */} 
           <div className="flex flex-grow justify-end items-center mr-4">
             {memoizedUser ? (
               <>
