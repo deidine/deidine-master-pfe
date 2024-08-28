@@ -89,7 +89,7 @@ const selectTypeOptions = [
   {
     value: "radio",
     label: "Radio",
-    bgColor: "#f491be",
+    bgColor: "#dee1ee",
     textColor: "text-black",
     icon: FiRadio,
   },

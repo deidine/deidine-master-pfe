@@ -12,8 +12,12 @@ export const generateComponentCodeReacttJs = (
     (element) => element.elementType.type === "headingTitle"
   );
   const formStyleString = JSON.stringify(getFormStyles);
-  
-  const logoStyleString = JSON.stringify(logoElement?.elementType.style);
+const logoStyleString = JSON.stringify({
+  ...getFormStyles,
+  flex:logoElement?.elementType.headingLogFlex!,
+  gap: `${logoElement?.elementType.headingLogGap}px`,
+  justifyContent: logoElement?.elementType.headingLogJustify,
+});
   const HeadTitleStyleString = JSON.stringify(HeadTitleElement?.elementType.style);
   const componentCode = elements
     .filter(
@@ -49,7 +53,7 @@ export const generateComponentCodeReacttJs = (
         case "select_multiple":
           inputElement = `
             <Select
-              style={${inputStyleString}}
+              style={{width:"100%"}}
               placeholder="${input.elementType.placeholder}"
               ${input.elementType.type === "select_multiple" ? 'mode="multiple"' : ""}
             >
@@ -150,44 +154,45 @@ const GeneratedForm = () => {
     }
   };
 
-  return (
-    <Form
-      onFinish={onFinish}
-      layout="vertical"
-      className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
-            style={${formStyleString}}
-    >
-           <div
-              className="flex flex-${logoElement?.elementType.headingLogFlex} items-center pb-2"
-            >
-              ${logoElement?.elementType.type === "logo" ? `
-               
-                <div 
-                
-       style={  ${JSON.stringify(getFormStyles)} }
+    return (
+        <Form
+          onFinish={onFinish}
+          layout="vertical"
+          className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
+                style={${formStyleString}}
         >
-          <Image
-            src="${logoElement.elementType?.imgLogoLink}"
-            alt="Logo"
-            width={160}  
-            height={160}  
-            className="mt-4 mx-auto  "
-          />
-        </div>
-               
-              ` : ''}
-              ${HeadTitleElement?.elementType.type === "headingTitle" ? `
-               
-                 <div
-       style={  ${JSON.stringify(getFormStyles)} }
+        
+             <div
+              className="flex flex-${
+                logoElement?.elementType.headingLogFlex
+              } items-center pb-2"
+              style={  ${logoStyleString} }       >
+
+              ${
+                logoElement?.elementType.type === "logo"
+                  ? `  
+              <Image
+                src="${logoElement.elementType?.imgLogoLink}"
+                alt="Logo"
+                width={160}  
+                height={160}  
+                className="mt-4 mx-auto  "
+              /> 
+              `
+                  : ""
+              }
+          ${
+              HeadTitleElement?.elementType.type === "headingTitle"
+              ? ` 
+            <div style={  ${JSON.stringify(getFormStyles)} } >
+            <span className="text-2xl text-justify  font-bold">
+              ${HeadTitleElement.elementType?.headingTitle}
+            </span>
+            </div>
                  
-     >
-       <span className="text-2xl text-justify  font-bold">
-         ${HeadTitleElement.elementType?.headingTitle}
-       </span>
-     </div>
-                 
-              ` : ''}
+              `
+              : ""
+          }
             </div>
       ${componentCode}
       <Form.Item>
