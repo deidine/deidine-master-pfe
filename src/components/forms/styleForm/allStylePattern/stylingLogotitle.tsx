@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Radio, Slider } from "antd";
 import useDesigner from "@/hooks/useDesigner";
-import { LabelValue } from "./LabelValue";
+import { LabelValue } from "@/components/sidBarOptions/LabelValue";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
 export default function StylingLogotitle({
-  element,
+  element,currentStyling,currentSelected ,trriger
 }: {
-  element: SelectElement | InputElement;
-}) {
+  element: FormElement;
+  currentSelected?:"Form" | "Elements" | "Buttons" | "Paragraph" |"Logo" ;
+  currentStyling: string;
+  trriger:(value:"Form"|
+  "Elements"|
+  "Buttons"|
+  "Paragraph" | "Logo")=>void;}) {
   const { elements, setElements } = useDesigner();
   const [layout, setLayout] = useState<"row" | "col">(() => {
     const logoElement = elements.find((el) => el.elementType.type === "logo");
@@ -15,14 +21,20 @@ export default function StylingLogotitle({
     return layoutValue === "row" || layoutValue === "col" ? layoutValue : "row";
   });
   const { updateElement } = useDesigner();
-  const [gapValue, setGapValue] = useState<number>(element.headingLogGap || 0);
-  const [justifyValue, setJustifyValue] = useState<string>(
-    element.headingLogJustify || "start"
+  const [gapValue, setGapValue] = useState<number>(
+    element.elementType.headingLogGap || 0
   );
+  const [justifyValue, setJustifyValue] = useState<string>(
+    element.elementType.headingLogJustify || "start"
+  );
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleSliderChange = (value: number) => {
     setGapValue(value);
-    updateElement(element.name, { ...element, headingLogGap: value });
+    updateElement(element.elementType.name, {
+      ...element.elementType,
+      headingLogGap: value,
+    });
   };
 
   const handleLayoutChange = (e: any) => {
@@ -45,12 +57,36 @@ export default function StylingLogotitle({
 
   const handleJustifyChange = (e: any) => {
     const newValue = e.target.value;
-    updateElement(element.name, { ...element, headingLogJustify: newValue });
+    updateElement(element.elementType.name, {
+      ...element.elementType,
+      headingLogJustify: newValue,
+    });
     setJustifyValue(newValue);
+  };
+  useEffect(() => {
+    // Ensure that the visibility is updated based on the currentSelected value
+    if (currentSelected ===  "Logo") {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, [currentSelected]);
+
+  const toggleVisibility = () => {
+    trriger( "Logo")  
+    setIsVisible(!isVisible)  
   };
 
   return (
-    <div className="rounded-lg cursor-pointer mb-4 p-4">
+    <>
+      <div
+
+className={`flex justify-between items-center cursor-pointer`} onClick={toggleVisibility}
+      >
+        {currentStyling} {isVisible && currentSelected== "Logo" ? <UpOutlined /> : <DownOutlined />}
+      </div>
+      {isVisible && currentSelected=="Logo" && ( <div className="rounded-lg cursor-pointer mb-4 p-4">
+      
       <LabelValue value="Choisir la direction du Logo avec Titre" />
 
       <div className="rounded-lg cursor-pointer mb-4 p-4">
@@ -79,6 +115,7 @@ export default function StylingLogotitle({
           </div>
         </Radio.Group>
       </div>
-    </div>
+    </div>)}
+    </>
   );
 }

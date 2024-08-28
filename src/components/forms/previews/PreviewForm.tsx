@@ -93,8 +93,8 @@ export default function PreviewForm({
         {!isTemlate ? (
           <div
           style={{ gap: logoElement?.elementType
-            .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify! }}
-            className={`flex flex-${logoElement?.elementType
+            .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify!,alignItems: logoElement?.elementType.headingLogJustify!  }}
+           className={`flex flex-${logoElement?.elementType
               .headingLogFlex!}   pb-2`}
           >
         {logoElement?.elementType.type === "logo" && (

@@ -18,6 +18,7 @@ const logoStyleString = JSON.stringify({
   flex:logoElement?.elementType.headingLogFlex!,
   gap: `${logoElement?.elementType.headingLogGap}px`,
   justifyContent: logoElement?.elementType.headingLogJustify,
+  alignItems: logoElement?.elementType.headingLogJustify,
 });
   const HeadTitleStyleString = JSON.stringify(HeadTitleElement?.elementType.style);
   const componentCode = elements

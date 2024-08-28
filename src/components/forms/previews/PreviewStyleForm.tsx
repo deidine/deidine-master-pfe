@@ -59,7 +59,7 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
         </span>
         <div
             style={{ gap: logoElement?.elementType
-              .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify! }}
+              .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify!,alignItems: logoElement?.elementType.headingLogJustify!  }}
             className={`flex flex-${logoElement?.elementType
               .headingLogFlex!}  justify-start pb-2`}
           >

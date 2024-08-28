@@ -19,6 +19,7 @@ export const generateComponentCodeNextJs = (
     flex: logoElement?.elementType.headingLogFlex!,
     gap: `${logoElement?.elementType.headingLogGap}px`,
     justifyContent: logoElement?.elementType.headingLogJustify,
+  alignItems: logoElement?.elementType.headingLogJustify,
   });
   const HeadTitleStyleString = JSON.stringify(
     HeadTitleElement?.elementType.style

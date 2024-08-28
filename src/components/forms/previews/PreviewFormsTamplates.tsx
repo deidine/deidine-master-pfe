@@ -50,8 +50,8 @@ export default function PreviewFormsTamplates({
         {form!.content.length == 0 && "Aucun élément n’a encore été ajouté"}
       </span>
       <div
-            style={{ gap: logoElement?.elementType
-              .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify! }}
+           style={{ gap: logoElement?.elementType
+            .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify!,alignItems: logoElement?.elementType.headingLogJustify!  }}
             className={`flex flex-${logoElement?.elementType
               .headingLogFlex!}  justify-start pb-2`}
           >

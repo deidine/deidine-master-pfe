@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Input,   Divider } from "antd";
 import { LabelValue } from "./LabelValue";
-import useDesigner from "@/hooks/useDesigner";
-import StylingLogotitle from "./stylingLogotitle";
+import useDesigner from "@/hooks/useDesigner"; 
 
 export default function MediaHeadingConfig({
   element,
@@ -43,9 +42,7 @@ export default function MediaHeadingConfig({
             onChange={handleLogoUrlChange}
             className="mb-4"
           />
-          
-       <StylingLogotitle  element={element!}
-          />  
+    
         </>
       )}
 
