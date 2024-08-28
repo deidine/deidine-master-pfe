@@ -7,6 +7,9 @@ import { BiUser } from "react-icons/bi";
 import React, { useEffect, useMemo, useState } from "react";
 import { Divider, Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
+
+import { languages } from "../../i18n/i18n";
 
 export default function NavBar() {
   const { user, setUser, isUserOnline } = useGeneral();
@@ -15,6 +18,8 @@ export default function NavBar() {
 
   // Memoize the user to avoid unnecessary re-renders
   const memoizedUser = useMemo(() => user, [user]);
+
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
@@ -64,7 +69,19 @@ export default function NavBar() {
               <span className="text-buttonColor font-bold text-lg sm:text-xl lg:text-2xl pb-4">Quick Form</span>
             </Link>
           </div>
-
+          {languages.map((l) => (
+        <button
+          key={l.code}
+          onClick={() => i18n.changeLanguage(l.code)}
+          className={`space-y-1 py-3 px-4 rounded-md bg-zinc-700 hover:bg-zinc-600 border-2  ${i18n.language === l.code ? "border-zinc-400" : "border-transparent"}`}
+        >
+          <div className="flex justify-between items-center">
+            <div className="font-semibold">{l.native_name}</div>
+            <div className="opacity-60">{l.code}</div>
+          </div>
+          <div className="text-start">{l.name} </div>
+        </button>
+      ))}
           <div className="flex flex-grow justify-end items-center mr-4">
             {memoizedUser ? (
               <>

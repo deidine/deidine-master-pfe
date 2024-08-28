@@ -6,8 +6,8 @@ const arabic = {
 
 const ar = {
   translation: {
-    report_bug: "الإبلاغ عن خطأ",
-    
+    main_features: "الميزات الرئيسية",
+    give_try: "جربه بنفسك"    
   },
 };
 

@@ -1,10 +1,10 @@
- 
 import { Inter } from "next/font/google";
 import "../globals.css"; // Import global styles
-import { NextSeo } from 'next-seo';
+import { NextSeo } from "next-seo";
 import { Metadata } from "next";
 import NavBar from "@/components/navBar/NavBar";
 import GeneralContextProvider from "@/context/GeneralContext";
+import LocalProvider from "../LocalProvider";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Quick Form",
@@ -25,11 +25,17 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
-  
+
   icons: {
-    icon: "/favicon.ico",  
+    icon: "/favicon.ico",
   },
-  keywords: ["form builder","quick form", "custom forms", "design forms", "web forms"],
+  keywords: [
+    "form builder",
+    "quick form",
+    "custom forms",
+    "design forms",
+    "web forms",
+  ],
 };
 export default function RootLayout({
   children,
@@ -38,18 +44,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     <body className={` bg-white ${inter.className}`}>    
-   
-     <GeneralContextProvider>
-     <NavBar />
-                <div className="flex w-full pt-4 flex-col flex-grow mx-auto">
-                  {children}
-                </div>
-      </GeneralContextProvider>
+      <body className={` bg-white ${inter.className}`}>
+       <LocalProvider>
+       <GeneralContextProvider>
+          <NavBar />
+          <div className="flex w-full pt-4 flex-col flex-grow mx-auto">
+            {children}
+          </div>
+        </GeneralContextProvider>
+        </LocalProvider>
       </body>
-     </html>
+    </html>
   );
 }
-
 
 // inter is imoprtsant to not show the rootlayout

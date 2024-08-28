@@ -5,8 +5,8 @@ const english = {
 };
 
 const en = {
-  translation: {
-    report_bug: "Report a bug",
+  translation: {main_features: "Main Features",
+give_try: "Give it a Try"
    },
 };
 

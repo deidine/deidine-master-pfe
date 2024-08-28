@@ -5,8 +5,9 @@ const french = {
 };
 
 const fr = {
-  translation: {
-    report_bug: "Signaler un bug",
+  translation: { 
+    main_features: "Fonctionnalités principales",
+    give_try: "Essayez-le vous-même",
     
   },
 };
