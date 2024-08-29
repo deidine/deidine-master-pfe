@@ -21,6 +21,7 @@ const logoStyleString = JSON.stringify({
   alignItems: logoElement?.elementType.headingLogJustify,
 });
   const HeadTitleStyleString = JSON.stringify(HeadTitleElement?.elementType.style);
+  const isDividerExist=elements.some((element) => element.elementType.type === "divider");
   const componentCode = elements
     .filter(
       (element) =>
@@ -92,10 +93,20 @@ const logoStyleString = JSON.stringify({
               .join("\n")}
             </Radio.Group>`;
           break;
-case "paragraph":
-    inputElement = ` <p style={${JSON.stringify(paragraphStyles)}}   >
-  ${input.elementType.label}
-</p>`
+        case "paragraph":
+            inputElement = ` <p style={${JSON.stringify(paragraphStyles)}}   >
+          ${input.elementType.label}
+        </p>`;
+        break;
+
+        case "divider":
+        inputElement = `<Separator
+                orientation="vertical"
+                decorative
+                style={{ height: ${input.elementType.heightDivider }+ "px" }}
+              
+              />`;
+          break;
         default:
           break;
       }
@@ -114,7 +125,7 @@ case "paragraph":
 
       return `
          <Form.Item
-            label="${input.elementType.label}"
+            label="${input.elementType.type=="divider"? "" : input.elementType.label}"
             name="${input.elementType.name}"
             rules={[
               {
@@ -134,6 +145,42 @@ case "paragraph":
   import React from 'react';
 import Image from 'next/image';
 
+${isDividerExist ?
+`import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";  
+ 
+import * as SeparatorPrimitive from '@radix-ui/react-separator';
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+ 
+const Separator = React.forwardRef<
+  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
+>(
+  (
+    { className, orientation = 'horizontal', decorative = true, ...props },
+    ref,
+  ) => (
+    <SeparatorPrimitive.Root
+      ref={ref}
+      decorative={decorative}
+      orientation={orientation}
+      className={cn(
+        'shrink-0 border-neutral-200',
+        orientation === 'horizontal'
+          ? 'h-px w-full  border-t'
+          : 'h-full w-px  border-l',
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
+Separator.displayName = SeparatorPrimitive.Root.displayName;
+
+export { Separator };
+` : ""}
 import { Button, Form, Input, Select, Checkbox, Radio, DatePicker, TimePicker } from "antd";
 
 const GeneratedForm = () => {
