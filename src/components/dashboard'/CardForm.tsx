@@ -322,7 +322,7 @@ export default function CardForm({
         className="rounded-[15px] relative hover:bg-slate-100  bg-white border-[1px] border-gray-200 p-4 w-[400px] h-[200px] cursor-pointer"
       > 
         <div className="flex flex-row justify-between items-center gap-4">
-          <div className="text-3xl flex flex-row justify-between items-center gap-4">
+          <div className="text-2xl flex flex-row justify-between items-center gap-4">
             {form.isFromLocalStorage ? (
               <CiCircleCheck className="text-yellow-500" />
             ) : (
@@ -330,7 +330,7 @@ export default function CardForm({
             )}{" "}
             <div className="flex justify-between gap-3 items-center">
 
-            <p className="text-lg  font-title font-bold uppercase pr-4">
+            <p className="text-[14px]  font-title uppercase pr-4">
               {" "}
               {form.title}{" "}  </p>
               {form.content.length > 0 ? (
