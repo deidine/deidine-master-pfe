@@ -1,4 +1,5 @@
-export const generateComponentCodeReacttJs = (
+export const generateComponentCodeNextJs = (
+   
     elements: FormElement[],
     submitBtn: string,
     getFormStyles?: FormStyle,
@@ -14,12 +15,28 @@ export const generateComponentCodeReacttJs = (
     );
     const formStyleString = JSON.stringify(getFormStyles);
   const logoStyleString = JSON.stringify({
-    ...getFormStyles,
-    flex:logoElement?.elementType.headingLogFlex!,
+   
+    display:"flex",
+    flexDirection:logoElement?.elementType.headingLogFlex  =="col" ? "column" : "row",
     gap: `${logoElement?.elementType.headingLogGap}px`,
     justifyContent: logoElement?.elementType.headingLogJustify,
     alignItems: logoElement?.elementType.headingLogJustify,
   });
+  const getInputradiChecbox1 = { 
+      paddingLeft: getInputStyles?.paddingX  || '8px',
+      paddingRight: getInputStyles?.paddingX  || '8px',
+      paddingTop: getInputStyles?.paddingY  || '8px',
+      paddingBottom: getInputStyles?.paddingY || '8px', 
+      border: getInputStyles?.border ,
+      borderRadius: getInputStyles?.borderRadius ,
+          };
+   
+  const getInputradiChecbox2 =  { 
+      color: getInputStyles?.color, 
+      border: getInputStyles?.border ,
+      borderRadius: getInputStyles?.borderRadius ,
+         
+  };
     const HeadTitleStyleString = JSON.stringify(HeadTitleElement?.elementType.style);
     const isDividerExist=elements.some((element) => element.elementType.type === "divider");
     const componentCode = elements
@@ -71,12 +88,14 @@ export const generateComponentCodeReacttJs = (
             break;
           case "checkbox":
             inputElement = `
-              <Checkbox.Group style={${inputStyleString}}>
+              <Checkbox.Group style={${JSON.stringify( getInputradiChecbox1)}}>
                 <div className="flex flex-col space-y-2">
                   ${input.elementType.options
                 ?.map(
                   (option, idx) =>
-                    `<Checkbox key={${idx}} value="${option}">${option}</Checkbox>`
+                    `<Checkbox 
+                  style={${JSON.stringify( getInputradiChecbox2)}}
+                  key={${idx}} value="${option}">${option}</Checkbox>`
                 )
                 .join("\n")}
                 </div>
@@ -84,11 +103,14 @@ export const generateComponentCodeReacttJs = (
             break;
           case "radio":
             inputElement = `
-              <Radio.Group style={${inputStyleString}}>
+              <Radio.Group style={${JSON.stringify( getInputradiChecbox1)}}>
                 ${input.elementType.options
                 ?.map(
                   (option, idx) =>
-                    `<div key={${idx}} className="flex items-center"><Radio value="${option}">${option}</Radio></div>`
+                    `<div key={${idx}} className="flex items-center"><Radio
+                  style={${JSON.stringify( getInputradiChecbox2)}}
+                  
+                  value="${option}">${option}</Radio></div>`
                 )
                 .join("\n")}
               </Radio.Group>`;
@@ -214,12 +236,9 @@ export const generateComponentCodeReacttJs = (
             layout="vertical"
             className="max-w-2xl mt-3 border shadow rounded-xl w-1/2 h-auto p-10 ml-4"
                   style={${formStyleString}}
-          >
-          
+          > 
                <div
-                className="flex flex-${
-                  logoElement?.elementType.headingLogFlex
-                } items-center pb-2"
+                
                 style={  ${logoStyleString} }       >
   
                 ${
@@ -237,12 +256,10 @@ export const generateComponentCodeReacttJs = (
                 }
             ${
                 HeadTitleElement?.elementType.type === "headingTitle"
-                ? ` 
-              <div style={  ${JSON.stringify(getFormStyles)} } >
+                ? `  
               <span className="text-2xl text-justify  font-bold">
                 ${HeadTitleElement.elementType?.headingTitle}
-              </span>
-              </div>
+              </span> 
                    
                 `
                 : ""

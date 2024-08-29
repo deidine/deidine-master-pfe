@@ -18,6 +18,7 @@ export const generateComponentCodeFlutter = (
   let timeControllers: string[] = [];
   let dateState: string[] = [];
   let timeState: string[] = [];
+  
   const hexToColorFunction = `
 Color hexToColor(String hexCode) {
   hexCode = hexCode.replaceAll('#', '');
@@ -44,78 +45,75 @@ Color hexToColor(String hexCode) {
     fillColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
     filled: true,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"
-        }),
+      borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "4.0"}),
       borderSide: BorderSide(
         color: hexToColor('${getInputStyles?.color || "#BDBDBD"}'),
         width: ${getInputStyles?.paddingY?.replace("px", "") || "1.0"},
       ),
     )
 `;
+
   const checkBoxDecoration = `
- 
   tileColor: hexToColor('${getInputStyles?.backgroundColor || "#FFFFFF"}'),
   activeColor: hexToColor('${getInputStyles?.color || "#FFFFFF"}'),
- controlAffinity: ListTileControlAffinity.leading,
-  
-  shape:  RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular( ${getInputStyles?.borderRadius?.replace("px", ".0") || "13.0"
-    } ) ,
- 
-)
+  controlAffinity: ListTileControlAffinity.leading,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(${getInputStyles?.borderRadius?.replace("px", ".0") || "13.0"}),
+  )
 `;
 
   const formPadding = `
   padding: EdgeInsets.only(
-  left: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  right: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  top: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
-  bottom: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
-)
+    left: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
+    right: ${getFormStyles?.paddingX?.replace("px", ".0") || "8.0"},
+    top: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
+    bottom: ${getFormStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  )
 `;
+
   const inputPadding = `
   padding: EdgeInsets.only(
-  left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-  bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-)
+    left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+    right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+    top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+    bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  )
 `;
+ 
   const buttonPadding = `
-  EdgeInsets.only(
-  left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
-  top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-  bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
-)
+   EdgeInsets.only(
+    left: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+    right: ${getInputStyles?.paddingX?.replace("px", ".0") || "8.0"},
+    top: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+    bottom: ${getInputStyles?.paddingY?.replace("px", ".0") || "8.0"},
+  )
 `;
 
   const checkboxPadding = `
-                padding: EdgeInsets.symmetric(horizontal:${getInputStyles?.paddingX?.replace("px", ".0") || "26.0"
-    },
-  vertical:${getInputStyles?.paddingY?.replace("px", ".0") || " 7.0"} )
- 
-
+  padding: EdgeInsets.symmetric(
+    horizontal: ${getInputStyles?.paddingX?.replace("px", ".0") || "26.0"},
+    vertical: ${getInputStyles?.paddingY?.replace("px", ".0") || "7.0"}
+  )
 `;
+
   const buttonStyles = `
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-      EdgeInsets.only(
-        left: ${getButtonStyles?.paddingX?.replace("px", ".0") || "8.0"},
-        right: ${getButtonStyles?.paddingX?.replace("px", ".0") || "8.0"},
-        top: ${getButtonStyles?.paddingY?.replace("px", ".0") || "8.0"},
-        bottom: ${getButtonStyles?.paddingY?.replace("px", ".0") || "8.0"},
-      ),
+  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    EdgeInsets.only(
+      left: ${getButtonStyles?.paddingX?.replace("px", ".0") || "8.0"},
+      right: ${getButtonStyles?.paddingX?.replace("px", ".0") || "8.0"},
+      top: ${getButtonStyles?.paddingY?.replace("px", ".0") || "8.0"},
+      bottom: ${getButtonStyles?.paddingY?.replace("px", ".0") || "8.0"},
     ),
-    backgroundColor: MaterialStateProperty.all<Color>(
-      hexToColor('${getButtonStyles?.backgroundColor || "#6200EE"}')
+  ),
+  backgroundColor: MaterialStateProperty.all<Color>(
+    hexToColor('${getButtonStyles?.backgroundColor || "#6200EE"}')
+  ),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(${getButtonStyles?.borderRadius?.replace("px", ".0") || "4.0"}),
     ),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(${getButtonStyles?.borderRadius?.replace("px", ".0") || "4.0"
-    }),
-      ),
-    ),
-  `;
+  ),
+`;
 
   const componentCode = elements
     .filter(
@@ -137,142 +135,144 @@ Color hexToColor(String hexCode) {
         case "text":
           inputElement = `
             Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-          Padding(
-            ${inputPadding},
-            child: TextFormField(
-              decoration: InputDecoration(
-               
-                hintText: '${input.elementType.placeholder}',
-                ${inputDecoration},
-                errorMaxLines: 2
-              ),
-              keyboardType: ${input.elementType.type === "number"
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Padding(
+                  ${inputPadding},
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: '${input.elementType.placeholder}',
+                      ${inputDecoration},
+                      errorMaxLines: 2,
+                    ),
+                    keyboardType: ${input.elementType.type === "number"
               ? "TextInputType.number"
               : "TextInputType.text"
             },
-              obscureText: ${input.elementType.type === "password"},
-            ),
-          ) ],
-          )`;
+                    obscureText: ${input.elementType.type === "password"},
+                  ),
+                ),
+              ],
+            )
+          `;
           break;
 
         case "textarea":
           inputElement = `
-             Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-          Padding(
-            ${inputPadding},
-            child: TextFormField(
-              decoration: InputDecoration(
-              
-                hintText: '${input.elementType.placeholder}',
-                ${inputDecoration},
-                errorMaxLines: 2
-              ),
-              keyboardType:   TextInputType.multiline,
-            
-              maxLines: null,
-            ),
-          ) ],
-          )`;
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Padding(
+                  ${inputPadding},
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: '${input.elementType.placeholder}',
+                      ${inputDecoration},
+                      errorMaxLines: 2,
+                    ),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                  ),
+                ),
+              ],
+            )
+          `;
           break;
 
         case "date":
           const dateControllerVar = `_dateController${dateCount}`;
           const dateStateVar = `_selectedDate${dateCount}`;
-          dateControllers.push(
-            `final TextEditingController ${dateControllerVar} = TextEditingController();`
-          );
+          dateControllers.push(`final TextEditingController ${dateControllerVar} = TextEditingController();`);
           dateState.push(`DateTime? ${dateStateVar};`);
-          inputElement = `   Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-         Padding(
-              ${inputPadding},
-              child: TextFormField(
-                controller: ${dateControllerVar},
-                decoration: InputDecoration(
-                 
-                  hintText: ${dateStateVar} != null ? ${dateStateVar}!.toLocal().toString().split(' ')[0] : '${input.elementType.placeholder}',
-                  ${inputDecoration},
-                  errorMaxLines: 2,
+          inputElement = `
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Padding(
+                  ${inputPadding},
+                  child: TextFormField(
+                    controller: ${dateControllerVar},
+                    decoration: InputDecoration(
+                      hintText: ${dateStateVar} != null ? ${dateStateVar}!.toLocal().toString().split(' ')[0] : '${input.elementType.placeholder}',
+                      ${inputDecoration},
+                      errorMaxLines: 2,
+                    ),
+                    onTap: () async {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                      );
+                      if (picked != null) {
+                        setState(() {
+                          ${dateStateVar} = picked;
+                          ${dateControllerVar}.text = ${dateStateVar}!.toLocal().toString().split(' ')[0];
+                        });
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Date is required';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-                onTap: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  DateTime? picked = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2100),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      ${dateStateVar} = picked;
-                      ${dateControllerVar}.text = ${dateStateVar}!.toLocal().toString().split(' ')[0];
-                    });
-                  }
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Date is required';
-                  }
-                  return null;
-                },
-              ),
-            ) ],
-          )`;
+              ],
+            )
+          `;
           dateCount++;
           break;
 
         case "time":
           const timeControllerVar = `_timeController${timeCount}`;
           const timeStateVar = `_selectedTime${timeCount}`;
-          timeControllers.push(
-            `final TextEditingController ${timeControllerVar} = TextEditingController();`
-          );
+          timeControllers.push(`final TextEditingController ${timeControllerVar} = TextEditingController();`);
           timeState.push(`TimeOfDay? ${timeStateVar};`);
-          inputElement = `  Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-              Padding(
-              ${inputPadding},
-              child: TextFormField(
-                controller: ${timeControllerVar},
-                decoration: InputDecoration(
-                  labelText: '${input.elementType.label}',
-                  hintText: ${timeStateVar} != null ? ${timeStateVar}!.format(context) : '${input.elementType.placeholder}',
-                  ${inputDecoration},
-                  errorMaxLines: 2,
+          inputElement = `
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Padding(
+                  ${inputPadding},
+                  child: TextFormField(
+                    controller: ${timeControllerVar},
+                    decoration: InputDecoration(
+                      labelText: '${input.elementType.label}',
+                      hintText: ${timeStateVar} != null ? ${timeStateVar}!.format(context) : '${input.elementType.placeholder}',
+                      ${inputDecoration},
+                      errorMaxLines: 2,
+                    ),
+                    onTap: () async {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      TimeOfDay? picked = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (picked != null) {
+                        setState(() {
+                          ${timeStateVar} = picked;
+                          ${timeControllerVar}.text = ${timeStateVar}!.format(context);
+                        });
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Time is required';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-                onTap: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  TimeOfDay? picked = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      ${timeStateVar} = picked;
-                      ${timeControllerVar}.text = ${timeStateVar}!.format(context);
-                    });
-                  }
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Time is required';
-                  }
-                  return null;
-                },
-              ),
-            )],
-          )`;
+              ],
+            )
+          `;
           timeCount++;
           break;
 
@@ -282,51 +282,40 @@ Color hexToColor(String hexCode) {
           selectState = `String ${selectVar} = "${input.elementType.options[0]}";`;
           firstSelectedOption.push(selectState);
           inputElement = `
-             Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-         Padding(
-              padding: EdgeInsets.all(8.0),
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                   hintText: '${input.elementType.placeholder}',
-                  ${inputDecoration},
-                  errorMaxLines: 2
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      hintText: '${input.elementType.placeholder}',
+                      ${inputDecoration},
+                      errorMaxLines: 2,
+                    ),
+                    value: ${selectVar},
+                    items: <String>[${input.elementType.options.map((option: any) => `'${option}'`).join(", ")}]
+                      .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        ${selectVar} = newValue!;
+                      });
+                    },
+                  ),
                 ),
-                value: ${selectVar},
-                items: <String>[${input.elementType.options
-              .map((option: any) => `'${option}'`)
-              .join(", ")}]
-                  .map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    ${selectVar} = newValue!;
-                  });
-                },
-              ),
-            )],
-          )`;
+              ],
+            )
+          `;
           break;
 
         case "select_multiple":
-          inputElement = `MultiSelectFormField(
-            title: Text('${input.elementType.label}'),
-            dataSource: [${input.elementType.options
-              .map(
-                (option: any) =>
-                  `{'display': '${option}', 'value': '${option}'}`
-              )
-              .join(", ")}],
-            textField: 'display',
-            valueField: 'value',
-            onSaved: (value) {},
-          )`;
+          inputElement=``;
           break;
 
         case "checkbox":
@@ -336,127 +325,138 @@ Color hexToColor(String hexCode) {
           firstSelectedChecboxOption.push(checkboxState);
           checkboxLabels = input.elementType.options;
           inputElement = `
-           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-             Column(
-            children: <Widget>[
-              ${checkboxLabels
-              .map(
-                (label: any, index: number) => `
-                Padding(
-            ${checkboxPadding},
-            child: CheckboxListTile(
-                  title: Text('${label}'),
-                  value:  ${checkboxVar}[${index}],
-                  onChanged: (bool? value) {
-                    setState(() {
-                      ${checkboxVar}[${index}] = value ?? false;
-                    });
-                  },
-             ${checkBoxDecoration} )),
-              `
-              )
-              .join("\n")}
-            ],
-          )],
-          )`;
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Column(
+                  children: <Widget>[
+                    ${checkboxLabels.map((label: any, index: number) => `
+                      Padding(
+                        ${checkboxPadding},
+                        child: CheckboxListTile(
+                          title: Text('${label}'),
+                          value: ${checkboxVar}[${index}],
+                          onChanged: (bool? value) {
+                            setState(() {
+                              ${checkboxVar}[${index}] = value ?? false;
+                            });
+                          },
+                          ${checkBoxDecoration}
+                        ),
+                      ),
+                    `).join("\n")}
+                  ],
+                ),
+              ],
+            )
+          `;
           break;
-          case "radio":
-            radioCount++;
-            const radioVar = `_radioValue${radioCount}`;
-            radioState = `String ${radioVar} = "";`;
-            firstSelectedRadioOption.push(radioState);
-            inputElement = `
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-                  Column(
-                    children: <Widget>[
-                      ${input.elementType.options.map((option: string) => `
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: RadioListTile<String>(
-                            title: Text('${option}'),
-                            value: '${option}',
-                            groupValue: ${radioVar},
-                            onChanged: (value) {
-                              setState(() {
-                                ${radioVar} = value!;
-                              });
-                            },
-                          ),
-                        )
-                      `).join(",\n")}
+
+        case "radio":
+          radioCount++;
+          const radioVar = `_radioValue${radioCount}`;
+          radioState = `String ${radioVar} = "";`;
+          firstSelectedRadioOption.push(radioState);
+          inputElement = `
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Column(
+                  children: <Widget>[
+                    ${input.elementType.options.map((option: string) => `
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: RadioListTile<String>(
+                          title: Text('${option}'),
+                          value: '${option}',
+                          groupValue: ${radioVar},
+                          onChanged: (value) {
+                            setState(() {
+                              ${radioVar} = value!;
+                            });
+                          },
+                        ),
+                      )
+                    `).join(",\n")}
+                  ],
+                ),
+              ],
+            )
+          `;
+          break;
+
+        case "file":
+          inputElement = `
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
+                Padding(
+                  ${inputPadding},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            String filePath = result.files.single.path!;
+                            setState(() {
+                              _selectedFileName = result.files.single.name;
+                            });
+                          } else {
+                            // User canceled the picker
+                          }
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.attach_file, color: Colors.white),
+                            SizedBox(width: 8),
+                            Text('${input.elementType.label}'),
+                          ],
+                        ),
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(${buttonPadding}),
+                          backgroundColor: MaterialStateProperty.all(hexToColor('${getInputStyles?.backgroundColor || "#6200EE"}')),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      if (_selectedFileName != null && _selectedFileName!.isNotEmpty)
+                        Text(
+                          'Selected File: $_selectedFileName',
+                          style: TextStyle(color: Colors.black, fontSize: 14),
+                        ),
                     ],
                   ),
-                ],
-              )`;
-            break;
-            case "file":
-              inputElement = `
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('${input.elementType.label}', style: TextStyle(fontSize: 16)),
-                    Padding(
-                      ${inputPadding},
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () async {
-                              FilePickerResult? result = await FilePicker.platform.pickFiles();
-                              if (result != null) {
-                                String filePath = result.files.single.path!;
-                                setState(() {
-                                  _selectedFileName = result.files.single.name;
-                                });
-                              } else {
-                                // User canceled the picker
-                              }
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.attach_file, color: Colors.white),
-                                SizedBox(width: 8),
-                                Text('${input.elementType.label}'),
-                              ],
-                            ),
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(${buttonPadding}),
-                              backgroundColor: MaterialStateProperty.all(hexToColor('${getInputStyles?.backgroundColor || "#6200EE"}')),
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          if (_selectedFileName != null && _selectedFileName!.isNotEmpty)
-                            Text(
-                              'Selected File: $_selectedFileName',
-                              style: TextStyle(color: Colors.black, fontSize: 14),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )`;
-              break;
-        
-            default:
+                ),
+              ],
+            )
+          `;
+          break;
+          
+          case "paragraph":
+        inputElement=``;
+        break;
+
+        case "divider":
+     inputElement=``;
+          break;
+        default:
           break;
       }
 
       return `
-      FormField(
-        builder: (FormFieldState state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ${inputElement},
-              state.hasError
+      ${inputElement ?` FormField(
+          builder: (FormFieldState state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ${inputElement},
+                state.hasError
                   ? Text(
                       state.errorText ?? '',
                       style: TextStyle(
@@ -464,16 +464,17 @@ Color hexToColor(String hexCode) {
                       ),
                     )
                   : SizedBox.shrink(),
-            ],
-          );
-        },
-        validator: (value) {
-          if (value == null || (value is String && value.isEmpty)) {
-            return '${input.elementType.label} is required';
-          }
-          return null;
-        },
-      ),`;
+              ],
+            );
+          },
+          validator: (value) {
+            if (value == null || (value is String && value.isEmpty)) {
+              return '${input.elementType.label} is required';
+            }
+            return null;
+          },
+        ),` :  ``}   
+      `;
     })
     .join("\n");
 
@@ -505,9 +506,10 @@ Color hexToColor(String hexCode) {
     TimeOfDay? _selectedTime;
     DateTime? _selectedDate;
     ${dateState.join("\n")}
-      ${timeState.join("\n")}
-      ${dateControllers.join("\n")}
-      ${timeControllers.join("\n")}
+    ${timeState.join("\n")}
+    ${dateControllers.join("\n")}
+    ${timeControllers.join("\n")}
+    
     @override
     Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -573,7 +575,7 @@ Color hexToColor(String hexCode) {
   );
 }
 }
-    `.trim();
+  `.trim();
 
   return exportCode;
 };

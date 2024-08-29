@@ -54,7 +54,7 @@ export default function SelectPrev({
         <Form.Item
           label={element.elementType.label}
           name={element.elementType.name}
-          style={getInputStyles()}
+          // style={getInputStyles()}
           rules={[
             {
               required: element.elementType.required,

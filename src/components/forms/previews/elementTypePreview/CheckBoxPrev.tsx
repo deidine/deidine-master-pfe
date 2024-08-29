@@ -16,8 +16,15 @@ export default function CheckBoxPrev({
           color: styleForm?.color, 
           border: styleForm?.border ,
           borderRadius: styleForm?.borderRadius ,
-          backgroundColor: styleForm?.backgroundColor,
+          // backgroundColor: styleForm?.backgroundColor,
         };
+      };
+      const getInputStyles2 = () => {
+        return { 
+          color: styleForm?.color, 
+          border: styleForm?.border ,
+          borderRadius: styleForm?.borderRadius ,
+              };
       };
       const getLabelStyles = () => {
         return {
@@ -53,7 +60,8 @@ export default function CheckBoxPrev({
                 <div className="flex flex-col space-y-2">
                   {element.elementType.options!.map(
                     (option: any, idx: number) => (
-                      <Checkbox key={idx} value={option}>
+                      <Checkbox  style={getInputStyles2()}
+                      key={idx} value={option}>
                         {option}
                       </Checkbox>
                     )

@@ -19,8 +19,15 @@ export default function RadioPrev(
       color: styleForm?.color, 
       border: styleForm?.border ,
       borderRadius: styleForm?.borderRadius ,
-      backgroundColor: styleForm?.backgroundColor,
+      // backgroundColor: styleForm?.backgroundColor,
     };
+  };
+  const getInputStyles2 = () => {
+    return { 
+      color: styleForm?.color, 
+      border: styleForm?.border ,
+      borderRadius: styleForm?.borderRadius ,
+          };
   };
   const getLabelStyles = () => {
     return {
@@ -53,7 +60,9 @@ export default function RadioPrev(
                 {element.elementType.options!.map(
                   (option: any, idx: number) => (
                     <div key={idx} className="flex items-center">
-                      <Radio value={option}>{option}</Radio>
+                      <Radio 
+              style={getInputStyles2()}
+              value={option}>{option}</Radio>
                     </div>
                   )
                 )}
