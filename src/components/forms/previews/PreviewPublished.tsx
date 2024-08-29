@@ -43,10 +43,12 @@ export default function PreviewPublished({
      }
      style={form.style!}
   >
-  <div className=" text-center p-10 w-full text-md font-title"> 
    
-   {form!.content.length === 0 && "Aucun élément n’a encore été ajouté"}
- </div>
+ {form.content.length  === 0 &&    <div className=" text-center p-10 w-full text-md font-title"> 
+   
+   Aucun élément n’a encore été ajouté 
+    </div>} 
+      
   <div style={{ gap: logoElement?.elementType
               .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify!,alignItems: logoElement?.elementType.headingLogJustify!  }}
             className={`flex flex-${logoElement?.elementType

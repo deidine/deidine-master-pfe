@@ -31,9 +31,11 @@ export default function FormBuilder() {
       <div className="  flex flex-col relative justify-between w-full p-4 mb-2 border rounded-xl shadow-sm ">
    <LogoTitleCard   />
       </div>
-        <div className=" text-center p-10 w-full text-md font-title">
-          {elements.length === 0 && "Aucun élément n'a encore été ajouté"}
-        </div>
+        
+        {elements.length === 0 &&    <div className=" text-center p-10 w-full text-md font-title"> 
+   
+   Aucun élément n’a encore été ajouté 
+    </div>}
         <DragDropAria />
         {isSidebarVisible && (
           <div

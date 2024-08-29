@@ -113,10 +113,10 @@ export default function PreviewForm({
         ) : (
           <></>
         )}
-         <div className=" text-center p-10 w-full text-md font-title"> 
+         {mapElement.length === 0 &&    <div className=" text-center p-10 w-full text-md font-title"> 
    
-          {mapElement.length === 0 && "Aucun élément n’a encore été ajouté"}
-        </div>
+       Aucun élément n’a encore été ajouté 
+        </div>}
         {mapElement.map((element: any, index) => (
           <div key={index}>
             {[

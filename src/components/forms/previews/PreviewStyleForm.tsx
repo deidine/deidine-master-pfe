@@ -53,10 +53,12 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
         className={`${"max-w-2xl -ml-44 justify-between  mt-3 bg-white border shadow rounded-xl w-1/2 h-full p-10 "}`}
         style={getFormStyles()}
       >
-      <div className=" text-center p-10 w-full text-md font-title"> 
+    
+ {elements.length   === 0 &&    <div className=" text-center p-10 w-full text-md font-title"> 
    
-   {elements.length === 0 && "Aucun élément n’a encore été ajouté"}
- </div>
+   Aucun élément n’a encore été ajouté 
+    </div>} 
+      
         <div
             style={{ gap: logoElement?.elementType
               .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify!,alignItems: logoElement?.elementType.headingLogJustify!  }}
