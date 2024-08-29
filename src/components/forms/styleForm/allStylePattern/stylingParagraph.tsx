@@ -72,7 +72,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label className="font-semibold">Padding X:</label>
+            <label className="">Padding X:</label>
             <Slider
               max={200}
               value={parseInt(paragraphStyle?.paddingX || "0", 10)}
@@ -81,7 +81,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label className="font-semibold">Padding Y:</label>
+            <label className="">Padding Y:</label>
             <Slider
               max={200}
               value={parseInt(paragraphStyle?.paddingY || "0", 10)}
@@ -90,7 +90,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label  className="font-semibold">Font Size:</label>
+            <label  className="">Font Size:</label>
             <Slider
               max={200}
               value={parseInt(paragraphStyle?.borderRadius || "0", 10)}

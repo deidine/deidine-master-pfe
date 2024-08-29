@@ -50,7 +50,7 @@ const  { formStyle,elementStyle,buttonStyle,paragraphStyle}=useStyle();
    
       <Form
         layout="vertical"
-        className={`${"max-w-2xl mx-auto justify-between  mt-3 bg-white border shadow rounded-xl w-1/2 h-full p-10 "}`}
+        className={`${"max-w-2xl -ml-44 justify-between  mt-3 bg-white border shadow rounded-xl w-1/2 h-full p-10 "}`}
         style={getFormStyles()}
       >
         <span className="text-md font-semibold">

@@ -87,7 +87,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label className="font-semibold">Padding X:</label>
+            <label className="">Padding X:</label>
             <Slider
               max={200}
               value={parseInt(buttonStyle?.paddingX || "0", 10)}
@@ -96,7 +96,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label className="font-semibold">Padding Y:</label>
+            <label className="">Padding Y:</label>
             <Slider
               max={200}
               value={parseInt(buttonStyle?.paddingY || "0", 10)}
@@ -105,7 +105,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label className="font-semibold">Border Width:</label>
+            <label className="">Border Width:</label>
             <Slider
               max={10}
               value={parseInt(buttonStyle?.borderWidth || "0", 10)}
@@ -114,7 +114,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label className="font-semibold">Border Radius:</label>
+            <label className="">Border Radius:</label>
             <Slider
               max={50}
               value={parseInt(buttonStyle?.borderRadius || "0", 10)}

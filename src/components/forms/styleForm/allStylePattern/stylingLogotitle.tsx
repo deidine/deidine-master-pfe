@@ -100,7 +100,7 @@ export default function StylingLogotitle({
       {isVisible && currentSelected == "Logo" && (
         <div className="mt-4 space-y-4">
         <div>
-        <label className="font-semibold">Direction du Logo avec Titre:</label> <br />
+        <label className="">Direction du Logo avec Titre:</label> <br />
           <Radio.Group onChange={handleLayoutChange} value={layout}>
             <div className="flex flex-col gap-3 pt-2">
               <Radio value="row">Ligne</Radio>
@@ -110,12 +110,12 @@ export default function StylingLogotitle({
 
         </div>
          <div>
-         <label className="font-semibold">Hauteur du Gap:</label><br />
+         <label className="">Hauteur du Gap:</label><br />
           <Slider max={200} value={gapValue} onChange={handleSliderChange} />
 
          </div>
         <div>
-        <label className="font-semibold">Emplacement du Logo / Titre:</label> <br />
+        <label className="">Emplacement du Logo / Titre:</label> <br />
           <Radio.Group onChange={handleJustifyChange} value={justifyValue}>
             <div className="flex flex-col gap-3 pt-2">
               <Radio value="start">Début</Radio>
