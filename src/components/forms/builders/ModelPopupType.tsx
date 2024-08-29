@@ -55,7 +55,7 @@ export default function ModelPopupType({
         </Button>,
       ]}
     >
-      <p>Sélectionnez le type d’entrée</p>
+      <p className="text-md font-semibold font-title text-center py-4">Sélectionnez le type d’entrée</p>
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {inputTypeOptions.map((option) => (
@@ -68,7 +68,7 @@ export default function ModelPopupType({
             </Button>
           ))}
         </div>
-        <p>Date and Time</p>
+        <p className="text-md font-semibold font-title text-center py-4">Date et Time</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {dateInputs.map((option) => (
             <Button
@@ -80,7 +80,7 @@ export default function ModelPopupType({
             </Button>
           ))}
         </div>
-        <p>Autres types</p>
+        <p className="text-md font-semibold font-title text-center py-4">Autres types</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {otherTypes.map((option) => (
             <div key={option.value}>
@@ -93,7 +93,7 @@ export default function ModelPopupType({
             </div>
           ))}
         </div>
-        <p>Types avec options</p>
+        <p className="text-md font-semibold font-title text-center py-4">Types avec options</p>
         <div className="grid grid-cols-3 w-full items-center gap-2">
           {selectTypeOptions.map((option) => (
             <Button
@@ -106,12 +106,12 @@ export default function ModelPopupType({
           ))}
         </div>
       </div>
-      {selectedType && (
+      {selectedType  && (
         <>
           <Divider className="my-8 w-full h-0 border-2" />
           <div className="mt-4">
             <p className="text-lg font-bold text-center m-4">
-              Preview for:{" "}
+            Visionner :{" "}
               <span className="text-blue-500">{selectedType}</span>
             </p>
 

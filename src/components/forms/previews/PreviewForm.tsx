@@ -182,7 +182,7 @@ export default function PreviewForm({
                 styleParagraph={isTemlate ? {} : paragraphStyle}
               />
             )}
-                        {element.elementType.type === "divider" && (
+            {element.elementType.type === "divider" && (
               <><Separator
                 orientation="vertical"
                 decorative
