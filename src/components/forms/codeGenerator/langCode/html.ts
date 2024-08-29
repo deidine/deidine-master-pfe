@@ -28,12 +28,21 @@ export const generateComponentCodeHTML = (
 
   // Default input styles
   const getFormStylesHTML = `height: 2.5rem; font-size: 0.875rem; outline: none; box-shadow: 0 0 0 2px rgba(129, 140, 248, 1); background-color: white; border-color: #e4e4e7; transition-duration: 0.1s; box-shadow: 0 0 0 2px transparent; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: 0.75rem; padding-right: 0.75rem; width: 100%; border-radius: 0.5rem; border-width: 1px; ::placeholder { color: #a1a1aa; }`;
-
+  const getInputradiChecbox1 = { 
+    paddingLeft: getInputStyles?.paddingX  || '8px',
+    paddingRight: getInputStyles?.paddingX  || '8px',
+    paddingTop: getInputStyles?.paddingY  || '8px',
+    paddingBottom: getInputStyles?.paddingY || '8px', 
+    border: getInputStyles?.border ,
+    borderRadius: getInputStyles?.borderRadius ,
+        };
+ 
   // Style strings
   const formStyleString = filterStyles(getFormStyles || {});
   const inputStyleString = filterStyles(getInputStyles || {});
   const logoStyleString = filterStyles(getInputStyles || {});
   const paragraphStyleString = filterStyles(paragraphStyles || {});
+  const checRadioStyle = filterStyles(getInputradiChecbox1 || {});
 
   // Generate HTML for different elements
   const componentCode = elements
@@ -85,9 +94,7 @@ export const generateComponentCodeHTML = (
         case "select":
         case "select_multiple":
           inputElement = `
-            <select style="${getFormStylesHTML + inputStyleString}" ${
-            input.elementType.type === "select_multiple" ? "multiple" : ""
-          }>
+            <select style="${getFormStylesHTML + inputStyleString}" >
               ${input.elementType.options
                 ?.map(
                   (option) => `<option value="${option}">${option}</option>`
@@ -100,7 +107,7 @@ export const generateComponentCodeHTML = (
           inputElement = input.elementType
             .options!?.map(
               (option) =>
-                `<label><input style="${inputStyleString}" type="checkbox" name="${input.elementType.name}" value="${option}" /> ${option}</label>`
+                `<label><input style="${checRadioStyle}" type="checkbox" name="${input.elementType.name}" value="${option}" /> ${option}</label>`
             )
             .join("<br />");
           break;
@@ -109,7 +116,7 @@ export const generateComponentCodeHTML = (
           inputElement = input.elementType
             .options!?.map(
               (option) =>
-                `<label><input style="${inputStyleString}" type="radio" name="${input.elementType.name}" value="${option}" /> ${option}</label>`
+                `<label><input style="${checRadioStyle}" type="radio" name="${input.elementType.name}" value="${option}" /> ${option}</label>`
             )
             .join("<br />");
           break;
@@ -119,7 +126,7 @@ export const generateComponentCodeHTML = (
           break;
 
         case "divider":
-          inputElement = `<hr style="height: ${input.elementType.heightDivider}px;    " />`;
+          inputElement = `<span style="height: ${input.elementType.heightDivider}px;    " ></span>`;
           break;
 
         default:
@@ -141,8 +148,7 @@ export const generateComponentCodeHTML = (
       <title>Generated Form</title>
     </head>
     <body>
-
-      <form style="${formStyleString}" action="/api/form" method="POST">
+      <form style="${formStyleString}; max-width: 42rem;margin-top: 0.75rem ; border-width: 1px; border-radius: 0.75rem ; width: 50%;height: auto; padding: 2.5rem;margin-left: 1rem;" action="/api/form" method="POST">
         
            <div style="display: flex; align-items: center; flex-direction: ${
        logoElement?.elementType.headingLogFlex =="row" ? "row" : "column"
@@ -158,10 +164,10 @@ export const generateComponentCodeHTML = (
             </div> 
           
       ${componentCode}
-        <div>
+        <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; width: 100%;">
           <button type="submit" style="${filterStyles(
             getButtonStyles || {}
-          )}">${submitBtn}</button>
+          )}; height: 2.5rem; font-weight: 700;width: 50%;margin: auto; border-radius: 0.5rem;    cursor: pointer;">${submitBtn}</button>
         </div>
       </form>
     </body>

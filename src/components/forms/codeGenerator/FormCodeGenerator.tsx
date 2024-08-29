@@ -73,9 +73,8 @@ useEffect(() => {
     getInputStyles, getButtonStyles,paragraphStyles)) 
   : codeForLanguage === "ReactJs" ? setComponentCode(  generateComponentCodeReacttJs(elements, submitBtn, getFormStyles,
   getInputStyles, getButtonStyles,paragraphStyles)) 
-    : codeForLanguage === "Html5" ? setComponentCode(  generateComponentCodeHTML(
-      elements, submitBtn, getFormStyles,
-    getInputStyles))
+    : codeForLanguage === "Html5" ? setComponentCode(  generateComponentCodeHTML(elements, submitBtn, getFormStyles,
+      getInputStyles, getButtonStyles,paragraphStyles))
   : setComponentCode(  generateComponentCodeFlutter(elements, submitBtn, formStyle, elementStyle, elementStyle))}
 }, [elements, codeForLanguage, submitBtn, formStyle, elementStyle, getFormStyles, getInputStyles]);
 const downloadCode = () => {
