@@ -14,7 +14,7 @@ export default function Home() {
         <UnderLine title="Fonctionnalités Principales" />
  
       <Features/>
-
+ 
         <UnderLine title="Essayez-le vous-même" />
 
         <GiveTry />
