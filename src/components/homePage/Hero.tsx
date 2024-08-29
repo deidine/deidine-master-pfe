@@ -13,7 +13,7 @@ export default function Hero() {
 
         <p className="w-full text-justify pt-[20px] sm:w-[80%] md:w-[70%] lg:w-[85%] text-xs sm:text-sm md:text-base lg:text-lg">
           <span className="text-buttonColor font-bold">Quick Form
-</span> vous offre une interface intuitive pour créer, personnaliser, et gérer vos formulaires facilement. Gagnez du temps avec nos outils performants, que vous soyez un développeur débutant ou expérimenté. La conception, l{"'"}édition, et l{"'"}exportation de formulaires se font en quelques clics seulement.
+</span> vous offre une interface intuitive pour créer, personnaliser, et gérer vos formulaires facilement. Gagnez du temps avec nos outils performants, que vous soyez un développeur expérimenté ou une personne sans compétences techniques. La conception, l{"'"}édition, et l{"'"}exportation de formulaires se font en quelques clics seulement.
         </p>
 
         <p className="pt-[25px] w-full text-justify sm:w-[80%] md:w-[70%] lg:w-[85%] text-xs sm:text-sm md:text-base lg:text-lg">
