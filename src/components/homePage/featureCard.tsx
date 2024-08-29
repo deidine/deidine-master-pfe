@@ -71,12 +71,12 @@ function FeatureCard({
     shadow-sm border-gray-200 rounded-[16px] "
     >
       <div className="flex flex-row justify-start text-buttonColor w-full items-center  gap-4">
-        <span className=" text-2xl font-bold">{icon}</span>{" "}
-        <div className="  font-bold  text-md text-buttonColor uppercase">
+        <span className=" text-2xl font-title">{icon}</span>{" "}
+        <div className="  font-title  text-md text-buttonColor uppercase">
           {title}
         </div>
       </div>
-      <div className="font-title w-full h-full text-md text-wrap flex items-center  text-justify  justify-start">{description}</div>
+      <div className="  w-full font-text h-[70%] text-md text-wrap flex items-start  text-justify  justify-start">{description}</div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <div className="p-10">
-        <div className="flex flex-row justify-between items-center gap-4">
+        <div className="flex flex-row justify-between items-center  ">
           <Hero />
         </div>
         <UnderLine title="Fonctionnalités Principales" />
