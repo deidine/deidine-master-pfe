@@ -21,7 +21,7 @@ export default function LogoPrev({
           
             src={element.elementType?.imgLogoLink}
             alt="Logo"
-             className="h-[2.5rem]  "
+             className="  "
           />
         </div>
       )}
