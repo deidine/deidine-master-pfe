@@ -12,7 +12,7 @@ export default function Home() {
           <Hero />
         </div>
         <UnderLine title="Fonctionnalités Principales" />
-
+ 
       <Features/>
 
         <UnderLine title="Essayez-le vous-même" />
