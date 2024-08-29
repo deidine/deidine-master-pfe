@@ -96,7 +96,7 @@ export default function BadgeElement({
                   variant={"destructive"}
                   className="shadow-lg z-10 rounded-lg border-red-400 text-red-400 hover:outline-none h-8 text-[13px] font-semibold border-2 flex items-center gap-2"
                 >
-                  Required
+                  Requis
                 </Badge>
               )}{" "}
             </div>

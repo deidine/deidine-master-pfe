@@ -60,7 +60,7 @@ export default function Styling({
             className="relative"
             onClick={() => setColorPickerVisible(!colorPickerVisible)}
           >
-            <Button>Text Color</Button>
+            <Button> couleur du texte</Button>
             {colorPickerVisible && (
               <div className="absolute z-10">
                 <SketchPicker
@@ -90,7 +90,7 @@ export default function Styling({
           </div>
 
           <div>
-            <label  className="">Font Size:</label>
+            <label  className="">taille de la police:</label>
             <Slider
               max={200}
               value={parseInt(paragraphStyle?.borderRadius || "0", 10)}

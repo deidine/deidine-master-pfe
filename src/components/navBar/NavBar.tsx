@@ -88,7 +88,7 @@ export default function NavBar() {
                 <Popover
                   content={
                     <div>
-                      <button className="font-semibold hover:bg-hoverButtonColor hover:text-white justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700">
+                      <button className="font-semibold  justify-evenly items-center gap-2 border rounded-lg w-full text-left px-4 py-2 text-sm text-gray-700">
                         {memoizedUser.email}
                       </button>
                       <Divider />

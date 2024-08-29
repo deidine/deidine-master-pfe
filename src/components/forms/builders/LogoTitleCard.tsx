@@ -33,7 +33,7 @@ export default function LogoTitleCard() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-center items-center gap-4 mt-4">
+      <div className="flex justify-center items-center gap-4 m-4">
         <div className="flex-1 flex flex-col ">
           {elements
             .filter((element) => element.elementType.type === "logo")
@@ -81,7 +81,7 @@ export default function LogoTitleCard() {
           } w-[1px]`}
         />
 
-        <div className="flex-1 flex flex-col ">
+        <div className="flex-1 flex flex-col  ">
           {elements
             .filter((element) => element.elementType.type === "headingTitle")
             .map((element) => (

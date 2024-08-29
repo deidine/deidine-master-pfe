@@ -75,7 +75,7 @@ export default function Styling({
             className="relative"
             onClick={() => setColorPickerVisible(!colorPickerVisible)}
           >
-            <Button>Text Color</Button>
+            <Button>couleur du texte</Button>
             {colorPickerVisible && (
               <div className="absolute z-10">
                 <SketchPicker
