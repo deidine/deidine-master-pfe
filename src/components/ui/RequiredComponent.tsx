@@ -41,7 +41,7 @@ export default function RequiredComponent({
               data-[state=checked]:bg-buttonColor
                data-[state=unchecked]:bg-zinc-200 dark:focus-visible:ring-zinc-300
                 dark:focus-visible:ring-offset-zinc-950 dark:data-[state=checked]:bg-buttonColor
-                 dark:data-[state=unchecked]:bg-zinc-800 h-5 w-10"
+                 dark:data-[state=unchecked]:bg-white h-5 w-10"
             id="required"
           >
             <span

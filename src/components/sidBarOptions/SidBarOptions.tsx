@@ -133,7 +133,7 @@ export default function SidBarOptions({
                   }}
                   isSwitchButton={true}
                 />
-                <LabelValue2 value={isRequired ? "requis" : "requis"} />
+                <LabelValue2 value={isRequired ? "Requis" : "Requis"} />
               </div>
             </div>
 
