@@ -82,7 +82,7 @@ export default function StylingLogotitle({
   return (
     <div
       className={`rounded-lg transition-all duration-300 hover:bg-gray-100 cursor-pointer mb-4 p-4 ${
-        isVisible ? "shadow-lg bg-gray-50" : ""
+        isVisible ? "bg-gray-50" : ""
       }`}
     >
       <div

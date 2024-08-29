@@ -46,7 +46,7 @@ export default function Styling({
   return (
     <div
       className={`rounded-lg transition-all duration-300 hover:bg-gray-100 cursor-pointer mb-4 p-4 ${
-        isVisible ? "shadow-lg bg-gray-50" : ""
+        isVisible ? "bg-gray-50" : ""
       }`}
     >
       <div className="flex justify-between items-center" onClick={toggleVisibility}>
@@ -60,7 +60,7 @@ export default function Styling({
             className="relative"
             onClick={() => setBgColorPickerVisible(!bgColorPickerVisible)}
           >
-            <Button>Background Color</Button>
+            <Button>Couleur De Fond</Button>
             {bgColorPickerVisible && (
               <div className="absolute z-10">
                 <SketchPicker
@@ -75,7 +75,7 @@ export default function Styling({
             className="relative"
             onClick={() => setColorPickerVisible(!colorPickerVisible)}
           >
-            <Button>couleur du texte</Button>
+            <Button>Couleur Du Texte</Button>
             {colorPickerVisible && (
               <div className="absolute z-10">
                 <SketchPicker

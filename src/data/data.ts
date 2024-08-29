@@ -111,7 +111,7 @@ const logoHeadingTitle = [
   },
   {
     value: "headingTitle",
-    label: "headingTitle",
+    label: "Titre",
     bgColor: "#E6F7FF", 
     textColor: "text-gray-800", 
     icon: FiBold, 
