@@ -45,10 +45,11 @@ export default function PreviewFormsTamplates({
         "mt-3 flex flex-col  justify-center mx-auto bg-white border shadow rounded-xl w-1/2 h-auto p-10 "
       } 
     >
-      <span className="text-md font-semibold">
-        {" "}
-        {form!.content.length == 0 && "Aucun élément n’a encore été ajouté"}
-      </span>
+    
+      <div className=" text-center p-10 w-full text-md font-title"> 
+   
+   {form.content.length === 0 && "Aucun élément n’a encore été ajouté"}
+ </div>
       <div
            style={{ gap: logoElement?.elementType
             .headingLogGap+"px",justifyContent: logoElement?.elementType.headingLogJustify!,alignItems: logoElement?.elementType.headingLogJustify!  }}
