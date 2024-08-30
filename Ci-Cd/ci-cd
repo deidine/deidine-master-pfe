@@ -1,3 +1,39 @@
+Updating Your Jenkins Pipeline
+
+If you're running Jenkins locally, the primary changes are to ensure that the URL used for
+webhooks and any external services is correctly referenced. For your Jenkins pipeline, no major 
+changes are required beyond those mentioned earlier for adapting to a Next.js project. Just make sure you update the GitHub webhook URL accordingly.
+GitHub Webhook Configuration for Local Jenkins
+
+To make your local Jenkins instance accessible to GitHub, you'll need to expose your local Jenkins
+server to the internet. Here’s how you can achieve this:
+
+    Expose Jenkins Locally:
+
+        Option 1: Use a tunneling service (like ngrok): This creates a secure tunnel to your 
+local Jenkins instance, making it accessible via a public URL.
+
+        Steps:
+            Install ngrok or a similar service.
+            Run ngrok http 8080 in your terminal. This will provide you with a public URL like http://abc123.ngrok.io.
+            Use this public URL for configuring your GitHub webhook.
+
+        Option 2: Configure port forwarding: If you're behind a router, you can configure port forwarding to 
+expose port 8080 to the internet. This involves modifying your router settings, which might not be ideal for security reasons.
+
+    Configure GitHub Webhook:
+        Go to your GitHub repository.
+        Navigate to Settings > Webhooks.
+        Click on Add webhook.
+        Set the Payload URL to the public URL provided by ngrok (e.g., http://abc123.ngrok.io/github-webhook/).
+        Set Content type to application/json.
+        Choose Just the push event (or other events if needed).
+        Click Add webhook.
+
+
+
+
+---------------------------------------------------------------------------------
 pipeline {
     agent any
     tools {
@@ -72,6 +108,89 @@ pipeline {
                 }
             }
         }
+    }
+    post {
+        always {
+            script {
+                def jobName = env.JOB_NAME
+                def buildNumber = env.BUILD_NUMBER
+                def pipelineStatus = currentBuild.result ?: 'UNKNOWN'
+                def bannerColor = pipelineStatus.toUpperCase() == 'SUCCESS' ? 'green' : 'red'
+                def body = """
+                <html>
+                <body>
+                <div style="border: 4px solid ${bannerColor}; padding: 10px;">
+                <h2>${jobName} - Build ${buildNumber}</h2>
+                <div style="background-color: ${bannerColor}; padding: 10px;">
+                <h3 style="color: white;">Pipeline Status: ${pipelineStatus.toUpperCase()}</h3>
+                </div>
+                <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
+                </div>
+                </body>
+                </html>
+                """
+                emailext (
+                    subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
+                    body: body,
+                    to: 'jaiswaladi246@gmail.com',
+                    from: 'jenkins@example.com',
+                    replyTo: 'jenkins@example.com',
+                    mimeType: 'text/html',
+                    attachmentsPattern: 'image.html'
+                )
+            }
+        }
+    }
+}
+---------------------------------------------------------------------------------
+
+pipeline {
+    agent any
+    tools {
+        nodejs 'nodejs'  // Ensure Node.js is configured in Jenkins
+    }
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/deidine/deidine-master-pfe/'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Lint') {
+            steps {
+                sh 'npm run lint'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Docker Build & Tag') {
+            steps {
+                sh 'docker build -t adijaiswal/nextjs-app:latest .'
+            }
+        }
+        stage('Trivy Image Scan') {
+            steps {
+                sh 'trivy image --format table -o image.html adijaiswal/nextjs-app:latest'
+            }
+        }
+        stage('Docker Push') {
+            steps {
+                sh 'docker push adijaiswal/nextjs-app:latest'
+            }
+        }
+        // Remove or comment out Kubernetes deployment stages
     }
     post {
         always {
