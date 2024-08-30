@@ -49,7 +49,7 @@ export default function FormBuilder() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between uppercase p-4 text-[20px]  font-bold font-mono border-b">
-                {labelCurent}
+            {selectedElement?.elementType.type==="paragraph" ? "":labelCurent}    
                 <CloseCircleOutlined
                   className="text-red-500 font-bold text-[20px] transition-colors"
                   onClick={() => {

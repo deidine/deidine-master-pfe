@@ -1,7 +1,3 @@
-INSERT INTO 
-"public"."form" 
-("id", "title", "content", "description", "user_id", "created_at", "style", "elementStyle", "buttonStyle")
- VALUES ('2', 'vector mind', '[{"id":"3221","elementType":{"name":"dvsggoqpuf7","type":"text","label":"Label","style":"h-10 rounded-lg border ","value":"","pattern":"","required":false,"placeholder":"Placeholder"}},{"id":"7817","elementType":{"name":"9h3d6by4sfr","type":"datetime-local","label":"Label","style":"h-10 rounded-lg border ","value":"","pattern":"","required":false,"placeholder":"Placeholder"}},{"id":"733","elementType":{"name":"gd4hn18x2pg","type":"url","label":"Label","style":"h-10 rounded-lg border ","value":"","pattern":"","required":false,"placeholder":"Placeholder"}}]', null, '7d5ee29e-db0d-4bd0-a56f-896d7ad76240', '2024-08-20 11:22:15.165522+00', '{}', '{}', '{}');
 create table
   public.form (
     id serial not null,
@@ -17,7 +13,6 @@ create table
     constraint form_pkey primary key (id),
     constraint form_user_id_fkey foreign key (user_id) references auth.users (id)
   ) tablespace pg_default;
-
   
 create policy "Allow read for users based on user_id" 
 on "public"."form"

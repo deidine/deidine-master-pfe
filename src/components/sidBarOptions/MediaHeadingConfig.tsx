@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input,   Divider } from "antd";
 import { LabelValue } from "./LabelValue";
 import useDesigner from "@/hooks/useDesigner"; 
+import AutoResizeTextarea from "../ui/AutoResizeTextarea";
 
 export default function MediaHeadingConfig({
   element,
@@ -21,7 +22,7 @@ export default function MediaHeadingConfig({
   };
 
    
-  const handleHeadingTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleHeadingTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setHeadingText(e.target.value);
     updateElement(element!.name, { ...element!, label: e.target.value });
   };
@@ -50,12 +51,13 @@ export default function MediaHeadingConfig({
         <>
           <Divider />
           <LabelValue value="Titre Paragraph " />
-          <Input
-            placeholder="Enter paragraph title"
-            value={headingText}
-            onChange={handleHeadingTextChange}
-            className="mb-4"
-          />
+   
+          <AutoResizeTextarea
+                  inputLabel={headingText}
+                  handleLabelChange={handleHeadingTextChange}
+                  isEditing={true}
+                />
+         
         </>
       )}
 
