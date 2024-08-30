@@ -31,11 +31,8 @@ export default function RadioPrev(
   };
   const getLabelStyles = () => {
     return {
-      paddingLeft: styleForm?.paddingX || '8px',
-      paddingRight: styleForm?.paddingX || '8px', 
-      color: styleForm?.color,
-      border: styleForm?.border, 
-            fontWeight: styleForm?.labelFontWeight || 'normal',
+     
+      color: styleForm?.color, 
       fontSize:  '14px', 
     };
   };
@@ -43,7 +40,7 @@ export default function RadioPrev(
   return (
     <div>
              <Form.Item
- label={<span  >{element.elementType.label}</span>}
+ label={<span style={getLabelStyles()} >{element.elementType.label}</span>}
  labelCol={{ span: 24 }} // Adjust label width, or remove for default
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}

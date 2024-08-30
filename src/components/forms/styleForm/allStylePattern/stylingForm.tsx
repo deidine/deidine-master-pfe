@@ -72,7 +72,7 @@ export default function Styling({
             )}
           </div>
 
-          <div
+          {/* <div
             className="relative"
             onClick={() => setColorPickerVisible(!colorPickerVisible)}
           >
@@ -85,7 +85,7 @@ export default function Styling({
                 />
               </div>
             )}
-          </div>
+          </div> */}
 
           <div>
             <label className="">Padding X:</label>
@@ -105,14 +105,14 @@ export default function Styling({
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="">Border Width:</label>
             <Slider
               max={10}
               value={parseInt(formStyle?.borderWidth || "0", 10)}
               onChange={(value) => handleSliderChange(value, "borderWidth")}
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="">Border Radius:</label>

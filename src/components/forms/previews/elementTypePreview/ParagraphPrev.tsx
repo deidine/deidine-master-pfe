@@ -15,13 +15,14 @@ export default function ParagraphPrev({
         paddingBottom: styleParagraph?.paddingY || '8px',
         color: styleParagraph?.color,  
         fontSize : styleParagraph?.borderRadius|| '20px' , 
+        whiteSpace: 'normal' 
       };
     };
   return (
-    <div>
-        <p style={{ ...getInputStyles()}} className='  '>
+    <div   >
+        <span style={{ ...getInputStyles()}} >
             {element.elementType.label}
-        </p>
+        </span>
     </div>
   )
 }

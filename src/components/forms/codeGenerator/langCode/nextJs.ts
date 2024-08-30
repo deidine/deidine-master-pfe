@@ -13,6 +13,14 @@ export const generateComponentCodeNextJs = (
     const HeadTitleElement = elements.find(
       (element) => element.elementType.type === "headingTitle"
     );
+    const getLabelStyles =  JSON.stringify( {
+    
+       
+        color: getInputStyles?.color, 
+        fontSize:  '14px', 
+     
+    });
+  
     const formStyleString = JSON.stringify(getFormStyles);
   const logoStyleString = JSON.stringify({
    
@@ -147,8 +155,10 @@ export const generateComponentCodeNextJs = (
   
         return `
            <Form.Item
-              label="${input.elementType.type=="divider"? "" : input.elementType.label}"
+        label={<span  style={${getLabelStyles}} >${input.elementType.type=="divider"? "" : input.elementType.label}</span>}
+ 
               name="${input.elementType.name}"
+              style={{ marginBottom: 8 }}
               rules={[
                 {
                   required: ${input.elementType.required},

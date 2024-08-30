@@ -57,7 +57,7 @@ export default function Styling({
 
       {isVisible && currentSelected === "Elements" && (
         <div className="mt-4 space-y-4">
-          <div
+          {/* <div
             className="relative"
             onClick={() => setBgColorPickerVisible(!bgColorPickerVisible)}
           >
@@ -70,7 +70,7 @@ export default function Styling({
                 />
               </div>
             )}
-          </div>
+          </div> */}
 
           <div
             className="relative"
@@ -104,7 +104,7 @@ export default function Styling({
               onChange={(value) => handleSliderChange(value, "paddingY")}
             />
           </div>
-
+{/* 
           <div>
             <label className="">Border Width:</label>
             <Slider
@@ -112,7 +112,7 @@ export default function Styling({
               value={parseInt(elementStyle?.borderWidth || "0", 10)}
               onChange={(value) => handleSliderChange(value, "borderWidth")}
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="">Border Radius:</label>

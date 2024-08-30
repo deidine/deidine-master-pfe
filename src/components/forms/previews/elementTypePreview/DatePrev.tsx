@@ -12,14 +12,12 @@ export default function DatePrev({
 }) {
   const getLabelStyles = () => {
     return {
-      paddingLeft: styleForm?.paddingX || '8px',
-      paddingRight: styleForm?.paddingX || '8px', 
-      color: styleForm?.color,
-      border: styleForm?.border, 
-            fontWeight: styleForm?.labelFontWeight || 'normal',
+     
+      color: styleForm?.color, 
       fontSize:  '14px', 
     };
   };
+
  
   const getInputStyles = () => {
     return {
@@ -37,7 +35,7 @@ export default function DatePrev({
     <div>
       {!isTime ? (
         <Form.Item
-        label={<span  >{element.elementType.label}</span>}
+        label={<span  style={getLabelStyles()} >{element.elementType.label}</span>}
         labelCol={{ span: 24 }} // Adjust label width, or remove for default
                  name={element.elementType.name}
           style={{
@@ -70,7 +68,7 @@ export default function DatePrev({
         </Form.Item>
       ) : (
         <Form.Item
-          label={element.elementType.label}
+        label={<span  style={getLabelStyles()} >{element.elementType.label}</span>}
           name={element.elementType.name}
           style={{ marginBottom: "10px" }}
           rules={[

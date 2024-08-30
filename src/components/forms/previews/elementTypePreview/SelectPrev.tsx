@@ -23,12 +23,19 @@ export default function SelectPrev({
     };
   };
  
+  const getLabelStyles = () => {
+    return {
+     
+      color: styleForm?.color, 
+      fontSize:  '14px', 
+    };
+  };
 
   return (
     <div>   
       {!isMultiple ? (
         <Form.Item
-        label={<span  >{element.elementType.label}</span>}
+        label={<span style={getLabelStyles()} >{element.elementType.label}</span>}
         labelCol={{ span: 24 }} // Adjust label width, or remove for default
                  name={element.elementType.name}
           style={{ marginBottom: "10px",color:"blue" }}
@@ -52,7 +59,8 @@ export default function SelectPrev({
         </Form.Item>
       ) : (
         <Form.Item
-          label={element.elementType.label}
+        label={<span style={getLabelStyles()} >{element.elementType.label}</span>}
+
           name={element.elementType.name}
           // style={getInputStyles()}
           rules={[

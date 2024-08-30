@@ -86,14 +86,14 @@ export default function Styling({
             )}
           </div>
 
-          <div>
+          {/* <div>
             <label className="">Padding X:</label>
             <Slider
               max={200}
               value={parseInt(buttonStyle?.paddingX || "0", 10)}
               onChange={(value) => handleSliderChange(value, "paddingX")}
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="">Padding Y:</label>
@@ -104,14 +104,14 @@ export default function Styling({
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="">Border Width:</label>
             <Slider
               max={10}
               value={parseInt(buttonStyle?.borderWidth || "0", 10)}
               onChange={(value) => handleSliderChange(value, "borderWidth")}
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="">Border Radius:</label>

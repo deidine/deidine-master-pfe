@@ -28,21 +28,19 @@ export default function CheckBoxPrev({
       };
       const getLabelStyles = () => {
         return {
-          paddingLeft: styleForm?.paddingX || '8px',
-          paddingRight: styleForm?.paddingX || '8px', 
-          color: styleForm?.color,
-          border: styleForm?.border, 
-                fontWeight: styleForm?.labelFontWeight || 'normal',
-          fontSize: styleForm?.labelFontSize || '14px', 
+         
+          color: styleForm?.color, 
+          fontSize:  '14px', 
         };
       };
+    
            return (
     
     <div>
                     <Form.Item
               name={element.elementType.name}
               style={{ marginBottom: "10px" }}
-              label={<span  >{element.elementType.label}</span>}
+              label={<span style={getLabelStyles()} >{element.elementType.label}</span>}
               labelCol={{ span: 24 }} // Adjust label width, or remove for default
              
               valuePropName="checked"

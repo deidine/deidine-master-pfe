@@ -178,10 +178,12 @@ export default function PreviewForm({
               />
             )}
             {element.elementType.type === "paragraph" && (
-              <HeadingPrev
+              <div>
+                <HeadingPrev
                 element={element}
                 styleParagraph={isTemlate ? {} : paragraphStyle}
               />
+                </div>
             )}
             {element.elementType.type === "divider" && (
               <><Separator
