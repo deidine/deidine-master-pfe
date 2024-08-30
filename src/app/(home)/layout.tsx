@@ -12,11 +12,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Quick Form",
   description: "Build and design custom forms easily",
-  metadataBase: new URL("https://deidine-master.vercel.app/"),
+  metadataBase: new URL("https://deidine-master-pfe.vercel.app/"),
   openGraph: {
     title: "Quick Form",
     description: "Create and design custom forms effortlessly with Quick Form.",
-    url: "https://deidine-master.vercel.app/",
+    url: "https://deidine-master-pfe.vercel.app/",
     siteName: "Quick Form",
     images: [
       {
