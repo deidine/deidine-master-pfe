@@ -20,9 +20,9 @@ export default function ParagraphPrev({
     };
   return (
     <div   >
-        <span style={{ ...getInputStyles()}} >
+        <p style={{ ...getInputStyles()}} >
             {element.elementType.label}
-        </span>
+        </p>
     </div>
   )
 }

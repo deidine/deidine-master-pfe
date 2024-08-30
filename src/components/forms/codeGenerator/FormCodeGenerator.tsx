@@ -55,6 +55,7 @@ const paragraphStyles:FormStyle =  {
   paddingBottom: paragraphStyle?.paddingY || '8px',
   color: paragraphStyle?.color,  
   fontSize : paragraphStyle?.borderRadius|| '20px' , 
+  whiteSpace: 'normal'
 }
 const getButtonStyles:FormStyle =  {
   paddingLeft: buttonStyle?.paddingX  || '8px',
