@@ -27,7 +27,11 @@ export default function SelectPrev({
     return {
      
       color: styleForm?.color, 
-      fontSize:  '14px', 
+         fontSize:  '16px', 
+      fontWeight: 'bold',
+      fontFamily: 'sans-serif',
+      fontStyle: 'bold',
+ 
     };
   };
 

@@ -27,7 +27,11 @@ export default function InputPrev({
     return {
      
       color: styleForm?.color, 
-      fontSize:  '14px', 
+         fontSize:  '16px', 
+      fontWeight: 'bold',
+      fontFamily: 'sans-serif',
+      fontStyle: 'bold',
+  
     };
   };
 

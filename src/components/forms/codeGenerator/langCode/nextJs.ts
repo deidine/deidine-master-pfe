@@ -14,10 +14,12 @@ export const generateComponentCodeNextJs = (
       (element) => element.elementType.type === "headingTitle"
     );
     const getLabelStyles =  JSON.stringify( {
-    
-       
         color: getInputStyles?.color, 
-        fontSize:  '14px', 
+           fontSize:  '16px', 
+      fontWeight: 'bold',
+      fontFamily: 'sans-serif',
+      fontStyle: 'bold',
+ 
      
     });
   
@@ -154,7 +156,13 @@ export const generateComponentCodeNextJs = (
             : "";
   
         return `
-           <Form.Item
+        ${
+          input.elementType.type=="paragraph" ?
+          
+         `
+              ${inputElement}
+         ` :
+              `<Form.Item
         label={<span  style={${getLabelStyles}} >${input.elementType.type=="divider"? "" : input.elementType.label}</span>}
  
               name="${input.elementType.name}"
@@ -169,7 +177,7 @@ export const generateComponentCodeNextJs = (
             >
          
               ${inputElement}
-            </Form.Item>`;
+            </Form.Item> `}`
       })
       .join("\n");
   
@@ -276,12 +284,13 @@ export const generateComponentCodeNextJs = (
             }
               </div>
         ${componentCode}
-        <Form.Item>
+        <div className="flex justify-center pt-6">
+        
           <Button
               className="h-10 font-bold  w-1/2" style={${JSON.stringify(getButtonStyles)}} type="primary" htmlType="submit">
             ${submitBtn}
           </Button>
-        </Form.Item>
+         </div>
       </Form>
     );
   };

@@ -33,7 +33,12 @@ export default function RadioPrev(
     return {
      
       color: styleForm?.color, 
-      fontSize:  '14px', 
+      fontSize:  '16px', 
+      fontWeight: 'bold',
+      fontFamily: 'sans-serif',
+      fontStyle: 'bold',
+
+    
     };
   };
 
@@ -56,7 +61,7 @@ export default function RadioPrev(
               >
                 {element.elementType.options!.map(
                   (option: any, idx: number) => (
-                    <div key={idx} className="flex items-center">
+                    <div key={idx} className="flex  items-center">
                       <Radio 
               style={getInputStyles2()}
               value={option}>{option}</Radio>
