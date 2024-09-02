@@ -1,0 +1,74 @@
+<form style="padding: 20px; margin: 0 auto; background-color: #f9f9f9; color: #333; border: 1px solid #ddd; border-radius: 8px; max-width: 500px;" onsubmit="handleSubmit(event)">
+    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+      <img src="https://example.com/logo.png" alt="Logo" style="width: 120px; height: 120px; margin-bottom: 10px;" />
+      <h1 style="font-size: 24px; text-align: center;">Registration Form</h1>
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Name</label>
+      <input style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" type="text" placeholder="Enter your name" required />
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Email</label>
+      <input style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" type="email" placeholder="Enter your email" required />
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Password</label>
+      <input style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" type="password" placeholder="Enter your password" required />
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Age</label>
+      <input style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" type="number" placeholder="Enter your age" required />
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Gender</label>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label><input type="radio" name="gender" value="male" style="margin-right: 8px;"> Male</label>
+        <label><input type="radio" name="gender" value="female" style="margin-right: 8px;"> Female</label>
+        <label><input type="radio" name="gender" value="other" style="margin-right: 8px;"> Other</label>
+      </div>
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Interests</label>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label><input type="checkbox" value="sports" style="margin-right: 8px;"> Sports</label>
+        <label><input type="checkbox" value="music" style="margin-right: 8px;"> Music</label>
+        <label><input type="checkbox" value="reading" style="margin-right: 8px;"> Reading</label>
+      </div>
+    </div>
+  
+    <div style="margin-bottom: 16px;">
+      <label style="color: #555; font-size: 14px; font-weight: bold;">Profile Picture</label>
+      <input style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" type="file" />
+    </div>
+  
+    <div style="text-align: center;">
+      <button type="submit" style="padding: 12px 24px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background-color 0.3s;">
+        Submit
+      </button>
+    </div>
+  </form>
+  
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const formObject = Object.fromEntries(formData.entries());
+  
+      fetch('/api/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formObject),
+      })
+      .then(response => response.json())
+      .then(result => console.log('Form successfully submitted:', result))
+      .catch(error => console.error('Error submitting form:', error));
+    }
+  </script>

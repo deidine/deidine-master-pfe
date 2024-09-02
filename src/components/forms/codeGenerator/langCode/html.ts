@@ -4,7 +4,7 @@ export const generateComponentCodeHTML = (
   getFormStyles?: FormStyle,
   getInputStyles?: FormStyle,
   getButtonStyles?: FormStyle,
-  paragraphStyles?: FormStyle
+  paragraphStyles?: FormStyle,
 ) => {
   const logoElement = elements.find(
     (element) => element.elementType.type === "logo"
@@ -13,38 +13,48 @@ export const generateComponentCodeHTML = (
     (element) => element.elementType.type === "headingTitle"
   );
 
-  // Convert camelCase to kebab-case
-  const toKebabCase = (str: string) => {
-    return str.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
-  };
+  const formStyleString = `
+    padding: ${getFormStyles?.padding || '20px'};
+    margin: ${getFormStyles?.margin || '0 auto'};
+    background-color: ${getFormStyles?.backgroundColor || '#f9f9f9'};
+    color: ${getFormStyles?.color || '#333'};
+    border: ${getFormStyles?.border || '1px solid #ddd'};
+    border-radius: ${getFormStyles?.borderRadius || '8px'};
+    max-width: ${getFormStyles?.maxWidth || '500px'};
+  `;
 
-  // Filter and format styles as kebab-case strings
-  const filterStyles = (styleObject: Record<string, any>) => {
-    return Object.entries(styleObject)
-      .filter(([_, value]) => value !== undefined)
-      .map(([key, value]) => `${toKebabCase(key)}: ${value}`)
-      .join("; ");
-  };
+  const logoStyleString = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  `;
 
-  // Default input styles
-  const getFormStylesHTML = `height: 2.5rem; font-size: 0.875rem; outline: none; box-shadow: 0 0 0 2px rgba(129, 140, 248, 1); background-color: white; border-color: #e4e4e7; transition-duration: 0.1s; box-shadow: 0 0 0 2px transparent; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: 0.75rem; padding-right: 0.75rem; width: 100%; border-radius: 0.5rem; border-width: 1px; ::placeholder { color: #a1a1aa; }`;
-  const getInputradiChecbox1 = { 
-    paddingLeft: getInputStyles?.paddingX  || '8px',
-    paddingRight: getInputStyles?.paddingX  || '8px',
-    paddingTop: getInputStyles?.paddingY  || '8px',
-    paddingBottom: getInputStyles?.paddingY || '8px', 
-    border: getInputStyles?.border ,
-    borderRadius: getInputStyles?.borderRadius ,
-        };
- 
-  // Style strings
-  const formStyleString = filterStyles(getFormStyles || {});
-  const inputStyleString = filterStyles(getInputStyles || {});
-  const logoStyleString = filterStyles(getInputStyles || {});
-  const paragraphStyleString = filterStyles(paragraphStyles || {});
-  const checRadioStyle = filterStyles(getInputradiChecbox1 || {});
+  const inputStyleString = `
+    padding: ${getInputStyles?.padding || '10px'};
+    border: ${getInputStyles?.border || '1px solid #ccc'};
+    border-radius: ${getInputStyles?.borderRadius || '4px'};
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  `;
 
-  // Generate HTML for different elements
+  const labelStyleString = `
+    color: ${getInputStyles?.color || '#555'};
+    font-size: 14px;
+    font-weight: bold;
+  `;
+
+  const buttonStyleString = `
+    padding: ${getButtonStyles?.padding || '12px 24px'};
+    background-color: ${getButtonStyles?.backgroundColor || '#007bff'};
+    color: ${getButtonStyles?.color || '#fff'};
+    border: ${getButtonStyles?.border || 'none'};
+    border-radius: ${getButtonStyles?.borderRadius || '4px'};
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  `;
+
   const componentCode = elements
     .filter(
       (element) =>
@@ -60,119 +70,105 @@ export const generateComponentCodeHTML = (
         case "email":
         case "password":
         case "file":
-          inputElement = `<input style="${
-            getFormStylesHTML + inputStyleString
-          }" type="${input.elementType.type}" placeholder="${
-            input.elementType.placeholder
-          }" />`;
+          inputElement = `<input style="${inputStyleString}" type="${input.elementType.type}" placeholder="${input.elementType.placeholder}" required />`;
           break;
-
         case "url":
-          inputElement = `<input style="${
-            getFormStylesHTML + inputStyleString
-          }" type="text" placeholder="${input.elementType.placeholder}" />`;
+          inputElement = `<input style="${inputStyleString}" type="text" placeholder="${input.elementType.placeholder}" required />`;
           break;
-
         case "textarea":
-          inputElement = `<textarea style="${
-            getFormStylesHTML + inputStyleString
-          }" placeholder="${input.elementType.placeholder}"></textarea>`;
+          inputElement = `<textarea style="${inputStyleString}" placeholder="${input.elementType.placeholder}" required></textarea>`;
           break;
-
         case "date":
-          inputElement = `<input style="${
-            getFormStylesHTML + inputStyleString
-          }" type="date" placeholder="${input.elementType.placeholder}" />`;
+          inputElement = `<input style="${inputStyleString}" type="date" placeholder="${input.elementType.placeholder}" required />`;
           break;
-
         case "time":
-          inputElement = `<input style="${
-            getFormStylesHTML + inputStyleString
-          }" type="time" placeholder="${input.elementType.placeholder}" />`;
+          inputElement = `<input style="${inputStyleString}" type="time" placeholder="${input.elementType.placeholder}" required />`;
           break;
-
         case "select":
         case "select_multiple":
           inputElement = `
-            <select style="${getFormStylesHTML + inputStyleString}" >
+            <select style="${inputStyleString}" ${input.elementType.type === "select_multiple" ? 'multiple' : ''}>
               ${input.elementType.options
                 ?.map(
-                  (option) => `<option value="${option}">${option}</option>`
+                  (option) =>
+                    `<option value="${option}">${option}</option>`
                 )
-                .join("\n")}
+                .join('')}
             </select>`;
           break;
-
         case "checkbox":
-          inputElement = input.elementType
-            .options!?.map(
-              (option) =>
-                `<label><input style="${checRadioStyle}" type="checkbox" name="${input.elementType.name}" value="${option}" /> ${option}</label>`
-            )
-            .join("<br />");
+          inputElement = `
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${input.elementType.options
+                ?.map(
+                  (option) =>
+                    `<label><input type="checkbox" value="${option}" style="margin-right: 8px;">${option}</label>`
+                )
+                .join('')}
+            </div>`;
           break;
-
         case "radio":
-          inputElement = input.elementType
-            .options!?.map(
-              (option) =>
-                `<label><input style="${checRadioStyle}" type="radio" name="${input.elementType.name}" value="${option}" /> ${option}</label>`
-            )
-            .join("<br />");
+          inputElement = `
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${input.elementType.options
+                ?.map(
+                  (option) =>
+                    `<label><input type="radio" name="${input.elementType.name}" value="${option}" style="margin-right: 8px;">${option}</label>`
+                )
+                .join('')}
+            </div>`;
           break;
-
         case "paragraph":
-          inputElement = `<p style="${paragraphStyleString}">${input.elementType.label}</p>`;
+          inputElement = `<p style="${paragraphStyles ? Object.entries(paragraphStyles).map(([key, value]) => `${key}: ${value};`).join(' ') : ''}">${input.elementType.label}</p>`;
           break;
-
         case "divider":
-          inputElement = `<span style="height: ${input.elementType.heightDivider}px;    " ></span>`;
+          inputElement = `<hr style="height: ${input.elementType.heightDivider || '1px'}; background-color: #ccc;" />`;
           break;
-
         default:
           break;
       }
 
       return `
-        <div style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 16px;">
+          ${input.elementType.type !== "paragraph" && input.elementType.type !== "divider" ? `<label style="${labelStyleString}">${input.elementType.label}</label>` : ''}
           ${inputElement}
         </div>`;
     })
-    .join("\n");
+    .join('');
 
   const exportCode = `
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Generated Form</title>
-    </head>
-    <body>
-      <form style="${formStyleString}; max-width: 42rem;margin-top: 0.75rem ; border-width: 1px; border-radius: 0.75rem ; width: 50%;height: auto; padding: 2.5rem;margin-left: 1rem;" action="/api/form" method="POST">
-        
-           <div style="display: flex; align-items: center; flex-direction: ${
-       logoElement?.elementType.headingLogFlex =="row" ? "row" : "column"
-     }; justify-content:  ${
-       logoElement?.elementType.headingLogJustify
-     }; gap: 1rem; align-items: center;">
-              <img src="${
-                logoElement?.elementType.imgLogoLink
-              }" alt="Logo" style="${logoStyleString}; width: 160px; height: 160px;" />
-           <div style=" size: 24px; font-weight: bold; text-justify:center">
-              <h1>${HeadTitleElement?.elementType.headingTitle}</h1>
-            </div>  
-            </div> 
-          
-      ${componentCode}
-        <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; width: 100%;">
-          <button type="submit" style="${filterStyles(
-            getButtonStyles || {}
-          )}; height: 2.5rem; font-weight: 700;width: 50%;margin: auto; border-radius: 0.5rem;    cursor: pointer;">${submitBtn}</button>
+    <form style="${formStyleString}" onsubmit="handleSubmit(event)">
+      ${logoElement ? `
+        <div style="${logoStyleString}">
+          <img src="${logoElement.elementType.imgLogoLink}" alt="Logo" style="width: 120px; height: 120px; margin-bottom: 10px;" />
+          ${HeadTitleElement ? `<h1 style="font-size: 24px; text-align: center;">${HeadTitleElement.elementType.headingTitle}</h1>` : ''}
         </div>
-      </form>
-    </body>
-    </html>
-  `;
+      ` : ''}
+      ${componentCode}
+      <div style="text-align: center;">
+        <button type="submit" style="${buttonStyleString}">${submitBtn}</button>
+      </div>
+    </form>
+
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const formObject = Object.fromEntries(formData.entries());
+
+        fetch('/api/form', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formObject),
+        })
+        .then(response => response.json())
+        .then(result => console.log('Form successfully submitted:', result))
+        .catch(error => console.error('Error submitting form:', error));
+      }
+    </script>
+  `.trim();
 
   return exportCode;
 };
