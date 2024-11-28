@@ -1,7 +1,7 @@
 "use client";
 import { MdDeleteSweep } from "react-icons/md";
 import { HiDocumentDuplicate } from "react-icons/hi";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaHourglassEnd } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
 import React, { useEffect, useState, useRef } from "react";
 import { Modal, Dropdown, Menu, Button } from "antd";
@@ -14,6 +14,7 @@ import { CiCircleInfo } from "react-icons/ci";
 import { MdMoreHoriz } from "react-icons/md";
 import ModelForm from "./ModelForm";
 import { Badge as AntBadge } from "antd";
+import Link from "next/link";
 
 export default function CardForm({
   form,
@@ -305,6 +306,7 @@ export default function CardForm({
           <FaEye /> Visionner
         </button>
       </Menu.Item>
+ 
     </Menu>
   );
 
@@ -400,6 +402,13 @@ export default function CardForm({
               Sync. avec BD 
             </Button>
           )}
+         { !form.isFromLocalStorage && user && isUserOnline && <Link href={`/dashboard/${form.id}`}> <button
+          className="flex flex-row gap-3 justify-between text-center items-center bg-green-400 h-7 font-semibold rounded-[20px] shadow-lg p-4 text-white "
+         onClick={(e) => e.stopPropagation()}
+         >
+          <FaHourglassEnd /> soumissions
+        </button>
+        </Link>}
         </div>
       </div>
       {form.create_at?.toDateString()}

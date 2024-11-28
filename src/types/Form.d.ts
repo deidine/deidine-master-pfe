@@ -1,3 +1,19 @@
+type SubmissionStats= {
+  total: number;
+  unread: number;
+}
+
+type SoumissionFormulaire ={
+  id: number;
+  form_id: number;
+  user_id: string;
+  submission_data: {
+    [key: string]: string | string[];
+  };
+  created_at: string;
+  viewed?: boolean;
+}
+
 type Form= {
   id :number 
   title :string ;

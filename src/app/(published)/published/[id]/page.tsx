@@ -1,76 +1,108 @@
-"use client";
+'use client';
+
 import PreviewPublished from "@/components/forms/previews/PreviewPublished";
 import FormSkeleton from "@/components/skeletons/FormSkeleton";
-import React, { useState, useEffect, useCallback } from "react";
-
-export default function PublishFormPage({
+import React, { useState, useEffect, useCallback } from "react"; 
+export default function PublierPageFormulaire({
   params,
 }: {
   params: {
     id: string;
   };
 }) {
-  const [form, setForm] = useState<Form | null>(null); // Initialize with null
-  const [loading, setLoading] = useState<boolean>(true);
-  const [submitted, setSubmitted] = useState(false);
+  const [formulaire, setFormulaire] = useState<Form | null>(null);
+  const [chargement, setChargement] = useState<boolean>(true);
+  const [soumis, setSoumis] = useState(false);
   const { id } = params;
 
-  const fetchForm = useCallback(async () => { 
+  const recupererFormulaire = useCallback(async () => { 
     try {
-      const response = await fetch(`/api/forms/${id}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      const reponse = await fetch(`/api/forms/${id}`);
+      if (!reponse.ok) {
+        throw new Error("La réponse du réseau n'était pas correcte");
       }
-      const data = await response.json();
-      setForm(data.form);
-      console.log("Form fetched:", data.form);
+      const data = await reponse.json();
+      setFormulaire(data.form);
+      console.log("Formulaire récupéré :", data.form);
     } catch (error) {
-      console.error("Error fetching form:", error);
+      console.error("Erreur lors de la récupération du formulaire :", error);
     } finally {
-      setLoading(false);
+      setChargement(false);
     }
   }, [id]);
 
   useEffect(() => {
-    fetchForm();
-  }, [fetchForm]);
+    recupererFormulaire();
+  }, [recupererFormulaire]);
 
-  const onFinish = async (values: any) => {
-    console.log("Form submitted:", values);
-    setSubmitted(true);
-    const val: any[] = values;
+  const mapValuesToLabels = (values: Record<string, any>, form: Form) => {
+    const mappedValues: Record<string, any> = {};
+    
+    form.content.forEach((element) => {
+      const { name, label } = element.elementType;
+      if (values.hasOwnProperty(name)) {
+        mappedValues[label] = values[name];
+      }
+    });
+    
+    return mappedValues;
+  };
+
+  const terminer = async (valeurs: Record<string, any>) => {
+    if (!formulaire) return;
+
+    // Map the values to use labels instead of random field names
+    const mappedValues = mapValuesToLabels(valeurs, formulaire);
+    console.log("Formulaire soumis avec labels:", mappedValues);
+
     try {
-      const response = await fetch(`/api/submtion`, {
+      const reponse = await fetch('/api/form-submission', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: val, formId: id }), // Sending the values as content
+        body: JSON.stringify({
+          form_id: id,
+          submission_data: mappedValues, // Using the mapped values with labels
+        }),
       });
 
-      if (!response.ok) {
-       throw new Error('Failed to submit form');
+      if (!reponse.ok) {
+        throw new Error('Échec de la soumission du formulaire');
+      }
 
-  }     
-      const data = await response.json();
-      console.log('Form data submitted:', data);
-      setSubmitted(true);
+      const resultat = await reponse.json();
+      if (resultat.success) {
+        setSoumis(true);
+        console.log("Soumission du formulaire réussie");
+      } else {
+        throw new Error('La soumission du formulaire a échoué');
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Erreur lors de la soumission du formulaire :", error);
+      // Gérer l'erreur (par exemple, afficher un message d'erreur à l'utilisateur)
     }
   };
 
-  if (loading) {
-    return <div><FormSkeleton/></div>; // Optional: Add a loading state if needed
+  if (chargement) {
+    return <div><FormSkeleton/></div>;
   }
 
-  if (!form) {
-    return <div>Form not found</div>;
+  if (!formulaire) {
+    return <div>Formulaire non trouvé</div>;
   }
 
   return (
     <div className="flex justify-center items-center w-full my-auto h-full">
-      <PreviewPublished form={form} onFinish={onFinish} />
+      {soumis ? (
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Merci pour votre soumission !</h2>
+          <p>Votre formulaire a été soumis avec succès.</p>
+        </div>
+      ) : (
+        <PreviewPublished form={formulaire} onFinish={terminer} />
+      )}
     </div>
   );
 }
+
