@@ -22,7 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the Next.js application
-                sh 'npm run build'
+                bat 'npm run build'
             }
         }
         stage('Test') {
