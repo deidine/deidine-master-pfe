@@ -3,7 +3,10 @@
 pipeline {
     agent any
     environment {
-        NODE_ENV = 'production'
+        NODE_ENV = 'production',
+        NEXT_PUBLIC_SUPABASE_URL=https://vendenuypyihccxscwia.supabase.co ,
+        NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlbmRlbnV5cHlpaGNjeHNjd2lhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTMzNDYzNDgsImV4cCI6MjAyODkyMjM0OH0.vL2Ikt1WSu2E2d0GqTBiiPfguvF_DqhhVzIGSMDIDRg
+ 
     }
     stages {
         stage('Checkout') {
