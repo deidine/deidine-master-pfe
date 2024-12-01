@@ -1,3 +1,5 @@
+//https://medium.com/@abderrahimfazazi/set-up-ci-cd-using-jenkins-for-your-nextjs-app-db933ac87e93
+
 pipeline {
     agent any
     environment {
