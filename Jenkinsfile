@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Clone the repository
                 checkout scm
-            }
+             }
         }
         stage('Install Dependencies') {
             steps {
