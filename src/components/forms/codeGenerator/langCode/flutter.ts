@@ -194,7 +194,7 @@ hintStyle: TextStyle(color: hexToColor('${getInputStyles?.color || "#000000"}'))
               ${inputDecoration}
             ),
             value: ${elementName}Value,
-            items: <String>[${element.elementType.options.map(option => `'${option}'`).join(", ")}]
+            items: <String>[${element.elementType.options!.map(option => `'${option}'`).join(", ")}]
               .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -217,7 +217,7 @@ hintStyle: TextStyle(color: hexToColor('${getInputStyles?.color || "#000000"}'))
         break;
 
       case "checkbox":
-        stateVariables.push(`List<bool> ${elementName}Values = List.filled(${element.elementType.options.length}, false);`);
+        stateVariables.push(`List<bool> ${elementName}Values = List.filled(${element.elementType.options!.length}, false);`);
         inputElement = `
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
