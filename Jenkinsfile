@@ -36,20 +36,30 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Deploy application (this is a placeholder; modify as needed)
-                bat 'npm run start'
+   bat 'start /b npm run start'
             }
         }
     }
-    post {
-        always {
-            // Cleanup or notify on pipeline completion
-            echo 'Pipeline finished.'
-        }
+  post {
         success {
-            echo 'Build and deployment succeeded!'
+            script {
+                githubNotify(
+                    context: 'Jenkins CI/CD',
+                    status: 'SUCCESS',
+                    description: 'Deployment completed successfully',
+                    targetUrl: env.BUILD_URL
+                )
+            }
         }
         failure {
-            echo 'Build or deployment failed.'
+            script {
+                githubNotify(
+                    context: 'Jenkins CI/CD',
+                    status: 'FAILURE',
+                    description: 'Deployment failed',
+                    targetUrl: env.BUILD_URL
+                )
+            }
         }
     }
 }
