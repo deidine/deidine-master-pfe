@@ -1,5 +1,5 @@
 //https://medium.com/@abderrahimfazazi/set-up-ci-cd-using-jenkins-for-your-nextjs-app-db933ac87e93
-
+//use ngrok to translate the 8080 to be https and notify hok by github
 pipeline {
     agent any
     environment {
@@ -15,7 +15,8 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 // Install project dependencies
-                sh 'npm install'
+                // sh 'npm install' for lunix
+                bat 'npm install'
             }
         }
         stage('Build') {
@@ -27,13 +28,13 @@ pipeline {
         stage('Test') {
             steps {
                 // Run tests if any are defined
-                sh 'npm test'
+                bat 'npm test'
             }
         }
         stage('Deploy') {
             steps {
                 // Deploy application (this is a placeholder; modify as needed)
-                sh 'npm run start'
+                bat 'npm run start'
             }
         }
     }
