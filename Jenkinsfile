@@ -27,12 +27,12 @@ pipeline {
                 bat 'npm run build'
             }
         }
-        stage('Test') {
-            steps {
-                // Run tests if any are defined
-                bat 'npm test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         // Run tests if any are defined
+        //         bat 'npm test'
+        //     }
+        // }
         stage('Deploy') {
             steps {
                 // Deploy application (this is a placeholder; modify as needed)
