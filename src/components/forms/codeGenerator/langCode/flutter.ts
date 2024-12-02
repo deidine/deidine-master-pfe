@@ -54,7 +54,38 @@ hintStyle: TextStyle(color: hexToColor('${getInputStyles?.color || "#000000"}'))
   elements.forEach((element, index) => {
     let inputElement = "";
     const elementName = `_${element.elementType.type}${index}`;
-
+    if (element.elementType.type === "logo") {
+      imports.add(`import 'package:flutter_svg/flutter_svg.dart';`);
+      widgetCode.unshift(`
+        Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: '${element.elementType.imgLogoLink}'.toLowerCase().endsWith('.svg')
+            ? SvgPicture.network(
+                '${element.elementType.imgLogoLink}',
+                width: 160,
+                height: 160,
+              )
+            : Image.network(
+                '${element.elementType.imgLogoLink}',
+                width: 160,
+                height: 160,
+              ),
+        )
+      `);
+    } else if (element.elementType.type === "headingTitle") {
+      widgetCode.unshift(`
+        Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: Text(
+            '${element.elementType.headingTitle}',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      `);
+    }
     switch (element.elementType.type) {
       case "text":
       case "email":
@@ -321,7 +352,9 @@ hintStyle: TextStyle(color: hexToColor('${getInputStyles?.color || "#000000"}'))
         break;
     }
 
+    
     if (inputElement) {
+      
       widgetCode.push(`
         Padding(
           padding: EdgeInsets.only(bottom: 16),
@@ -329,6 +362,8 @@ hintStyle: TextStyle(color: hexToColor('${getInputStyles?.color || "#000000"}'))
         )
       `);
     }
+
+    
   });
 
   const formCode = `
